@@ -7,6 +7,7 @@ export default function Home() {
   return (
     <Container>
       E-Commics
+      Home
     </Container>
   )
 }

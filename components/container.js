@@ -1,21 +1,34 @@
 import Head from 'next/head';
-import styled from 'styled-components'
+import Navbar from './Navbar.js';
+import React, { useState} from 'react';
+import { lightTheme, darkTheme, GlobalStyles, StyledApp} from '../pages/globalStyle.js'
+import { ThemeProvider } from "styled-components";
 
-const MainDiv = styled.div`
-    margin: 0 2rem;
-`
 
 const Container = (props) => {
+
+    const [theme, setTheme] = useState("light");
+
+    const themeToggle = () => {
+      theme === "light" ? setTheme("dark") : setTheme("light");
+    };
+
+
     return (
         <div>
             <Head>
                 <title>E-Commics</title>
             </Head>
-            <MainDiv>
+            <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
+            <GlobalStyles/>
+            <StyledApp>
                 {props.children}
-            </MainDiv>
+                <Navbar themeToggle={themeToggle}/>
+            </StyledApp>
+        </ThemeProvider>
         </div>
     )
 }
 
 export default Container;
+

@@ -66,7 +66,7 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 body {
-        background-color: ${(props) => props.theme.body};
+    background-color: ${(props) => props.theme.body};
 }
 a {
   color: inherit;
@@ -80,4 +80,9 @@ h1 {
 	font-size: 2rem;
 	margin: 1rem 0;
 }
+
+button {
+	margin: 2rem;
+}
+
 `

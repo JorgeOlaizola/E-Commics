@@ -17,7 +17,7 @@ const Container = (props) => {
     return (
         <div>
             <Head>
-                <title>E-Commics</title>
+                <title>E-Commic</title>
             </Head>
             <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
             <GlobalStyles/>

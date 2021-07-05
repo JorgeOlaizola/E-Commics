@@ -6,30 +6,27 @@ passport.use(new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password'
 }, async (email, password, done) => {
-
     //Match user's email
-    const MatchEmail = await User.findOne({ email })
-    if(!MatchEmail){
-        return done(null, false, { message: 'El email no se encuentra registrado' })
+    const user = await User.findOne({ email })
+    if(!user){
+        return done(null, false, { message: 'El usuario no existe'})
+    }
+    //Match user´s password
+    const match = await user.matchPassword(password)
+    if (match) {
+        return done(null, user)
     }
     else {
-        //Match user´s password
-        const MatchPassword = await User.matchPassword(password)
-        if (MatchPassword) {
-            return (null, user)
-        }
-        else {
-            return (null, false, { message: 'La contraseña es incorrecta' })
-        }
+        return done(null, false, { message: 'La contraseña no coincide' })
     }
 }));
 
 passport.serializeUser((user, done) => {
     done(null, user.id)
-})
+});
 
 passport.deserializeUser((id, done) => {
     User.findById(id, (err, user) => {
         done(err, user)
     })
-})
+});

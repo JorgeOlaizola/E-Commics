@@ -65,4 +65,9 @@ users.logOut = async (req, res) => {
     res.send(req.flash())
 }
 
+users.userInfo = async (req, res) => {
+    res.send('Hola!' + req.user)
+}
+
+
 module.exports = users

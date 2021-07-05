@@ -6,6 +6,8 @@ const {
 
 const router = Router()
 
+
+//Registro
 router.post('/', registerController)
 
 router.get('/logIn', logIn)

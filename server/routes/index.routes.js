@@ -3,14 +3,15 @@ const { Router } = require('express')
 //Initializations 
 const router = Router()
 
-//Routes
+///////////////////// Routes /////////////////////////
 
 //User Routes
-const Users = require('./user.routes.js')
-router.use('/users', Users)
+router.use('/users', require('./user.routes.js'))
 
 //Product Routes
-const Products = require('./product.routes.js')
-router.use('/products', Products)
+router.use('/products', require('./product.routes.js'))
+
+//Category Routes
+router.use('/categories', require('./category.routes.js'))
 
 module.exports = router;

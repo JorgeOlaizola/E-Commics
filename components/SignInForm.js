@@ -1,7 +1,8 @@
 import e from "connect-flash";
 import { useState } from "react";
+import axios from "axios";
 
-const SigInForm = () => {
+const SignInForm = () => {
     
     const [input, setInput] = useState()
     
@@ -11,14 +12,26 @@ const SigInForm = () => {
             [e.target.name] : e.target.value
         })
     }
-    const handleSubmit = () => {
-        e.preventDefault();
 
+    //POST
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        s
+        async function SignInPost(){
+            const signIn = await axios.post(`${process.env.NEXT_PUBLIC_LOCALHOST}logIn`, input)
+            console.log(signIn)
+        }
+        setInput({})
     }
+        
+            
+        
+       
    
    
     return (
-        <form onSubmit={e => handleSubmit(e)}>
+        <form onSubmit={handleSubmit}>
             <label>Mail: </label>
             <input type="email" id='email' name="email" onChange={e => handleInputChange(e)} required></input>
             <label>Password: </label>
@@ -28,4 +41,4 @@ const SigInForm = () => {
     )
 }
 
-export default SigInForm;
+export default SignInForm;

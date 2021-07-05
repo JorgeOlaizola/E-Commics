@@ -25,13 +25,10 @@ const userSchema = new Schema({
 	avatar: {
 		type: String,
 		default: String
-	},
-	role: Number,
-	rating: Number,
-	location: String
+	},	
 });
 
-userSchema.methods.encrypPassword = async password => {
+userSchema.methods.encryptPassword = async password => {
 	const salt = await bcrypt.genSalt(10);
 	return await bcrypt.hash(password, salt);
 }

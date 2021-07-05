@@ -66,7 +66,9 @@ users.logOut = async (req, res) => {
 }
 
 users.userInfo = async (req, res) => {
-    res.send('Hola!' + req.user)
+    const {_id, email, nickname, name, surname } = req.user
+    res.json({_id, email, nickname, name, surname})
+
 }
 
 

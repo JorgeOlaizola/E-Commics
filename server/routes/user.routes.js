@@ -2,8 +2,12 @@ const { Router } = require('express')
 const { 
     registerController,
     logIn,
-    logOut
+    logOut,
+    userInfo
     } = require('../controllers/users.controllers')
+const {
+    isAuthenticated
+} = require('../config/auth')
 
 const router = Router()
 
@@ -16,5 +20,8 @@ router.post('/logIn', logIn)
 
 //LogOut
 router.get('/logOut', logOut)
+
+//Credenciales
+router.get('/', isAuthenticated, userInfo)
 
 module.exports = router;

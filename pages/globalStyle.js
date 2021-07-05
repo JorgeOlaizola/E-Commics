@@ -66,7 +66,9 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 body {
-    background-color: ${(props) => props.theme.body};
+        background-color: ${(props) => props.theme.body};
+		background: url("https://ecommics.s3.sa-east-1.amazonaws.com/images/bodyBackground.jpg") no-repeat center top;
+		background-attachment: fixed;
 }
 a {
   color: inherit;
@@ -85,4 +87,49 @@ button {
 	margin: 2rem;
 }
 
+
+${'' /* switch */}
+.react-switch-checkbox {
+    height: 0;
+    width: 0;
+    visibility: hidden;
+  }
+  
+.react-switch-label {
+display: flex;
+/* align-items: center; */
+/* justify-content: space-between; */
+cursor: pointer;
+width: 50px;
+height: 20px;
+background: grey; 
+border-radius: 2px;
+${'' /* border: 1px solid white; */}
+position: relative;
+transition: background-color .2s;
+margin: 0px 4px;
+${'' /* background: black; */}
+}
+  
+.react-switch-label .react-switch-button {
+content: '';
+position: absolute;
+top: 2px;
+left: 2px;
+width: 20px;
+height: 15px;
+border-radius: 2px;
+transition: 0.2s;
+background: white;
+box-shadow: 0 0 2px 0 rgba(10, 10, 10, 0.29);
+}
+  
+.react-switch-checkbox:checked + .react-switch-label .react-switch-button {
+left: calc(100% - 2px);
+transform: translateX(-100%);
+}
+  
+.react-switch-label:active .react-switch-button {
+width: 30px;
+}
 `

@@ -5,9 +5,14 @@ import Container from '../components/Container'
 
 export default function Home() {
   return (
-    <Container>
-      E-Commics
-      Home
-    </Container>
+    <>
+      <Head>
+      <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <Container>
+        E-Commics
+        Home
+      </Container>
+    </>
   )
 }

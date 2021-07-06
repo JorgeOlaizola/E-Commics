@@ -36,6 +36,12 @@ const Nav = ({themeToggle, theme}) => {
                 <Link href="/" passHref>
                     <StyledLink>Ingresá</StyledLink>
                 </Link>
+                <Link href="/" passHref>
+                    <StyledLink>Panel de usuario</StyledLink>
+                </Link>
+                <Link href="/" passHref>
+                    <StyledLink>Salir</StyledLink>
+                </Link>
                 <input
                 onChange={themeToggle}
                 className="react-switch-checkbox"

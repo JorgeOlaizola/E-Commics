@@ -1,0 +1,2 @@
+import {USER} from '../types'
+

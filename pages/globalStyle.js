@@ -62,7 +62,7 @@ table {
 }
 html,
 body {
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+  font-family: -apple-system, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 body {
@@ -80,6 +80,12 @@ a {
 h1 {
 	font-family: Ubuntu;
 	font-size: 2rem;
+	margin: 1rem 0;
+}
+h2 {
+	font-family: Ubuntu;
+	font-weight: 500;
+	font-size: 1.5rem;
 	margin: 1rem 0;
 }
 

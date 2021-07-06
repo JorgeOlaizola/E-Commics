@@ -1,11 +1,11 @@
 //Types PRODUCT
 
-export const products = {
+export const product = {
     ADDPRODUCT: 'ADD_PRODUCT',
     
 }
 
 //Types USER
-export const USER = {
+export const user = {
       
 }

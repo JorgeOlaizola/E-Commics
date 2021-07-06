@@ -17,10 +17,10 @@ const SignInForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        s
+        
         async function SignInPost(){
-            const signIn = await axios.post(`${process.env.NEXT_PUBLIC_LOCALHOST}logIn`, input)
-            console.log(signIn)
+            const signIn = await axios.post(`${process.env.NEXT_PUBLIC_LOCALHOST}users/logIn`, input)
+            console.log("hola",signIn)
         }
         setInput({})
     }

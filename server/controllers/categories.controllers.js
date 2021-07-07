@@ -12,7 +12,7 @@ categories.addCategory = async (req, res) => {
     const newCategory = await new Category({title});
     await newCategory.save();
     req.flash('success_msg', 'Cuenta registrada con éxito!')
-    return res.send(req.flash()); 
+    return res.send(req.flash());
 }
 
 module.exports = categories;

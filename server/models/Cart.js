@@ -13,7 +13,8 @@ const cartSchema = new Schema({
     },
     status: {
     	type: String,
-    	default: String
+    	default: String,
+        required: true
     }
 });
 

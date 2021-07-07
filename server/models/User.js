@@ -10,6 +10,10 @@ const userSchema = new Schema({
 		type: String,
 		required: true
 	},
+	avatar: {
+		type: String,
+		default: String
+	},
 	name: {
 		type: String,
 		required: true
@@ -22,10 +26,18 @@ const userSchema = new Schema({
 		type: String,
 		required: true
 	},
-	avatar: {
+	role: {
 		type: String,
-		default: String
-	},	
+		required: true
+	},
+	rating: {
+		type: Number,
+		required: true,
+		default: Number
+	},
+	location: {
+		type: String
+	}
 });
 
 userSchema.methods.encryptPassword = async password => {

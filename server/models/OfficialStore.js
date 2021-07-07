@@ -1,34 +1,28 @@
 const { Schema, model } = require('mongoose');
+const User = model('User');
 
 const officialStoreSchema = new Schema({
-	email: {
+	user: {
+        type: Schema.ObjectId, 
+        ref: "User" 
+    },
+    banner: {
 		type: String,
-		required: true
-	},
-	password: {
-		type: String,
+		default: String,
 		required: true
 	},
 	name_store: {
 		type: String,
 		required: true
 	},
-	nickname: {
-		type: String,
-		required: true
+	rating: {
+		type: Number,
+		required: true,
+		default: Number
 	},
-	avatar: {
-		type: String,
-		default: String,
-		required: true
-	},
-	banner: {
-		type: String,
-		default: String,
-		required: true
-	},
-	rating: Number,
-	location: String
+	location: {
+		type: String
+	}
 });
 
 module.exports = model('OfficialStore', officialStoreSchema);

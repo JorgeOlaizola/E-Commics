@@ -30,9 +30,33 @@ product.getProducts = async (req, res) => {
     }
     else {
         // result = await Product.find().sort({ title: 1 }); Ordenar 'asc'  =>| 1 es como el orden dado -1 opuesto
-        result = await Product.find({}, 'title image description price')
+        Product.find({}, (err, products) => {
+            if (err) return res.send(err)
+            Category.populate(products, {path:'category'}, (err, products) => {
+                if (err) return res.send("No se pudo acceder a las categorias del producto")
+                User.populate(products, {path:'user'}, (err, products) => {
+                    if (err) return res.send("no se pudo acceder al usuario del producto")
+                    const ProductsTotal = products.map(products => {
+                        return {
+                            _id: products._id,
+                        title: products.title,
+                        description: products.description,
+                        image: products.image,
+                        price: products.price,
+                        user: {
+                            _id: products.user._id, 
+                            nickname:products.user.nickname
+                        },
+                        category: { 
+                            _id: products.category._id, 
+                            title: products.category.title
+                        }
+                        }})
+                    res.json(ProductsTotal)        
+                })
+            })
+        })
     }
-    return res.json(result)
 }
 
 product.getProductDetail = async (req, res) => {

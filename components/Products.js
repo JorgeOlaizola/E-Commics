@@ -5,12 +5,14 @@ import Product from './Product'
 
 
 export default function Products () {
+    useEffect(() => {
+        dispatch(getProducts())
+    }, [])
     const products = useSelector(state => state.product.products);
     const dispatch = useDispatch();
     return (
-        <div>
-            <button onClick={() => dispatch(getProducts())}>Get Products</button>       
-            {products && products.map(p => <Product image={p.image} title={p.title} price={p.price} description={p.description} />)}
+        <div>   
+            {products && products.map(p => <Product user={p.user.nickname} category={p.category.title} image={p.image} title={p.title} price={p.price} description={p.description} />)}
         </div>    
     )
 }

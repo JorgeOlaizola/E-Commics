@@ -14,6 +14,14 @@ const productSchema = new Schema({
 		default: String,
 		required: true
 	},
+	user: {
+        type: Schema.ObjectId, 
+        ref: "User" 
+    },
+    category: {
+        type: Schema.ObjectId, 
+        ref: "Category" 
+    },
 	stock: Number,
 	price: Number,
 	created_at: Date

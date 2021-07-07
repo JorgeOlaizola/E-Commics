@@ -4,17 +4,61 @@ import styled from "styled-components";
 
 export const lightTheme = {
     body: '#fff',
-    fontColor: '#000'
+    fontColor: '#000',
+	backgroundButton: '#fff',
+	borderButton: 'linear-gradient(to right, grey, white)'
 }
 
 export const darkTheme = {
     body: '#000',
-    fontColor: '#fff'
+    fontColor: '#fff',
+	backgroundButton: '#000',
+	borderButton: 'linear-gradient(to right, grey, black)'
 }
 
 export const StyledApp = styled.div`
   color: ${(props) => props.theme.fontColor};
 `;
+
+export const Input = styled.input`
+  color: ${(props) => props.theme.fontColor};
+  background-color: ${(props) => props.theme.backgroundButton};
+  width: 100%;
+  padding: 5px 10px;
+  border: none;
+  cursor:pointer;
+  &:active {
+	background-color: transparent;
+	color: white;
+	${'' /* transition: 0.5s; */}
+  }
+`
+
+export const InputDisable = styled.input`
+  color: grey;
+  background-color: ${(props) => props.theme.backgroundButton};
+  width: 100%;
+  border: none;
+  cursor: not-allowed;
+`
+
+export const GradientBorder = styled.div`
+  margin: 20px;
+  background: linear-gradient(45deg, rgba(255,0,0,1) 0%, rgba(0,192,255,1) 100%);
+  padding: 2px;
+  cursor:pointer;
+  &:hover {
+	background: linear-gradient(45deg, rgba(0,150,255,1) 35%, rgba(255,0,0,1) 100%);
+	transition: 0.9s;
+  }
+`
+
+export const DisableBorder = styled.div`
+  margin: 20px;
+  background: ${(props) => props.theme.borderButton};
+  padding: 2px;
+  cursor: not-allowed;
+`
 
 export const GlobalStyles = createGlobalStyle`
 html, body, div, span, applet, object, iframe,

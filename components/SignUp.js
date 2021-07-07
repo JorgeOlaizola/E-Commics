@@ -7,6 +7,7 @@ import styled from 'styled-components'
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faEye } from "@fortawesome/free-solid-svg-icons";
 // const eye = <FontAwesomeIcon icon={faEye} />;
+import { Input, GradientBorder, DisableBorder, InputDisable } from '../pages/globalStyle.js'
 
 
 const FormContainer = styled.div`
@@ -182,7 +183,15 @@ const SignUp = () => {
                         <input name="confirm" type={passwordShown ? "text" : "password"} value={newUser.confirm} placeholder="" onChange={(e)=> validateConfirm(e.target.value)}/>
                         {!errorConfirm ? null : <span className="">{errorConfirm}</span>}
                     </div>
-                    <div className="divSubmit"><input className="inputbutton" type="submit" disabled={!isEnabled || errorName || errorS || errorNickname || errorEmail || errorPassword || errorConfirm}/></div>
+                    {!isEnabled || errorName || errorS || errorNickname || errorEmail || errorPassword || errorConfirm ?
+                    <DisableBorder className="">
+                        <InputDisable className="inputbutton" type="submit" disabled={!isEnabled || errorName || errorS || errorNickname || errorEmail || errorPassword || errorConfirm}/>
+                    </DisableBorder>
+                    : 
+                    <GradientBorder className="">
+                        <Input className="inputbutton" type="submit" disabled={!isEnabled || errorName || errorS || errorNickname || errorEmail || errorPassword || errorConfirm}/>
+                    </GradientBorder>
+                    }
                 </LogInForm>
         </FormContainer>
     )

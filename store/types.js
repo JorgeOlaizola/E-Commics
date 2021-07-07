@@ -15,3 +15,8 @@ export const user = {
     GET_USER_DATA: 'GET_USER_DATA',
     CLEAR_USER_DATA: 'CLEAR_USER_DATA'
 }
+
+//Types CATEGORY
+export const category = {
+    GET_CATEGORIES: 'GET_CATEGORIES'
+}

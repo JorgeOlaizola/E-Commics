@@ -8,6 +8,7 @@ const AddProductForm = () => {
     const dispatch = useDispatch();
 
     const user = useSelector(state => state.user.userData);
+    const categories = useSelector(state => state.category.categories)
     
     const [input, setInput] = useState({
         title: '',
@@ -15,30 +16,28 @@ const AddProductForm = () => {
         stock: '',
         price: '',
         image: '',
-        user: '',
-        category: ''
+        category: '',
+        user: user._id
     })
 
-    function handleChange(e) {
+    function handleChange (e) {
         setInput({
             ...input,
             [e.target.name]: e.target.value
         })
     }
 
-    function handleSubmit(e) {
-  
+    function handleSubmit (e) {
         e.preventDefault();
-
-        setInput({
-            ...input,
-            user: user._id
-        })
-
         dispatch(addSellingProduct(input));
-
     }
 
+    function handleSelect (e) {
+        setInput({
+            ...input,
+            category: e.target.value
+        })
+    }
     return (
         <div>
             <form
@@ -87,11 +86,10 @@ const AddProductForm = () => {
                 </div> */}
                 <div>
                     <label>Category</label>
-                    <input
-                        type='text'
-                        name='category'
-                        onChange={(e) => {handleChange(e)}}
-                    />
+                    <select onChange={handleSelect}>
+                    <option>Category</option>
+                    {categories && categories.map(c => <option value={c._id}>{c.title}</option>)}
+                    </select>
                 </div>
                 <div>
                     <label>Image</label>

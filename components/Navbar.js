@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import { useSelector, useDispatch } from "react-redux";
+import { signOut } from '../store/actions/normalUsersActions.js';
 import styled from 'styled-components';
 import { Button } from '../pages/globalStyle.js'
 
@@ -19,6 +21,15 @@ const StyledLink = styled.a`
 `
 
 const Nav = ({themeToggle, theme}) => {
+
+    const dispatch = useDispatch()
+
+    const userData = useSelector(state => state.user.userData)
+
+    function handleSignOut() {
+        dispatch(signOut())
+    }
+
     return(
         <Navbar>
             {/* <button onClick={() => props.themeToggle()}>Cambiar modo</button> */}
@@ -38,11 +49,11 @@ const Nav = ({themeToggle, theme}) => {
                 <Link href="/" passHref>
                     <StyledLink>Ingresá</StyledLink>
                 </Link>
-                <Link href="/" passHref>
+                <Link href={`/user/${userData.nickname}`} passHref>
                     <StyledLink>Panel de usuario</StyledLink>
                 </Link>
                 <Link href="/" passHref>
-                    <StyledLink>Salir</StyledLink>
+                    <StyledLink onClick={() => {handleSignOut()}}>Salir</StyledLink>
                 </Link>
                 <input
                 onChange={themeToggle}

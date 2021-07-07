@@ -1,35 +1,31 @@
 import e from "connect-flash";
 import { useState } from "react";
-import axios from "axios";
+import { useDispatch } from "react-redux";
+import { signIn } from "../store/actions/normalUsersActions";
 
 const SignInForm = () => {
+
+    const dispatch = useDispatch();
     
     const [input, setInput] = useState()
     
     const handleInputChange = (e) => {
+        
         setInput({
             ...input,
             [e.target.name] : e.target.value
         })
+        
     }
 
-    //POST
-
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {      
+        
         e.preventDefault();
         
-        async function SignInPost(){
-            const signIn = await axios.post(`${process.env.NEXT_PUBLIC_LOCALHOST}users/logIn`, input)
-            console.log("hola",signIn)
-        }
-        setInput({})
+        dispatch(signIn(input)); 
+
     }
-        
-            
-        
-       
-   
-   
+ 
     return (
         <form onSubmit={handleSubmit}>
             <label>Mail: </label>

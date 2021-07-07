@@ -9,5 +9,8 @@ export function getProducts (payload) {
     }
 }
 
-export function addProduct (payload) {
+export function addSellingProduct (product) {
+    return () => {
+        const addProduct = axios.post(`${process.env.NEXT_PUBLIC_LOCALHOST}/api/products`, product);
+    }
 }

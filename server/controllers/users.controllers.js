@@ -35,7 +35,7 @@ users.registerController = async (req, res) => {
     if(!CheckNickname){
         const CheckEmail = await User.findOne({ email: email })
         if(!CheckEmail) {
-            const newUser = await new User({ email, password, password2, name, surname, nickname, avatar })
+            const newUser = await new User({ email, password, password2, name, surname, nickname, avatar, role:"user" })
             newUser.password = await newUser.encryptPassword(password)
             await newUser.save()
             req.flash('success_msg', 'Cuenta registrada con éxito!')

@@ -6,6 +6,8 @@ export default function Product (props) {
             <img width="10%" src={props.image}></img>
             <p>{props.description}</p> <br/>
             <span> {props.price} $ </span>
+            <span> {props.category}</span>
+            <span> {props.user}</span>
             <hr/>
         </div>
     )

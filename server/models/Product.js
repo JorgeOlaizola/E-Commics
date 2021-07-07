@@ -1,9 +1,9 @@
 const { Schema, model } = require('mongoose');
-const User = model('User');
-const OfficialStore = model('OfficialStore');
-const Category = model('Category');
-const Question = model('Question');
-const Review = model('Review');
+// const User = model('User');
+// // const OfficialStore = model('OfficialStore');
+// const Category = model('Category');
+// const Question = model('Question');
+// const Review = model('Review');
 
 const productSchema = new Schema({
 	user: {
@@ -45,7 +45,7 @@ const productSchema = new Schema({
 	},
 	cart_Items: {
 		type: Number,
-	}
+	},
 	price: {
 		type: Number,
 		required: true

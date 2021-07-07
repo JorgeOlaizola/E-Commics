@@ -40,9 +40,9 @@ product.getProductDetail = async (req, res) => {
     if (id) {
         Product.findById(id, (err, pro) => {
             if (err) return res.send("id invalido")
-            Category.populate(pro,{path:'category'},(err,porduct)=>{
+            Category.populate(pro,{path:'category'},(err,product)=>{
                 if (err) return res.send("no se pudo acceder a las categorias del producto")
-                User.populate(porduct, { path: "user" }, (err, product) => {
+                User.populate(product, { path: "user" }, (err, product) => {
                     if (err) return res.send("no se pudo acceder al usuario del producto")
                     let result = {
                         _id: product._id,

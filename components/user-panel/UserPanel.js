@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
@@ -53,7 +54,9 @@ export default function User() {
                 <h2>publicacion 3</h2>
             </DataSection>
             <h2>Ver todas mis publicaciones</h2>
-            <h2>Crear publicacion</h2>
+            <Link href="/addproduct" passHref>
+                <h2>Crear publicacion</h2>
+            </Link>
             <h1>Ventas</h1>
             <DataSection>
                 <h2>venta 1</h2>

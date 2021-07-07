@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Navbar from './Navbar.js';
-import React, { useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import { lightTheme, darkTheme, GlobalStyles, StyledApp} from '../pages/globalStyle.js'
 import styled, { ThemeProvider } from "styled-components";
 
@@ -19,7 +19,6 @@ const Container = (props) => {
     const themeToggle = () => {
       theme === "light" ? setTheme("dark") : setTheme("light");
     };
-
 
     return (
         <div>

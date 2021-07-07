@@ -1,6 +1,8 @@
 //Types PRODUCT
 
-export const product = {    
+export const product = {
+    GET_PRODUCTS: 'GET_PRODUCTS',
+    ADD_PRODUCT: 'ADD_PRODUCT'    
 }
 
 //Types USER

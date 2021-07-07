@@ -1,8 +1,11 @@
 import Head from 'next/head';
 import Navbar from './Navbar.js';
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux'
+import { getCategories } from '../store/actions/categoriesActions'
 import { lightTheme, darkTheme, GlobalStyles, StyledApp} from '../pages/globalStyle.js'
 import styled, { ThemeProvider } from "styled-components";
+import { use } from 'passport';
 
 const DivContainer = styled.div`
     background-color: ${(props) => props.theme.body};
@@ -13,9 +16,11 @@ const DivContainer = styled.div`
 `;
 
 const Container = (props) => {
-
+    useEffect(() => {
+        dispatch(getCategories())
+    }, [])
     const [theme, setTheme] = useState("light");
-
+    const dispatch = useDispatch()
     const themeToggle = () => {
       theme === "light" ? setTheme("dark") : setTheme("light");
     };

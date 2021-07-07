@@ -1,7 +1,7 @@
-import Container from '../components/Container'
-import Filters from '../components/Filters'
-import Products from '../components/products'
-import styled  from 'styled-components'
+import Container from '../components/Container';
+import Filters from '../components/Filters';
+import Products from '../components/Products';
+import styled  from 'styled-components';
 
 const FiltersProducts = styled.div`
 display: flex;

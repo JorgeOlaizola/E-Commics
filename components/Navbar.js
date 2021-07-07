@@ -40,7 +40,7 @@ const Nav = ({themeToggle, theme}) => {
                     </StyledLink> */}
                     <StyledLink><img style={{width:"150px"}} src={"https://ecommics.s3.sa-east-1.amazonaws.com/images/ecommics-logo.svg"} /></StyledLink>
                 </Link>
-                <Link href="/" passHref>
+                <Link href="/search" passHref>
                     <StyledLink>Buscador</StyledLink>
                 </Link>
                 <Link href="/" passHref>

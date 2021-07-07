@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import styled from 'styled-components';
+import { Button } from '../pages/globalStyle.js'
+
 
 const Navbar = styled.nav`
     height: 80px;

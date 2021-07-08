@@ -20,7 +20,7 @@ question.createQuestion = async (req, res) => {
         return res.send(req.flash())
     } 
     if(!user){
-        req.flash('error_msg', 'autor required')
+        req.flash('error_msg', 'User required')
         return res.send(req.flash())
     }
 
@@ -32,8 +32,9 @@ question.createQuestion = async (req, res) => {
 // DELTE QUESTION
 question.deleteQuestion = async (req, res) => {
     await Question.findByIdAndDelete(req.params.id);
-    req.flash("success_msg", "Question Deleted Successfully");
-    res.redirect("/");
+    req.flash("success_msg", "Question Deleted Successfully")
+    return res.send(req.flash()) 
+    // res.redirect("/");
   };
 
 module.exports = question

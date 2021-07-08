@@ -78,7 +78,7 @@ time, mark, audio, video {
 	padding: 0;
 	border: 0;
 	font-size: 100%;
-	font: inherit;
+	${'' /* font: inherit; */}
 	vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
@@ -104,11 +104,7 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
-html,
-body {
-  font-family: -apple-system, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
+
 body {
         background-color: ${(props) => props.theme.body};
 		background: url("https://ecommics.s3.sa-east-1.amazonaws.com/images/bodyBackground.jpg") no-repeat center top;
@@ -133,9 +129,9 @@ h2 {
 	margin: 1rem 0;
 }
 
-button {
+${'' /* button {
 	margin: 2rem;
-}
+} */}
 
 
 ${'' /* switch */}

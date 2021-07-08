@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { Input } from '../../pages/globalStyle';
 
 const StyledContainer = styled.div`
     margin-top: 30px;
@@ -14,7 +15,54 @@ const StyledContainer = styled.div`
 const DataSection = styled.div`
     width: 60%;
     display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #000;
+    padding: 5px;
+`
+
+const WelcomeMessage = styled.a`
+    font-size: 2rem;
+    color: #ED2024;
+`
+
+const DataRow = styled.div`
+    display: flex;
+    justify-content: space-evenly;
+`
+
+const PersonalDataRow = styled.div`
+    display: flex;
     justify-content: space-between;
+`
+
+const DataColumn = styled.div`
+    display: flex;
+    flex-direction: column;
+`
+
+const DataTitle = styled.a`
+    font-size: 1.5rem;
+    color: #000;
+    margin-bottom: 10px;
+    display: flex;
+    align-self: center;
+`
+
+const DataText = styled.a`
+    font-size: 1rem;
+    color: #000;
+    margin: 2.5px 0;
+`
+
+const StyledButton = styled.button`
+    width: 200px;
+    margin-top: 5px;
+    display: flex;
+    align-self: center;
+    justify-content: center;
 `
 
 const UserPanel = () => {
@@ -23,47 +71,55 @@ const UserPanel = () => {
 
     return (
         <StyledContainer>
-            <div>
-                Hola {userData.name}!
-            </div>
-            <h1>Datos personales</h1>
+            <WelcomeMessage>
+                ¡Hola de nuevo, {userData.name}!
+            </WelcomeMessage>
             <DataSection>
-                <div>
-                    <h2>Nombre: {userData.name}</h2>
-                    <h2>Apellido: {userData.surname}</h2>
-                    <h2>Correo electrónico: {userData.email}</h2>
-                    <h2>Usuario: {userData.nickname}</h2>
-                    <h2>Password:</h2>
-                    <h3>Modificar datos</h3>
-                </div>
-                <div>
-                    <img src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png' style={{width: '200px', height: '200px'}}/>
-                </div>
+                <DataTitle>Datos personales</DataTitle>
+                <PersonalDataRow>
+                    <DataColumn>
+                        <DataText>Nombre: {userData.name}</DataText>
+                        <DataText>Apellido: {userData.surname}</DataText>
+                        <DataText>Correo electrónico: {userData.email}</DataText>
+                        <DataText>Usuario: {userData.nickname}</DataText>
+                        <DataText>Password:</DataText>
+                        <StyledButton>Modificar datos</StyledButton>
+                    </DataColumn>
+                    <div>
+                        <img src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png' style={{width: '200px', height: '200px'}}/>
+                    </div>
+                </PersonalDataRow>
             </DataSection>
-            <h1>Compras</h1>
             <DataSection>
-                <h2>compra 1</h2>
-                <h2>compra 2</h2>
-                <h2>compra 3</h2>
+                <DataTitle>Compras realizadas</DataTitle>
+                <DataRow>
+                    <img style={{width:"150px", height:"200px"}} src={"https://cdn.pixabay.com/photo/2016/09/03/12/06/marvel-1641554_960_720.jpg"} /> 
+                    <img style={{width:"150px", height:"200px"}} src={"https://cdn.pixabay.com/photo/2016/09/03/12/06/marvel-1641554_960_720.jpg"} /> 
+                    <img style={{width:"150px", height:"200px"}} src={"https://cdn.pixabay.com/photo/2016/09/03/12/06/marvel-1641554_960_720.jpg"} /> 
+                </DataRow>
+                <StyledButton>Ver todas mis compras</StyledButton>
             </DataSection>
-            <h2>Ver todas mis compras</h2>
-            <h1>Publicaciones</h1>
             <DataSection>
-                <h2>publicacion 1</h2>
-                <h2>publicacion 2</h2>
-                <h2>publicacion 3</h2>
+                <DataTitle>Publicaciones activas</DataTitle>
+                <DataRow>
+                    <img style={{width:"150px", height:"200px"}} src={"https://cdn.pixabay.com/photo/2016/09/03/12/06/marvel-1641554_960_720.jpg"} /> 
+                    <img style={{width:"150px", height:"200px"}} src={"https://cdn.pixabay.com/photo/2016/09/03/12/06/marvel-1641554_960_720.jpg"} /> 
+                    <img style={{width:"150px", height:"200px"}} src={"https://cdn.pixabay.com/photo/2016/09/03/12/06/marvel-1641554_960_720.jpg"} /> 
+                </DataRow>
+                <StyledButton>Ver todas mis publicaciones</StyledButton>    
+                <Link href="/addproduct" passHref>
+                    <StyledButton>Crear publicacion</StyledButton>
+                </Link>
             </DataSection>
-            <h2>Ver todas mis publicaciones</h2>
-            <Link href="/addproduct" passHref>
-                <h2>Crear publicacion</h2>
-            </Link>
-            <h1>Ventas</h1>
             <DataSection>
-                <h2>venta 1</h2>
-                <h2>venta 2</h2>
-                <h2>venta 3</h2>
+                <DataTitle>Ventas realizadas</DataTitle>
+                <DataRow>
+                    <img style={{width:"150px", height:"200px"}} src={"https://cdn.pixabay.com/photo/2016/09/03/12/06/marvel-1641554_960_720.jpg"} /> 
+                    <img style={{width:"150px", height:"200px"}} src={"https://cdn.pixabay.com/photo/2016/09/03/12/06/marvel-1641554_960_720.jpg"} /> 
+                    <img style={{width:"150px", height:"200px"}} src={"https://cdn.pixabay.com/photo/2016/09/03/12/06/marvel-1641554_960_720.jpg"} /> 
+                </DataRow>
+                <StyledButton>Ver todas mis ventas</StyledButton>
             </DataSection>
-            <h2>Ver todas mis ventas</h2>
         </StyledContainer>
     )
 }

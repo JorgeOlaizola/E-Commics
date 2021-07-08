@@ -1,9 +1,4 @@
 const { Schema, model } = require('mongoose');
-// const User = model('User');
-// // const OfficialStore = model('OfficialStore');
-// const Category = model('Category');
-// const Question = model('Question');
-// const Review = model('Review');
 
 const productSchema = new Schema({
 	user: {

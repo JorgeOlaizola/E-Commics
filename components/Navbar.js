@@ -46,7 +46,7 @@ const Nav = ({themeToggle, theme}) => {
                 <Link href="/search" passHref>
                     <StyledLink>Buscador</StyledLink>
                 </Link>
-                <Link href="/signuppage" passHref>
+                {/* <Link href="/signuppage" passHref>
                     <StyledLink>Crear cuenta</StyledLink>
                 </Link>
                 <Link href="/" passHref>
@@ -57,8 +57,8 @@ const Nav = ({themeToggle, theme}) => {
                 </Link>
                 <Link href="/" passHref>
                     <StyledLink onClick={() => {handleSignOut()}}>Salir</StyledLink>
-                </Link>
-                {/* <UserMenu themeToggle={themeToggle}/> */}
+                </Link> */}
+                <UserMenu themeToggle={themeToggle}/>
                 {/* <input
                 onChange={themeToggle}
                 className="react-switch-checkbox"

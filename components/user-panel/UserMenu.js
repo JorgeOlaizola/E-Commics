@@ -1,11 +1,21 @@
 import Link from 'next/link';
 import { useRef } from "react";
+import { useSelector, useDispatch } from 'react-redux';
 import { useDetectOutsideClick } from "./useDetectOutsideClick.js";
+import { signOut } from '../../store/actions/normalUsersActions.js';
 
 const UserMenu = ({themeToggle}) => {
   const dropdownRef = useRef(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
   const onClick = () => setIsActive(!isActive);
+
+  const dispatch = useDispatch()
+
+  const userData = useSelector(state => state.user.userData)
+
+  function handleSignOut() {
+      dispatch(signOut())
+  }
 
   return (
     <div className="container">
@@ -22,26 +32,34 @@ const UserMenu = ({themeToggle}) => {
           className={`menu ${isActive ? "active" : "inactive"}`}
         >
           <ul>
-            <li>
-            <Link href="/" passHref>
-              <a href="#">Crear cuenta</a>
-              </Link>
-            </li>
-            <li>
-            <Link href="/" passHref>
-              <a href="#">Ingresá</a>
-              </Link>
-            </li>
-            <li>
-            <Link href="/" passHref>
-              <a href="#">Panel de usuario</a>
-            </Link>
-            </li>
-            <li>
-            <Link href="/" passHref>
-              <a href="#">Salir</a>
-              </Link>
-            </li>
+            {
+              userData.log === false ?
+              <>
+                <li>
+                <Link href="/signuppage" passHref>
+                  <a>Crear cuenta</a>
+                  </Link>
+                </li>
+                <li>
+                <Link href="/" passHref>
+                  <a>Ingresá</a>
+                  </Link>
+                </li>
+              </>
+              :
+              <>
+                <li>
+                <Link href={`/user/${userData.nickname}`} passHref>
+                  <a>Panel de usuario</a>
+                </Link>
+                </li>
+                <li>
+                <Link href="/" passHref>
+                  <a onClick={() => {handleSignOut()}}>Salir</a>
+                </Link>
+                </li>
+              </>
+            }
            <li>
               <a>
                 <input 

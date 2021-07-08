@@ -4,7 +4,7 @@ import styles from '../styles/Home.module.css'
 import Container from '../components/Container'
 import SignUp from '../components/SignUp'
 
-export default function Home() {
+const SignUpPage = () => {
   return (
     <>
       <Head>
@@ -16,3 +16,5 @@ export default function Home() {
     </>
   )
 }
+
+export default SignUpPage;

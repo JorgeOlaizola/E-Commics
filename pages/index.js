@@ -4,7 +4,7 @@ import styles from '../styles/Home.module.css'
 import Container from '../components/Container'
 import SignInForm from '../components/SignInForm'
 
-export default function Home() {
+const Home = () => {
   return (
     <>
       <Head>
@@ -18,3 +18,5 @@ export default function Home() {
     </>
   )
 }
+
+export default Home;

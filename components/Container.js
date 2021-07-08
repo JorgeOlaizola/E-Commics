@@ -1,8 +1,8 @@
 import Head from 'next/head';
 import Navbar from './Navbar.js';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux'
-import { getCategories } from '../store/actions/categoriesActions'
+import { getCategories } from '../store/actions/categoriesActions.js';
 import { lightTheme, darkTheme, GlobalStyles, StyledApp} from '../pages/globalStyle.js'
 import styled, { ThemeProvider } from "styled-components";
 import { use } from 'passport';
@@ -30,8 +30,8 @@ const DivContainer = styled.div`
 const Container = (props) => {
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(getCategories())
-    }, [])
+        dispatch(getCategories());
+    }, [dispatch])
     const [theme, setTheme] = useState("light");
     const themeToggle = () => {
       theme === "light" ? setTheme("dark") : setTheme("light");

@@ -1,8 +1,8 @@
 import Link from 'next/link';
-import React, { useRef } from "react";
-import { useDetectOutsideClick } from "./useDetectOutsideClick";
+import { useRef } from "react";
+import { useDetectOutsideClick } from "./useDetectOutsideClick.js";
 
-export default function UserMenu({themeToggle}) {
+const UserMenu = ({themeToggle}) => {
   const dropdownRef = useRef(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
   const onClick = () => setIsActive(!isActive);
@@ -66,3 +66,5 @@ export default function UserMenu({themeToggle}) {
     </div>
   );
 }
+
+export default UserMenu;

@@ -8,7 +8,7 @@ display: flex;
 flex-direction: raw;
 `
 
-export default function Search() {
+const Search = () => {
     return (
       <>
         <Container>
@@ -20,3 +20,5 @@ export default function Search() {
       </>
     )
 }
+
+export default Search;

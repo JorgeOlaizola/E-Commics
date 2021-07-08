@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 // import { POST_USER_URL } from '../../constants';
 import axios from 'axios';
 // import { connect } from 'react-redux';

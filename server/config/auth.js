@@ -6,8 +6,7 @@ helpers.isAuthenticated = (req, res, next) => {
         return next();
     }
     console.log(req.isAuthenticated())
-    req.flash('error_msg', 'Para acceder aquí debes iniciar sesión')
-    res.send(req.flash())
+    res.json({ error_msg: 'Unauthorized'})
 }
 
 module.exports = helpers;

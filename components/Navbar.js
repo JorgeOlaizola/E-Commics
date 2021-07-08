@@ -3,14 +3,16 @@ import { useSelector, useDispatch } from "react-redux";
 import { signOut } from '../store/actions/normalUsersActions.js';
 import styled from 'styled-components';
 import { Button } from '../pages/globalStyle.js'
-
+import Find from './Find.js';
+import UserMenu from './user-panel/UserMenu.js';
 
 const Navbar = styled.nav`
-    height: 80px;
+    min-height: 80px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 0.5rem;
+    flex-wrap: wrap;
+    padding: 0 2rem;
     border-bottom: 1px solid;
 `
 
@@ -34,16 +36,17 @@ const Nav = ({themeToggle, theme}) => {
         <Navbar>
             {/* <button onClick={() => props.themeToggle()}>Cambiar modo</button> */}
                 <Link href="/" passHref>
-                    {/* <StyledLink>{theme === "light" 
+                    <StyledLink>{theme === "light" 
                     ? <img style={{width:"150px"}} src={"https://ecommics.s3.sa-east-1.amazonaws.com/images/ecommics-logo.svg"} /> 
                     : <img style={{width:"150px"}} src={"https://ecommics.s3.sa-east-1.amazonaws.com/images/ecommics-logo-white.svg"} />}
-                    </StyledLink> */}
-                    <StyledLink><img style={{width:"150px"}} src={"https://ecommics.s3.sa-east-1.amazonaws.com/images/ecommics-logo.svg"} /></StyledLink>
+                    </StyledLink>
+                    {/* <StyledLink><img style={{width:"150px"}} src={"https://ecommics.s3.sa-east-1.amazonaws.com/images/ecommics-logo.svg"} /></StyledLink> */}
                 </Link>
+                <Find />
                 <Link href="/search" passHref>
                     <StyledLink>Buscador</StyledLink>
                 </Link>
-                <Link href="/" passHref>
+                <Link href="/signuppage" passHref>
                     <StyledLink>Crear cuenta</StyledLink>
                 </Link>
                 <Link href="/" passHref>
@@ -55,7 +58,8 @@ const Nav = ({themeToggle, theme}) => {
                 <Link href="/" passHref>
                     <StyledLink onClick={() => {handleSignOut()}}>Salir</StyledLink>
                 </Link>
-                <input
+                {/* <UserMenu themeToggle={themeToggle}/> */}
+                {/* <input
                 onChange={themeToggle}
                 className="react-switch-checkbox"
                 id={`react-switch-new1`}
@@ -67,7 +71,7 @@ const Nav = ({themeToggle, theme}) => {
                 htmlFor={`react-switch-new1`}
                 >
                 <span className={`react-switch-button`} />
-                </label>
+                </label> */}
         </Navbar>
     )
 }

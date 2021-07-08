@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Container from '../../components/Container';
 import UserPanel from '../../components/user-panel/UserPanel';
 
-export default function User() {
+const User = () => {
   return (
     <>
       <Head>
@@ -14,3 +14,5 @@ export default function User() {
     </>
   )
 }
+
+export default User;

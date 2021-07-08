@@ -6,6 +6,10 @@ const questionSchema = new Schema({
 		type: Schema.ObjectId,
 		ref: 'User'
 	},
+	product : {
+		type: String,
+		required: true
+	},
 	content: {
 		type: String,
 		required: true

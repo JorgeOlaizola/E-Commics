@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
  * @param {React.node} el
  * @param {boolean} initialState
  */
-export const useDetectOutsideClick = (el, initialState) => {
+const useDetectOutsideClick = (el, initialState) => {
   const [isActive, setIsActive] = useState(initialState);
 
   useEffect(() => {
@@ -28,3 +28,5 @@ export const useDetectOutsideClick = (el, initialState) => {
 
   return [isActive, setIsActive];
 };
+
+export default useDetectOutsideClick;

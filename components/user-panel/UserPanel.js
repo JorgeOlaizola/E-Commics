@@ -17,7 +17,7 @@ const DataSection = styled.div`
     justify-content: space-between;
 `
 
-export default function User() {
+const UserPanel = () => {
 
     const userData = useSelector(state => state.user.userData)
 
@@ -67,3 +67,5 @@ export default function User() {
         </StyledContainer>
     )
 }
+
+export default UserPanel;

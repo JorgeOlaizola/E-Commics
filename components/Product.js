@@ -1,5 +1,5 @@
 
-export default function Product (props) {
+const Product = (props) => {
     return (
         <div>
             <h1>{props.title}</h1> <br/>
@@ -12,3 +12,5 @@ export default function Product (props) {
         </div>
     )
 }
+
+export default Product;

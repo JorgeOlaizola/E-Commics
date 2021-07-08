@@ -2,7 +2,7 @@ import Container from '../components/Container.js';
 import AddProductForm from '../components/user-panel/AddProductForm.js'
 import styled  from 'styled-components';
 
-export default function AddProduct() {
+const AddProduct = () => {
     return (
       <>
         <Container>
@@ -11,3 +11,5 @@ export default function AddProduct() {
       </>
     )
 }
+
+export default AddProduct;

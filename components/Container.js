@@ -16,11 +16,11 @@ const DivContainer = styled.div`
 `;
 
 const Container = (props) => {
+    const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getCategories())
     }, [])
     const [theme, setTheme] = useState("light");
-    const dispatch = useDispatch()
     const themeToggle = () => {
       theme === "light" ? setTheme("dark") : setTheme("light");
     };

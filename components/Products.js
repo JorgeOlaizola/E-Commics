@@ -5,11 +5,11 @@ import Product from './Product'
 
 
 export default function Products () {
+    const dispatch = useDispatch();
+    const products = useSelector(state => state.product.products);
     useEffect(() => {
         dispatch(getProducts())
     }, [])
-    const products = useSelector(state => state.product.products);
-    const dispatch = useDispatch();
     return (
         <div>   
             {products && products.map(p => <Product user={p.user.nickname} category={p.category.title} image={p.image} title={p.title} price={p.price} description={p.description} />)}

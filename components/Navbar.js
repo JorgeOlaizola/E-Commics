@@ -46,18 +46,26 @@ const Nav = ({themeToggle, theme}) => {
                 <Link href="/search" passHref>
                     <StyledLink>Buscador</StyledLink>
                 </Link>
-                <Link href="/signuppage" passHref>
-                    <StyledLink>Crear cuenta</StyledLink>
-                </Link>
-                <Link href="/" passHref>
-                    <StyledLink>Ingresá</StyledLink>
-                </Link>
-                <Link href={`/user/${userData.nickname}`} passHref>
-                    <StyledLink>Panel de usuario</StyledLink>
-                </Link>
-                <Link href="/" passHref>
-                    <StyledLink onClick={() => {handleSignOut()}}>Salir</StyledLink>
-                </Link>
+                {
+                    userData.log === false ?
+                        <>
+                        <Link href="/signuppage" passHref>
+                        <StyledLink>Crear cuenta</StyledLink>
+                        </Link>
+                        <Link href="/" passHref>
+                            <StyledLink>Ingresá</StyledLink>
+                        </Link>
+                        </>
+                    :
+                        <>
+                        <Link href={`/user/${userData.nickname}`} passHref>
+                        <StyledLink>Panel de usuario</StyledLink>
+                        </Link>
+                        <Link href="/" passHref>
+                            <StyledLink onClick={() => {handleSignOut()}}>Salir</StyledLink>
+                        </Link>
+                        </>
+                }
                 {/* <UserMenu themeToggle={themeToggle}/> */}
                 {/* <input
                 onChange={themeToggle}

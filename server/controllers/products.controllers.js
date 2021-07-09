@@ -23,6 +23,7 @@ product.createProduct = async (req, res) => {
 }
 
 product.getProducts = async (req, res) => {
+    console.log(req.body)
     let {user,category,score,price,search,order,page} = req.body
     if (!page) page = 1;
     let itemXPage = 20;
@@ -53,7 +54,7 @@ product.getProducts = async (req, res) => {
     if(opts["$and"].length === 0) delete opts["$and"]
 
     //ordenamos la respuesta si existe un orden pedido
-    if(order) {
+    if(order.in) {
         Product.find(opts, (err, products) => {
             if (err) return res.send(err)
             //cargamos el resto de la data 

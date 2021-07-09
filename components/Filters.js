@@ -1,6 +1,8 @@
 import styled from "styled-components";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { GradientBorder, Input } from "../pages/globalStyle";
+import { searchByCategory, getFilteredProducts } from '../store/actions/productActions'
+import { useEffect } from "react";
 
 
 //Component conteiner
@@ -36,19 +38,35 @@ align-items: center;
 padding: 1rem;
 `
 
+
+
 const Filters = () => {
     
+    const dispatch = useDispatch()
     const categories = useSelector(state => state.category.categories)
+    const filters = useSelector(state => state.product.filters)
+
+    const CategoryFilter = (event) => {
+        event.preventDefault()
+        const categoryId = event.target.value
+        dispatch(searchByCategory(categoryId))
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        dispatch(getFilteredProducts(filters))
+    }
     return (
         <FilterConteiner> 
             <FiltersTitle>Filtros</FiltersTitle>
             <CategoriesFilterCont>
             <EachFilterTitle>Categorías</EachFilterTitle>
-                {categories && (<form >
-                    <select>
-                        {categories.map(c => <option value={c.title} id={c.title}>{c.title}</option>)}
+                {categories && (<form onSubmit={handleSubmit} >
+                    <details>
+                        <summary>Categorías</summary>    
+                        {categories.map(c => <button onClick={CategoryFilter}value={c._id}>{c.title}</button>)}
 
-                    </select>
+                    </details>
                     <GradientBorder>
                          <Input className="inputbutton" type="submit"></Input>
                      </GradientBorder>

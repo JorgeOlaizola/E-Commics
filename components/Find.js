@@ -3,19 +3,22 @@ import Link from 'next/link';
 import styled from 'styled-components';
 import { Button } from '../pages/globalStyle.js'
 import { SearchIcon } from '@heroicons/react/outline'
+import { searchByName, getFilteredProducts } from '../store/actions/productActions.js';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Find = () => {
-    const [productName, setproductName] = useState("");
+    const filters = useSelector(state => state.product.filters)
 
     function handleSubmit(event) {
         event.preventDefault();
-        console.log("hice submit")
+        dispatch(getFilteredProducts(filters))
     }
 
     function handleChange(event) {
-        setproductName(event.target.value);
+        dispatch(searchByName(event.target.value))
       }
 
+    const dispatch = useDispatch()
     return (
         <div >
         <form className="" onSubmit={(e) => handleSubmit(e)}>
@@ -26,7 +29,6 @@ const Find = () => {
             id="findProduct"
             autoComplete="on"
             placeholder="Buscar producto"
-            value={productName}
             onChange={(e) => handleChange(e)}
           />
           <button type="submit" style={{border: "none", background: "#FFC0C0", height: "25px", cursor: "pointer"}}>

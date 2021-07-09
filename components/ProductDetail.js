@@ -30,8 +30,7 @@ height: 90%;
 const InfoConteiner = styled.div`
 width: 45%;
 height: 90%;
-background: blue;
-color: white;
+font-size: 1.5rem;
 `
 
 const ImageInfo = styled.div`
@@ -39,6 +38,7 @@ display: flex;
 justify-content: center;
 align-items: center;
 flex-direction: raw;
+flex-wrap: wrap;
 width: 100%;
 height: 100%;
 `
@@ -51,17 +51,17 @@ const ProductDetail = ({id}) => {
     return (
         <Father>
             {detail && <DetailConteiner>
-                <h3>{detail.title}</h3>
+                <h1 style={{fontSize: '3rem'}}>{detail.title}</h1>
                 <ImageInfo>
                     <ImageConteiner>
                     <img width="80%" src={detail.image}></img>
                     </ImageConteiner>
                     <InfoConteiner>
-                        <p>{detail.description}</p>
-                        <span>{detail.price}$</span>
-                        <p>Stock disponible: {detail.stock} unidades</p>
-                        <p>Categoría: {detail.category.title}</p>
-                        <p>Vendido por: {detail.user.nickname}</p>
+                        <p style={{ padding: '20px' }}>{detail.description}</p>
+                        <span style={{ padding: '20px' }}>Precio: {detail.price}$</span>
+                        <p style={{ padding: '20px' }}>Stock disponible: {detail.stock} unidades</p>
+                        <p style={{ padding: '20px' }}>Categoría: {detail.category.title}</p>
+                        <p style={{ padding: '20px' }}>Vendido por: {detail.user.nickname}</p>
                     </InfoConteiner>
                 </ImageInfo>
             </DetailConteiner>}

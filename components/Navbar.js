@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import { Button } from '../pages/globalStyle.js'
 import Find from './Find.js';
 import UserMenu from './user-panel/UserMenu.js';
+import Modal from './user-panel/Modal.js';
+import React, {useState} from 'react';
 
 const Navbar = styled.nav`
     min-height: 80px;
@@ -23,7 +25,7 @@ const StyledLink = styled.a`
 `
 
 const Nav = ({themeToggle, theme}) => {
-
+    const [showModal, setShowModal] = useState(false);
     const dispatch = useDispatch()
 
     const userData = useSelector(state => state.user.userData)

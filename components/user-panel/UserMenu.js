@@ -3,8 +3,12 @@ import { useRef } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { useDetectOutsideClick } from "./useDetectOutsideClick.js";
 import { signOut } from '../../store/actions/normalUsersActions.js';
+import Modal from './Modal.js';
+import React, {useState} from 'react';
 
 const UserMenu = ({themeToggle}) => {
+  const [showModal, setShowModal] = useState(false);
+
   const dropdownRef = useRef(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
   const onClick = () => setIsActive(!isActive);
@@ -35,11 +39,19 @@ const UserMenu = ({themeToggle}) => {
             {
               userData.log === false ?
               <>
-                <li>
+                {/* <li>
                 <Link href="/signuppage" passHref>
                   <a>Crear cuenta</a>
                   </Link>
-                </li>
+                </li> */}
+                <div>
+                    <button onClick={() => setShowModal(true)}>Crear cuenta</button>
+                    <Modal
+                    onClose={() => setShowModal(false)}
+                    show={showModal}
+                    >
+                    </Modal>
+                </div>
                 <li>
                 <Link href="/" passHref>
                   <a>Ingresá</a>
@@ -78,7 +90,6 @@ const UserMenu = ({themeToggle}) => {
               </a>
            </li>
           </ul>
-
         </nav>
       </div>
     </div>

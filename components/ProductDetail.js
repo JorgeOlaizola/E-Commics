@@ -62,6 +62,8 @@ const ProductDetail = ({id}) => {
                         <p style={{ padding: '20px' }}>Stock disponible: {detail.stock} unidades</p>
                         <p style={{ padding: '20px' }}>Categoría: {detail.category.title}</p>
                         <p style={{ padding: '20px' }}>Vendido por: {detail.user.nickname}</p>
+                        <button style={{ padding: '20px' }}>Añadir al carrito</button> <br/>
+                        <button style={{ padding: '20px' }}>Comprar</button>
                     </InfoConteiner>
                 </ImageInfo>
             </DetailConteiner>}

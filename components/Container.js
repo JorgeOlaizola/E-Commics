@@ -1,16 +1,16 @@
 import Head from 'next/head';
 import Navbar from './Navbar.js';
+import Footer from './Footer.js';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux'
 import { getCategories } from '../store/actions/categoriesActions.js';
 import { lightTheme, darkTheme, GlobalStyles, StyledApp} from '../pages/globalStyle.js'
 import styled, { ThemeProvider } from "styled-components";
-import { use } from 'passport';
 
 const DivContainer = styled.div`
     background-color: ${(props) => props.theme.body};
     ${'' /* width: 1024px; */}
-    margin: 30px auto 0 auto;
+    margin: 30px auto 30px auto;
     min-height: 1024px;
     box-shadow: rgb(0 0 0 / 50%) 0px 0px 7px 1px;
     @media (min-width: 1440px) {
@@ -52,6 +52,7 @@ const Container = (props) => {
                     <Navbar themeToggle={themeToggle} theme={theme}/>
                     {props.children}
                 </DivContainer>
+                <Footer/>
             </StyledApp>
         </ThemeProvider>
         </div>

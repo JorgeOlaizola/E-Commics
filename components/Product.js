@@ -4,16 +4,18 @@ import { getProductDetail } from '../store/actions/productActions';
 import styled from 'styled-components';
 
 //Component conteiner
-const Conteiner = styled.div`
+const CardConteiner = styled.div`
 border: 1px solid grey;
-border-radius: 1rem;
-margin-top: 1rem;
-margin-bottom: 1rem;
+margin: 1rem;
+
 display: flex;
 flex-direction: column;
 justify-content: center;
-width: 90%;
+align-items:center;
+width: 25%;
+max-height:620px;
 `
+
 
 //Align items
 const ConteinerInfo = styled.div`
@@ -27,26 +29,35 @@ flex-direction: column;
 flex-wrap: wrap;
 justify-content: space-around;
 margin-left: 50px;
+margin-bottom: 5%;
+`
+//Image container
+const ImageConteiner = styled.div`
+width:100%;
+align-self: top;
+
 `
 
 //Styled link button
 const StyledButton = styled.button`
 padding: 0.5rem;
-border-radius: 0.5rem;
+
 font-size: 1rem;
-width: 70%;
+width: 60%;
 `
 
 
 const Product = (props) => {
     const dispatch = useDispatch()
     return (
-        <Conteiner>
-            <ConteinerInfo>
-                <img width="20%" height="100%" src={props.image}></img>
+        <CardConteiner>
+            <ImageConteiner>
+                <img width="100%" src={props.image}></img>
+
+            </ImageConteiner>
                 <ConteinerDetail>
-                    <h1>{props.title}</h1> <br/>
-                    <p>{props.description}</p> <br/>
+                    <h1>{props.title}</h1> 
+                    <p>{props.description}</p> 
                     <span>Precio: {props.price} $ </span>
                     <span>Categoría: {props.category}</span>
                     <span>Publicado por {props.user}</span>
@@ -54,9 +65,9 @@ const Product = (props) => {
                         <Link href={`/detail/${props.id}`} passHref> +Info </Link>
                     </StyledButton>
                 </ConteinerDetail>
-            </ConteinerInfo>
+           
 
-        </Conteiner>
+        </CardConteiner>
     )
 }
 

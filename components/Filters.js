@@ -1,15 +1,16 @@
 import styled from "styled-components";
 import { useSelector } from "react-redux";
+import { GradientBorder, Input } from "../pages/globalStyle";
 
 
 //Component conteiner
-const Conteiner = styled.div`
-width: 25%;
+const FilterConteiner = styled.div`
+
 display: flex;
 align-items: center;
 flex-direction: column;
 border: 1px solid grey;
-border-radius: 1rem;
+
 margin: 1rem;
 position: relative;
 `
@@ -39,18 +40,38 @@ const Filters = () => {
     
     const categories = useSelector(state => state.category.categories)
     return (
-        <Conteiner> 
+        <FilterConteiner> 
             <FiltersTitle>Filtros</FiltersTitle>
             <CategoriesFilterCont>
             <EachFilterTitle>Categorías</EachFilterTitle>
-                {categories && categories.map(c => <button>{c.title}</button>)}
+                {categories && (<form >
+                    <select>
+                        {categories.map(c => <option value={c.title} id={c.title}>{c.title}</option>)}
+
+                    </select>
+                    <GradientBorder>
+                         <Input className="inputbutton" type="submit"></Input>
+                     </GradientBorder>
+                </form>) }
             </CategoriesFilterCont>
             <EachFilterTitle>Precio</EachFilterTitle>
-            <input name="min" placeholder="min"></input>
-            <input name="max" placeholder="max"></input>
-            <button type="submit">Buscar</button>
-        </Conteiner>
+                <input name="min" placeholder="min"></input>
+                <input name="max" placeholder="max"></input>
+            <GradientBorder>
+                <Input className="inputbutton" type="submit"></Input>
+            </GradientBorder>
+           
+        </FilterConteiner>
     )
 }
 
 export default Filters;
+
+/**
+ *  <input name="min" placeholder="min"></input>
+            <input name="max" placeholder="max"></input>
+            <button type="submit">Buscar</button>
+
+
+            categories.map(c => <button id={c.title}>{c.title}</button>)
+ */

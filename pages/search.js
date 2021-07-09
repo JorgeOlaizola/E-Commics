@@ -4,8 +4,12 @@ import Products from '../components/Products';
 import styled  from 'styled-components';
 
 const FiltersProducts = styled.div`
-display: flex;
-flex-direction: raw;
+width:100%;
+height:100%;
+display: grid;
+grid-template-columns: 25% auto;
+
+
 `
 
 const Search = () => {

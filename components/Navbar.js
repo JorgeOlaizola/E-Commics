@@ -44,10 +44,11 @@ const Nav = ({themeToggle, theme}) => {
                     </StyledLink>
                     {/* <StyledLink><img style={{width:"150px"}} src={"https://ecommics.s3.sa-east-1.amazonaws.com/images/ecommics-logo.svg"} /></StyledLink> */}
                 </Link>
-                <Find />
                 <Link href="/search" passHref>
-                    <StyledLink>Buscador</StyledLink>
+                    <StyledLink>Todos los productos</StyledLink>
                 </Link>
+                <Find />
+                
                 {/* <Link href="/signuppage" passHref>
                     <StyledLink>Crear cuenta</StyledLink>
                 </Link>

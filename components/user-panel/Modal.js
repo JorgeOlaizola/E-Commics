@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
-import SignUp from '../SignUp'
+import SignUp from '../SignUp';
+import SignInForm from '../SignInForm';
 
-const Modal = ({ show, onClose, children, title }) => {
+
+const Modal = ({ show, onClose, children, title, signType }) => {
     const [isBrowser, setIsBrowser] = useState(false);
-  
     useEffect(() => {
       setIsBrowser(true);
     }, []);
@@ -26,7 +27,10 @@ const Modal = ({ show, onClose, children, title }) => {
           {title && <StyledModalTitle>{title}</StyledModalTitle>}
           <StyledModalBody>
           {children}
-          <SignUp handleCloseClick={handleCloseClick}/>
+          {signType === "signUp" ?  
+            <SignUp handleCloseClick={handleCloseClick}/> :
+            <SignInForm handleCloseClick={handleCloseClick}/>
+          }
           </StyledModalBody>
         </StyledModal>
       </StyledModalOverlay>

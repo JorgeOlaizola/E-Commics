@@ -8,6 +8,7 @@ import React, {useState} from 'react';
 
 const UserMenu = ({themeToggle}) => {
   const [showModal, setShowModal] = useState(false);
+  const [signType, setSignType] = useState("signIn");
 
   const dropdownRef = useRef(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
@@ -21,6 +22,17 @@ const UserMenu = ({themeToggle}) => {
       dispatch(signOut())
   }
 
+  function handleClickSignUp() {
+    setSignType("signUp")
+    setShowModal(true)
+  }
+
+  function handleClickSignIn() {
+    setSignType("signIn")
+    setShowModal(true)
+  }
+
+
   return (
     <div className="container">
       <div className="menu-container">
@@ -32,6 +44,7 @@ const UserMenu = ({themeToggle}) => {
           />
         </button>
         <nav
+          style={{zIndex: '10'}}
           ref={dropdownRef}
           className={`menu ${isActive ? "active" : "inactive"}`}
         >
@@ -45,18 +58,26 @@ const UserMenu = ({themeToggle}) => {
                   </Link>
                 </li> */}
                 <div>
-                    <button onClick={() => setShowModal(true)}>Crear cuenta</button>
-                    <Modal
+                    <button onClick={() => handleClickSignUp()}>Crear cuenta</button>
+                    <Modal signType={signType}
                     onClose={() => setShowModal(false)}
                     show={showModal}
                     >
                     </Modal>
                 </div>
-                <li>
+                <div>
+                    <button onClick={() => handleClickSignIn()}>Ingresar</button>
+                    <Modal signType={signType}
+                    onClose={() => setShowModal(false)}
+                    show={showModal}
+                    >
+                    </Modal>
+                </div>
+                {/* <li>
                 <Link href="/" passHref>
                   <a>Ingresá</a>
                   </Link>
-                </li>
+                </li> */}
               </>
               :
               <>

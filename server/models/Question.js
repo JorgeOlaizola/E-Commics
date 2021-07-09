@@ -6,15 +6,15 @@ const questionSchema = new Schema({
 		ref: 'User'
 	},
 	product : {
-		type: String,
-		required: true
+		type : Schema.ObjectId,
+		ref: 'Product'
 	},
 	content: {
 		type: String,
 		required: true
 	},
 	answer: {
-		type: String
+		type : String
 	},
 	created_at: Date
 });

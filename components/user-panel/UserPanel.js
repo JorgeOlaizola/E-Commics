@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { Input } from '../../pages/globalStyle';
 
 const StyledContainer = styled.div`
     margin-top: 30px;
@@ -68,6 +68,18 @@ const StyledButton = styled.button`
 const UserPanel = () => {
 
     const userData = useSelector(state => state.user.userData)
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const start = async () => {
+            await dispatch(getUserData());
+        }
+        start();
+        if(userData.log === false) {
+            window.location.href = "/"
+        }
+    }, [])
 
     return (
         <StyledContainer>

@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 const Conteiner = styled.div`
 width: 25%;
 display: flex;
-justify-content: center;
 align-items: center;
 flex-direction: column;
 border: 1px solid grey;
@@ -17,9 +16,9 @@ position: relative;
 
 //Title "Filtros"
 const FiltersTitle = styled.h3`
+margin-top: 1rem;
 font-size: 2rem;
-position: absolute;
-top: 1rem;`
+`
 
 //Title of each filter division
 const EachFilterTitle = styled.h6`

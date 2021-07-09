@@ -30,12 +30,15 @@ const DivContainer = styled.div`
 const Container = (props) => {
     const dispatch = useDispatch()
     useEffect(() => {
+        console.log("estoy en el container", localStorage.getItem("sessionSaved"))
         dispatch(getCategories());
     }, [dispatch])
     const [theme, setTheme] = useState("light");
     const themeToggle = () => {
       theme === "light" ? setTheme("dark") : setTheme("light");
     };
+    
+
 
     return (
         <div>

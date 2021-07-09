@@ -8,7 +8,7 @@ import styled from 'styled-components'
 // import { faEye } from "@fortawesome/free-solid-svg-icons";
 // const eye = <FontAwesomeIcon icon={faEye} />;
 import { Input, GradientBorder, DisableBorder, InputDisable } from '../pages/globalStyle.js'
-
+import SignInForm from './SignInForm';
 
 const FormContainer = styled.div`
   display: flex;
@@ -139,7 +139,7 @@ const SignUp = ({handleCloseClick}) => {
           .then(function(response) {
             console.log(response);
           }).catch(error => console.log(error))
-          setThanks(thanks ? true : true);
+          setThanks(true);
           console.log(thanks)
     //    history.push('/thanks');
     }
@@ -148,7 +148,7 @@ const SignUp = ({handleCloseClick}) => {
 
     return (
         <FormContainer >
-            {thanks ? <h2>Super! Eres miembro de la comunidad ecommics 🦸 Ya puedes ingresar</h2> : <>
+            {thanks  ? <><h2>Super! Eres miembro de la comunidad ecommics 🦸 Ya puedes ingresar</h2><SignInForm/> </>: <>
                 <h2>Únete hoy a ecommics!</h2>
                     <LogInForm onSubmit={(e) => handleSubmit(e)}>
                         <div>

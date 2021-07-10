@@ -1,8 +1,7 @@
 import Link from 'next/link';
 import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { getUserData } from '../../store/actions/normalUsersActions'
 const StyledContainer = styled.div`
     margin-top: 30px;
     width: 100%;
@@ -66,20 +65,12 @@ const StyledButton = styled.button`
 `
 
 const UserPanel = () => {
-
-    const userData = useSelector(state => state.user.userData)
-
-    const dispatch = useDispatch();
-
+    const userData = useSelector(state => state.user.userData);
     useEffect(() => {
-        // const start = async () => {
-        //     await dispatch(getUserData());
-        // }
-        // start();
         if(userData.log === false) {
             window.location.href = "/"
         }
-    }, [])
+}, []);
 
     return (
         <StyledContainer>

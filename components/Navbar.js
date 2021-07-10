@@ -10,7 +10,7 @@ import React, {useState} from 'react';
 import { useRouter } from 'next/router';
 
 
-const Nav = ({themeToggle, theme}) => {
+const Nav = ({ theme}) => {
     const router = useRouter();
     const [showModal, setShowModal] = useState(false);
     const dispatch = useDispatch()
@@ -34,7 +34,7 @@ const Nav = ({themeToggle, theme}) => {
                     </Link>
                     <Link href="/" passHref>
                         <StyledLogoResponsive>
-                        <img style={{height:"50px"}} src={"/ecommics-logo-responsive.svg"} />
+                        <img style={{height:"35px"}} src={"/ecommics-logo-responsive.svg"} />
                         </StyledLogoResponsive>
                     </Link>
                     <Link href="/search" passHref>
@@ -42,32 +42,8 @@ const Nav = ({themeToggle, theme}) => {
                     </Link>
                     <div className="findItem"><div className="findItemMargin"><Find /></div></div>
                     
-                    {/* <Link href="/signuppage" passHref>
-                        <StyledLink>Crear cuenta</StyledLink>
-                    </Link>
-                    <Link href="/" passHref>
-                        <StyledLink>Ingresá</StyledLink>
-                    </Link>
-                    <Link href={`/user/${userData.nickname}`} passHref>
-                        <StyledLink>Panel de usuario</StyledLink>
-                    </Link>
-                    <Link href="/" passHref>
-                        <StyledLink onClick={() => {handleSignOut()}}>Salir</StyledLink>
-                    </Link> */}
-                    <UserMenu themeToggle={themeToggle}/>
-                    {/* <input
-                    onChange={themeToggle}
-                    className="react-switch-checkbox"
-                    id={`react-switch-new1`}
-                    type="checkbox"
-                    />
-                    <label
-                    // style={{ background: isOn && '#06D6A0' }}
-                    className="react-switch-label"
-                    htmlFor={`react-switch-new1`}
-                    >
-                    <span className={`react-switch-button`} />
-                    </label> */}
+                    <UserMenu/>
+                    
             </Navbar>
         </>
     )

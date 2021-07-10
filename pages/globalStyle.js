@@ -40,6 +40,7 @@ export const StyledLink = styled.a`
     ${'' /* padding: 0rem 1rem; */}
     text-decoration: none;
     font-size: 0.875rem;
+    font-family: ubuntu;
     &:hover{
       color: #0096FF;
     }

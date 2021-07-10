@@ -27,6 +27,7 @@ background: none;
 
 export const MenuTriggerSpan = styled.span `
 vertical-align: middle;
+font-family: Ubuntu;
 font-size: 0.875rem;
 margin: 0 10px;
 color: ${(props) => props.theme.fontColor};

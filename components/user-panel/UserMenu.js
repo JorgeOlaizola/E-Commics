@@ -3,6 +3,7 @@ import { useRef } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { useDetectOutsideClick } from "./useDetectOutsideClick.js";
 import { signOut } from '../../store/actions/normalUsersActions.js';
+import { themeToggle } from '../../store/actions/stylesActions.js';
 import Modal from './Modal.js';
 import React, {useState} from 'react';
 import {MenuContainer, MenuTrigger, MenuTriggerSpan, MenuTriggerImg, Menu, MenuUl, MenuLi, MenuButton} from './UserStyles';
@@ -10,7 +11,7 @@ import { LigthDarkThemeDiv } from '../../pages/globalStyle.js'
 import { SearchIcon, ShoppingCartIcon } from '@heroicons/react/outline'
 
 
-const UserMenu = ({themeToggle}) => {
+const UserMenu = () => {
   const [showModal, setShowModal] = useState(false);
   const [signType, setSignType] = useState("signIn");
 
@@ -21,6 +22,7 @@ const UserMenu = ({themeToggle}) => {
   const dispatch = useDispatch()
 
   const userData = useSelector(state => state.user.userData)
+  const theme = useSelector(state => state.styles.theme)
 
   function handleSignOut() {
       dispatch(signOut())
@@ -36,6 +38,14 @@ const UserMenu = ({themeToggle}) => {
     setShowModal(true)
   }
 
+  function handleToggle(){
+    dispatch(themeToggle())
+  }
+
+// function functiontoggle{
+//   theme === "light" ? "dark" : "light"
+//   themeToggle(payloadtheme)
+// }
 
   return (
     <div>
@@ -100,10 +110,11 @@ const UserMenu = ({themeToggle}) => {
            <MenuLi>
               <MenuButton>
                 <input 
-                onChange={themeToggle}
+                onChange={() => {handleToggle()}}
                 className="react-switch-checkbox"
                 id={`react-switch-new1`}
                 type="checkbox"
+                checked ={theme === "light" ? false : true}
                 />
                 <label
                 // style={{ background: isOn && '#06D6A0' }}

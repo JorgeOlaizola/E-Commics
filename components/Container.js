@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Navbar from './Navbar.js';
 import Footer from './Footer.js';
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { getCategories } from '../store/actions/categoriesActions.js';
 import { lightTheme, darkTheme, GlobalStyles, StyledApp} from '../pages/globalStyle.js'
 import styled, { ThemeProvider } from "styled-components";
@@ -29,14 +29,17 @@ const DivContainer = styled.div`
 
 const Container = (props) => {
     const dispatch = useDispatch()
+
+    const theme = useSelector(state => state.styles.theme)
+console.log(useSelector(state => state.styles))
     useEffect(() => {
         console.log("estoy en el container", localStorage.getItem("sessionSaved"))
         dispatch(getCategories());
     }, [dispatch])
-    const [theme, setTheme] = useState("light");
-    const themeToggle = () => {
-      theme === "light" ? setTheme("dark") : setTheme("light");
-    };
+    // const [theme, setTheme] = useState("light");
+    // const themeToggle = () => {
+    //   theme === "light" ? setTheme("dark") : setTheme("light");
+    // };
     
 
 
@@ -49,7 +52,7 @@ const Container = (props) => {
             <GlobalStyles/>
             <StyledApp>
                 <DivContainer>
-                    <Navbar themeToggle={themeToggle} theme={theme}/>
+                    <Navbar theme={theme}/>
                     {props.children}
                 </DivContainer>
                 <Footer/>

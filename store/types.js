@@ -36,3 +36,9 @@ export const filter = {
     SET_PAGE: 'SET_PAGE',
     RESET_FILTERS: 'RESET_FILTERS'
 }
+
+// Types STYLES
+
+export const styles = {
+    TOGGLE_THEME: "TOGGLE_THEME"
+}

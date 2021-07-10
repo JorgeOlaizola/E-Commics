@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-
+import { getUserData } from '../../store/actions/normalUsersActions'
 const StyledContainer = styled.div`
     margin-top: 30px;
     width: 100%;

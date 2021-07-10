@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react';
-import { getProducts } from '../store/actions/productActions'
+import { getFilteredProducts, resetFilters } from '../store/actions/productActions'
 import Product from './Product'
 import styled from 'styled-components';
 
@@ -13,9 +13,14 @@ flex-wrap:wrap;
 const Products = () => {
     const dispatch = useDispatch();
     const products = useSelector(state => state.product.products);
+    const filters = useSelector(state => state.product.filters)
+
     useEffect(() => {
-        dispatch(getProducts())
-    }, [dispatch])
+        dispatch(getFilteredProducts(filters))
+        return () => {
+            dispatch(resetFilters())
+        }
+    }, [])
     return (
         <CardsContainer>   
             {products && products.map(p => <Product id = {p._id} user={p.user.nickname} category={p.category.title} image={p.image} title={p.title} price={p.price} description={p.description} />)}

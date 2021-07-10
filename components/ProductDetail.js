@@ -1,5 +1,7 @@
 import styled from 'styled-components'
-import { useSelector }  from 'react-redux'
+import { useSelector, useDispatch }  from 'react-redux'
+import { useEffect } from 'react'
+import { resetProductDetail } from '../store/actions/productActions'
 
 
 const Father = styled.div`
@@ -45,9 +47,13 @@ height: 100%;
 
 
 const ProductDetail = ({id}) => {
-    
+    useEffect(() => {
+        return () => {
+            dispatch(resetProductDetail())
+        }
+    }, [])
+    const dispatch = useDispatch()
     const detail = useSelector(state => state.product.productDetail)
-    console.log(detail)
     return (
         <Father>
             {detail && <DetailConteiner>

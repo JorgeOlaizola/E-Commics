@@ -25,19 +25,19 @@ const Nav = ({ theme}) => {
         <>
             <Navbar>
                 {/* <button onClick={() => props.themeToggle()}>Cambiar modo</button> */}
-                    <Link href="/" passHref>
+                    <Link href="/" passHref replace>
                         <StyledLogo>{theme === "light" 
                         ? <img style={{width:"150px"}} src={"https://ecommics.s3.sa-east-1.amazonaws.com/images/ecommics-logo.svg"} /> 
                         : <img style={{width:"150px"}} src={"https://ecommics.s3.sa-east-1.amazonaws.com/images/ecommics-logo-white.svg"} />}
                         </StyledLogo>
                         {/* <StyledLink><img style={{width:"150px"}} src={"https://ecommics.s3.sa-east-1.amazonaws.com/images/ecommics-logo.svg"} /></StyledLink> */}
                     </Link>
-                    <Link href="/" passHref>
+                    <Link href="/" passHref replace>
                         <StyledLogoResponsive>
                         <img style={{height:"35px"}} src={"/ecommics-logo-responsive.svg"} />
                         </StyledLogoResponsive>
                     </Link>
-                    <Link href="/search" passHref>
+                    <Link href="/search" passHref replace>
                         <StyledLink className={router.pathname == '/search' ? "active" : ""}>Explorar</StyledLink>
                     </Link>
                     <div className="findItem"><div className="findItemMargin"><Find /></div></div>

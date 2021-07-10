@@ -5,6 +5,10 @@ import { useDetectOutsideClick } from "./useDetectOutsideClick.js";
 import { signOut } from '../../store/actions/normalUsersActions.js';
 import Modal from './Modal.js';
 import React, {useState} from 'react';
+import {MenuContainer, MenuTrigger, MenuTriggerSpan, MenuTriggerImg, Menu, MenuUl, MenuLi, MenuButton} from './UserStyles';
+import { LigthDarkThemeDiv } from '../../pages/globalStyle.js'
+import { SearchIcon, ShoppingCartIcon } from '@heroicons/react/outline'
+
 
 const UserMenu = ({themeToggle}) => {
   const [showModal, setShowModal] = useState(false);
@@ -34,21 +38,21 @@ const UserMenu = ({themeToggle}) => {
 
 
   return (
-    <div className="container">
-      <div className="menu-container">
-        <button onClick={onClick} className="menu-trigger">
-          <span>Usuario</span>
-          <img
-            src="https://ecommics.s3.sa-east-1.amazonaws.com/images/superuser.png"
-            alt="User avatar"
-          />
-        </button>
-        <nav
+    <div>
+      <MenuContainer>
+            <MenuTrigger onClick={onClick}>
+              <MenuTriggerSpan>Usuario</MenuTriggerSpan>
+              <MenuTriggerImg
+                src="https://ecommics.s3.sa-east-1.amazonaws.com/images/superuser.png"
+                alt="User avatar"
+              />
+            </MenuTrigger>
+        <Menu
           style={{zIndex: '10'}}
           ref={dropdownRef}
           className={`menu ${isActive ? "active" : "inactive"}`}
         >
-          <ul>
+          <MenuUl>
             {
               userData.log === false ?
               <>
@@ -57,22 +61,22 @@ const UserMenu = ({themeToggle}) => {
                   <a>Crear cuenta</a>
                   </Link>
                 </li> */}
-                <div>
-                    <button onClick={() => handleClickSignUp()}>Crear cuenta</button>
+                <MenuLi>
+                    <MenuButton onClick={() => handleClickSignUp()}>Crear cuenta</MenuButton>
                     <Modal signType={signType}
                     onClose={() => setShowModal(false)}
                     show={showModal}
                     >
                     </Modal>
-                </div>
-                <div>
-                    <button onClick={() => handleClickSignIn()}>Ingresar</button>
+                </MenuLi>
+                <MenuLi>
+                    <MenuButton onClick={() => handleClickSignIn()}>Ingresar</MenuButton>
                     <Modal signType={signType}
                     onClose={() => setShowModal(false)}
                     show={showModal}
                     >
                     </Modal>
-                </div>
+                </MenuLi>
                 {/* <li>
                 <Link href="/" passHref>
                   <a>Ingresá</a>
@@ -81,20 +85,20 @@ const UserMenu = ({themeToggle}) => {
               </>
               :
               <>
-                <li>
+                <MenuLi>
                 <Link href={`/user/${userData.nickname}`} passHref>
-                  <a>Panel de usuario</a>
+                  <MenuButton>Panel de usuario</MenuButton>
                 </Link>
-                </li>
-                <li>
+                </MenuLi>
+                <MenuLi>
                 <Link href="/" passHref>
-                  <a onClick={() => {handleSignOut()}}>Salir</a>
+                  <MenuButton onClick={() => {handleSignOut()}}>Salir</MenuButton>
                 </Link>
-                </li>
+                </MenuLi>
               </>
             }
-           <li>
-              <a>
+           <MenuLi>
+              <MenuButton>
                 <input 
                 onChange={themeToggle}
                 className="react-switch-checkbox"
@@ -108,11 +112,15 @@ const UserMenu = ({themeToggle}) => {
                 >
                 <span className={`react-switch-button`} />
                 </label>
-              </a>
-           </li>
-          </ul>
-        </nav>
-      </div>
+              </MenuButton>
+           </MenuLi>
+          </MenuUl>
+        </Menu>
+        <Link href="/" passHref>
+                    <ShoppingCartIcon className="cartIcon"/>
+                    {/* <i class="fa fa-trash-o" aria-hidden="true"></i> */}
+        </Link>
+      </MenuContainer>
     </div>
   );
 }

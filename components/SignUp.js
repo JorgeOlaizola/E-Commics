@@ -137,10 +137,12 @@ const SignUp = ({handleCloseClick}) => {
         e.preventDefault();
         axios.post( process.env.NEXT_PUBLIC_POST_USER_URL, newUser)
           .then(function(response) {
-            console.log(response);
-          }).catch(error => console.log(error))
-          setThanks(true);
-          console.log(thanks)
+              response.data.error_msg && alert(response.data.error_msg)
+              response.data.success_msg && setThanks(true);
+              
+            //console.log(response);
+          }).catch(error => console.error(error))
+         // console.log(thanks)
     //    history.push('/thanks');
     }
 
@@ -174,7 +176,7 @@ const SignUp = ({handleCloseClick}) => {
                         <div className="">
     						<p className="">Acá puedes subir tu avatar</p>
     						<input type="file" />
-    						<button className="" >Subir!</button>
+    						{/* <button className="" >Subir!</button> */}
     					</div>
                         <div>
                             <label className="">Contraseña</label>

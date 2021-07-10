@@ -7,44 +7,55 @@ import styled from 'styled-components';
 const CardConteiner = styled.div`
 border: 1px solid grey;
 margin: 1rem;
-
 display: flex;
 flex-direction: column;
-justify-content: center;
-align-items:center;
-width: 25%;
-max-height:620px;
+justify-content: flex-start;
+width: 280px;
+height:400px;
 `
 
 
-//Align items
-const ConteinerInfo = styled.div`
-display: flex;
-flex-direction: raw;
+
+
+//Image container
+const ImageConteiner = styled.div`
+border: 1px solid grey;
+width:100%;
+height:60%;
+display:flex;
+justify-content:center;
 `
+
 //Detail conteiner (Title, description, price, detail link, etc.) <-- it doesnt includes the img
 const ConteinerDetail = styled.div`
 display: flex;
 flex-direction: column;
+justify-content: space-between;
 flex-wrap: wrap;
-justify-content: space-around;
-margin-left: 50px;
+padding-left:10%;
 margin-bottom: 5%;
-`
-//Image container
-const ImageConteiner = styled.div`
 width:100%;
-align-self: top;
+height:40%;
+`
 
+//price title
+const PriceTitle = styled.h1`
+font-size:1.5rem;
+margin-bottom:5px;
+`
+//card product title
+const CardProductTitle = styled.h2`
+font-size:1.2rem;
+margin-top: 10px;
 `
 
 //Styled link button
-const StyledButton = styled.button`
-padding: 0.5rem;
-
+const StyledButton = styled.div`
+margin-bottom: 5px;
+color: red;
 font-size: 1rem;
-width: 60%;
 `
+
 
 
 const Product = (props) => {
@@ -52,18 +63,20 @@ const Product = (props) => {
     return (
         <CardConteiner>
             <ImageConteiner>
-                <img width="100%" src={props.image}></img>
+                <img height="100%" src={props.image}></img>
 
             </ImageConteiner>
                 <ConteinerDetail>
-                    <h1>{props.title}</h1> 
-                    <p>{props.description}</p> 
-                    <span>Precio: {props.price} $ </span>
-                    <span>Categoría: {props.category}</span>
-                    <span>Publicado por {props.user}</span>
+                    <div>
+                        <PriceTitle>${props.price}</PriceTitle> 
+                        <CardProductTitle> {props.title}  </CardProductTitle>
+                    </div>
+
                     <StyledButton onClick={() => dispatch(getProductDetail(props.id))}>
-                        <Link href={`/detail/${props.id}`} passHref> +Info </Link>
+                        <Link href={`/detail/${props.id}`} passHref> ver detalle </Link>
                     </StyledButton>
+                     
+                    
                 </ConteinerDetail>
            
 

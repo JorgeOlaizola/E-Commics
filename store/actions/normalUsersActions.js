@@ -3,8 +3,13 @@ import axios from 'axios';
 
 export function getUserData() {
     return async function(dispatch) {
-        const userData = await axios.get(`${process.env.NEXT_PUBLIC_LOCALHOST}/api/users`);
-        dispatch({ type: user.GET_USER_DATA, payload: userData.data })
+        try {
+            const userData = await axios.get(`${process.env.NEXT_PUBLIC_LOCALHOST}/api/users`);
+            dispatch({ type: user.GET_USER_DATA, payload: userData.data })
+            
+        } catch (error) {
+            console.error(error)    
+        }
     }
 }
 
@@ -14,16 +19,26 @@ export function register() {
 
 export function signIn(data) {
     return async function(dispatch) {
-        await axios.post(`${process.env.NEXT_PUBLIC_LOCALHOST}/api/users/logIn`, data);
-        const userData = await axios.get(`${process.env.NEXT_PUBLIC_LOCALHOST}/api/users`);
-        localStorage.setItem("sessionSaved", JSON.stringify(userData.data))
-        dispatch({ type: user.GET_USER_DATA, payload: userData.data })
+        try {
+            await axios.post(`${process.env.NEXT_PUBLIC_LOCALHOST}/api/users/logIn`, data);
+            const userData = await axios.get(`${process.env.NEXT_PUBLIC_LOCALHOST}/api/users`);
+            localStorage.setItem("sessionSaved", JSON.stringify(userData.data))
+            dispatch({ type: user.GET_USER_DATA, payload: userData.data })
+            
+        } catch (error) {
+            console.error(error)    
+        }
     }
 }
 
 export function signOut() {
     return async function(dispatch) {
-        const signOut = await axios.get(`${process.env.NEXT_PUBLIC_LOCALHOST}/api/users/logOut`);
+        try {
+            
+            const signOut = await axios.get(`${process.env.NEXT_PUBLIC_LOCALHOST}/api/users/logOut`);
+        } catch (error) {
+            console.error(error)    
+        }
         localStorage.setItem("sessionSaved", JSON.stringify("no session"))
         dispatch({ type: user.CLEAR_USER_DATA})
     }

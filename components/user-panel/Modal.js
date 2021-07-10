@@ -3,6 +3,7 @@ import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import SignUp from '../SignUp';
 import SignInForm from '../SignInForm';
+import { LigthDarkThemeDiv } from '../../pages/globalStyle.js'
 
 
 const Modal = ({ show, onClose, children, title, signType }) => {
@@ -18,21 +19,23 @@ const Modal = ({ show, onClose, children, title, signType }) => {
   
     const modalContent = show ? (
       <StyledModalOverlay>
-        <StyledModal>
-          <StyledModalHeader>
-            <a href="#" onClick={handleCloseClick}>
-              x
-            </a>
-          </StyledModalHeader>
-          {title && <StyledModalTitle>{title}</StyledModalTitle>}
-          <StyledModalBody>
-          {children}
-          {signType === "signUp" ?  
-            <SignUp handleCloseClick={handleCloseClick}/> :
-            <SignInForm handleCloseClick={handleCloseClick}/>
-          }
-          </StyledModalBody>
-        </StyledModal>
+        <LigthDarkThemeDiv>
+          <StyledModal>
+            <StyledModalHeader>
+              <a href="#" onClick={handleCloseClick}>
+                x
+              </a>
+            </StyledModalHeader>
+            {title && <StyledModalTitle>{title}</StyledModalTitle>}
+            <StyledModalBody>
+            {children}
+            {signType === "signUp" ?  
+              <SignUp handleCloseClick={handleCloseClick}/> :
+              <SignInForm handleCloseClick={handleCloseClick}/>
+            }
+            </StyledModalBody>
+          </StyledModal>
+        </LigthDarkThemeDiv>
       </StyledModalOverlay>
     ) : null;
   
@@ -57,10 +60,10 @@ const Modal = ({ show, onClose, children, title, signType }) => {
   `;
   
   const StyledModal = styled.div`
-    background: white;
     width: 500px;
     height: 600px;
     padding: 15px;
+    border: 1 px solid black;
   `;
   const StyledModalOverlay = styled.div`
     position: absolute;

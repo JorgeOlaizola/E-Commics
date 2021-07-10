@@ -1,9 +1,28 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
-import { Button } from '../pages/globalStyle.js'
+import { Button, FindDiv, InputText  } from '../pages/globalStyle.js'
 import { SearchIcon } from '@heroicons/react/outline'
 
+
+
+
+const FindButton = styled.button`
+border: none; 
+background: #C0F0FF;
+height: 25px;
+cursor: pointer;
+&:hover{
+  background: #7ECAFF;
+}
+&:active{
+  background: #0096FF;
+}
+${'' /* @media (max-width: 480px) {
+  background: none;
+  color: ${(props) => props.theme.fontColor};
+} */}
+`
 const Find = () => {
     const [productName, setproductName] = useState("");
 
@@ -19,9 +38,9 @@ const Find = () => {
     return (
         <div >
         <form className="" onSubmit={(e) => handleSubmit(e)}>
-        <div>
-          <input
-          style={{border: "1px solid black", background: "none", width: "300px", height: "25px"}}
+        <FindDiv>
+          <InputText
+    
             type="text"
             id="findProduct"
             autoComplete="on"
@@ -29,11 +48,11 @@ const Find = () => {
             value={productName}
             onChange={(e) => handleChange(e)}
           />
-          <button type="submit" style={{border: "none", background: "#FFC0C0", height: "25px", cursor: "pointer"}}>
-              <SearchIcon style={{width: "10px", padding: "0", color: "black"}}/>
+          <FindButton type="submit" >
+              <SearchIcon className="findIcon"/>
               {/* <i class="fa fa-trash-o" aria-hidden="true"></i> */}
-              </button>
-        </div>
+          </FindButton>
+        </FindDiv>
 
       </form>
         </div>

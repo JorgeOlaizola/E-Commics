@@ -6,6 +6,43 @@ body {
   }
 
 
+  .menu.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .active {
+    color: #0096FF;
+
+  }
+
+  .findIcon {
+    width: 10px;
+  }
+
+  .cartIcon {
+    width: 20px;
+  }
+
+  @media (max-width: 480px) {
+    .findIcon {
+      width: 10px;
+    }
+    .findItem{
+      order: 5;
+      margin: 0 auto;
+    }
+    .findItemMargin{
+      margin: 10px 0px;
+    }
+  }
+
+ 
+  /* 
+  sugus/lo llevó al styled components de users
+  
+  
   .menu-container {
     position: relative;
     display: flex;
@@ -15,7 +52,6 @@ body {
   
   .menu-trigger {
     background: #ffffff;
-    /* border-radius: 90px; */
     cursor: pointer;
     display: flex;
     justify-content: space-between;
@@ -25,7 +61,7 @@ body {
     border: none;
     vertical-align: middle;
     transition: box-shadow 0.4s ease;
-    margin-left: auto; /* Strictly for positioning */
+    margin-left: auto; 
   }
   
   .menu-trigger:hover {
@@ -45,7 +81,7 @@ body {
   
   .menu {
     background: #ffffff;
-    /* border-radius: 8px; */
+
     position: absolute;
     top: 80px;
     right: 40px;
@@ -79,4 +115,4 @@ body {
     padding: 15px 20px;
     display: block;
   }
-  
+   */

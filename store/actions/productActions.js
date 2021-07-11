@@ -47,13 +47,15 @@ export function searchByCategory (category) {
     }
 }
 
-export function searchByPrice (min, max) {
-    const price = {
-        start: min,
-        end: max
-    }
+export function searchByPriceMin (min) {
     return (dispatch) => {
-        return dispatch({ type: filter.SEARCH_BY_PRICE, payload: price})
+        return dispatch({ type: filter.SEARCH_BY_PRICE_MIN, payload: min})
+    }
+}
+
+export function searchByPriceMax (max) {
+    return (dispatch) => {
+        return dispatch({ type: filter.SEARCH_BY_PRICE_MAX, payload: max})
     }
 }
 

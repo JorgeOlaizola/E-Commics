@@ -67,7 +67,7 @@ product.getProducts = async (req, res) => {
                             _id: products._id,
                         title: products.title,
                         description: products.description,
-                        image: products.image,
+                        image:  products.image.includes("&&") ? products.image.split("&&") : [products.image],
                         price: products.price,
                         user: {
                             _id: products.user._id, 
@@ -98,7 +98,7 @@ product.getProducts = async (req, res) => {
                             _id: products._id,
                         title: products.title,
                         description: products.description,
-                        image: products.image,
+                        image: products.image.includes("&&") ? products.image.split("&&") : [products.image],
                         price: products.price,
                         user: {
                             _id: products.user._id, 
@@ -132,7 +132,7 @@ product.getProductDetail = async (req, res) => {
                         _id: product._id,
                         title: product.title,
                         description: product.description,
-                        image: product.image,
+                        image: product.image.includes("&&") ? product.image.split("&&") : [product.image],
                         stock: product.stock,
                         price: product.price,
                         user: {

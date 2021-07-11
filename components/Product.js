@@ -29,7 +29,8 @@ const ImageConteiner = styled.div`
 background-image: url(${(props)=>props.imgUrl});
 background-position:center;
 backdrop-filter: brightness(1.5);
-backround-size:cover;
+background-size:cover;
+
 
 border-bottom: 1px solid grey;
 width:100%;
@@ -53,6 +54,12 @@ padding-left:10%;
 margin-bottom: 5%;
 width:100%;
 height:40%;
+`
+//Etiqueta img
+const ProductImage =  styled.img`
+height:100%;
+max-width:100%;
+
 `
 
 //price title
@@ -82,8 +89,8 @@ const Product = (props) => {
         <CardConteiner>
             <ImageConteiner imgUrl={image}>
                 <DivParaSafar>
-                 <img height="100%" src={props.image}></img>
-
+                 {/* <img height="100%" src={props.image} ></img> */}
+                    <ProductImage src={props.image}></ProductImage>
                 </DivParaSafar>
 
             </ImageConteiner>

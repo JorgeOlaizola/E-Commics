@@ -4,11 +4,12 @@ import { getFilteredProducts, resetFilters } from '../store/actions/productActio
 import Product from './Product'
 import styled from 'styled-components';
 
-const CardsContainer = styled.div`
-
+const CardsContainer = styled.main`
+grid-area: main;
 display:flex;
 flex-direction:row;
 flex-wrap:wrap;
+margin:auto;
 `
 const Products = () => {
     const dispatch = useDispatch();

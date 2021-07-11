@@ -1,5 +1,7 @@
 const User = require('../models/User');
 const passport = require('passport')
+const Product = require('../models/Product')
+ObjetcID = require('mongodb').ObjetcID
 
 const users = {}
 
@@ -29,7 +31,7 @@ users.registerController = async (req, res) => {
     if(!CheckNickname){
         const CheckEmail = await User.findOne({ email: email })
         if(!CheckEmail) {
-            const newUser = await new User({ email, password, password2, name, surname, nickname, avatar, role:"user" })
+            const newUser = await new User({ email, password, password2, name, surname, nickname, avatar, role:"user"})
             newUser.password = await newUser.encryptPassword(password)
             await newUser.save()
             return res.json({ success_msg: 'Cuenta registrada con éxito!'})
@@ -56,9 +58,25 @@ users.logOut = async (req, res) => {
 
 users.userInfo = async (req, res) => {
     console.log("revisando req de userInfo", req)
-    const {_id, email, nickname, name, surname } = req.user
-    res.json({_id, email, nickname, name, surname})
+    const {_id, email, nickname, name, surname, favorites } = req.user
+    res.json({_id, email, nickname, name, surname, favorites})
 }
 
+users.favorites = async (req, res) => {
+    const { favoriteId, userId } = req.body
+    User.findById(userId, (err, user) => {
+        if(user.favorites.includes(favoriteId)){
+            user.favorites = user.favorites.filter((f) => {
+                return !f.equals(favoriteId)
+            })    
+        }
+        else{ 
+            user.favorites.push(favoriteId) 
+        }
+        user.save((err, user) => {
+            return res.json(user.favorites)
+        })
+    })
+}
 
 module.exports = users

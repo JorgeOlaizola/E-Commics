@@ -3,7 +3,8 @@ const {
     registerController,
     logIn,
     logOut,
-    userInfo
+    userInfo,
+    favorites
     } = require('../controllers/users.controllers')
 const {
     isAuthenticated
@@ -23,5 +24,8 @@ router.get('/logOut', logOut)
 
 //Credenciales
 router.get('/', isAuthenticated, userInfo)
+
+//Favourites
+router.post('/favorites', favorites)
 
 module.exports = router;

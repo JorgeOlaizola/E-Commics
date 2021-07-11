@@ -15,7 +15,8 @@ export const product = {
 //Types USER
 export const user = {
     GET_USER_DATA: 'GET_USER_DATA',
-    CLEAR_USER_DATA: 'CLEAR_USER_DATA'
+    CLEAR_USER_DATA: 'CLEAR_USER_DATA',
+    HANDLE_FAVORITES: 'HANDLE_FAVORITES'
 }
 
 //Types CATEGORY

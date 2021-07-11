@@ -65,14 +65,12 @@ const StyledButton = styled.button`
 `
 
 const UserPanel = () => {
-
     const userData = useSelector(state => state.user.userData);
-
     useEffect(() => {
         if(userData.log === false) {
             window.location.href = "/"
         }
-    }, []);
+}, []);
 
     return (
         <StyledContainer>
@@ -112,7 +110,7 @@ const UserPanel = () => {
                     <img style={{width:"150px", height:"200px"}} src={"https://cdn.pixabay.com/photo/2016/09/03/12/06/marvel-1641554_960_720.jpg"} /> 
                 </DataRow>
                 <StyledButton>Ver todas mis publicaciones</StyledButton>    
-                <Link href="/addproduct" passHref>
+                <Link href="/addproduct" passHref replace>
                     <StyledButton>Crear publicacion</StyledButton>
                 </Link>
             </DataSection>

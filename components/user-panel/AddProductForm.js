@@ -86,8 +86,14 @@ const AddProductForm = () => {
             })
         }
     }
+    const keyEnter = (e)=>{
+        if(e.key === 'Enter'){
+            e.preventDefault()
+        }
+    }
     const handleSubmit = async (e)=> {
         e.preventDefault();
+        console.log("mande")
         const terminos = document.getElementById("terminos")
         if(terminos.checked){
             if(imageSelected){
@@ -107,7 +113,7 @@ const AddProductForm = () => {
                         ...input,
                         image: data.join("&&")
                     }
-                        console.log(respuesta)
+                    
                     dispatch(addSellingProduct(respuesta));
                     router.push("/search")
                 })
@@ -132,7 +138,7 @@ const AddProductForm = () => {
         details.removeAttribute("open");
     }
     const GuardarImage =(e)=>{
-        console.log(e.target.files)
+      
         setImageSelected([...e.target.files])
     }
     const mostrar = (i)=>{
@@ -152,17 +158,19 @@ const AddProductForm = () => {
                     <label htmlFor="inputNombre">Nombre</label>
                     <br/>
                     <FormInput
+                        onKeyDown={keyEnter}
                         id="inputNombre"
                         type='text'
                         name='title'
                         value={input.title}
                         onChange={(e) => {handleChange(e)}}
-                    />
+                        />
                 </DivFormItem>
                 <DivFormItem>
                     <label htmlFor="inputDescription">Descripción</label>
                     <br/>
                     <FormInput
+                        onKeyDown={keyEnter}
                         id="inputDescription"
                         name="description"
                         value={input.description}
@@ -173,6 +181,7 @@ const AddProductForm = () => {
                     <label htmlFor="inputStock">Stock</label>
                     <br/>
                     <FormInput
+                        onKeyDown={keyEnter}
                         id="inputStock"
                         type='number'
                         name='stock'
@@ -184,6 +193,7 @@ const AddProductForm = () => {
                     <label htmlFor="inputPrice">Precio</label>
                     <br/>
                     <FormInput
+                        onKeyDown={keyEnter}
                         id="inputPrice"
                         type='number'
                         name='price'
@@ -207,6 +217,7 @@ const AddProductForm = () => {
                 <DivFormItem>
                     <ImageLabel htmlFor="file-upload">Cargar imagen</ImageLabel>
                     <ImageInput
+                        onKeyDown={keyEnter}
                         multiple
                         type='file'
                         id="file-upload"
@@ -217,6 +228,7 @@ const AddProductForm = () => {
                 </FormFieldset>
                 <DivFormItem>
                 <input
+                    onKeyDown={keyEnter}
                     id="terminos"
                     type="checkbox"
                     />

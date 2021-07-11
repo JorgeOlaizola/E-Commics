@@ -48,7 +48,7 @@ product.getProducts = async (req, res) => {
     } 
 
     //filtro por texto ejemplo productos que en el "title" contengan "Ecommics"
-    if(search && search.text) opts["$and"].push({[search.in]: { $regex: '.*' + search.text + '.*' }} )
+    if(search && search.text) opts["$and"].push({[search.in]: { $regex: '.*' + search.text + '.*' ,$options: 'i'}} )
 
     //si no hay ningun filtro eliminamos la propiedad $and
     if(opts["$and"].length === 0) delete opts["$and"]

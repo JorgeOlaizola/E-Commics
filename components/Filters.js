@@ -11,8 +11,8 @@ import { useEffect } from "react";
 
 
 //Component conteiner
-const FilterConteiner = styled.div`
-
+const FilterConteiner = styled.aside`
+grid-area: asideLeft;
 display: flex;
 align-items: center;
 flex-direction: column;

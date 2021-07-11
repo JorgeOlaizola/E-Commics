@@ -8,10 +8,20 @@ margin-top: 20px;
 width:100%;
 height:100%;
 display: grid;
+grid-template-areas: "asideLeft main" ;
 grid-template-columns: 25% auto;
+@media (max-width: 900px){
+  grid-template-columns: auto;
+  grid-template-areas:
+  "asideLeft"
+  "main";
+  justify-content:center;
+}
+
 
 
 `
+//grid-template-columns: 25% auto;
 
 const Search = () => {
     return (

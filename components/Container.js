@@ -31,11 +31,14 @@ const Container = (props) => {
     const dispatch = useDispatch()
 
     const theme = useSelector(state => state.styles.theme)
+    
 //console.log(useSelector(state => state.styles))
     useEffect(() => {
         //console.log("estoy en el container", localStorage.getItem("sessionSaved"))
         dispatch(getCategories());
     }, [dispatch])
+
+    // Redux:
     // const [theme, setTheme] = useState("light");
     // const themeToggle = () => {
     //   theme === "light" ? setTheme("dark") : setTheme("light");

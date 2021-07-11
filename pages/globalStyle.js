@@ -6,7 +6,7 @@ export const lightTheme = {
   body: '#fff',
   fontColor: '#000',
 	backgroundButton: '#fff',
-	borderButton: 'linear-gradient(to right, grey, white)',
+	borderButton: 'linear-gradient(to right, grey, #E4E4E4)',
   backgroundInput: '#fff',
   backgroundNav: '#fff',
   backgroundFindDiv: "#E6E6"
@@ -125,6 +125,7 @@ export const InputDisable = styled.input`
   color: grey;
   background-color: ${(props) => props.theme.backgroundButton};
   width: 100%;
+  padding: 5px 10px;
   border: none;
   cursor: not-allowed;
 `

@@ -5,13 +5,20 @@ import styled from 'styled-components';
 
 //Component conteiner
 const CardConteiner = styled.div`
-border: 1px solid grey;
+transition:  all 0.5s ease-out;
+
 margin: 1rem;
 display: flex;
 flex-direction: column;
 justify-content: flex-start;
 width: 280px;
 height:400px;
+box-shadow: 0 0 11px rgba(33,33,33,.2);
+&:hover {
+    border: none;
+    box-shadow: 0 0 20px rgba(33,33,33,.2);
+    transform: scale(1.1);
+}
 `
 
 
@@ -19,13 +26,23 @@ height:400px;
 
 //Image container
 const ImageConteiner = styled.div`
-border: 1px solid grey;
+background-image: url(${(props)=>props.imgUrl});
+background-position:center;
+backdrop-filter: brightness(1.5);
+backround-size:cover;
+
+border-bottom: 1px solid grey;
 width:100%;
 height:60%;
 display:flex;
 justify-content:center;
-`
 
+`
+//ATENCION LO PONGO EN ESPAÑOL DIV MOMENTANEO HASTA QUE SAQUE COMO DAR BLUR SOLO A LA IMAGEN DE FONDO
+const DivParaSafar = styled.div`
+border: 4px solid white;
+
+`
 //Detail conteiner (Title, description, price, detail link, etc.) <-- it doesnt includes the img
 const ConteinerDetail = styled.div`
 display: flex;
@@ -56,14 +73,18 @@ color: red;
 font-size: 1rem;
 `
 
-
+//backdrop-filter: blur(5px)git pull
 
 const Product = (props) => {
     const dispatch = useDispatch()
+    const image= props.image;
     return (
         <CardConteiner>
-            <ImageConteiner>
-                <img height="100%" src={props.image}></img>
+            <ImageConteiner imgUrl={image}>
+                <DivParaSafar>
+                 <img height="100%" src={props.image}></img>
+
+                </DivParaSafar>
 
             </ImageConteiner>
                 <ConteinerDetail>

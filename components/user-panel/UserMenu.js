@@ -31,11 +31,13 @@ const UserMenu = () => {
   function handleClickSignUp() {
     setSignType("signUp")
     setShowModal(true)
+    document.body.style.overflow = "hidden"
   }
 
   function handleClickSignIn() {
     setSignType("signIn")
     setShowModal(true)
+    document.body.style.overflow = "hidden"
   }
 
   function handleToggle(){
@@ -102,7 +104,7 @@ const UserMenu = () => {
                 </MenuLi>
                 <MenuLi>
                 <Link href="/" passHref>
-                  <MenuButton onClick={() => {handleSignOut()}}>Salir</MenuButton>
+                  <MenuButton onClick={() => {handleSignOut(); setShowModal(false)}}>Salir</MenuButton>
                 </Link>
                 </MenuLi>
               </>

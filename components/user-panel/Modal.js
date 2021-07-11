@@ -6,7 +6,7 @@ import SignInForm from '../SignInForm';
 import { LigthDarkThemeDiv } from '../../pages/globalStyle.js'
 
 
-const Modal = ({ show, onClose, children, title, signType }) => {
+const Modal = ({ show, onSubmitSignUp, onClose, children, title, signType }) => {
     const [isBrowser, setIsBrowser] = useState(false);
     useEffect(() => {
       setIsBrowser(true);
@@ -15,10 +15,11 @@ const Modal = ({ show, onClose, children, title, signType }) => {
     const handleCloseClick = (e) => {
       e.preventDefault();
       onClose();
+      document.body.style.overflow = ""
     };
   
     const modalContent = show ? (
-      <StyledModalOverlay>
+      <StyledModalOverlay style={{zIndex: '10'}}>
         <LigthDarkThemeDiv>
           <StyledModal>
             <StyledModalHeader>
@@ -30,7 +31,7 @@ const Modal = ({ show, onClose, children, title, signType }) => {
             <StyledModalBody>
             {children}
             {signType === "signUp" ?  
-              <SignUp handleCloseClick={handleCloseClick}/> :
+              <SignUp handleCloseClick={handleCloseClick} onClose={onClose}/> :
               <SignInForm handleCloseClick={handleCloseClick}/>
             }
             </StyledModalBody>
@@ -60,8 +61,8 @@ const Modal = ({ show, onClose, children, title, signType }) => {
   `;
   
   const StyledModal = styled.div`
-    width: 500px;
-    height: 600px;
+    width: 320px;
+    height: 100%;
     padding: 15px;
     border: 1 px solid black;
   `;

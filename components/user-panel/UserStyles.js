@@ -85,3 +85,54 @@ export const MenuButton = styled.a`
     color: #202020;
     }
 `
+
+
+// Sign Up and Sing in forms
+
+export const FormContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+` 
+
+export const LogInForm = styled.form`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+` 
+
+export const Eye = styled.div`
+    position: relative;
+    left: -25px;
+    font-size: 90%;
+    &:hover {
+    color: blue;
+    cursor: pointer;
+  }
+` 
+
+export const FormLabel = styled.label`
+    display: inline-block;
+    font-size: 1rem;
+    margin-top: 0.6rem;
+`
+
+export const FormInput = styled.input`
+    margin-top: 0.4rem;
+    width: 100%;
+`
+
+export const FormInputs = styled.div`
+    display: block;
+    padding: 0 10px;
+    outline: none;
+    border-radius: 2px;
+    width: 100%;
+`
+
+export const FormSpan = {
+    fontSize: '0.75rem',
+    color: '#FF0000'
+}

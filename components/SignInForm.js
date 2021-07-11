@@ -22,6 +22,7 @@ const SignInForm = () => {
     const handleSubmit = async (e) => {      
         e.preventDefault();
         dispatch(signIn(input)); 
+        document.body.style.overflow = ""
     }
  
     return (

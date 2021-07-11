@@ -134,7 +134,7 @@ const SignUp = ({onClose}) => {
          // console.log(thanks)
     //    history.push('/thanks');
     // onClose();
-
+    document.body.style.overflow = ""
     }
 
     const isEnabled = newUser.name.length > 0 && newUser.surname.length > 0 && newUser.nickname.length > 0 && newUser.email.length > 0 && newUser.password.length > 0;

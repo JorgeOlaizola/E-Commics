@@ -41,8 +41,10 @@ export default function productReducer(state = initialState, action) {
         return {...state, filters: {...state.filters, search: action.payload}}
         case filter.SEARCH_BY_CATEGORY:
         return {...state, filters: {...state.filters, category: action.payload}}
-        case filter.SEARCH_BY_PRICE:
-        return {...state, filters: {...state.filters, price: action.payload}}
+        case filter.SEARCH_BY_PRICE_MIN:
+        return {...state, filters: {...state.filters, price: {...state.filters.price, start: action.payload}}}
+        case filter.SEARCH_BY_PRICE_MAX:
+            return {...state, filters: {...state.filters, price: {...state.filters.price, end: action.payload}}}
         case filter.SEARCH_BY_SCORE:
         return {...state, filters: {...state.filters, score: action.payload}}
         case filter.SEARCH_BY_USER:

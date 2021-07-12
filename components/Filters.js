@@ -70,7 +70,7 @@ const Filters = () => {
         let newFilters = {
             ...filters
         }
-        if(filters.price.start > filters.price.end){
+        if(parseInt(filters.price.start) > parseInt(filters.price.end)){
             newFilters.price.end = 9999999999
         }
         dispatch(getFilteredProducts(newFilters))

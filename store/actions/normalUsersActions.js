@@ -1,6 +1,9 @@
 import {user} from '../types';
 import axios from 'axios';
 
+
+// Session 
+
 export function getUserData() {
     return async function(dispatch) {
         try {
@@ -43,3 +46,11 @@ export function signOut() {
         dispatch({ type: user.CLEAR_USER_DATA})
     }
 }
+
+// Tools
+
+export function handleFavorites(productId, userId) {
+    return (dispatch) => {
+        axios.post(`${process.env.NEXT_PUBLIC_LOCALHOST}/api/users/favorites`, {productId, userId})
+        .then((response => dispatch({ type: user.HANDLE_FAVORITES, payload: response})
+        ))}}

@@ -37,6 +37,9 @@ const userSchema = new Schema({
 	},
 	location: {
 		type: String
+	},
+	favorites: {
+		type: [{ type: Schema.ObjectId, ref: "Product" }]
 	}
 });
 

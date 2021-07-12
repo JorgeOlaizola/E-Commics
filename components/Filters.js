@@ -70,6 +70,9 @@ const Filters = () => {
         let newFilters = {
             ...filters
         }
+        if(!parseInt(filters.price.start)){
+            newFilters.price.start = 0
+        }
         if(parseInt(filters.price.start) > parseInt(filters.price.end)){
             newFilters.price.end = 9999999999
         }

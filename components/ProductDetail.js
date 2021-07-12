@@ -50,12 +50,6 @@ const InfoConteiner = styled.div`
     padding-left: 20px;
 `
 
-const MiddleBar = styled.div`
-    width: 1px;
-    height: 100%;
-    background-color: #161D2F;
-`
-
 const Title = styled.div`
     font-size: 2rem;
     font-weight: bold;
@@ -158,23 +152,31 @@ const QuestionsContainer = styled.div`
 `
 
 const Question = styled.div`
-    width: 66%;
+    width: 80%;
     background-color: #fff;
-	padding: 5px 10px;
+	padding: 15px 20px;
 	font-size: 1.2rem;
-	border-radius: 15px;
+    border: 1px solid #000;
+	border-radius: 15px 15px 15px 0;
     box-shadow:	0 5px 5px rgba(0, 0, 0, .3), 0 3px 2px rgba(0, 0, 0, .2);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 `
 
 const Answer = styled.div`
     margin-top: 10px;
-    width: 66%;
+    width: 80%;
     background-color: #161D2F;
-    color: #fff;
-	padding: 5px 10px;
+    color: #FFF;
+	padding: 15px 20px;
 	font-size: 1.2rem;
-	border-radius: 15px;
+    border: 1px solid #000;
+	border-radius: 15px 0 15px 15px;
     box-shadow:	0 5px 5px rgba(0, 0, 0, .3), 0 3px 2px rgba(0, 0, 0, .2);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 `
 
 const StyledInput = styled.input`
@@ -186,6 +188,12 @@ const StyledInput = styled.input`
 	border-radius: 15px;
     border-style: hidden;
     box-shadow:	0 5px 5px rgba(0, 0, 0, .3), 0 3px 2px rgba(0, 0, 0, .2);
+`
+
+const Separator = styled.div`
+    width: 100%;
+    height: 1px;
+    background-color: #161D2F;
 `
 
 const ProductDetail = ({id}) => {
@@ -226,7 +234,6 @@ const ProductDetail = ({id}) => {
                             <img style={{marginTop: "30px", maxWidth: "100%", maxHeight: "800px"}} src={detail.image}></img>
                         </ImageView>
                     </ImageConteiner>
-                    <MiddleBar/>
                     <InfoConteiner>
                         <Title>{detail.title}</Title>
                         <InfoText>${detail.price}</InfoText>
@@ -244,6 +251,7 @@ const ProductDetail = ({id}) => {
                         <Description>Descripción</Description>
                     </InfoConteiner>
                 </ImageInfo>
+                <Separator/>
                 <QuestionsContainer>
                     <Space/>
                     <Title>Preguntas</Title>
@@ -251,9 +259,18 @@ const ProductDetail = ({id}) => {
                     detail.questions.length ? 
                         detail.questions.map(q => { 
                             return <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-                                <span style={{marginBottom: "5px", marginTop: "10px"}}>Pregunta por {q.userNickname}</span>
-                                <Question>{q.content}</Question>
-                                {q.answer && <Answer>{q.answer}</Answer>}
+                                <Question>
+                                    {q.content}
+                                    <span style={{marginTop: "10px", fontSize: "1rem", color: "#161D2F"}}>Pregunta de {q.userNickname} {q.answer ? <span>(respondido)</span> : <span>(pendiente de respuesta)</span>}</span>
+                                </Question>
+                                {
+                                    q.answer &&
+                                    <Answer>
+                                        {q.answer}
+                                        <span style={{marginTop: "10px", fontSize: "1rem", color: "#FFF"}}>Respuesta de {detail.user.nickname}</span>
+                                    </Answer>
+                                }
+                                <Space/>
                             </div>        
                         })
                     : 

@@ -157,35 +157,6 @@ const QuestionsContainer = styled.div`
     margin-top: 10px;
 `
 
-/* const Question = styled.div`
-    width: 66%;
-    height: auto;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: left;
-    font-size: 1.2rem;
-    background-color: #C0F0FF;
-    border-radius: 5px;
-    padding: 3px 5px;
-    margin-bottom: 3px;
-` */
-
-/* const Answer = styled.div`
-    width: 66%;
-    height: auto;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: right;
-    font-size: 1.2rem;
-    color: #fff;
-    background-color: #161D2F;
-    border-radius: 5px;
-    padding: 3px 5px;
-    margin-bottom: 3px;
-` */
-
 const Question = styled.div`
     width: 66%;
     background-color: #fff;
@@ -196,6 +167,7 @@ const Question = styled.div`
 `
 
 const Answer = styled.div`
+    margin-top: 10px;
     width: 66%;
     background-color: #161D2F;
     color: #fff;
@@ -275,14 +247,21 @@ const ProductDetail = ({id}) => {
                 <QuestionsContainer>
                     <Space/>
                     <Title>Preguntas</Title>
-                    {detail.questions ? detail.questions.map(q => { 
-                        return <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-                            <span style={{marginBottom: "5px", marginTop: "10px"}}>Pregunta por {q.userNickname}</span>
-                            <Question>{q.content}</Question>
-                            {q.answer && <Answer>{q.answer}</Answer>}
-                        </div>        
-                    })
-                    : <div>Todavía no se ha realizado ninguna pregunta en esta publicación ¡Se el primero!</div>}
+                    {
+                    detail.questions.length ? 
+                        detail.questions.map(q => { 
+                            return <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+                                <span style={{marginBottom: "5px", marginTop: "10px"}}>Pregunta por {q.userNickname}</span>
+                                <Question>{q.content}</Question>
+                                {q.answer && <Answer>{q.answer}</Answer>}
+                            </div>        
+                        })
+                    : 
+                        <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+                            <QuestionAdvertise>Todavía no se ha realizado ninguna pregunta en esta publicación ¡Se el primero!</QuestionAdvertise>
+                        </div>
+                            
+                    }
                     {
                         userData.log !== false ?
                             <>

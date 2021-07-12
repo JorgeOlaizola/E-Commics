@@ -1,7 +1,10 @@
 import styled from 'styled-components'
 import { useSelector, useDispatch }  from 'react-redux'
 import { useEffect, useState } from 'react'
-import { resetProductDetail } from '../store/actions/productActions'
+import { 
+    resetProductDetail,
+    createQuestion    
+} from '../store/actions/productActions'
 import { HeartIcon, ShoppingCartIcon } from '@heroicons/react/outline'
 import Link from 'next/link';
 
@@ -171,7 +174,13 @@ const ProductDetail = ({id}) => {
     }
 
     function handleSubmit(event) {
+        const questionCreated = {
+            content: question,
+            user: userData._id,
+            product: detail._id,
+        }
         event.preventDefault();
+        dispatch(createQuestion(questionCreated, userData.nickname))
     }
 
     return (
@@ -209,8 +218,14 @@ const ProductDetail = ({id}) => {
                     <Space/>
                     <Title>Preguntas</Title>
                     {/* ACA IRIA EL MAP DE LAS Q&A EN LUGAR DE LAS 2 LINEAS DE ABAJO */}
-                    <Question>hola</Question>
-                    <Answer>chau</Answer>
+                    {detail.questions ? detail.questions.map(q => { 
+                        return <div>
+                            Pregunta por {q.userNickname}
+                            <Question>{q.content}</Question>
+                            {q.answer && <Answer>{q.answer}</Answer>}
+                        </div>        
+                    })
+                    : <div>Todavía no se ha realizado ninguna pregunta en esta publicación ¡Se el primero!</div>}
                     {
                         userData.log !== false ?
                             <form

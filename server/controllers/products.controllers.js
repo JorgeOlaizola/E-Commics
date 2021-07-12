@@ -1,6 +1,7 @@
 const Product = require('../models/Product')
 const User = require('../models/User')
 const Category = require('../models/Category')
+const axios = require('axios').default
 
 const product = {}
 
@@ -23,7 +24,6 @@ product.createProduct = async (req, res) => {
 }
 
 product.getProducts = async (req, res) => {
-    console.log(req.body)
     let {user,category,score,price,search,order,page} = req.body
     if (!page) page = 1;
     let itemXPage = 20;
@@ -121,6 +121,8 @@ product.getProducts = async (req, res) => {
 
 product.getProductDetail = async (req, res) => {
     const { id } = req.query
+    axios.get(`${process.env.NEXT_PUBLIC_LOCALHOST}/api/questions?productId=${id}`)
+    .then(r => {
     if (id) {
         Product.findById(id, (err, pro) => {
             if (err) return res.send("id invalido")
@@ -146,7 +148,8 @@ product.getProductDetail = async (req, res) => {
                         category: { 
                             _id: product.category._id, 
                             title: product.category.title
-                        }
+                        },
+                        questions: r.data
                     }
                     res.json(result)
                 })
@@ -155,9 +158,8 @@ product.getProductDetail = async (req, res) => {
 
 
     } else {
-        req.flash("error_msg", "required id")
-        return res.send(req.flash())
-    }
+        return res.json({ error_msg: 'Se necesita un ID'})
+    }})
 }
 
 product.deleteProduct = async (req, res) => {
@@ -168,8 +170,7 @@ product.deleteProduct = async (req, res) => {
             res.send("se elimino correctamente el producto con el id: " + result._id)
             : res.send("id invalido")
     } else {
-        req.flash("error_msg", "required id")
-        return res.send(req.flash())
+        return res.json({ error_msg: 'Se necesita un ID'})
     }
 }
 module.exports = product

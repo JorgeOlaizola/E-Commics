@@ -7,44 +7,46 @@ const question = {}
 
 // GET QUESTION
 question.getQuestion = async (req, res) => {
-   Question.find({}, function(err, questions){
-       if(err) return res.send(err)
-       User.populate(questions, { path : "user" }, function(err, questions){
-        if (err) return res.send("No se pudo acceder al usuario de la pregunta")
-        Product.populate(questions, { path : "product" }, function(err, questions){
-            if (err) return res.send("No se pudo acceder al prodcto de la pregunta")
-                res.send(questions)   
+    const { productId } = req.query
+    Question.find({}, (err, ques) => {
+        if (err) return res.json({ error_msg: 'Ocurrió un error inesperado'})
+        User.populate(ques, { path: 'user' }, (err, question) => {
+            if (err) return res.json({ error_msg: 'Ocurrió un error inesperado'})
+            let result = question.map(q => {
+                return {
+                    content: q.content,
+                    answer: q.answer,
+                    userNickname: q.user.nickname,
+                    created_at: q.created_at
+                }
             })
-       })
-   })
+            return res.json(result)
+        })
+    })
+    .where({ product: productId})
 }
 
 // POST QUESTION
 question.createQuestion = async (req, res) => {
-    const { content, user, product, answer } = req.body 
+    const { content, user, product } = req.body
     if(!content){
-        req.flash('error_msg', 'Content required')
-        return res.send(req.flash())
+        return res.json({ error_msg: 'Es necesario que la pregunta tenga un contenido' })
     } 
     if(!user){
-        req.flash('error_msg', 'User required')
-        return res.send(req.flash())
+        return res.json({ error_msg: 'Es necesario el usuario que realizó la pregunta'})
     }
     if(!product){
-        req.flash('error_msg', 'Product required')
-        return res.send(req.flash())
+        return res.json({ error_msg: 'La pregunta debe ser realizada en un producto'})
     }
-    const newQuestion = await new Question({ content, user, product, answer })
+    const newQuestion = await new Question({ content, user, product, answer: '' })
     await newQuestion.save()
-    req.flash('success_msg', 'Question Post Succesfully') 
-    return res.send(req.flash());
+    return res.json(newQuestion)
 }
 
 // DELTE QUESTION
 question.deleteQuestion = async (req, res) => {
     await Question.findByIdAndDelete(req.params.id);
-    req.flash("success_msg", "Question Deleted Successfully")
-    return res.send(req.flash()) 
+    return res.json({ success_msg: "La pregunta se eliminó con éxito"}) 
     // res.redirect("/");
   };
 

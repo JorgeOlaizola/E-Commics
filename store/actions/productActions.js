@@ -29,6 +29,20 @@ export function addSellingProduct (product) {
     }
 }
 
+//Questions
+
+export function createQuestion (question, userNickname) {
+    return (dispatch) => {
+        axios.post(`${process.env.NEXT_PUBLIC_LOCALHOST}/api/questions`, question)
+        .then(r =>{ 
+            const createdQuestion = {
+                ...r.data,
+                userNickname
+            }
+            dispatch({ type: product.CREATE_QUESTION, payload: createdQuestion})
+        })
+}}   
+
 //Filters
 
 export function searchByName (search) {

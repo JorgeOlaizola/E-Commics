@@ -13,8 +13,7 @@ categories.addCategory = async (req, res) => {
     if (title) {
         const newCategory = await new Category({title});
         await newCategory.save();
-        req.flash('success_msg', 'Categoría agregada con éxito') 
-        return res.send(req.flash());
+        return res.json({ success_msg: 'Categoría agregada con éxito'})
     }
     return res.send('Title is required')
 }

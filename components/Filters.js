@@ -16,8 +16,8 @@ grid-area: asideLeft;
 display: flex;
 align-items: center;
 flex-direction: column;
-border: 1px solid grey;
 
+box-shadow: 0 0 11px rgba(33,33,33,.2);
 margin: 1rem;
 position: relative;
 `
@@ -42,7 +42,22 @@ justify-content: center;
 align-items: center;
 padding: 1rem;
 `
+//Category filters
+const SelectCategories = styled.select`
+display: block;
+padding: 0 10px;
+outline: none;
+border-radius: 2px;
+width: 100%;
+`
 
+const CategoryFiltersOption = styled.option`
+display: block;
+padding: 0 10px;
+outline: none;
+border-radius: 2px;
+width: 100%;
+`
 
 
 const Filters = () => {
@@ -83,11 +98,13 @@ const Filters = () => {
             <FiltersTitle>Filtros</FiltersTitle>
             <CategoriesFilterCont>
                 {categories && (
-                    <details>
-                        <summary>Categorías</summary>
-                        <button onClick={() => dispatch(searchByCategory(""))}>Default</button>    
-                        {categories.map(c => <button onClick={CategoryFilter}value={c._id}>{c.title}</button>)}
-                    </details>
+                    
+                        <SelectCategories onClick={CategoryFilter}>
+                            {categories.map(category => <CategoryFiltersOption value={category._id} >{category.title}</CategoryFiltersOption>)}
+                        <option value="">Default</option>  
+                        {/* {categories.map(c => <button onClick={CategoryFilter}value={c._id}>{c.title}</button>)} */}
+                        </SelectCategories>  
+                   
                     )}
             </CategoriesFilterCont>
             <EachFilterTitle>Precio</EachFilterTitle>

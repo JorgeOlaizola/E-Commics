@@ -36,6 +36,9 @@ export default function productReducer(state = initialState, action) {
         //Reset product detial
         case product.RESET_PRODUCT_DETAIL:
         return {...state, productDetail: {}}
+        //Questions reducer
+        case product.CREATE_QUESTION:
+        return {...state, productDetail: {...state.productDetail, questions: state.productDetail.questions.concat([action.payload])}}
         //Filter reducer
         case filter.SEARCH_BY_NAME:
         return {...state, filters: {...state.filters, search: action.payload}}

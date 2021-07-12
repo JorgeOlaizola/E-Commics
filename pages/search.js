@@ -4,8 +4,9 @@ import Products from '../components/Products';
 import styled  from 'styled-components';
 
 const FiltersProducts = styled.div`
+margin:auto;
 margin-top: 20px;
-width:100%;
+width:95%;
 height:100%;
 display: grid;
 grid-template-areas: "asideLeft main" ;

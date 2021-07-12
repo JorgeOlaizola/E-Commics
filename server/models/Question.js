@@ -16,7 +16,10 @@ const questionSchema = new Schema({
 	answer: {
 		type : String
 	},
-	created_at: Date
+	created_at: {
+		type: Date,
+		default: Date.now()
+	}
 });
 
 module.exports = model('Question', questionSchema);

@@ -84,13 +84,14 @@ font-size: 1rem;
 
 const Product = (props) => {
     const dispatch = useDispatch()
-    const image= props.image;
+    const image= props.image[0];
+    // console.log("aca viendo algo en product", props)
     return (
         <CardConteiner>
             <ImageConteiner imgUrl={image}>
                 <DivParaSafar>
                  {/* <img height="100%" src={props.image} ></img> */}
-                    <ProductImage src={props.image}></ProductImage>
+                    <ProductImage src={props.image[0]}></ProductImage>
                 </DivParaSafar>
 
             </ImageConteiner>

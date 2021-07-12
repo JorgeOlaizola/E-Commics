@@ -1,7 +1,10 @@
 import styled from 'styled-components'
 import { useSelector, useDispatch }  from 'react-redux'
 import { useEffect, useState } from 'react'
-import { resetProductDetail } from '../store/actions/productActions'
+import { 
+    resetProductDetail,
+    createQuestion    
+} from '../store/actions/productActions'
 import { HeartIcon, ShoppingCartIcon } from '@heroicons/react/outline'
 import Link from 'next/link';
 
@@ -85,11 +88,30 @@ const Description = styled.div`
     margin-bottom: 20px;
 `
 
-const BuyButton = styled.div`
+const BuyButton = styled.button`
     width: 100%;
     height: 45px;
     margin: 10px 0;
     background-color: #161D2F;
+    border-style: hidden;
+    color: #FFF;
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+        box-shadow: 0 3px 3px 2px rgba(0,0,0,0.3);
+    }
+`
+
+const SendButton = styled.button`
+    width: auto;
+    height: auto;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #161D2F;
+    border-style: hidden;
     color: #FFF;
     font-size: 1.2rem;
     display: flex;
@@ -105,6 +127,15 @@ const Advertise = styled.div`
     color: #161D2F;
     font-size: 1.2rem;
     margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+`
+
+const QuestionAdvertise = styled.div`
+    color: #161D2F;
+    font-size: 1.2rem;
+    margin-top: 20px;
+    margin-bottom: 10px;
     display: flex;
     align-items: center;
 `
@@ -126,8 +157,8 @@ const QuestionsContainer = styled.div`
     margin-top: 10px;
 `
 
-const Question = styled.div`
-    max-width: 100%;
+/* const Question = styled.div`
+    width: 66%;
     height: auto;
     display: flex;
     flex-wrap: wrap;
@@ -138,10 +169,10 @@ const Question = styled.div`
     border-radius: 5px;
     padding: 3px 5px;
     margin-bottom: 3px;
-`
+` */
 
-const Answer = styled.div`
-    max-width: 100%;
+/* const Answer = styled.div`
+    width: 66%;
     height: auto;
     display: flex;
     flex-wrap: wrap;
@@ -153,6 +184,36 @@ const Answer = styled.div`
     border-radius: 5px;
     padding: 3px 5px;
     margin-bottom: 3px;
+` */
+
+const Question = styled.div`
+    width: 66%;
+    background-color: #fff;
+	padding: 5px 10px;
+	font-size: 1.2rem;
+	border-radius: 15px;
+    box-shadow:	0 5px 5px rgba(0, 0, 0, .3), 0 3px 2px rgba(0, 0, 0, .2);
+`
+
+const Answer = styled.div`
+    width: 66%;
+    background-color: #161D2F;
+    color: #fff;
+	padding: 5px 10px;
+	font-size: 1.2rem;
+	border-radius: 15px;
+    box-shadow:	0 5px 5px rgba(0, 0, 0, .3), 0 3px 2px rgba(0, 0, 0, .2);
+`
+
+const StyledInput = styled.input`
+    margin-top: 20px;
+    width: 66%;
+    background-color: #fff;
+	padding: 5px 10px;
+	font-size: 1.2rem;
+	border-radius: 15px;
+    border-style: hidden;
+    box-shadow:	0 5px 5px rgba(0, 0, 0, .3), 0 3px 2px rgba(0, 0, 0, .2);
 `
 
 const ProductDetail = ({id}) => {
@@ -171,7 +232,13 @@ const ProductDetail = ({id}) => {
     }
 
     function handleSubmit(event) {
+        const questionCreated = {
+            content: question,
+            user: userData._id,
+            product: detail._id,
+        }
         event.preventDefault();
+        dispatch(createQuestion(questionCreated, userData.nickname))
     }
 
     return (
@@ -208,30 +275,47 @@ const ProductDetail = ({id}) => {
                 <QuestionsContainer>
                     <Space/>
                     <Title>Preguntas</Title>
-                    {/* ACA IRIA EL MAP DE LAS Q&A EN LUGAR DE LAS 2 LINEAS DE ABAJO */}
-                    <Question>hola</Question>
-                    <Answer>chau</Answer>
+                    {detail.questions ? detail.questions.map(q => { 
+                        return <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+                            <span style={{marginBottom: "5px", marginTop: "10px"}}>Pregunta por {q.userNickname}</span>
+                            <Question>{q.content}</Question>
+                            {q.answer && <Answer>{q.answer}</Answer>}
+                        </div>        
+                    })
+                    : <div>Todavía no se ha realizado ninguna pregunta en esta publicación ¡Se el primero!</div>}
                     {
                         userData.log !== false ?
-                            <form
-                                onSubmit={(e) => {handleSubmit(e)}}
-                            >
-                            <textarea 
-                                rows="3"
-                                cols="50"
-                                name="question"
-                                value={question}
-                                onChange={(e) => handleChange(e)}
-                            />
-                            <button type='submit'>Enviar</button>
-                            </form>
+                            <>
+                                <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+                                    <QuestionAdvertise>Dejanos tus preguntas aquí, responderemos cuanto antes.</QuestionAdvertise>
+                                </div>
+                                <form
+                                    style={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center"}}
+                                    onSubmit={(e) => {handleSubmit(e)}}
+                                >
+                                <StyledInput 
+                                    rows="3"
+                                    cols="50"
+                                    name="question"
+                                    value={question}
+                                    onChange={(e) => handleChange(e)}
+                                />
+                                <SendButton type='submit'>Enviar</SendButton>
+                                </form>
+                            </>
                         :
-                            null
+                            <>
+                                <Space/>
+                                <Advertise style={{textAlign: "center"}}>Para realizar preguntas primero debes iniciar sesión. ¿Aún no tienes una cuenta de Ecommics? ¿Qué estás esperando?</Advertise>
+                            </>
                     }
                 </QuestionsContainer>
                 <QuestionsContainer>
                     <Space/>
                     <Title>Reseñas</Title>
+                    <div style={{display: "flex", justifyContent: "center"}}>
+                        <Advertise style={{textAlign: "center"}}>Aún no hay reseñas para este artículo</Advertise>
+                    </div>
                 </QuestionsContainer>
             </DetailConteiner>}
         </Father>

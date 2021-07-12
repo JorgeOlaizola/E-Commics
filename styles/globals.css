@@ -25,6 +25,14 @@ body {
     width: 20px;
   }
 
+  .addFavIcon {
+    width: 20px;
+  }
+
+  .addCartIcon {
+    width: 20px;
+  }
+
   @media (max-width: 480px) {
     .findIcon {
       width: 10px;

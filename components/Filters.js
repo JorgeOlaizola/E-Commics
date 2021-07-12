@@ -97,6 +97,7 @@ const Filters = () => {
         <FilterConteiner> 
             <FiltersTitle>Filtros</FiltersTitle>
             <CategoriesFilterCont>
+                <EachFilterTitle>Categorías</EachFilterTitle>
                 {categories && (
                     
                         <SelectCategories onClick={CategoryFilter}>

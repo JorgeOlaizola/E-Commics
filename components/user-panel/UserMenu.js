@@ -53,7 +53,16 @@ const UserMenu = () => {
     <div>
       <MenuContainer>
             <MenuTrigger onClick={onClick}>
-              <MenuTriggerSpan>Usuario</MenuTriggerSpan>
+              <MenuTriggerSpan>
+                {
+                  userData.nickname
+                  ?
+                    <span>{userData.nickname}</span>
+                  :
+                    <span>Cuenta</span>
+
+                }
+              </MenuTriggerSpan>
               <MenuTriggerImg
                 src="https://ecommics.s3.sa-east-1.amazonaws.com/images/superuser.png"
                 alt="User avatar"

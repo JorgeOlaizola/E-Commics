@@ -85,7 +85,6 @@ const UserPanel = () => {
                         <DataText>Apellido: {userData.surname}</DataText>
                         <DataText>Correo electrónico: {userData.email}</DataText>
                         <DataText>Usuario: {userData.nickname}</DataText>
-                        <DataText>Password:</DataText>
                         <StyledButton>Modificar datos</StyledButton>
                     </DataColumn>
                     <div>
@@ -97,17 +96,17 @@ const UserPanel = () => {
                 <DataTitle>Compras realizadas</DataTitle>
                 <DataRow>
                     <img style={{width:"150px", height:"200px"}} src={"https://cdn.pixabay.com/photo/2016/09/03/12/06/marvel-1641554_960_720.jpg"} /> 
-                    <img style={{width:"150px", height:"200px"}} src={"https://cdn.pixabay.com/photo/2016/09/03/12/06/marvel-1641554_960_720.jpg"} /> 
-                    <img style={{width:"150px", height:"200px"}} src={"https://cdn.pixabay.com/photo/2016/09/03/12/06/marvel-1641554_960_720.jpg"} /> 
+                    <img style={{width:"150px", height:"200px"}} src={"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fvignette.wikia.nocookie.net%2Fcomics%2Fimages%2F7%2F79%2FSuperman_2018_1.jpg%2Frevision%2Flatest%3Fcb%3D20180711111140&f=1&nofb=1"} /> 
+                    <img style={{width:"150px", height:"200px"}} src={"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.iJJZfZWIREQpmX67YERo0AHaLD%26pid%3DApi&f=1"} /> 
                 </DataRow>
                 <StyledButton>Ver todas mis compras</StyledButton>
             </DataSection>
             <DataSection>
                 <DataTitle>Publicaciones activas</DataTitle>
                 <DataRow>
-                    <img style={{width:"150px", height:"200px"}} src={"https://cdn.pixabay.com/photo/2016/09/03/12/06/marvel-1641554_960_720.jpg"} /> 
-                    <img style={{width:"150px", height:"200px"}} src={"https://cdn.pixabay.com/photo/2016/09/03/12/06/marvel-1641554_960_720.jpg"} /> 
-                    <img style={{width:"150px", height:"200px"}} src={"https://cdn.pixabay.com/photo/2016/09/03/12/06/marvel-1641554_960_720.jpg"} /> 
+                    <img style={{width:"150px", height:"200px"}} src={"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIF.HXMbQ8FE4daH%252bc%252fbAw5K1Q%26pid%3DApi&f=1"} /> 
+                    <img style={{width:"150px", height:"200px"}} src={"https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.mobygames.com%2Fimages%2Fcovers%2Fl%2F416543-fortnite-standard-founder-s-pack-playstation-4-front-cover.png&f=1&nofb=1"} /> 
+                    <img style={{width:"150px", height:"200px"}} src={"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.DOwZNFJWH1SX50GubY_dawHaId%26pid%3DApi&f=1"} /> 
                 </DataRow>
                 <StyledButton>Ver todas mis publicaciones</StyledButton>    
                 <Link href="/addproduct" passHref replace>
@@ -117,9 +116,9 @@ const UserPanel = () => {
             <DataSection>
                 <DataTitle>Ventas realizadas</DataTitle>
                 <DataRow>
-                    <img style={{width:"150px", height:"200px"}} src={"https://cdn.pixabay.com/photo/2016/09/03/12/06/marvel-1641554_960_720.jpg"} /> 
-                    <img style={{width:"150px", height:"200px"}} src={"https://cdn.pixabay.com/photo/2016/09/03/12/06/marvel-1641554_960_720.jpg"} /> 
-                    <img style={{width:"150px", height:"200px"}} src={"https://cdn.pixabay.com/photo/2016/09/03/12/06/marvel-1641554_960_720.jpg"} /> 
+                    <img style={{width:"150px", height:"200px"}} src={"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.KvZkOE4WXf4S_CZnjZoufwHaJf%26pid%3DApi&f=1"} /> 
+                    <img style={{width:"150px", height:"200px"}} src={"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.spUnBWRdQyzCeWK4eQqKowHaK9%26pid%3DApi&f=1"} /> 
+                    <img style={{width:"150px", height:"200px"}} src={"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.cvynK5XO9key3eG9Z6eQSQHaLI%26pid%3DApi&f=1"} /> 
                 </DataRow>
                 <StyledButton>Ver todas mis ventas</StyledButton>
             </DataSection>

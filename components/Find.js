@@ -5,6 +5,7 @@ import { Button, FindDiv, InputText  } from '../pages/globalStyle.js'
 import { SearchIcon } from '@heroicons/react/outline'
 import { searchByName, getFilteredProducts } from '../store/actions/productActions.js';
 import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router'
 
 
 
@@ -27,10 +28,12 @@ ${'' /* @media (max-width: 480px) {
 `
 const Find = () => {
     const filters = useSelector(state => state.product.filters)
+    const router = useRouter()
 
     function handleSubmit(event) {
         event.preventDefault();
         dispatch(getFilteredProducts(filters))
+        router.push('/search')
     }
 
     function handleChange(event) {

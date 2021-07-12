@@ -48,7 +48,7 @@ export const StyledLink = styled.a`
 
 export const StyledLogoResponsive = styled.a`
   
-    @media (min-width: 768px) {
+    @media (min-width: 769px) {
       display: none;
     }
     @media (max-width: 480px) {

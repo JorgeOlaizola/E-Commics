@@ -102,7 +102,7 @@ const Filters = () => {
                     
                         <SelectCategories onClick={CategoryFilter}>
                             {categories.map(category => <CategoryFiltersOption value={category._id} >{category.title}</CategoryFiltersOption>)}
-                        <option value="">Default</option>  
+                        <option value="" defaultValue>Todas las categorías</option>  
                         {/* {categories.map(c => <button onClick={CategoryFilter}value={c._id}>{c.title}</button>)} */}
                         </SelectCategories>  
                    

@@ -9,7 +9,6 @@ export const lightTheme = {
 	borderButton: 'linear-gradient(to right, grey, #E4E4E4)',
   backgroundInput: '#fff',
   backgroundNav: '#fff',
-  backgroundFindDiv: "#E6E6"
 }
 
 export const darkTheme = {
@@ -19,23 +18,40 @@ export const darkTheme = {
 	borderButton: 'linear-gradient(to right, grey, black)',
   backgroundInput: '#202020', // gris oscuro
   backgroundNav: '#101010', // gris oscuro++
-  backgroundFindDiv: '#101010'
 }
 
-export const Navbar = styled.nav`
-    min-height: 80px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    padding: 0 2rem;
-    border-bottom: 1px solid;
-    background: ${(props) => props.theme.backgroundNav};
-    @media (max-width: 480px) {
-      padding: 0 1rem;
-    }
+// Estructura Aside left and right
+export const MainDiv = styled.div`
+margin:auto;
+margin-top: 20px;
+width:95%;
+height:100%;
+display: grid;
+grid-template-areas: "asideLeft main" ;
+grid-template-columns: 25% auto;
+@media (max-width: 900px){
+  grid-template-columns: auto;
+  grid-template-areas:
+  "asideLeft"
+  "main";
+  justify-content:center;
+}
 `
 
+// Define lo tipográfico negro o blanco 
+export const StyledApp = styled.div`
+  color: ${(props) => props.theme.fontColor};
+`;
+
+// Para Modals
+export const LigthDarkThemeDiv = styled.div`
+  color: ${(props) => props.theme.fontColor};
+  background: ${(props) => props.theme.body};
+  border: 1px solid ${(props) => props.theme.fontColor};
+`;
+
+
+// Links a otra ruta
 export const StyledLink = styled.a`
     ${'' /* padding: 0rem 1rem; */}
     text-decoration: none;
@@ -46,67 +62,8 @@ export const StyledLink = styled.a`
     }
 `
 
-export const StyledLogoResponsive = styled.a`
-  
-    @media (min-width: 769px) {
-      display: none;
-    }
-    @media (max-width: 480px) {
-      width: 10px;
-    }
-`
 
-export const StyledLogo = styled.a`
-    @media (max-width: 768px) {
-      display: none;
-    }
-`
-
-export const StyledApp = styled.div`
-  color: ${(props) => props.theme.fontColor};
-`;
-
-export const LigthDarkThemeDiv = styled.div`
-  color: ${(props) => props.theme.fontColor};
-  background: ${(props) => props.theme.body};
-  border: 1px solid ${(props) => props.theme.fontColor};
-`;
-
-export const FindDiv = styled.div`
-  color: ${(props) => props.theme.fontColor};
-  background: ${(props) => props.theme.body};
-  border: 1px solid ${(props) => props.theme.fontColor};
-  ${'' /* @media (max-width: 480px) {
-    border: none;
-  } */}
-`;
-
-
-export const InputText = styled.input`
-  color: ${(props) => props.theme.fontColor};
-  background: ${(props) => props.theme.backgroundInput};
-  width: 300px;
-  height: 25px;
-  border: none;
-  @media (max-width: 768px) {
-    max-width: 200px;
-    }
-  @media (max-width: 768px) {
-  max-width: 200px;
-  }
-  @media (max-width: 480px) {
-  max-width: 300px;
-  ${'' /* display: none; */}
-  }
-  @media (max-width: 390px) {
-  max-width: 260px;
-  }
-  @media (max-width: 320px) {
-  max-width: 240px;
-  }
-`
-
-// botton submit usuario
+// Inicio para los input submit
 export const Input = styled.input`
   color: ${(props) => props.theme.fontColor};
   background-color: ${(props) => props.theme.backgroundButton};
@@ -131,7 +88,7 @@ export const InputDisable = styled.input`
 `
 
 export const GradientBorder = styled.div`
-  margin: 20px;
+  margin: 20px 0;
   background: linear-gradient(45deg, rgba(255,0,0,1) 0%, rgba(0,192,255,1) 100%);
   padding: 2px;
   cursor:pointer;
@@ -147,6 +104,8 @@ export const DisableBorder = styled.div`
   padding: 2px;
   cursor: not-allowed;
 `
+// FIN para los input submit
+
 
 export const GlobalStyles = createGlobalStyle`
 html, body, div, span, applet, object, iframe,
@@ -194,7 +153,7 @@ table {
 }
 
 body {
-        background-color: ${(props) => props.theme.body};
+    background-color: ${(props) => props.theme.body};
 		background: url("https://ecommics.s3.sa-east-1.amazonaws.com/images/bodyBackground.jpg") no-repeat center top;
 		background-attachment: fixed;
 }
@@ -207,6 +166,7 @@ a {
 }
 h1 {
 	font-family: Ubuntu;
+  font-weight: 500;
 	font-size: 2rem;
 	margin: 1rem 0;
 }
@@ -215,6 +175,21 @@ h2 {
 	font-weight: 500;
 	font-size: 1.5rem;
 	margin: 1rem 0;
+}
+h3 {
+	font-family: Ubuntu;
+	font-weight: 500;
+	font-size: 1.25rem;
+	margin: 1rem 0;
+}
+
+p {
+  font-size: 1rem;
+  line-height: 150%;
+}
+
+span {
+  font-size: 0.75rem;
 }
 
 ${'' /* button {

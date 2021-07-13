@@ -2,12 +2,43 @@ import Link from 'next/link';
 import { useSelector, useDispatch } from "react-redux";
 import { signOut } from '../store/actions/normalUsersActions.js';
 import styled from 'styled-components';
-import { Button, Navbar, StyledLink, StyledLogo, StyledLogoResponsive } from '../pages/globalStyle.js'
+import { StyledLink } from '../pages/globalStyle.js';
 import Find from './Find.js';
 import UserMenu from './user-panel/UserMenu.js';
 import Modal from './user-panel/Modal.js';
 import React, {useState} from 'react';
 import { useRouter } from 'next/router';
+
+
+const Navbar = styled.nav`
+    min-height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 0 2rem;
+    border-bottom: 1px solid;
+    background: ${(props) => props.theme.backgroundNav};
+    @media (max-width: 480px) {
+      padding: 0 1rem;
+    }
+`
+
+const StyledLogoResponsive = styled.a`
+  
+    @media (min-width: 769px) {
+      display: none;
+    }
+    @media (max-width: 480px) {
+      width: 10px;
+    }
+`
+
+const StyledLogo = styled.a`
+    @media (max-width: 768px) {
+      display: none;
+    }
+`
 
 
 const Nav = ({ theme}) => {

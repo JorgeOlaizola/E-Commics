@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
-import { Button, FindDiv, InputText  } from '../pages/globalStyle.js'
+import { Button  } from '../pages/globalStyle.js'
 import { SearchIcon } from '@heroicons/react/outline'
 import { searchByName, getFilteredProducts } from '../store/actions/productActions.js';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,6 +9,39 @@ import { useRouter } from 'next/router'
 
 
 
+const FindDiv = styled.div`
+  color: ${(props) => props.theme.fontColor};
+  background: ${(props) => props.theme.body};
+  border: 1px solid ${(props) => props.theme.fontColor};
+  ${'' /* @media (max-width: 480px) {
+    border: none;
+  } */}
+`;
+
+
+const InputText = styled.input`
+  color: ${(props) => props.theme.fontColor};
+  background: ${(props) => props.theme.backgroundInput};
+  width: 300px;
+  height: 25px;
+  border: none;
+  @media (max-width: 768px) {
+    max-width: 200px;
+    }
+  @media (max-width: 768px) {
+  max-width: 200px;
+  }
+  @media (max-width: 480px) {
+  max-width: 300px;
+  ${'' /* display: none; */}
+  }
+  @media (max-width: 390px) {
+  max-width: 260px;
+  }
+  @media (max-width: 320px) {
+  max-width: 240px;
+  }
+`
 
 const FindButton = styled.button`
 border: none; 

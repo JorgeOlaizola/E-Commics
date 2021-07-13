@@ -11,7 +11,8 @@ const DivContainer = styled.div`
     background-color: ${(props) => props.theme.body};
     ${'' /* width: 1024px; */}
     margin: 30px auto 30px auto;
-    min-height: 1024px;
+    padding-bottom: 50px;
+    min-height: 100vh;
     box-shadow: rgb(0 0 0 / 50%) 0px 0px 7px 1px;
     @media (min-width: 1440px) {
     width: 80%;

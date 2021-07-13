@@ -11,7 +11,8 @@ const Favorites = () => {
         <>
         <Container>
         { favorites && favorites.length > 0 ? 
-        <div>{favorites.map(f => f)}</div> :
+        <div>{favorites.map(f =>
+            <Product image={[f.productImg]} title={f.productTitle} price={f.productPrice} id={f.productId}></Product>)}</div> :
         <div>Todavía no has agregado ningún producto a favoritos</div> }
         </Container>
         </>

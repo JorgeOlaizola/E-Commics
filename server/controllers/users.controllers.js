@@ -63,17 +63,25 @@ users.userInfo = async (req, res) => {
 }
 
 users.favorites = async (req, res) => {
-    const { favoriteId, userId } = req.body
+    console.log(req.body)
+    const { productId, productImg, productTitle, productPrice, userId } = req.body
     User.findById(userId, (err, user) => {
-        if(user.favorites.includes(favoriteId)){
+        if(err) return err
+        if(user.favorites.includes(productId)){
             user.favorites = user.favorites.filter((f) => {
-                return !f.equals(favoriteId)
+                return !f.equals(productId)
             })    
         }
         else{ 
-            user.favorites.push(favoriteId) 
+            user.favorites.push({
+                productId,
+                productImg,
+                productTitle,
+                productPrice
+            }) 
         }
         user.save((err, user) => {
+            if(err) return err
             return res.json(user.favorites)
         })
     })

@@ -5,6 +5,9 @@ import {
     resetProductDetail,
     createQuestion    
 } from '../store/actions/productActions'
+import {
+    handleFavorites
+} from '../store/actions/normalUsersActions'
 import { HeartIcon, ShoppingCartIcon } from '@heroicons/react/outline'
 import Link from 'next/link';
 
@@ -244,7 +247,11 @@ const ProductDetail = ({id}) => {
                         <Description><strong>Categoría:</strong> {detail.category.title}</Description>
                         <BuyButton>Comprar ahora</BuyButton>
                         <Advertise>Apúrate! Este artículo se va volando</Advertise>
-                        <AddingButton><HeartIcon className="addFavIcon"/> Agregar a favoritos</AddingButton>
+                        { userData.favorites && userData.favorites.find(f => f.productId === detail._id) ?
+                        <AddingButton><button onClick={() => dispatch(handleFavorites(detail._id, detail.image, detail.title, detail.price, userData._id))}><HeartIcon className="addFavIcon"/> Quitar de favoritos</button></AddingButton> 
+                        :
+                        <AddingButton><button onClick={() => dispatch(handleFavorites(detail._id, detail.image, detail.title, detail.price, userData._id))}><HeartIcon className="addFavIcon"/> Agregar a favoritos</button></AddingButton>
+                        }
                         <AddingButton><ShoppingCartIcon className="addCartIcon"/> Agregar al carrito</AddingButton>
                         <Space/>
                         <InfoTitle>Medios de pago</InfoTitle>

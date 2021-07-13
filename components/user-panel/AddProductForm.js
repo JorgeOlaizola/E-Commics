@@ -146,8 +146,14 @@ const AddProductForm = () => {
         details.removeAttribute("open");
     }
     const GuardarImage = (e) => {
-
-        setImageSelected([...e.target.files])
+        
+        let image = [...e.target.files]
+        if(image.length > 5){
+            //avisamos el maximo de imagenes
+            alert("El maximo de imagenes es de 5")
+        }
+        image = image.slice(0,5)
+        setImageSelected(image)
     }
     const mostrar = (i) => {
 
@@ -229,6 +235,8 @@ const AddProductForm = () => {
                                 <ImageInput
                                     onKeyDown={keyEnter}
                                     multiple
+                                    maxLength="2"
+                                    max="2"
                                     type='file'
                                     id="file-upload"
                                     accept="image/png,image/jpeg,image/png"

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState ,useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addSellingProduct } from '../../store/actions/productActions.js';
 import styled from 'styled-components'
@@ -76,6 +76,12 @@ const AddProductForm = () => {
         user: user._id
     })
     const router = useRouter()
+
+    useEffect(()=>{
+        if(!user._id){
+            router.push("/")
+        }
+    },[])
     function handleChange (e) {
         if( e.target.value < 0 ){
             setInput({...input})
@@ -115,7 +121,9 @@ const AddProductForm = () => {
                     }
                     
                     dispatch(addSellingProduct(respuesta));
-                    router.push("/search")
+                    setTimeout(()=>{
+                        router.push("/search")
+                    },2000)
                 })
                 
                 

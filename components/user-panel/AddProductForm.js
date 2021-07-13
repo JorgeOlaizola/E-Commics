@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addSellingProduct } from '../../store/actions/productActions.js';
 import styled from 'styled-components'
@@ -65,7 +65,7 @@ const AddProductForm = () => {
     const user = useSelector(state => state.user.userData);
     const categories = useSelector(state => state.category.categories)
     const [categorieSelect, setCategorieSelect] = useState("")
-    const [imageSelected,setImageSelected] = useState([]);
+    const [imageSelected, setImageSelected] = useState([]);
     const [input, setInput] = useState({
         title: '',
         description: '',
@@ -76,58 +76,66 @@ const AddProductForm = () => {
         user: user._id
     })
     const router = useRouter()
-    function handleChange (e) {
-        if( e.target.value < 0 ){
-            setInput({...input})
-        }else{
+
+    useEffect(() => {
+        if (!user._id) {
+            router.push("/")
+        }
+    }, [])
+    function handleChange(e) {
+        if (e.target.value < 0) {
+            setInput({ ...input })
+        } else {
             setInput({
                 ...input,
                 [e.target.name]: e.target.value
             })
         }
     }
-    const keyEnter = (e)=>{
-        if(e.key === 'Enter'){
+    const keyEnter = (e) => {
+        if (e.key === 'Enter') {
             e.preventDefault()
         }
     }
-    const handleSubmit = async (e)=> {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         console.log("mande")
         const terminos = document.getElementById("terminos")
-        if(terminos.checked){
-            if(imageSelected){
-               Promise.all(
+        if (terminos.checked) {
+            if (imageSelected) {
+                Promise.all(
 
-                imageSelected.map( (imageFile)=>{
-                    const fromData = new FormData()
-                    fromData.append("file",imageFile)
-                    fromData.append("upload_preset","dbuwaryz")
-                    return axios.post("https://api.cloudinary.com/v1_1/mecompany/image/upload",fromData)
-                })
+                    imageSelected.map((imageFile) => {
+                        const fromData = new FormData()
+                        fromData.append("file", imageFile)
+                        fromData.append("upload_preset", "dbuwaryz")
+                        return axios.post("https://api.cloudinary.com/v1_1/mecompany/image/upload", fromData)
+                    })
                 )
-                .then((resp)=>{
-                   let  data = resp.map((r)=> r.data.secure_url )
-                
-                    let respuesta = {
-                        ...input,
-                        image: data.join("&&")
-                    }
-                    
-                    dispatch(addSellingProduct(respuesta));
-                    router.push("/search")
-                })
-                
-                
+                    .then((resp) => {
+                        let data = resp.map((r) => r.data.secure_url)
+
+                        let respuesta = {
+                            ...input,
+                            image: data.join("&&")
+                        }
+
+                        dispatch(addSellingProduct(respuesta));
+                        setTimeout(() => {
+                            router.push("/search")
+                        }, 2000)
+                    })
+
+
             }
         }
-        else{
+        else {
             alert("Debes aceptar los terminos y condiciones")
         }
-            
-        
+
+
     }
-    function handleSelect (e) {
+    function handleSelect(e) {
         e.preventDefault();
         setCategorieSelect(e.target.value)
         setInput({
@@ -137,110 +145,126 @@ const AddProductForm = () => {
         const details = document.getElementById("details")
         details.removeAttribute("open");
     }
-    const GuardarImage =(e)=>{
-      
-        setImageSelected([...e.target.files])
+    const GuardarImage = (e) => {
+        
+        let image = [...e.target.files]
+        if(image.length > 5){
+            //avisamos el maximo de imagenes
+            alert("El maximo de imagenes es de 5")
+        }
+        image = image.slice(0,5)
+        setImageSelected(image)
     }
-    const mostrar = (i)=>{
-        
-            const objectURL = URL.createObjectURL(imageSelected[i])
-            return objectURL
-        
+    const mostrar = (i) => {
+
+        const objectURL = URL.createObjectURL(imageSelected[i])
+        return objectURL
+
     }
     return (
-        <DivContainer>
-            <DivFormItem>¿Qué vas a publicar?</DivFormItem>
-            <FormContainer onSubmit={(e) => {handleSubmit(e)}} >
-            <FormFieldset>
-                    
-                Producto
-                <DivFormItem>
-                    <label htmlFor="inputNombre">Nombre</label>
-                    <br/>
-                    <FormInput
-                        onKeyDown={keyEnter}
-                        id="inputNombre"
-                        type='text'
-                        name='title'
-                        value={input.title}
-                        onChange={(e) => {handleChange(e)}}
-                        />
-                </DivFormItem>
-                <DivFormItem>
-                    <label htmlFor="inputDescription">Descripción</label>
-                    <br/>
-                    <FormInput
-                        onKeyDown={keyEnter}
-                        id="inputDescription"
-                        name="description"
-                        value={input.description}
-                        onChange={(e) => {handleChange(e)}}
-                    />
-                </DivFormItem>
-                <DivFormItem>
-                    <label htmlFor="inputStock">Stock</label>
-                    <br/>
-                    <FormInput
-                        onKeyDown={keyEnter}
-                        id="inputStock"
-                        type='number'
-                        name='stock'
-                        value={input.stock}
-                        onChange={(e) => {handleChange(e)}}
-                    />
-                </DivFormItem>
-                <DivFormItem>
-                    <label htmlFor="inputPrice">Precio</label>
-                    <br/>
-                    <FormInput
-                        onKeyDown={keyEnter}
-                        id="inputPrice"
-                        type='number'
-                        name='price'
-                        value={input.price}
-                        onChange={(e) => {handleChange(e)}}
-                    />
-                </DivFormItem>
-                <DivFormItem>
-                    <label> Categorias</label>
-                    <br/><br/>
-                    <details id="details">
-                        <summary>Opciones</summary>
-                        {categories && categories.map(c => <button onClick={handleSelect} value={c.title} id={c._id}>{c.title}</button>)}
-                    </details>
-                    <br/>
-                    <label>{categorieSelect}</label>
-                </DivFormItem>
-                <DivFormItem>
-                    {imageSelected.length >0  && imageSelected.map((e,i)=> <img width="100%" src={mostrar(i)}/>)}
-                </DivFormItem>
-                <DivFormItem>
-                    <ImageLabel htmlFor="file-upload">Cargar imagen</ImageLabel>
-                    <ImageInput
-                        onKeyDown={keyEnter}
-                        multiple
-                        type='file'
-                        id="file-upload"
-                        accept="image/png,image/jpeg,image/png"
-                        onChange={GuardarImage}
-                    />
-                </DivFormItem>
-                </FormFieldset>
-                <DivFormItem>
-                <input
-                    onKeyDown={keyEnter}
-                    id="terminos"
-                    type="checkbox"
-                    />
-                <label htmlFor="terminos">Acepto los </label>
-                
-                <a href="https://www.soyhenry.com/terms" style={{color: "blue"}}>Terminos y condiciones</a>
-                </DivFormItem>
-                <DivFormItem>
-                <ButtonForm type='submit'>Publicar</ButtonForm>
-                </DivFormItem>
-            </FormContainer>
-        </DivContainer>
+        <>
+            {user._id ?
+                <DivContainer>
+                    <DivFormItem>¿Qué vas a publicar?</DivFormItem>
+                    <FormContainer onSubmit={(e) => { handleSubmit(e) }} >
+                        <FormFieldset>
+
+                            Producto
+                            <DivFormItem>
+                                <label htmlFor="inputNombre">Nombre</label>
+                                <br />
+                                <FormInput
+                                    onKeyDown={keyEnter}
+                                    id="inputNombre"
+                                    type='text'
+                                    name='title'
+                                    value={input.title}
+                                    onChange={(e) => { handleChange(e) }}
+                                />
+                            </DivFormItem>
+                            <DivFormItem>
+                                <label htmlFor="inputDescription">Descripción</label>
+                                <br />
+                                <FormInput
+                                    onKeyDown={keyEnter}
+                                    id="inputDescription"
+                                    name="description"
+                                    value={input.description}
+                                    onChange={(e) => { handleChange(e) }}
+                                />
+                            </DivFormItem>
+                            <DivFormItem>
+                                <label htmlFor="inputStock">Stock</label>
+                                <br />
+                                <FormInput
+                                    onKeyDown={keyEnter}
+                                    id="inputStock"
+                                    type='number'
+                                    name='stock'
+                                    value={input.stock}
+                                    onChange={(e) => { handleChange(e) }}
+                                />
+                            </DivFormItem>
+                            <DivFormItem>
+                                <label htmlFor="inputPrice">Precio</label>
+                                <br />
+                                <FormInput
+                                    onKeyDown={keyEnter}
+                                    id="inputPrice"
+                                    type='number'
+                                    name='price'
+                                    value={input.price}
+                                    onChange={(e) => { handleChange(e) }}
+                                />
+                            </DivFormItem>
+                            <DivFormItem>
+                                <label> Categorias</label>
+                                <br /><br />
+                                <details id="details">
+                                    <summary>Opciones</summary>
+                                    {categories && categories.map(c => <button onClick={handleSelect} value={c.title} id={c._id}>{c.title}</button>)}
+                                </details>
+                                <br />
+                                <label>{categorieSelect}</label>
+                            </DivFormItem>
+                            <DivFormItem>
+                                {imageSelected.length > 0 && imageSelected.map((e, i) => <img width="100%" src={mostrar(i)} />)}
+                            </DivFormItem>
+                            <DivFormItem>
+                                <ImageLabel htmlFor="file-upload">Cargar imagen</ImageLabel>
+                                <ImageInput
+                                    onKeyDown={keyEnter}
+                                    multiple
+                                    maxLength="2"
+                                    max="2"
+                                    type='file'
+                                    id="file-upload"
+                                    accept="image/png,image/jpeg,image/png"
+                                    onChange={GuardarImage}
+                                />
+                            </DivFormItem>
+                        </FormFieldset>
+                        <DivFormItem>
+                            <input
+                                onKeyDown={keyEnter}
+                                id="terminos"
+                                type="checkbox"
+                            />
+                            <label htmlFor="terminos">Acepto los </label>
+
+                            <a href="https://www.soyhenry.com/terms" style={{ color: "blue" }}>Terminos y condiciones</a>
+                        </DivFormItem>
+                        <DivFormItem>
+                            <ButtonForm type='submit'>Publicar</ButtonForm>
+                        </DivFormItem>
+                    </FormContainer>
+                </DivContainer>
+                :
+                <DivContainer>
+                    <DivFormItem>No deberías poder acceder aqui sin estar logueado</DivFormItem>
+                </DivContainer>
+            }
+        </>
     )
 }
 

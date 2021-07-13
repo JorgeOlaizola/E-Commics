@@ -49,8 +49,8 @@ export function signOut() {
 
 // Tools
 
-export function handleFavorites(productId, userId) {
+export function handleFavorites(productId, productImg, productTitle, productPrice, userId) {
     return (dispatch) => {
-        axios.post(`${process.env.NEXT_PUBLIC_LOCALHOST}/api/users/favorites`, {productId, userId})
-        .then((response => dispatch({ type: user.HANDLE_FAVORITES, payload: response})
+        axios.post(`${process.env.NEXT_PUBLIC_LOCALHOST}/api/users/favorites`, {productId, productImg, productTitle, productPrice, userId})
+        .then((response => dispatch({ type: user.HANDLE_FAVORITES, payload: response.data})
         ))}}

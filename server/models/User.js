@@ -39,7 +39,20 @@ const userSchema = new Schema({
 		type: String
 	},
 	favorites: {
-		type: [{ type: Schema.ObjectId, ref: "Product" }]
+		type: [{
+			productId: {
+				type: String
+			},
+			productImg: {
+				type: [String]
+			},
+			productTitle: {
+				type: String
+			},
+			productPrice: {
+				type: Number
+			}
+		 }]
 	}
 });
 

@@ -1,8 +1,14 @@
-import Link from 'next/link';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
+import UserPanelProfile from './UserPanelProfile.js';
+import UserPanelFavorites from './UserPanelFavorites.js';
+import UserPanelBuys from './UserPanelBuys.js';
+import UserPanelSellings from './UserPanelSellings.js';
+import UserPanelPublications from './UserPanelPublications.js';
 import styled from 'styled-components';
-import { GradientBorder, Input  } from '../../pages/globalStyle.js'
+import { StyledLink } from '../../pages/globalStyle.js';
+import { GradientBorder, Input  } from '../../pages/globalStyle.js';
 
 
 const StyledContainer = styled.div`
@@ -68,67 +74,55 @@ const StyledButton = styled.button`
     justify-content: center;
 `
 
-const UserPanel = () => {
+const Navbar = styled.nav`
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 0 2rem;
+    border-bottom: 1px solid;
+    background: ${(props) => props.theme.backgroundNav};
+    max-width: 960px;
+    margin: 0 auto;
+    @media (max-width: 480px) {
+      padding: 0 1rem;
+    }
+`
+
+const UserPanel = (props) => {
+    const [state, setState] = useState("compras");
     const userData = useSelector(state => state.user.userData);
+    const router = useRouter();
     useEffect(() => {
         if(userData.log === false) {
-            window.location.href = "/"
+            router.push("/");
         }
 }, []);
 
+
+    function handleClick(event) {
+        setState(event.target.name)
+    }
+
+
     return (
         <StyledContainer>
-            <WelcomeMessage>
-                ¡Hola de nuevo, {userData.name}!
-            </WelcomeMessage>
-            <DataSection>
-                <DataTitle>Datos personales</DataTitle>
-                <PersonalDataRow>
-                    <DataColumn>
-                        <DataText>Nombre: {userData.name}</DataText>
-                        <DataText>Apellido: {userData.surname}</DataText>
-                        <DataText>Correo electrónico: {userData.email}</DataText>
-                        <DataText>Usuario: {userData.nickname}</DataText>
-                        <GradientBorder className="">
-                            <Input className="inputbutton" type="submit" />
-                        </GradientBorder>
-                    </DataColumn>
-                    <div>
-                        <img src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png' style={{width: '200px', height: '200px'}}/>
-                    </div>
-                </PersonalDataRow>
-            </DataSection>
-            <DataSection>
-                <DataTitle>Compras realizadas</DataTitle>
-                <DataRow>
-                    <img style={{width:"150px", height:"200px"}} src={"https://cdn.pixabay.com/photo/2016/09/03/12/06/marvel-1641554_960_720.jpg"} /> 
-                    <img style={{width:"150px", height:"200px"}} src={"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fvignette.wikia.nocookie.net%2Fcomics%2Fimages%2F7%2F79%2FSuperman_2018_1.jpg%2Frevision%2Flatest%3Fcb%3D20180711111140&f=1&nofb=1"} /> 
-                    <img style={{width:"150px", height:"200px"}} src={"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.iJJZfZWIREQpmX67YERo0AHaLD%26pid%3DApi&f=1"} /> 
-                </DataRow>
-                <StyledButton>Ver todas mis compras</StyledButton>
-            </DataSection>
-            <DataSection>
-                <DataTitle>Publicaciones activas</DataTitle>
-                <DataRow>
-                    <img style={{width:"150px", height:"200px"}} src={"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIF.HXMbQ8FE4daH%252bc%252fbAw5K1Q%26pid%3DApi&f=1"} /> 
-                    <img style={{width:"150px", height:"200px"}} src={"https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.mobygames.com%2Fimages%2Fcovers%2Fl%2F416543-fortnite-standard-founder-s-pack-playstation-4-front-cover.png&f=1&nofb=1"} /> 
-                    <img style={{width:"150px", height:"200px"}} src={"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.DOwZNFJWH1SX50GubY_dawHaId%26pid%3DApi&f=1"} /> 
-                </DataRow>
-                <StyledButton>Ver todas mis publicaciones</StyledButton>    
-                <Link href="/addproduct" passHref replace>
-                    <StyledButton>Crear publicacion</StyledButton>
-                </Link>
-            </DataSection>
-            <DataSection>
-                <DataTitle>Ventas realizadas</DataTitle>
-                <DataRow>
-                    <img style={{width:"150px", height:"200px"}} src={"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.KvZkOE4WXf4S_CZnjZoufwHaJf%26pid%3DApi&f=1"} /> 
-                    <img style={{width:"150px", height:"200px"}} src={"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.spUnBWRdQyzCeWK4eQqKowHaK9%26pid%3DApi&f=1"} /> 
-                    <img style={{width:"150px", height:"200px"}} src={"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.cvynK5XO9key3eG9Z6eQSQHaLI%26pid%3DApi&f=1"} /> 
-                </DataRow>
-                <StyledButton>Ver todas mis ventas</StyledButton>
-            </DataSection>
-        </StyledContainer>
+        <Navbar>
+                <StyledLink classname={state === "compras" ? "active": ""} name="compras" onClick={(e) => {handleClick(e)}}>Compras</StyledLink>
+                <StyledLink classname={state === "favoritos" ? "active": ""} name="favoritos" onClick={(e) => {handleClick(e)}}>Favoritos</StyledLink>
+                <StyledLink classname={state === "publicaciones" ? "active": ""} name="publicaciones" onClick={(e) => {handleClick(e)}}>Publicaciones</StyledLink>
+                <StyledLink classname={state === "ventas" ? "active": ""} name="ventas" onClick={(e) => {handleClick(e)}}>Ventas</StyledLink>
+                <StyledLink classname={state === "perfil" ? "active": ""} name="perfil" onClick={(e) => {handleClick(e)}}>Perfil</StyledLink>
+        </Navbar>
+        {
+            props.view === "compras" || state === "compras" ? <UserPanelBuys/> :
+            props.view === "favoritos" || state === "favoritos" ? <UserPanelFavorites/> :
+            props.view === "publicaciones" || state === "publicaciones" ? <UserPanelPublications/> :
+            props.view === "ventas" || state === "ventas" ? <UserPanelSellings/> :
+            <UserPanelProfile/>
+        }
+    </StyledContainer>
     )
 }
 

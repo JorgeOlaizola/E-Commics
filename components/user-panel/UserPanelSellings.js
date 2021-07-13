@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { GradientBorder, Input  } from '../../pages/globalStyle.js'
@@ -54,8 +55,13 @@ const ProfileImg = styled.img`
     height: 150px;
 `
 
-const UserPanelProfile = () => {
+const UserPanelSellings = () => {
     const userData = useSelector(state => state.user.userData);
+    useEffect(() => {
+        if(userData.log === false) {
+            window.location.href = "/"
+        }
+}, []);
 
     return (
         <StyledContainer>
@@ -63,24 +69,10 @@ const UserPanelProfile = () => {
                 ¡Hola de nuevo, {userData.name}!
             </WelcomeMessage>
             <DataSection>
-                <DataColumn>
-                    <h3>Imagen de perfil</h3>
-                    <ProfileImg src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png' />
-                </DataColumn>
-                <DataColumn>
-                    <h3>Datos personales</h3>
-                    <DataText><strong>Nombre:</strong> {userData.name}</DataText>
-                    <DataText><strong>Apellido:</strong> {userData.surname}</DataText>
-                    <DataText><strong>Email:</strong> <input placeholder={userData.email} /></DataText>
-                    <DataText><strong>Usuario:</strong> <input placeholder={userData.nickname} /></DataText>
-                    <GradientBorder className="">
-                        <Input className="inputbutton" type="submit" />
-                    </GradientBorder>
-                    <span>¿Hubo un  error en la carga de tu nombre o apellido? <a href="mailto:ecommics@gmail.com" style={{color: "#0096FF"}}>Escríbenos</a></span>
-                </DataColumn>
+                ventas
             </DataSection>
         </StyledContainer>
     )
 }
 
-export default UserPanelProfile;
+export default UserPanelSellings;

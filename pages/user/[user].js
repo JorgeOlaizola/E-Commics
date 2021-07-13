@@ -12,9 +12,9 @@ const User = () => {
       <link rel="icon" href="/favicon.ico" />
       </Head>
       <Container>
-        {/* <UserPanel/> */}
-        <UserPanelNav/>
-        <UserPanelProfile/>
+        <UserPanel/>
+        {/* <UserPanelNav/>
+        <UserPanelProfile/> */}
       </Container>
     </>
   )

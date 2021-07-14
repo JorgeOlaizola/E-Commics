@@ -1,8 +1,9 @@
 import Product from '../../../server/models/Product'
 
 export default async (req, res) => {
+    const { method } = req
     const { title, description, image, stock, price, user ,category } = req.body
-    switch (req.method) {
+    switch (method) {
         case 'POST':
             try {
                 if (!title || !description || !image || !stock || !price || !user ||!category) {

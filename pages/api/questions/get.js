@@ -2,8 +2,9 @@ import Question from '../../../server/models/Question'
 import User from '../../../server/models/User'
 
 export default async (req, res) => {
+    const { method } = req
     const { id } = req.query
-    switch (req.method) {
+    switch (method) {
         case 'GET':
             try {
                 const questions = await Question.find().where({ product: id})

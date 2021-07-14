@@ -5,8 +5,9 @@ import Question from '../../../server/models/Question'
 
 
 export default async (req, res) => {
+    const { method } = req
     const { id } = req.query
-    switch (req.method) {
+    switch (method) {
         case 'GET':
             try {
             

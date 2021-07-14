@@ -1,7 +1,20 @@
-import {model} from 'mongoose'
-const Category = model.Category
+import Category from '../../../server/models/Category'
 
 export default async (req, res) => {
-    const categoriesNames = await Category.find();
-    res.send(categoriesNames)
+    switch (req.method) {
+        case 'GET':
+            try {
+                const categoriesNames = await Category.find({},'title');
+                res.send(categoriesNames)
+            } 
+            catch (error) {
+                console.log(error)
+                res.status(500).send({ error_msg: "Ups! 🙊 Error en el servidor, lo siento 🙈" })
+            }
+            break
+        default:
+            res.status(400).json({ itemnotfound: "No item found" })
+            break
+    }
+
 }

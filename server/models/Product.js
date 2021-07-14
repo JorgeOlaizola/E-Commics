@@ -1,24 +1,24 @@
-const { Schema, model } = require('mongoose');
+const mongoose = require('mongoose');
 
-const productSchema = new Schema({
+const productSchema = new mongoose.Schema({
 	user: {
-        type: Schema.ObjectId, 
+        type: mongoose.Schema.ObjectId, 
         ref: "User" 
     },
     officialStore: {
-        type: Schema.ObjectId, 
+        type: mongoose.Schema.ObjectId, 
         ref: "OfficialStore" 
     },
     category: {
-        type: Schema.ObjectId, 
+        type: mongoose.Schema.ObjectId, 
         ref: "Category" 
     },
     question: {
-        type: Schema.ObjectId, 
+        type: mongoose.Schema.ObjectId, 
         ref: "Question" 
     },
     review: {
-        type: Schema.ObjectId, 
+        type: mongoose.Schema.ObjectId, 
         ref: "Review" 
     },
 	title: {
@@ -50,4 +50,4 @@ const productSchema = new Schema({
 	}
 });
 
-module.exports = model('Product', productSchema);
+module.exports = mongoose.models.Product || mongoose.model('Product', productSchema);

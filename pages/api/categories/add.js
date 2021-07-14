@@ -4,7 +4,7 @@ export default async (req, res) => {
     const { method } = req
     const { title } = req.body;
     switch (method) {
-        case 'GET':
+        case 'POST':
             try {
                 if (title) {
                     const newCategory = await new Category({ title });
@@ -19,7 +19,8 @@ export default async (req, res) => {
             }
             break
         default:
-            res.status(400).json({ itemnotfound: "No item found" })
+            res.setHeader('Allow', ['POST'])
+            res.status(405).end(`Method ${method} Not Allowed`)
             break
     }
 

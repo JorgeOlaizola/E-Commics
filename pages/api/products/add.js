@@ -3,7 +3,7 @@ import Product from '../../../server/models/Product'
 export default async (req, res) => {
     const { title, description, image, stock, price, user ,category } = req.body
     switch (req.method) {
-        case 'GET':
+        case 'POST':
             try {
                 if (!title || !description || !image || !stock || !price || !user ||!category) {
                     !title && req.flash("error_msg", "required title")
@@ -25,7 +25,8 @@ export default async (req, res) => {
             }
             break
         default:
-            res.status(400).json({ itemnotfound: "No item found" })
+            res.setHeader('Allow', ['POST'])
+            res.status(405).end(`Method ${method} Not Allowed`)
             break
     }
 

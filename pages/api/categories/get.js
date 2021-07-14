@@ -13,7 +13,8 @@ export default async (req, res) => {
             }
             break
         default:
-            res.status(400).json({ itemnotfound: "No item found" })
+            res.setHeader('Allow', ['GET'])
+            res.status(405).end(`Method ${method} Not Allowed`)
             break
     }
 

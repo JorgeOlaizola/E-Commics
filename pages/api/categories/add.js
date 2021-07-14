@@ -1,4 +1,5 @@
-import Category from '../../../server/models/Category'
+import {model} from 'mongoose'
+const Category = model.Category
 
 export default async (req, res) => {
     const { title } = req.body;

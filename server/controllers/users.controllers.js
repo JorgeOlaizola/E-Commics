@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const passport = require('passport')
 const Product = require('../models/Product')
+const jwt = require('jsonwebtoken')
 ObjetcID = require('mongodb').ObjetcID
 
 const users = {}
@@ -45,12 +46,15 @@ users.registerController = async (req, res) => {
     }
 }
 
-users.logIn = passport.authenticate('local', {
-    failureRedirect: '/logIn',
-    successRedirect: '/',
-    failureFlash: true
-})
+// users.logIn = passport.authenticate('local', {
+//     failureRedirect: '/logIn',
+//     successRedirect: '/',
+//     failureFlash: true
+// })
 
+users.logIn = async (req, res, next) => {
+ res.json({ message: 'No'})    
+}
 users.logOut = async (req, res) => {
     req.logout();
     res.json({ success_msg: 'Sesión cerrada correctamente' })

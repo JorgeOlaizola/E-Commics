@@ -24,23 +24,23 @@ app
         
         //Middlewares
         server.use(express.json());
-        server.use(session({
-            secret: 'secret',
-            resave: true,
-            saveUninitialized: true,
-          }));
+        // server.use(session({
+        //     secret: 'secret',
+        //     resave: true,
+        //     saveUninitialized: true,
+        //   }));
         server.use(passport.initialize());
-        server.use(passport.session());
-        server.use(flash());
+        // server.use(passport.session());
+        // server.use(flash());
 
-        //Global Vars
-        server.use((req, res, next) => {
-            res.locals.success_msg = req.flash('success_msg');
-            res.locals.error_msg = req.flash('error_msg');
-            res.locals.error = req.flash('error');
-            res.locals.user = req.user || null;
-            next();    
-        });
+        // //Global Vars
+        // server.use((req, res, next) => {
+        //     res.locals.success_msg = req.flash('success_msg');
+        //     res.locals.error_msg = req.flash('error_msg');
+        //     res.locals.error = req.flash('error');
+        //     res.locals.user = req.user || null;
+        //     next();    
+        // });
 
         //Route
         server.use('/api', Index)

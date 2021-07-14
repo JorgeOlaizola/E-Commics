@@ -1,12 +1,12 @@
-const { Schema, model } = require('mongoose');
+const mongoose = require('mongoose');
 
-const questionSchema = new Schema({
+const questionSchema = new mongoose.Schema({
 	user: {
-		type: Schema.ObjectId,
+		type: mongoose.Schema.ObjectId,
 		ref: 'User'
 	},
 	product : {
-		type : Schema.ObjectId,
+		type : mongoose.Schema.ObjectId,
 		ref: 'Product'
 	},
 	content: {
@@ -22,4 +22,4 @@ const questionSchema = new Schema({
 	}
 });
 
-module.exports = model('Question', questionSchema);
+module.exports = mongoose.models.Question || mongoose.model('Question', questionSchema);

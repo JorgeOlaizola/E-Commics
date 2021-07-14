@@ -87,5 +87,6 @@ export default async (req, res) => {
         default:
             res.setHeader('Allow', ['POST'])
             res.status(405).end(`Method ${method} Not Allowed`)
+            break
     }
 }

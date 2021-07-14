@@ -14,6 +14,15 @@ export default async (req, res) => {
                 const productANDcategory = await Category.populate(product,{path:'category'})
                 const productANDcategoryANDuser = await User.populate(productANDcategory, { path: "user" })
                 const questions = await Question.find().where({ product: id})
+                const questionsANDuser = await User.populate(questions,{path:"user"})
+                let quest = questionsANDuser.map(q => {
+                    return {
+                        content: q.content,
+                        answer: q.answer,
+                        userNickname: q.user.nickname,
+                        created_at: q.created_at
+                    }
+                })
                 let result = {
                     _id: productANDcategoryANDuser._id,
                     title: productANDcategoryANDuser.title,
@@ -33,7 +42,7 @@ export default async (req, res) => {
                         _id: productANDcategoryANDuser.category._id, 
                         title: productANDcategoryANDuser.category.title
                     },
-                    questions: questions
+                    questions:quest
                 }
                 res.json(result)
             } 

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
+import { getProductsByUser } from '../../store/actions/productActions';
 import UserPanelProfile from './UserPanelProfile.js';
 import UserPanelFavorites from './UserPanelFavorites.js';
 import UserPanelBuys from './UserPanelBuys.js';
@@ -8,8 +9,7 @@ import UserPanelSellings from './UserPanelSellings.js';
 import UserPanelPublications from './UserPanelPublications.js';
 import styled from 'styled-components';
 import { StyledLink } from '../../pages/globalStyle.js';
-import { GradientBorder, Input  } from '../../pages/globalStyle.js';
-
+import WelcomeMessage from './WelcomeMessage.js';
 
 const StyledContainer = styled.div`
     margin-top: 30px;
@@ -19,6 +19,11 @@ const StyledContainer = styled.div`
     flex-direction: column;
     align-items: center;
 `
+
+const UserStyledLink = styled(StyledLink)`
+  padding: 0.2rem;
+  margin: 0.2rem;
+`;
 
 const DataSection = styled.div`
     width: 60%;
@@ -31,10 +36,6 @@ const DataSection = styled.div`
     padding: 5px;
 `
 
-const WelcomeMessage = styled.h1`
-    ${'' /* font-size: 2rem; */}
-    ${'' /* color: #ED2024; */}
-`
 
 const DataRow = styled.div`
     display: flex;
@@ -83,7 +84,7 @@ const Navbar = styled.nav`
     padding: 0 2rem;
     border-bottom: 1px solid;
     background: ${(props) => props.theme.backgroundNav};
-    max-width: 960px;
+    max-width: 1024px;
     margin: 0 auto;
     @media (max-width: 480px) {
       padding: 0 1rem;
@@ -91,38 +92,80 @@ const Navbar = styled.nav`
 `
 
 const UserPanel = (props) => {
+
+    const dispatch = useDispatch();
     const [state, setState] = useState("compras");
     const userData = useSelector(state => state.user.userData);
+    const products = useSelector(state => state.product.products);
     const router = useRouter();
+
+
+    useEffect(() => {
+        dispatch(getProductsByUser(data))
+    }, [])
+  
+  
+    const data = {
+          "user" : `${userData._id}`,
+          "category": "",
+          "score" : {
+              "start":1,
+              "end": 4
+          },
+           "price" : {
+              "start":0,
+              "end": 0
+          },
+          "search":{
+              "in":"title",
+              "text":""
+          },
+          "order":{
+              "in": "price",
+              "or": 1
+          },
+          "page": 1
+      }
+
     useEffect(() => {
         if(userData.log === false) {
             router.push("/");
         }
-}, []);
-
+        
+    }, []);
 
     function handleClick(event) {
         setState(event.target.name)
     }
 
+    // console.log(dispatch(searchByUser(userData._id)))
+    // console.log(userData._id)
 
+
+    
     return (
-        <StyledContainer>
-        <Navbar>
-                <StyledLink classname={state === "compras" ? "active": ""} name="compras" onClick={(e) => {handleClick(e)}}>Compras</StyledLink>
-                <StyledLink classname={state === "favoritos" ? "active": ""} name="favoritos" onClick={(e) => {handleClick(e)}}>Favoritos</StyledLink>
-                <StyledLink classname={state === "publicaciones" ? "active": ""} name="publicaciones" onClick={(e) => {handleClick(e)}}>Publicaciones</StyledLink>
-                <StyledLink classname={state === "ventas" ? "active": ""} name="ventas" onClick={(e) => {handleClick(e)}}>Ventas</StyledLink>
-                <StyledLink classname={state === "perfil" ? "active": ""} name="perfil" onClick={(e) => {handleClick(e)}}>Perfil</StyledLink>
-        </Navbar>
-        {
-            props.view === "compras" || state === "compras" ? <UserPanelBuys/> :
-            props.view === "favoritos" || state === "favoritos" ? <UserPanelFavorites/> :
-            props.view === "publicaciones" || state === "publicaciones" ? <UserPanelPublications/> :
-            props.view === "ventas" || state === "ventas" ? <UserPanelSellings/> :
-            <UserPanelProfile/>
-        }
-    </StyledContainer>
+        <div>
+            <StyledContainer>
+                    
+            <Navbar>
+                    <UserStyledLink className={state === "compras" ? "active": ""} name="compras" onClick={(e) => {handleClick(e)}}>Compras</UserStyledLink>
+                    <UserStyledLink className={state === "favoritos" ? "active": ""} name="favoritos" onClick={(e) => {handleClick(e)}}>Favoritos</UserStyledLink>
+                    <UserStyledLink className={state === "publicaciones" ? "active": ""} name="publicaciones" onClick={(e) => {handleClick(e)}}>Publicaciones</UserStyledLink>
+                    <UserStyledLink className={state === "ventas" ? "active": ""} name="ventas" onClick={(e) => {handleClick(e)}}>Ventas</UserStyledLink>
+                    <UserStyledLink className={state === "perfil" ? "active": ""} name="perfil" onClick={(e) => {handleClick(e)}}>Perfil</UserStyledLink>
+            </Navbar>
+            <WelcomeMessage userDataName ={userData.name} />
+
+            {
+                props.view === "compras" || state === "compras" ? <UserPanelBuys/> :
+                props.view === "favoritos" || state === "favoritos" ? <UserPanelFavorites/> :
+                props.view === "publicaciones" || state === "publicaciones" ? <UserPanelPublications/> :
+                props.view === "ventas" || state === "ventas" ? <UserPanelSellings/> :
+                <UserPanelProfile/>
+            }
+        </StyledContainer>
+        </div>
+    
     )
 }
 

@@ -24,11 +24,6 @@ const DataSection = styled.div`
     justify-content: space-around;
 `
 
-const WelcomeMessage = styled.h1`
-    ${'' /* font-size: 2rem; */}
-    ${'' /* color: #ED2024; */}
-`
-
 
 const DataColumn = styled.div`
     width: 250px;
@@ -59,9 +54,6 @@ const UserPanelProfile = () => {
 
     return (
         <StyledContainer>
-            <WelcomeMessage>
-                ¡Hola de nuevo, {userData.name}!
-            </WelcomeMessage>
             <DataSection>
                 <DataColumn>
                     <h3>Imagen de perfil</h3>

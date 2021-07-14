@@ -9,6 +9,13 @@ export function getProducts (payload) {
     .then(r => dispatch({ type: product.GET_PRODUCTS, payload: r.data }))
     }
 }
+ 
+export function getProductsByUser (userData) {
+    return (dispatch) => {
+    axios.post(`${process.env.NEXT_PUBLIC_LOCALHOST}/api/products/get`, userData)
+    .then(r => dispatch({ type: product.GET_PRODUCTS_BY_USER, payload: r.data }))
+    }
+}
 
 export function getProductDetail (id) {
     return (dispatch) => {

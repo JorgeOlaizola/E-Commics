@@ -63,11 +63,9 @@ const UserPanelBuys = () => {
         }
 }, []);
 
+
     return (
         <StyledContainer>
-            <WelcomeMessage>
-                ¡Hola de nuevo, {userData.name}!
-            </WelcomeMessage>
             <DataSection>
                 compras
             </DataSection>

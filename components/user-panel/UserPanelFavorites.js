@@ -65,9 +65,6 @@ const UserPanelFavorites = () => {
 
     return (
         <StyledContainer>
-            <WelcomeMessage>
-                ¡Hola de nuevo, {userData.name}!
-            </WelcomeMessage>
             <DataSection>
                 favoritos
             </DataSection>

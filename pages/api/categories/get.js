@@ -1,7 +1,8 @@
 import Category from '../../../server/models/Category'
 
 export default async (req, res) => {
-    switch (req.method) {
+    const { method } = req
+    switch (method) {
         case 'GET':
             try {
                 const categoriesNames = await Category.find({},'title');

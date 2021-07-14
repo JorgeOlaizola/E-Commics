@@ -12,7 +12,7 @@ export function getProducts (payload) {
 
 export function getProductDetail (id) {
     return (dispatch) => {
-    axios.get(`${process.env.NEXT_PUBLIC_LOCALHOST}/api/products/product?id=${id}`)
+    axios.get(`${process.env.NEXT_PUBLIC_LOCALHOST}/api/products/detail?id=${id}`)
     .then(r => dispatch({ type: product.GET_PRODUCT_DETAIL, payload: r.data }))
     }
 }
@@ -33,7 +33,7 @@ export function addSellingProduct (product) {
 
 export function createQuestion (question, userNickname) {
     return (dispatch) => {
-        axios.post(`${process.env.NEXT_PUBLIC_LOCALHOST}/api/questions`, question)
+        axios.post(`${process.env.NEXT_PUBLIC_LOCALHOST}/api/questions/add`, question)
         .then(r =>{ 
             const createdQuestion = {
                 ...r.data,

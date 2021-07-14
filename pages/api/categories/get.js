@@ -1,4 +1,3 @@
-const { response } = require('express');
 import Category from '../../../server/models/Category'
 
 export default async (req, res) => {

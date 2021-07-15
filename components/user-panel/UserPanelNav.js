@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
-import { StyledLink } from '../../pages/globalStyle.js';
+import { StyledLink } from '../globalStyle';
 
 const Navbar = styled.nav`
     height: 60px;

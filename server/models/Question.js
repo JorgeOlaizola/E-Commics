@@ -18,7 +18,7 @@ const questionSchema = new mongoose.Schema({
 	},
 	created_at: {
 		type: Date,
-		default: Date.now() // new Data().toLocaleDateString()
+		default: Date.now()
 	}
 });
 

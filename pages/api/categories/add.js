@@ -1,8 +1,12 @@
 import Category from '../../../server/models/Category'
+import dbConnect from '../../../utils/dbConnect'
 
 export default async (req, res) => {
     const { method } = req
     const { title } = req.body;
+
+    await dbConnect();
+
     switch (method) {
         case 'POST':
             try {

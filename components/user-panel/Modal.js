@@ -3,7 +3,7 @@ import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import SignUp from '../SignUp';
 import SignInForm from '../SignInForm';
-import { LigthDarkThemeDiv } from '../../pages/globalStyle.js'
+import { LigthDarkThemeDiv } from '../globalStyle'
 
 
 const Modal = ({ show, onSubmitSignUp, onClose, children, title, signType }) => {
@@ -27,7 +27,7 @@ const Modal = ({ show, onSubmitSignUp, onClose, children, title, signType }) => 
                 x
               </a>
             </StyledModalHeader>
-            {title && <StyledModalTitle>{title}</StyledModalTitle>}
+            {title && <span>{title}</span>}
             <StyledModalBody>
             {children}
             {signType === "signUp" ?  

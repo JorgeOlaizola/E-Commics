@@ -4,7 +4,7 @@ import Footer from './Footer.js';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { getCategories } from '../store/actions/categoriesActions.js';
-import { lightTheme, darkTheme, GlobalStyles, StyledApp} from '../pages/globalStyle.js'
+import { lightTheme, darkTheme, GlobalStyles, StyledApp} from './globalStyle'
 import styled, { ThemeProvider } from "styled-components";
 
 const DivContainer = styled.div`

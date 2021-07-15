@@ -1,9 +1,12 @@
 import Product from '../../../server/models/Product'
+import dbConnect from '../../../utils/dbConnect'
 
 export default async (req, res) => {
-    const { method } = req
+
+    await dbConnect();
+
     const { title, description, image, stock, price, user ,category } = req.body
-    switch (method) {
+    switch (req.method) {
         case 'POST':
             try {
                 if (!title || !description || !image || !stock || !price || !user ||!category) {

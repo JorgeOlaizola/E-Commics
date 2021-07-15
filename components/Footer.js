@@ -1,9 +1,9 @@
 import styled from "styled-components";
+import Image from 'next/image'
 
 
 const FooterContainer = styled.div`
 width: 100%;
-background-color: ;
 background: radial-gradient(circle, #202020 0%, #151515  100%);
 padding: 80px 60px;
 `
@@ -83,14 +83,22 @@ export const Icon = styled.i`
     margin-right: 16px;
 `
 
+const StyledImage = styled.img`
+    width: 150px;
+    margin-left: -10px;
+`
+
 const Footer = () => {
+
+    const logoWhite = "https://ecommics.s3.sa-east-1.amazonaws.com/images/ecommics-logo-white.svg";
+
     return (
 <FooterContainer>
             <StyledContainer>
                 <FooterRow>
                     <FooterColumn>
                         <FooterTitle>
-                            <img style={{width:"150px", marginLeft: "-10px"}} src={"https://ecommics.s3.sa-east-1.amazonaws.com/images/ecommics-logo-white.svg"}/>
+                            <StyledImage src={logoWhite}/>
                         </FooterTitle>
                            <StyledCopyright>Copyright © 2021 Ecommics</StyledCopyright> 
                     </FooterColumn>

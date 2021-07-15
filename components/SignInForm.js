@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { signIn } from "../store/actions/normalUsersActions";
 import {FormContainer, LogInForm, FormLabel, FormInputs, FormInput, FormSpan, Eye} from './user-panel/UserStyles.js';
-import { Input, GradientBorder, DisableBorder, InputDisable } from '../pages/globalStyle.js'
+import { Input, GradientBorder, DisableBorder, InputDisable } from './globalStyle'
 
 
 const SignInForm = () => {

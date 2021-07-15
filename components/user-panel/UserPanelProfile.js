@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { GradientBorder, Input  } from '../../pages/globalStyle.js'
+import { GradientBorder, Input  } from '../globalStyle'
 
 
 const StyledContainer = styled.div`
@@ -22,11 +22,6 @@ const DataSection = styled.div`
     padding: 5px;
     flex-wrap: wrap;
     justify-content: space-around;
-`
-
-const WelcomeMessage = styled.h1`
-    ${'' /* font-size: 2rem; */}
-    ${'' /* color: #ED2024; */}
 `
 
 
@@ -59,9 +54,6 @@ const UserPanelProfile = () => {
 
     return (
         <StyledContainer>
-            <WelcomeMessage>
-                ¡Hola de nuevo, {userData.name}!
-            </WelcomeMessage>
             <DataSection>
                 <DataColumn>
                     <h3>Imagen de perfil</h3>

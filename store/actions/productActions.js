@@ -5,14 +5,21 @@ import Filters from '../../components/Filters'
 
 export function getProducts (payload) {
     return (dispatch) => {
-    axios.get(`${process.env.NEXT_PUBLIC_LOCALHOST}/api/products`)
+    axios.get(`/api/products/get`)
     .then(r => dispatch({ type: product.GET_PRODUCTS, payload: r.data }))
+    }
+}
+ 
+export function getProductsByUser (userData) {
+    return (dispatch) => {
+    axios.post(`/api/products/get`, userData)
+    .then(r => dispatch({ type: product.GET_PRODUCTS_BY_USER, payload: r.data }))
     }
 }
 
 export function getProductDetail (id) {
     return (dispatch) => {
-    axios.get(`${process.env.NEXT_PUBLIC_LOCALHOST}/api/products/product?id=${id}`)
+    axios.get(`/api/products/detail?id=${id}`)
     .then(r => dispatch({ type: product.GET_PRODUCT_DETAIL, payload: r.data }))
     }
 }
@@ -25,7 +32,7 @@ export function resetProductDetail () {
 
 export function addSellingProduct (product) {
     return () => {
-        const addProduct = axios.post(`${process.env.NEXT_PUBLIC_LOCALHOST}/api/products`, product);
+        const addProduct = axios.post(`/api/products`, product);
     }
 }
 
@@ -33,7 +40,7 @@ export function addSellingProduct (product) {
 
 export function createQuestion (question, userNickname) {
     return (dispatch) => {
-        axios.post(`${process.env.NEXT_PUBLIC_LOCALHOST}/api/questions`, question)
+        axios.post(`/api/questions/add`, question)
         .then(r =>{ 
             const createdQuestion = {
                 ...r.data,
@@ -134,7 +141,7 @@ export function resetFilters() {
 
 export function getFilteredProducts (payload) {
     return(dispatch) => {
-        axios.post(`${process.env.NEXT_PUBLIC_LOCALHOST}/api/products/get`, payload)
+        axios.post(`/api/products/get`, payload)
         .then(r => dispatch({ type: filter.GET_FILTERING_PRODUCTS, payload: r.data }))
     }
 }

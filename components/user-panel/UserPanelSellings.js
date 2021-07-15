@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { GradientBorder, Input  } from '../../pages/globalStyle.js'
+import { GradientBorder, Input  } from '../globalStyle'
 
 
 const StyledContainer = styled.div`
@@ -24,12 +24,6 @@ const DataSection = styled.div`
     flex-wrap: wrap;
     justify-content: space-around;
 `
-
-const WelcomeMessage = styled.h1`
-    ${'' /* font-size: 2rem; */}
-    ${'' /* color: #ED2024; */}
-`
-
 
 const DataColumn = styled.div`
     width: 250px;
@@ -65,9 +59,6 @@ const UserPanelSellings = () => {
 
     return (
         <StyledContainer>
-            <WelcomeMessage>
-                ¡Hola de nuevo, {userData.name}!
-            </WelcomeMessage>
             <DataSection>
                 ventas
             </DataSection>

@@ -7,7 +7,7 @@ import styled from 'styled-components'
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faEye } from "@fortawesome/free-solid-svg-icons";
 // const eye = <FontAwesomeIcon icon={faEye} />;
-import { Input, GradientBorder, DisableBorder, InputDisable } from '../pages/globalStyle.js'
+import { Input, GradientBorder, DisableBorder, InputDisable } from './globalStyle'
 import SignInForm from './SignInForm';
 import {FormContainer, LogInForm, FormLabel, FormInputs, FormInput, FormSpan, Eye} from './user-panel/UserStyles.js';
 

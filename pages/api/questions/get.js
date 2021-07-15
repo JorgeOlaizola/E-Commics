@@ -1,10 +1,13 @@
 import Question from '../../../server/models/Question'
 import User from '../../../server/models/User'
+import dbConnect from '../../../utils/dbConnect'
 
 export default async (req, res) => {
-    const { method } = req
+
+    await dbConnect();
+
     const { id } = req.query
-    switch (method) {
+    switch (req.method) {
         case 'GET':
             try {
                 const questions = await Question.find().where({ product: id})

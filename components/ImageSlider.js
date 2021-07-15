@@ -94,7 +94,7 @@ function ImageSlider() {
           <div key={img._id} className={idx === imageIndex ? "slide activeSlide" : "slide"}>
           {/* <Link href={`/detail/${img._id}`} passHref replace >
             <Image src={img.image} alt={img.title} style={{cursor: "pointer"}}/>
-            </Link> */
+            </Link> */}
           </div>
         ))}
       </Slider>

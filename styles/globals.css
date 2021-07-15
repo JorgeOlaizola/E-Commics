@@ -46,81 +46,72 @@ body {
     }
   }
 
- 
-  /* 
-  sugus/lo llevó al styled components de users
-  
-  
-  .menu-container {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .menu-trigger {
-    background: #ffffff;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 4px 6px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-    border: none;
-    vertical-align: middle;
-    transition: box-shadow 0.4s ease;
-    margin-left: auto; 
-  }
-  
-  .menu-trigger:hover {
-    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
-  }
-  
-  .menu-trigger span {
-    font-weight: 700;
-    vertical-align: middle;
-    font-size: 14px;
-    margin: 0 10px;
-  }
-  
-  .menu-trigger img {
-    border-radius: 90px;
-  }
-  
-  .menu {
-    background: #ffffff;
 
-    position: absolute;
-    top: 80px;
-    right: 40px;
-    width: 170px;
-    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-20px);
-    transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";
+
+.SliderContainer {
+  width: 70%;
+  margin: 3rem auto;
+}
+
+.slide img {
+  width: 100%;
+  margin: 0 auto;
+}
+/* 
+@media (max-width: 960px){
+  .slide img {
+    width: 15rem;
+    margin: 0 auto;
   }
-  
-  .menu.active {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
   }
-  
-  .menu ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  @media (max-width: 640px){
+    .slide img {
+      width: 10rem;
+      margin: 0 auto;
+    }
   }
-  
-  .menu li {
-    border-bottom: 1px solid #dddddd;
-  }
-  
-  .menu li a {
-    text-decoration: none;
-    color: #333333;
-    padding: 15px 20px;
-    display: block;
-  }
-   */
+  @media (max-width: 480px){
+    .slide img {
+      width: 6rem;
+      margin: 0 auto;
+    }
+  } */
+
+.slide {
+  transform: scale(0.2);
+  transition: transform 300ms;
+  opacity: 0.5;
+}
+
+.activeSlide {
+  transform: scale(1.1);
+  opacity: 1;
+}
+
+.arrow {
+  background-color: #fff;
+  position: absolute;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.arrow svg {
+  transition: color 300ms;
+}
+
+.arrow svg:hover {
+  color: #68edff;
+}
+
+.next {
+  right: 0%;
+  top: 50%;
+}
+
+.prev {
+  left: 0%;
+  top: 50%;
+}

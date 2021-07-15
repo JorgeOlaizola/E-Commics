@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
-import { Button  } from './globalStyle'
+import { Button  } from './globalStyle';
 import { SearchIcon } from '@heroicons/react/outline'
 import { searchByName, getFilteredProducts } from '../store/actions/productActions.js';
 import { useDispatch, useSelector } from 'react-redux';

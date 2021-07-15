@@ -24,7 +24,7 @@ const Products = () => {
     }, [])
     return (
         <CardsContainer>   
-            {products && products.map(p => <Product id = {p._id} user={p.user.nickname} category={p.category.title} image={p.image} title={p.title} price={p.price} />)}
+            {products && products.map(p => <Product key={p._id} id = {p._id} user={p.user.nickname} category={p.category.title} image={p.image} title={p.title} price={p.price} />)}
         </CardsContainer>    
     )
 }

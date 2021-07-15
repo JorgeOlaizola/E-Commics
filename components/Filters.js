@@ -105,7 +105,7 @@ const Filters = ({userId}) => {
                 {categories && (
                     
                         <SelectCategories onClick={CategoryFilter}>
-                            {categories.map(category => <CategoryFiltersOption value={category._id} >{category.title}</CategoryFiltersOption>)}
+                            {categories.map(category => <CategoryFiltersOption key={category._id} value={category._id} >{category.title}</CategoryFiltersOption>)}
                         <option value="" selected defaultValue>Todas las categorías</option>  
                         {/* {categories.map(c => <button onClick={CategoryFilter}value={c._id}>{c.title}</button>)} */}
                         </SelectCategories>  

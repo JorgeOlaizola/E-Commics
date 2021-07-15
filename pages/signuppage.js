@@ -8,7 +8,6 @@ const SignUpPage = () => {
   return (
     <>
       <Head>
-      <script src="https://kit.fontawesome.com/ce5aa76b2a.js" crossorigin="anonymous"></script>
       </Head>
       <Container>
         <SignUp/>

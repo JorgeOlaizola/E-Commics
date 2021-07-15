@@ -7,7 +7,7 @@ import axios from 'axios';
 export function getUserData() {
     return async function(dispatch) {
         try {
-            const userData = await axios.get(`${process.env.NEXT_PUBLIC_LOCALHOST}/api/users`);
+            const userData = await axios.get(`/api/users`);
             dispatch({ type: user.GET_USER_DATA, payload: userData.data })
             
         } catch (error) {
@@ -23,7 +23,7 @@ export function register() {
 export function signIn(data) {
     return async function(dispatch) {
         try {
-            await axios.post(`${process.env.NEXT_PUBLIC_LOCALHOST}/api/users/logIn`, data);
+            await axios.post(`/api/users/logIn`, data);
             const userData = await axios.get(`${process.env.NEXT_PUBLIC_LOCALHOST}/api/users`);
             localStorage.setItem("sessionSaved", JSON.stringify(userData.data))
             dispatch({ type: user.GET_USER_DATA, payload: userData.data })
@@ -38,7 +38,7 @@ export function signOut() {
     return async function(dispatch) {
         try {
             
-            const signOut = await axios.get(`${process.env.NEXT_PUBLIC_LOCALHOST}/api/users/logOut`);
+            const signOut = await axios.get(`/api/users/logOut`);
         } catch (error) {
             console.error(error)    
         }
@@ -51,6 +51,6 @@ export function signOut() {
 
 export function handleFavorites(productId, productImg, productTitle, productPrice, userId) {
     return (dispatch) => {
-        axios.post(`${process.env.NEXT_PUBLIC_LOCALHOST}/api/users/favorites`, {productId, productImg, productTitle, productPrice, userId})
+        axios.post(`/api/users/favorites`, {productId, productImg, productTitle, productPrice, userId})
         .then((response => dispatch({ type: user.HANDLE_FAVORITES, payload: response.data})
         ))}}

@@ -4,6 +4,7 @@ import { addSellingProduct } from '../../store/actions/productActions.js';
 import styled from 'styled-components'
 import axios from 'axios';
 import { useRouter } from 'next/router'
+import Image from 'next/image'
 const DivContainer = styled.div`
 margin:auto;
 display: flex;
@@ -222,13 +223,13 @@ const AddProductForm = () => {
                                 <br /><br />
                                 <details id="details">
                                     <summary>Opciones</summary>
-                                    {categories && categories.map(c => <button onClick={handleSelect} value={c.title} id={c._id}>{c.title}</button>)}
+                                    {categories && categories.map(c => <button key={c._id} onClick={handleSelect} value={c.title} id={c._id}>{c.title}</button>)}
                                 </details>
                                 <br />
                                 <label>{categorieSelect}</label>
                             </DivFormItem>
                             <DivFormItem>
-                                {imageSelected.length > 0 && imageSelected.map((e, i) => <img width="100%" src={mostrar(i)} />)}
+                                {imageSelected.length > 0 && imageSelected.map((e, i) => <Image key={mostrar(i)} width="100%" src={mostrar(i)} />)}
                             </DivFormItem>
                             <DivFormItem>
                                 <ImageLabel htmlFor="file-upload">Cargar imagen</ImageLabel>

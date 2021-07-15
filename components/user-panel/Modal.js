@@ -27,7 +27,7 @@ const Modal = ({ show, onSubmitSignUp, onClose, children, title, signType }) => 
                 x
               </a>
             </StyledModalHeader>
-            {title && <StyledModalTitle>{title}</StyledModalTitle>}
+            {title && <span>{title}</span>}
             <StyledModalBody>
             {children}
             {signType === "signUp" ?  

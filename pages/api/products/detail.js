@@ -2,9 +2,13 @@ import Category from '../../../server/models/Category'
 import Product from '../../../server/models/Product'
 import User from '../../../server/models/User'
 import Question from '../../../server/models/Question'
+import dbConnect from '../../../utils/dbConnect'
 
 
 export default async (req, res) => {
+
+    await dbConnect();
+
     const { id } = req.query
     switch (req.method) {
         case 'GET':

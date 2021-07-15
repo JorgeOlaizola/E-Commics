@@ -5,6 +5,7 @@ import { getProducts, searchByUser, getProductsByUser } from '../store/actions/p
 
 import Slider from "react-slick";
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
+import Image from 'next/image'
 // import axios from 'axios';
 
 
@@ -90,10 +91,10 @@ function ImageSlider() {
     <div className="SliderContainer">
       <Slider {...settings}>
         {products.map((img, idx) => (
-          <div className={idx === imageIndex ? "slide activeSlide" : "slide"}>
-          <Link href={`/detail/${img._id}`} passHref replace >
-            <img src={img.image} alt={img.title} style={{cursor: "pointer"}}/>
-            </Link>
+          <div key={img._id} className={idx === imageIndex ? "slide activeSlide" : "slide"}>
+          {/* <Link href={`/detail/${img._id}`} passHref replace >
+            <Image src={img.image} alt={img.title} style={{cursor: "pointer"}}/>
+            </Link> */
           </div>
         ))}
       </Slider>

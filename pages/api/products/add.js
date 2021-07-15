@@ -1,6 +1,10 @@
 import Product from '../../../server/models/Product'
+import dbConnect from '../../../utils/dbConnect'
 
 export default async (req, res) => {
+
+    await dbConnect();
+
     const { title, description, image, stock, price, user ,category } = req.body
     switch (req.method) {
         case 'POST':

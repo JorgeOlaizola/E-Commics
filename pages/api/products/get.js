@@ -1,9 +1,13 @@
 import Category from '../../../server/models/Category'
 import Product from '../../../server/models/Product'
 import User from '../../../server/models/User'
+import dbConnect from '../../../utils/dbConnect'
 
 
 export default async (req, res) => {
+
+    await dbConnect();
+
     const { method } = req
     let {
         user,

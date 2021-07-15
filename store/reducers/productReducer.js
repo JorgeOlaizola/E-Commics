@@ -31,6 +31,8 @@ export default function productReducer(state = initialState, action) {
         //Product reducer
         case product.GET_PRODUCTS:
         return {...state, products: action.payload}
+        case product.GET_PRODUCTS_BY_USER:
+        return {...state, products: action.payload}
         case product.GET_PRODUCT_DETAIL:
         return {...state, productDetail: action.payload}
         //Reset product detial

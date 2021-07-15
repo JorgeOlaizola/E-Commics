@@ -243,7 +243,12 @@ const ProductDetail = ({id}) => {
                         <Description>Quedan {detail.stock} unidades</Description>
                         <InfoTitle>Descripción</InfoTitle>
                         <Description>{detail.description}</Description>
-                        <Description><strong>Vendido por:</strong> {detail.user.nickname}</Description>
+                        <Description><strong>Vendido por:</strong> 
+                            <Link href={`/productsPerUser/${detail.user._id}`} passHref replace>
+                            {detail.user.nickname}
+                            </Link>
+                        </Description>
+
                         <Description><strong>Categoría:</strong> {detail.category.title}</Description>
                         <BuyButton>Comprar ahora</BuyButton>
                         <Advertise>Apúrate! Este artículo se va volando</Advertise>

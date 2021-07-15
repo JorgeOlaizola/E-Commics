@@ -2,13 +2,13 @@ import Link from 'next/link';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { GradientBorder, Input  } from '../../pages/globalStyle.js'
-
+import { GradientBorder, Input  } from '../globalStyle'
+import ImageSlider from '../ImageSlider.js';
 
 const StyledContainer = styled.div`
     margin-top: 30px;
     width: 100%;
-    height: 100%;
+    height: 1024px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -25,23 +25,11 @@ const DataSection = styled.div`
     justify-content: space-around;
 `
 
-const WelcomeMessage = styled.h1`
-    ${'' /* font-size: 2rem; */}
-    ${'' /* color: #ED2024; */}
-`
-
-
 const DataColumn = styled.div`
     width: 250px;
     margin: 10px;
 `
 
-const DataText = styled.p`
-    ${'' /* font-size: 1rem; */}
-    ${'' /* color: #000; */}
-    ${'' /* margin: 2.5px 0; */}
-    ${'' /* line-height: 150%; */}
-`
 
 const StyledButton = styled.button`
     width: 200px;
@@ -57,20 +45,26 @@ const ProfileImg = styled.img`
 
 const UserPanelPublications = () => {
     const userData = useSelector(state => state.user.userData);
+    const products = useSelector(state => state.product.products);
+
+    const userProducts= products.filter(p => p.user._id === userData._id)
+    // const userProducts= products.forEach(p => console.log(p.user._id))
+    console.log(userProducts)
+
+
     useEffect(() => {
         if(userData.log === false) {
             window.location.href = "/"
         }
 }, []);
-
+console.log(userData)
     return (
         <StyledContainer>
-            <WelcomeMessage>
-                ¡Hola de nuevo, {userData.name}!
-            </WelcomeMessage>
-            <DataSection>
-                publicaciones
-            </DataSection>
+            publicaciones
+            <ImageSlider />
+            <Link href="/addproduct" passHref replace>
+                    <StyledButton>Crear publicacion</StyledButton>
+            </Link>    
         </StyledContainer>
     )
 }

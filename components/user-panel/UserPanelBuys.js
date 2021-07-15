@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { GradientBorder, Input  } from '../../pages/globalStyle.js'
+import { GradientBorder, Input  } from '../globalStyle'
 
 
 const StyledContainer = styled.div`
@@ -63,11 +63,9 @@ const UserPanelBuys = () => {
         }
 }, []);
 
+
     return (
         <StyledContainer>
-            <WelcomeMessage>
-                ¡Hola de nuevo, {userData.name}!
-            </WelcomeMessage>
             <DataSection>
                 compras
             </DataSection>

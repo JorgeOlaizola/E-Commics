@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { GradientBorder, Input } from "../pages/globalStyle";
+import { GradientBorder, Input } from "./globalStyle";
 import { 
     searchByCategory, 
     searchByPriceMin,
@@ -60,8 +60,8 @@ width: 100%;
 `
 
 
-const Filters = () => {
-    
+const Filters = ({userId}) => {
+    //console.log("aca en filter", userId.user)
     const dispatch = useDispatch()
     const categories = useSelector(state => state.category.categories)
     const filters = useSelector(state => state.product.filters)
@@ -85,6 +85,10 @@ const Filters = () => {
         let newFilters = {
             ...filters
         }
+        //userId && {...newFilters, user: userId.user}
+        if(userId) newFilters = {...newFilters, user: userId.user}
+        
+
         if(!parseInt(filters.price.start)){
             newFilters.price.start = 0
         }

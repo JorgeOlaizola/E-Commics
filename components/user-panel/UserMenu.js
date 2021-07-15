@@ -7,7 +7,7 @@ import { themeToggle } from '../../store/actions/stylesActions.js';
 import Modal from './Modal.js';
 import React, {useState} from 'react';
 import {MenuContainer, MenuTrigger, MenuTriggerSpan, MenuTriggerImg, Menu, MenuUl, MenuLi, MenuButton} from './UserStyles';
-import { LigthDarkThemeDiv } from '../../pages/globalStyle.js'
+import { LigthDarkThemeDiv } from '../globalStyle'
 import { SearchIcon, ShoppingCartIcon } from '@heroicons/react/outline'
 
 

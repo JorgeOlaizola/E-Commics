@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { useSelector, useDispatch } from "react-redux";
 import { signOut } from '../store/actions/normalUsersActions.js';
 import styled from 'styled-components';
-import { StyledLink } from '../pages/globalStyle.js';
+import { StyledLink } from './globalStyle.js';
 import Find from './Find.js';
 import UserMenu from './user-panel/UserMenu.js';
 import Modal from './user-panel/Modal.js';

@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 const FooterContainer = styled.div`
 width: 100%;
-background-color: ;
 background: radial-gradient(circle, #202020 0%, #151515  100%);
 padding: 80px 60px;
 `

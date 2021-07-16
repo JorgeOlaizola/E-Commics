@@ -224,7 +224,7 @@ const ProductDetail = ({id}) => {
     function handleSubmit(event) {
         const questionCreated = {
             content: question,
-            user: userData._id,
+            user: userData.id,
             product: detail._id,
         }
         event.preventDefault();
@@ -280,7 +280,7 @@ const ProductDetail = ({id}) => {
                             return <div key={q.created_at} style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
                                 <Question>
                                     {q.content}
-                                    <span style={{marginTop: "10px", fontSize: "1rem", color: "#161D2F"}}>Pregunta de {q.userNickname} ({q.created_at}) {q.answer ? <span>(respondido)</span> : <span>(pendiente de respuesta)</span>}</span>
+                                    <span style={{marginTop: "10px", fontSize: "1rem", color: "#161D2F"}}>Pregunta de {q.userNickname} ({q.created_at.slice(0, 10)}) {q.answer ? <span>(respondido)</span> : <span>(pendiente de respuesta)</span>}</span>
                                 </Question>
                                 {
                                     q.answer &&

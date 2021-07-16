@@ -1,17 +1,22 @@
 import { useState } from 'react'
-// import { POST_USER_URL } from '../../constants';
 import axios from 'axios';
-// import { connect } from 'react-redux';
-// import { actions } from '../../actions/index';
 import styled from 'styled-components'
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faEye } from "@fortawesome/free-solid-svg-icons";
-// const eye = <FontAwesomeIcon icon={faEye} />;
 import { Input, GradientBorder, DisableBorder, InputDisable } from './globalStyle'
 import SignInForm from './SignInForm';
 import {FormContainer, LogInForm, FormLabel, FormInputs, FormInput, FormSpan, Eye} from './user-panel/UserStyles.js';
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
-
+export const ProcessedFaEye = styled.div`
+    position: relative;
+    left: 248px;
+    top: -19px;
+    font-size: 90%;
+    color: grey;
+    &:hover {
+    color: black;
+    cursor: pointer;
+  }
+` 
 
 const SignUp = ({onClose}) => {
     const [newUser, setNewUser] = useState({
@@ -196,7 +201,7 @@ const SignUp = ({onClose}) => {
                         <FormInputs>
                             <FormLabel>Contraseña</FormLabel>
                             <FormInput name="password" type={passwordShown ? "text" : "password"} value={newUser.password} placeholder="" onChange={(e)=> validatePassword(e.target.value)}/>
-                            {/* <Eye className="far fa-eye" onClick={togglePasswordVisiblity}></Eye> */}
+                            <ProcessedFaEye onClick={togglePasswordVisiblity}>{!passwordShown ? <FaEye/> : <FaEyeSlash/>}</ProcessedFaEye>
                             {!errorPassword ? null : <span style={FormSpan}>{errorPassword}</span>}
                         </FormInputs>
                         <FormInputs>
@@ -205,12 +210,12 @@ const SignUp = ({onClose}) => {
                             {!errorConfirm ? null : <span style={FormSpan}>{errorConfirm}</span>}
                         </FormInputs>
                         {!isEnabled || errorName || errorS || errorNickname || errorEmail || errorPassword || errorConfirm ?
-                        <DisableBorder className="">
-                            <InputDisable className="inputbutton" type="submit" disabled={!isEnabled || errorName || errorS || errorNickname || errorEmail || errorPassword || errorConfirm}/>
+                        <DisableBorder>
+                            <InputDisable type="submit" disabled={!isEnabled || errorName || errorS || errorNickname || errorEmail || errorPassword || errorConfirm}>Registrarse</InputDisable>
                         </DisableBorder>
                         : 
-                        <GradientBorder className="">
-                            <Input className="inputbutton" type="submit" disabled={!isEnabled || errorName || errorS || errorNickname || errorEmail || errorPassword || errorConfirm} />
+                        <GradientBorder>
+                            <Input type="submit" disabled={!isEnabled || errorName || errorS || errorNickname || errorEmail || errorPassword || errorConfirm} >Registrarse</Input>
                         </GradientBorder>
                         }
                     </LogInForm>

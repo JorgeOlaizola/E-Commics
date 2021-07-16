@@ -102,7 +102,7 @@ const Product = (props) => {
                     </div>
 
                     <StyledButton onClick={() => dispatch(getProductDetail(props.id))}>
-                        <Link href={`/detail/${props.id}`} passHref replace> ver detalle </Link>
+                        <Link href={'/detail/[productDetail]'} as={`/detail/${props.id}` } passHref> ver detalle </Link>
                     </StyledButton>
                      
                     

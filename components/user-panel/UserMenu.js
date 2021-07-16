@@ -108,7 +108,7 @@ const UserMenu = () => {
               :
               <>
                 <MenuLi>
-                <Link href={`/user/${userData.user.nickname}`} passHref replace>
+                <Link href={'/user/[user]'} as={`/user/${userData.user.nickname}`} passHref replace>
                   <MenuButton>Panel de usuario</MenuButton>
                 </Link>
                 </MenuLi>

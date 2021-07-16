@@ -8,6 +8,9 @@ import {
 import {
     handleFavorites
 } from '../store/actions/normalUsersActions'
+import {
+    addItem
+} from '../store/actions/cartActions'
 import { HeartIcon, ShoppingCartIcon } from '@heroicons/react/outline'
 import Link from 'next/link';
 import Image from 'next/image'
@@ -276,7 +279,7 @@ const ProductDetail = ({id}) => {
                         <AddingButton><button onClick={() => dispatch(handleFavorites(detail._id, detail.image, detail.title, detail.price, userData._id))}><HeartIcon className="addFavIcon"/> Agregar a favoritos</button></AddingButton>
                         } */}
                         <AddingButton><HeartIcon className="addFavIcon"/> Agregar a favoritos</AddingButton>
-                        <AddingButton><ShoppingCartIcon className="addCartIcon"/> Agregar al carrito</AddingButton>
+                        <AddingButton onClick={() => dispatch(addItem(detail))}><ShoppingCartIcon className="addCartIcon"/> Agregar al carrito</AddingButton>
                         <Space/>
                         <InfoTitle>Medios de pago</InfoTitle>
                         <Description>Descripción</Description>

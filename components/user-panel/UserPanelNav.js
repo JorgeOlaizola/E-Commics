@@ -26,19 +26,19 @@ const UserPanelNav = () => {
     return(
         <>
             <Navbar>
-                    <Link href="/" passHref replace>
+                    <Link href="/" passHref >
                         <StyledLink className={router.pathname == '/' ? "active" : ""}>Perfil</StyledLink>
                     </Link>
-                    <Link href="/" passHref replace>
+                    <Link href="/" passHref >
                         <StyledLink className={router.pathname == '/' ? "active" : ""}>Compras</StyledLink>
                     </Link>
-                    <Link href="/" passHref replace>
+                    <Link href="/" passHref >
                         <StyledLink className={router.pathname == '/' ? "active" : ""}>Ventas</StyledLink>
                     </Link>
-                    <Link href="/" passHref replace>
+                    <Link href="/" passHref >
                         <StyledLink className={router.pathname == '/' ? "active" : ""}>Publicaciones</StyledLink>
                     </Link>
-                    <Link href="/" passHref replace>
+                    <Link href="/" passHref>
                         <StyledLink className={router.pathname == '/' ? "active" : ""}>Favoritos</StyledLink>
                     </Link>
             </Navbar>

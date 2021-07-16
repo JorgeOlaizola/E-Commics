@@ -62,7 +62,7 @@ console.log(userData)
         <StyledContainer>
             publicaciones
             <ImageSlider />
-            <Link href="/addproduct" passHref replace>
+            <Link href="/addproduct" passHref >
                     <StyledButton>Crear publicacion</StyledButton>
             </Link>    
         </StyledContainer>

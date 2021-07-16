@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken'
 import nextConnect from 'next-connect'
 import User from '../../../server/models/User'
 import Token from '../../../server/models/Token'
+import dbConnect from '../../../utils/dbConnect'
 import { validateToken } from '../../../utils/auth'
 
 const KEY = 'top_secret'
@@ -11,6 +12,7 @@ export default nextConnect()
   .post(async (req, res) => {
     const { email, password } = req.body
 
+    await dbConnect()
     //Previous verifications
     if(!email) return res.json({ error_msg: 'Es necesario que ingrese un email' })
     if(!password) return res.json({ error_msg: 'Es necesario que ingrese una contraseña' })

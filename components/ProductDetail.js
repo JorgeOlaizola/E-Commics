@@ -215,7 +215,7 @@ const ProductDetail = ({id}) => {
     const [question, setQuestion] = useState("");
     const dispatch = useDispatch()
     const detail = useSelector(state => state.product.productDetail)
-    const userData = useSelector(state => state.user.userData);
+    const userData = useSelector(state => state.user.userData.user);
 
     function handleChange(e) {
         setQuestion(e.target.value)
@@ -251,7 +251,7 @@ const ProductDetail = ({id}) => {
                         <InfoTitle>Descripción</InfoTitle>
                         <Description>{detail.description}</Description>
                         <Description><strong>Vendido por:</strong> 
-                            <Link href={`/productsPerUser/${detail.user._id}`} passHref replace>
+                            <Link href={`/productsPerUser/${detail.user.id}`} passHref replace>
                             {detail.user.nickname}
                             </Link>
                         </Description>

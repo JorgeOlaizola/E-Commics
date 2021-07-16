@@ -1,7 +1,7 @@
 import dbConnect from '../../../utils/dbConnect'
 import nextConnect from 'next-connect'
 import jwt from 'jsonwebtoken'
-
+import { validateToken } from '../../../utils/auth'
 
 export default nextConnect()
 

@@ -7,17 +7,15 @@ import axios from 'axios';
 export function getUserData() {
     return async function(dispatch) {
         try {
-            const userData = await axios.get(`/api/users`);
-            dispatch({ type: user.GET_USER_DATA, payload: userData.data })
-            
+            const localData = JSON.parse(localStorage.getItem("sessionSaved"));
+            const loginVerification = await axios.get(`/api/users?token=${localData.token}`);
+            if(loginVerification.data.login){
+                dispatch({ type: user.GET_USER_DATA, payload: localData})
+            }    
         } catch (error) {
             console.error(error)    
         }
     }
-}
-
-export function register() {
-    
 }
 
 export function signIn(data) {

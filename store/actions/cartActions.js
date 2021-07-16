@@ -34,28 +34,28 @@ export function removeItem(id) {
     };
 }
 
-export function increaseItem(items, product) {
+export function increaseItem(id) {
     return (dispatch) => {
         dispatch({
             type: cart.INCREASE_ITEM,
-            payload: {
-                items,
-                product: product._id,
-            },
+            payload: id
         });
     };
 }
 
-export function decreaseItem(items, product) {
+export function decreaseItem(id) {
     return (dispatch) => {
         dispatch({
             type: cart.DECREASE_ITEM,
-            payload: {
-                items,
-                product: product._id,
-            },
+            payload: id
         });
     };
 }
 
-export function emptyCart() {}
+export function emptyCart() {
+    return (dispatch) => {
+        dispatch({
+            type: cart.EMPTY_CART
+        })
+    }
+}

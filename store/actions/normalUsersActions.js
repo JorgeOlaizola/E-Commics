@@ -54,3 +54,9 @@ export function handleFavorites(productId, productImg, productTitle, productPric
         axios.post(`/api/users/favorites`, {productId, productImg, productTitle, productPrice, userId})
         .then((response => dispatch({ type: user.HANDLE_FAVORITES, payload: response.data})
         ))}}
+
+// ADMIN users actions
+
+export function findUser(nickname) {
+    
+}

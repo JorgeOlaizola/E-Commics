@@ -79,7 +79,7 @@ const AddProductForm = () => {
     const router = useRouter()
 
     useEffect(() => {
-        if (!user.id) {
+        if (!user.id.length) {
             router.push("/")
         }
     }, [])

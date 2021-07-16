@@ -50,7 +50,8 @@ export default nextConnect()
                     nickname: user.nickname,
                     email: user.email,
                     name: user.name,
-                    surname: user.surname
+                    surname: user.surname,
+                    id: user._id
                     // favorites: user.favorites,
                 },
                 token: token

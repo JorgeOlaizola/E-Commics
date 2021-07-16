@@ -16,7 +16,6 @@ const SignInForm = () => {
             ...input,
             [e.target.name] : e.target.value
         })
-        console.log(input)
     }
 
     const handleSubmit = async (e) => {      

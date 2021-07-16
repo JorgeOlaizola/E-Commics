@@ -55,12 +55,11 @@ const UserMenu = () => {
             <MenuTrigger onClick={onClick}>
               <MenuTriggerSpan>
                 {
-                  userData.nickname
+                  userData.log === false
                   ?
-                    <span>{userData.nickname}</span>
-                  :
                     <span>Cuenta</span>
-
+                  :
+                    <span>{userData.user.nickname}</span>
                 }
               </MenuTriggerSpan>
               <MenuTriggerImg
@@ -107,7 +106,7 @@ const UserMenu = () => {
               :
               <>
                 <MenuLi>
-                <Link href={`/user/${userData.nickname}`} passHref replace>
+                <Link href={`/user/${userData.user.nickname}`} passHref replace>
                   <MenuButton>Panel de usuario</MenuButton>
                 </Link>
                 </MenuLi>

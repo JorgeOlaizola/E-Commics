@@ -101,7 +101,7 @@ const UserPanel = (props) => {
 
 
     useEffect(() => {
-        dispatch(getProductsByUser(data))
+        /* dispatch(getProductsByUser(data)) */
     }, [])
   
   

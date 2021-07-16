@@ -44,10 +44,10 @@ const ProfileImg = styled.img`
 `
 
 const UserPanelPublications = () => {
-    const userData = useSelector(state => state.user.userData);
+    const userData = useSelector(state => state.user.userData.user);
     const products = useSelector(state => state.product.products);
 
-    const userProducts= products.filter(p => p.user._id === userData._id)
+    const userProducts= products.filter(p => p.user._id === userData.id)
     // const userProducts= products.forEach(p => console.log(p.user._id))
     console.log(userProducts)
 

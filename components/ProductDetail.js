@@ -257,7 +257,11 @@ const ProductDetail = ({id}) => {
                         </Description>
 
                         <Description><strong>Categoría:</strong> {detail.category.title}</Description>
+                        <form  action={`http://localhost:3000/api/checkout`}  method="POST" >
+                        <input type="hidden" name="title" value = { detail.title } />
+                        <input type="hidden" name="price" value = { detail.price }  />  
                         <BuyButton>Comprar ahora</BuyButton>
+                        </form>
                         <Advertise>Apúrate! Este artículo se va volando</Advertise>
                         { userData.favorites && userData.favorites.find(f => f.productId === detail._id) ?
                         <AddingButton><button onClick={() => dispatch(handleFavorites(detail._id, detail.image, detail.title, detail.price, userData._id))}><HeartIcon className="addFavIcon"/> Quitar de favoritos</button></AddingButton> 

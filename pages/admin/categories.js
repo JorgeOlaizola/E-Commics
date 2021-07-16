@@ -34,7 +34,7 @@ const Categories = () => {
             <input type="submit" value="Agregar"></input>
         </form>
         {categories.length > 0 ? categories.map(c =>{ 
-            return  <p>Título: {c.title} --- Id: {c._id} 
+            return  <p key={c._id}>Título: {c.title} --- Id: {c._id} 
             <button onClick={() => {
                 dispatch(deleteCategory(c._id))
                 getCategories()}}>Delete</button> - 

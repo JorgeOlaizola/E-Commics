@@ -4,13 +4,31 @@ import { useDispatch } from "react-redux";
 import { signIn } from "../store/actions/normalUsersActions";
 import {FormContainer, LogInForm, FormLabel, FormInputs, FormInput, FormSpan, Eye} from './user-panel/UserStyles.js';
 import { Input, GradientBorder, DisableBorder, InputDisable } from './globalStyle'
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import styled from 'styled-components';
 
+export const ProcessedFaEye = styled.div`
+    position: relative;
+    left: 248px;
+    top: -19px;
+    font-size: 90%;
+    color: grey;
+    &:hover {
+    color: black;
+    cursor: pointer;
+  }
+` 
 
 const SignInForm = () => {
 
     const dispatch = useDispatch();
     const [input, setInput] = useState()
-    
+    const [passwordShown, setPasswordShown] = useState(false);
+
+    const togglePasswordVisiblity = () => {
+        setPasswordShown(passwordShown ? false : true);
+    };
+
     const handleInputChange = (e) => {
         setInput({
             ...input,
@@ -23,6 +41,7 @@ const SignInForm = () => {
         dispatch(signIn(input)); 
         document.body.style.overflow = ""
     }
+
  
     return (
         <LogInForm onSubmit={handleSubmit}>
@@ -33,15 +52,16 @@ const SignInForm = () => {
             </FormInputs>
             <FormInputs>
                 <FormLabel>Contraseña</FormLabel>
-                <FormInput type="password" id='password' name="password" onChange={e => handleInputChange(e)} required></FormInput>
+                <FormInput type={passwordShown ? "text" : "password"} id='password' name="password" onChange={e => handleInputChange(e)} required></FormInput>
+                <ProcessedFaEye onClick={togglePasswordVisiblity}>{!passwordShown ? <FaEye/> : <FaEyeSlash/>}</ProcessedFaEye>
             </FormInputs>
             {!input ?
                         <DisableBorder className="">
-                            <InputDisable className="inputbutton" type="submit" />
+                            <InputDisable type="submit" >Iniciar sesión</InputDisable>
                         </DisableBorder>
                         : 
                         <GradientBorder className="">
-                            <Input className="inputbutton" type="submit"  />
+                            <Input type="submit">Iniciar sesión</Input>
                         </GradientBorder>
             }
         </LogInForm>

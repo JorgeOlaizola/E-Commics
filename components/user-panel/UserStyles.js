@@ -39,7 +39,7 @@ color: ${(props) => props.theme.fontColor};
     }
 `
 
-export const MenuTriggerImg = styled.img` 
+export const MenuTriggerImg = styled.div` 
 border-radius: 90px;
 `
 

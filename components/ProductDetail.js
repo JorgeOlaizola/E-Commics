@@ -309,7 +309,7 @@ const ProductDetail = ({id}) => {
                             
                     }
                     {
-                        userData.log !== false ?
+                        userData?.log !== false ?
                             <>
                                 <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
                                     <QuestionAdvertise>Dejanos tus preguntas aquí, responderemos cuanto antes.</QuestionAdvertise>

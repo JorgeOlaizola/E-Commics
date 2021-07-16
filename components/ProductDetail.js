@@ -254,8 +254,8 @@ const ProductDetail = ({id}) => {
                         }
                         <InfoTitle>Descripción</InfoTitle>
                         <Description>{detail.description}</Description>
-                        <Description><strong>Vendido por: </strong> 
-                            <Link href={`/productsPerUser/${detail.user.id}`} passHref replace>
+                        <Description><strong>Vendido por:</strong> 
+                            <Link href={`/productsPerUser/[id]`} as={`/productsPerUser/${detail.user.id}` } passHref>
                             {detail.user.nickname}
                             </Link>
                         </Description>

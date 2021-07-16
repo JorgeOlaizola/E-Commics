@@ -4,6 +4,7 @@ import Footer from './Footer.js';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { getCategories } from '../store/actions/categoriesActions.js';
+import { getUserData } from '../store/actions/normalUsersActions.js';
 import { lightTheme, darkTheme, GlobalStyles, StyledApp} from './globalStyle'
 import styled, { ThemeProvider } from "styled-components";
 
@@ -33,9 +34,8 @@ const Container = (props) => {
 
     const theme = useSelector(state => state.styles.theme)
     
-//console.log(useSelector(state => state.styles))
     useEffect(() => {
-        //console.log("estoy en el container", localStorage.getItem("sessionSaved"))
+        dispatch(getUserData());
         dispatch(getCategories());
     }, [dispatch])
 

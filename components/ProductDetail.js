@@ -216,19 +216,22 @@ const ProductDetail = ({id}) => {
     const dispatch = useDispatch()
     const detail = useSelector(state => state.product.productDetail)
     const userData = useSelector(state => state.user.userData.user);
-
+    //if(!userData) return <h1>espero</h1>
     function handleChange(e) {
         setQuestion(e.target.value)
     }
 
     function handleSubmit(event) {
-        const questionCreated = {
-            content: question,
-            user: userData.id,
-            product: detail._id,
-        }
         event.preventDefault();
-        dispatch(createQuestion(questionCreated, userData.nickname))
+        if(userData){
+            const questionCreated = {
+                content: question,
+                user: userData?.id,
+                product: detail._id,
+            }
+            dispatch(createQuestion(questionCreated, userData?.nickname))
+
+        }
     }
 
     return (
@@ -309,7 +312,7 @@ const ProductDetail = ({id}) => {
                             
                     }
                     {
-                        userData?.log !== false ?
+                        userData && userData.log !== false ?
                             <>
                                 <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
                                     <QuestionAdvertise>Dejanos tus preguntas aquí, responderemos cuanto antes.</QuestionAdvertise>

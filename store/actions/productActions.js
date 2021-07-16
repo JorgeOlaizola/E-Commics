@@ -32,7 +32,7 @@ export function resetProductDetail () {
 
 export function addSellingProduct (product) {
     return () => {
-        const addProduct = axios.post(`/api/products`, product);
+        const addProduct = axios.post(`/api/products/add`, product);
     }
 }
 

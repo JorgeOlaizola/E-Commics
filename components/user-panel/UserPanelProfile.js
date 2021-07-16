@@ -57,14 +57,14 @@ const UserPanelProfile = () => {
             <DataSection>
                 <DataColumn>
                     <h3>Imagen de perfil</h3>
-                    <ProfileImg src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png' />
+                    <ProfileImg src={userData.user.avatar || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'} />
                 </DataColumn>
                 <DataColumn>
                     <h3>Datos personales</h3>
-                    <DataText><strong>Nombre:</strong> {userData.name}</DataText>
-                    <DataText><strong>Apellido:</strong> {userData.surname}</DataText>
-                    <DataText><strong>Email:</strong> <input placeholder={userData.email} /></DataText>
-                    <DataText><strong>Usuario:</strong> <input placeholder={userData.nickname} /></DataText>
+                    <DataText><strong>Nombre:</strong> {userData.user.name}</DataText>
+                    <DataText><strong>Apellido:</strong> {userData.user.surname}</DataText>
+                    <DataText><strong>Email:</strong> <input placeholder={userData.user.email} /></DataText>
+                    <DataText><strong>Usuario:</strong> <input placeholder={userData.user.nickname} /></DataText>
                     <GradientBorder className="">
                         <Input className="inputbutton" type="submit" />
                     </GradientBorder>

@@ -215,7 +215,7 @@ const ProductDetail = ({id}) => {
     const [question, setQuestion] = useState("");
     const dispatch = useDispatch()
     const detail = useSelector(state => state.product.productDetail)
-    const userData = useSelector(state => state.user.userData);
+    const userData = useSelector(state => state.user.userData.user);
 
     function handleChange(e) {
         setQuestion(e.target.value)
@@ -224,7 +224,7 @@ const ProductDetail = ({id}) => {
     function handleSubmit(event) {
         const questionCreated = {
             content: question,
-            user: userData._id,
+            user: userData.id,
             product: detail._id,
         }
         event.preventDefault();
@@ -251,7 +251,7 @@ const ProductDetail = ({id}) => {
                         <InfoTitle>Descripción</InfoTitle>
                         <Description>{detail.description}</Description>
                         <Description><strong>Vendido por:</strong> 
-                            <Link href={`/productsPerUser/${detail.user._id}`} passHref replace>
+                            <Link href={`/productsPerUser/${detail.user.id}`} passHref replace>
                             {detail.user.nickname}
                             </Link>
                         </Description>
@@ -280,7 +280,7 @@ const ProductDetail = ({id}) => {
                             return <div key={q.created_at} style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
                                 <Question>
                                     {q.content}
-                                    <span style={{marginTop: "10px", fontSize: "1rem", color: "#161D2F"}}>Pregunta de {q.userNickname} ({q.created_at}) {q.answer ? <span>(respondido)</span> : <span>(pendiente de respuesta)</span>}</span>
+                                    <span style={{marginTop: "10px", fontSize: "1rem", color: "#161D2F"}}>Pregunta de {q.userNickname} ({q.created_at.slice(0, 10)}) {q.answer ? <span>(respondido)</span> : <span>(pendiente de respuesta)</span>}</span>
                                 </Question>
                                 {
                                     q.answer &&

@@ -63,7 +63,7 @@ transition: all 0.5s;
 `
 const AddProductForm = () => {
     const dispatch = useDispatch();
-    const user = useSelector(state => state.user.userData);
+    const user = useSelector(state => state.user.userData.user);
     const categories = useSelector(state => state.category.categories)
     const [categorieSelect, setCategorieSelect] = useState("")
     const [imageSelected, setImageSelected] = useState([]);
@@ -74,12 +74,12 @@ const AddProductForm = () => {
         price: 0,
         image: [],
         category: '',
-        user: user._id
+        user: user.id
     })
     const router = useRouter()
 
     useEffect(() => {
-        if (!user._id) {
+        if (!user.id.length) {
             router.push("/")
         }
     }, [])
@@ -164,7 +164,7 @@ const AddProductForm = () => {
     }
     return (
         <>
-            {user._id ?
+            {user.id ?
                 <DivContainer>
                     <DivFormItem>¿Qué vas a publicar?</DivFormItem>
                     <FormContainer onSubmit={(e) => { handleSubmit(e) }} >

@@ -26,7 +26,7 @@ const SignUp = ({onClose}) => {
 
     const [thanks, setThanks] = useState(false)
     const [passwordShown, setPasswordShown] = useState(false);
-
+    const [imageSelected, setImageSelected] = useState([]);
 
     const togglePasswordVisiblity = () => {
         setPasswordShown(passwordShown ? false : true);
@@ -121,20 +121,44 @@ const SignUp = ({onClose}) => {
                 ({...prevState, password2: value}));
     }
 
-    function handleSubmit(e) {
-  
+    function handleImage(e) {
         e.preventDefault();
-        axios.post( process.env.NEXT_PUBLIC_POST_USER_URL, newUser)
-          .then(function(response) {
-              response.data.error_msg && alert(response.data.error_msg)
-              response.data.success_msg && setThanks(true);
-              
-            //console.log(response);
-          }).catch(error => console.error(error))
-         // console.log(thanks)
-    //    history.push('/thanks');
-    // onClose();
-    document.body.style.overflow = ""
+        setImageSelected(e.target.files[0])
+        console.log(process.env.CLOUDINARY_PRESET)
+    }
+    const mostrar = (i) => {
+        const objectURL = URL.createObjectURL(imageSelected[i])
+        return objectURL
+    }
+    function handleSubmit(e) {
+        e.preventDefault();
+        if (imageSelected) {
+            const fromData = new FormData()
+            fromData.append("file", imageSelected)
+            fromData.append("upload_preset", process.env.CLOUDINARY_PRESET)
+            axios.post( process.env.CLOUDINARY_URL, fromData)
+            .then((resp) => {
+                let respuesta = {
+                    ...newUser,
+                    avatar: resp.data.secure_url
+                }
+                console.log(respuesta)
+                return  axios.post( process.env.NEXT_PUBLIC_POST_USER_URL, respuesta)
+            })
+            .then(function(response) {
+                response.data.error_msg && alert(response.data.error_msg)
+                    response.data.success_msg && setThanks(true);
+                  //console.log(response);
+                }).catch(error => console.error(error))
+        }
+        else{
+            alert("Debes elegir una imagen para tu avatar")
+        }
+
+        // console.log(thanks)
+        //    history.push('/thanks');
+        // onClose();
+        document.body.style.overflow = ""
     }
 
     const isEnabled = newUser.name.length > 0 && newUser.surname.length > 0 && newUser.nickname.length > 0 && newUser.email.length > 0 && newUser.password.length > 0;
@@ -166,9 +190,9 @@ const SignUp = ({onClose}) => {
                         </FormInputs>
                         <FormInputs>
                             <FormLabel>Avatar</FormLabel>
-    						<FormInput type="file"/>
+    						<FormInput type="file" onChange={handleImage}/>
     						{/* <button className="" >Subir!</button> */}
-    					</FormInputs>
+    					    </FormInputs>
                         <FormInputs>
                             <FormLabel>Contraseña</FormLabel>
                             <FormInput name="password" type={passwordShown ? "text" : "password"} value={newUser.password} placeholder="" onChange={(e)=> validatePassword(e.target.value)}/>

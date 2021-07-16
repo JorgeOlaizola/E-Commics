@@ -40,7 +40,7 @@ export function addSellingProduct (product) {
 
 export function createQuestion (question, userNickname) {
     return (dispatch) => {
-        axios.post(`/api/questions/add`, question)
+        axios.post(`/api/questions`, question)
         .then(r =>{ 
             const createdQuestion = {
                 ...r.data,

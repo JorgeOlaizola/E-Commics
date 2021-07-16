@@ -66,7 +66,7 @@ const UserPanelProfile = () => {
                     <DataText><strong>Email:</strong> <input placeholder={userData.user.email} /></DataText>
                     <DataText><strong>Usuario:</strong> <input placeholder={userData.user.nickname} /></DataText>
                     <GradientBorder className="">
-                        <Input className="inputbutton" type="submit" />
+                        <Input type="submit">Modificar</Input>
                     </GradientBorder>
                     <span>¿Hubo un  error en la carga de tu nombre o apellido? <a href="mailto:ecommics@gmail.com" style={{color: "#0096FF"}}>Escríbenos</a></span>
                 </DataColumn>

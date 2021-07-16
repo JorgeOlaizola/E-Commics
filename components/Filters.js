@@ -116,7 +116,7 @@ const Filters = ({userId}) => {
                 <input type="number" name="min" placeholder="min" onChange={handlePrice}></input>
                 <input type="number" name="max" placeholder="max" onChange={handlePrice}></input>
                 <GradientBorder>
-                         <Input className="inputbutton" type="submit" onClick={handleSubmit}></Input>
+                         <Input type="submit" onClick={handleSubmit}>Filtrar</Input>
                 </GradientBorder>
            
         </FilterConteiner>

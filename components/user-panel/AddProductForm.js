@@ -61,6 +61,11 @@ transition: all 0.5s;
     font-size:0.8rem;
 }
 `
+
+const StyledImage = styled.img`
+    width: 100%;
+`
+
 const AddProductForm = () => {
     const dispatch = useDispatch();
     const user = useSelector(state => state.user.userData.user);
@@ -74,12 +79,12 @@ const AddProductForm = () => {
         price: 0,
         image: [],
         category: '',
-        user: user.id
+        user: user?.id
     })
     const router = useRouter()
 
     useEffect(() => {
-        if (!user.id.length) {
+        if (!user?.id.length) {
             router.push("/")
         }
     }, [])
@@ -164,7 +169,7 @@ const AddProductForm = () => {
     }
     return (
         <>
-            {user.id ?
+            {user?.id ?
                 <DivContainer>
                     <DivFormItem>¿Qué vas a publicar?</DivFormItem>
                     <FormContainer onSubmit={(e) => { handleSubmit(e) }} >
@@ -229,7 +234,7 @@ const AddProductForm = () => {
                                 <label>{categorieSelect}</label>
                             </DivFormItem>
                             <DivFormItem>
-                                {imageSelected.length > 0 && imageSelected.map((e, i) => <Image key={mostrar(i)} width="100%" src={mostrar(i)} />)}
+                                {imageSelected.length > 0 && imageSelected.map((e, i) => <StyledImage key={mostrar(i)} src={mostrar(i)} />)}
                             </DivFormItem>
                             <DivFormItem>
                                 <ImageLabel htmlFor="file-upload">Cargar imagen</ImageLabel>

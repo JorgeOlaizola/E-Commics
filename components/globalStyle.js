@@ -65,7 +65,7 @@ export const StyledLink = styled.a`
 
 
 // Inicio para los input submit
-export const Input = styled.input`
+export const Input = styled.button`
   color: ${(props) => props.theme.fontColor};
   background-color: ${(props) => props.theme.backgroundButton};
   width: 100%;
@@ -79,7 +79,7 @@ export const Input = styled.input`
   }
 `
 
-export const InputDisable = styled.input`
+export const InputDisable = styled.button`
   color: grey;
   background-color: ${(props) => props.theme.backgroundButton};
   width: 100%;

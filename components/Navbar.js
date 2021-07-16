@@ -40,25 +40,22 @@ const StyledLogo = styled.a`
     }
 `
 
-const StyledImage = styled.img`
+const StyledImage = styled.div`
     width: 150px;
+    height: 50px;
+    position: relative;
 `
 
-const StyledResponsive = styled.img`
-    width: 35px;
+const StyledResponsive = styled.div`
+    width: 50px;
+    height: 50px;
+    position: relative;
 `
 
 const Nav = ({ theme}) => {
     const router = useRouter();
     const [showModal, setShowModal] = useState(false);
     const dispatch = useDispatch()
-
-    const logo = "https://ecommics.s3.sa-east-1.amazonaws.com/images/ecommics-logo.svg";
-
-    const logoWhite = "https://ecommics.s3.sa-east-1.amazonaws.com/images/ecommics-logo-white.svg";
-
-    const logoResponsive = "/ecommics-logo-responsive.svg";
-
     const userData = useSelector(state => state.user.userData)
 
     function handleSignOut() {
@@ -71,13 +68,31 @@ const Nav = ({ theme}) => {
                 {/* <button onClick={() => props.themeToggle()}>Cambiar modo</button> */}
                     <Link href="/" passHref replace>
                         <StyledLogo>{theme === "light" 
-                            ? <StyledImage src='https://ecommics.s3.sa-east-1.amazonaws.com/images/ecommics-logo.svg' alt="logo"/>
-                            : <StyledImage src={'https://ecommics.s3.sa-east-1.amazonaws.com/images/ecommics-logo-white.svg'} alt="logo"/>}
+                            ? <StyledImage>
+                                <Image 
+                                src='https://ecommics.s3.sa-east-1.amazonaws.com/images/ecommics-logo.svg' 
+                                layout='fill'
+                                objectFit="contain" 
+                                alt="logo"/>
+                            </StyledImage>
+                            : <StyledImage>
+                                <Image 
+                                src={'https://ecommics.s3.sa-east-1.amazonaws.com/images/ecommics-logo-white.svg'} 
+                                layout='fill'
+                                objectFit="contain" 
+                                alt="logo"/>
+                            </StyledImage>}
                         </StyledLogo>
                     </Link>
                     <Link href="/" passHref replace>
                         <StyledLogoResponsive>
-                            <StyledResponsive src={'/ecommics-logo-responsive.svg'} alt="logo"/>
+                            <StyledResponsive>
+                                <Image 
+                                src={'/ecommics-logo-responsive.svg'}
+                                layout='fill'
+                                objectFit="contain" 
+                                alt="logo"/>
+                            </StyledResponsive>
                         </StyledLogoResponsive>
                     </Link>
                     <Link href="/search" passHref replace>

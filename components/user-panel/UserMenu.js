@@ -9,7 +9,7 @@ import React, {useState} from 'react';
 import {MenuContainer, MenuTrigger, MenuTriggerSpan, MenuTriggerImg, Menu, MenuUl, MenuLi, MenuButton} from './UserStyles';
 import { LigthDarkThemeDiv } from '../globalStyle'
 import { SearchIcon, ShoppingCartIcon } from '@heroicons/react/outline'
-
+import Image from 'next/image'
 
 const UserMenu = () => {
   const [showModal, setShowModal] = useState(false);
@@ -62,10 +62,12 @@ const UserMenu = () => {
                     <span>{userData.user.nickname}</span>
                 }
               </MenuTriggerSpan>
-              <MenuTriggerImg
-                src="https://ecommics.s3.sa-east-1.amazonaws.com/images/superuser.png"
-                alt="User avatar"
-              />
+                <Image 
+                  src="https://ecommics.s3.sa-east-1.amazonaws.com/images/superuser.png"
+                  alt="User avatar"
+                  width={'25px'}
+                  height={'25px'}
+                />
             </MenuTrigger>
         <Menu
           style={{zIndex: '10'}}

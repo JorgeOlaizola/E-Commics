@@ -34,6 +34,8 @@ export function signIn(data) {
 
 export function signOut() {
     return async function(dispatch) {
+        const localData = JSON.parse(localStorage.getItem("sessionSaved"));
+        const logOut = await axios.delete(`/api/users/logOut?token=${localData.token}`);
         localStorage.setItem("sessionSaved", JSON.stringify("no session"))
         dispatch({ type: user.CLEAR_USER_DATA})
     }

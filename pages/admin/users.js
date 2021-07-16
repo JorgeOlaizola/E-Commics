@@ -45,7 +45,7 @@ const Users = () => {
             <h1>Users</h1>
                 <input name="user" placeholder="Buscar un usuario por nickname" onChange={(e) => getUsers(e.target.value)}></input>
                 { users && users.length ? users.map(u => 
-                <p>Nickname: {u.nickname} - 
+                <p key={u.id}>Nickname: {u.nickname} - 
                 Email: {u.email} - 
                 Role: {u.role} - 
                 ID: {u.id}

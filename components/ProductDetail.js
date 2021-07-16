@@ -247,7 +247,11 @@ const ProductDetail = ({id}) => {
                     <InfoConteiner>
                         <Title>{detail.title}</Title>
                         <InfoText>${detail.price}</InfoText>
-                        <Description>Quedan {detail.stock} unidades</Description>
+                        {
+                            detail.stock === 0 ? <Advertise>No hay unidades disponibles por el momento</Advertise> :
+                            detail.stock === 1 ? <Advertise>¡Queda una sola unidad!</Advertise> :
+                            <Advertise>Quedan {detail.stock} unidades</Advertise>
+                        }
                         <InfoTitle>Descripción</InfoTitle>
                         <Description>{detail.description}</Description>
                         <Description><strong>Vendido por:</strong> 
@@ -257,19 +261,25 @@ const ProductDetail = ({id}) => {
                         </Description>
 
                         <Description><strong>Categoría:</strong> {detail.category.title}</Description>
+                        <form  action={`http://localhost:3000/api/checkout`}  method="POST" >
+                        <input type="hidden" name="title" value = { detail.title } />
+                        <input type="hidden" name="price" value = { detail.price }  />  
                         <BuyButton>Comprar ahora</BuyButton>
+                        </form>
                         <Advertise>Apúrate! Este artículo se va volando</Advertise>
-                        { userData.favorites && userData.favorites.find(f => f.productId === detail._id) ?
+                        {/* { userData.favorites && userData.favorites.find(f => f.productId === detail._id) ?
                         <AddingButton><button onClick={() => dispatch(handleFavorites(detail._id, detail.image, detail.title, detail.price, userData._id))}><HeartIcon className="addFavIcon"/> Quitar de favoritos</button></AddingButton> 
                         :
                         <AddingButton><button onClick={() => dispatch(handleFavorites(detail._id, detail.image, detail.title, detail.price, userData._id))}><HeartIcon className="addFavIcon"/> Agregar a favoritos</button></AddingButton>
-                        }
+                        } */}
+                        <AddingButton><HeartIcon className="addFavIcon"/> Agregar a favoritos</AddingButton>
                         <AddingButton><ShoppingCartIcon className="addCartIcon"/> Agregar al carrito</AddingButton>
                         <Space/>
                         <InfoTitle>Medios de pago</InfoTitle>
                         <Description>Descripción</Description>
                     </InfoConteiner>
                 </ImageInfo>
+                <Space/>
                 <Separator/>
                 <QuestionsContainer>
                     <Space/>
@@ -280,13 +290,13 @@ const ProductDetail = ({id}) => {
                             return <div key={q.created_at} style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
                                 <Question>
                                     {q.content}
-                                    <span style={{marginTop: "10px", fontSize: "1rem", color: "#161D2F"}}>Pregunta de {q.userNickname} ({q.created_at.slice(0, 10)}) {q.answer ? <span>(respondido)</span> : <span>(pendiente de respuesta)</span>}</span>
+                                    <span style={{marginTop: "10px", fontSize: "1rem", color: "#161D2F"}}>{q.userNickname} ({q.created_at.slice(0, 10)}) {q.answer ? <span>(respondido)</span> : <span>(pendiente de respuesta)</span>}</span>
                                 </Question>
                                 {
                                     q.answer &&
                                     <Answer>
                                         {q.answer}
-                                        <span style={{marginTop: "10px", fontSize: "1rem", color: "#FFF"}}>Respuesta de {detail.user.nickname}</span>
+                                        <span style={{marginTop: "10px", fontSize: "1rem", color: "#FFF"}}>{detail.user.nickname}</span>
                                     </Answer>
                                 }
                                 <Space/>

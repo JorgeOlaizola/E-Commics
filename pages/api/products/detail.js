@@ -18,6 +18,7 @@ export default nextConnect()
         const questionsANDuser = await User.populate(questions,{path:"user"})
         let quest = questionsANDuser.map(q => {
             return {
+                _id: q._id,
                 content: q.content,
                 answer: q.answer,
                 userNickname: q.user.nickname,

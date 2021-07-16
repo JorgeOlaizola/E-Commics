@@ -164,7 +164,7 @@ const AddProductForm = () => {
     }
     return (
         <>
-            {user._id ?
+            {user.id ?
                 <DivContainer>
                     <DivFormItem>¿Qué vas a publicar?</DivFormItem>
                     <FormContainer onSubmit={(e) => { handleSubmit(e) }} >

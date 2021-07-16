@@ -143,7 +143,7 @@ const SignUp = ({onClose}) => {
                     avatar: resp.data.secure_url
                 }
                 console.log(respuesta)
-                return  axios.post( process.env.NEXT_PUBLIC_POST_USER_URL, respuesta)
+                return  axios.post('/api/users/signUp', respuesta)
             })
             .then(function(response) {
                 response.data.error_msg && alert(response.data.error_msg)

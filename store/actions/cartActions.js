@@ -7,8 +7,8 @@ export function verificationCart() {
             if (localItems.length) {
                 dispatch({
                     type: cart.VERIFIED,
-                    payload: localItems
-                })
+                    payload: localItems,
+                });
             }
         } catch {
             console.error("Error Cart");
@@ -20,19 +20,16 @@ export function addItem(product) {
     return (dispatch) => {
         dispatch({
             type: cart.ADD_ITEM,
-            payload: product
+            payload: product,
         });
     };
 }
 
-export function removeItem(items, product) {
+export function removeItem(id) {
     return (dispatch) => {
         dispatch({
             type: cart.REMOVE_ITEM,
-            payload: {
-                items,
-                product: product._id,
-            },
+            payload: id
         });
     };
 }
@@ -60,3 +57,5 @@ export function decreaseItem(items, product) {
         });
     };
 }
+
+export function emptyCart() {}

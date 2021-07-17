@@ -43,7 +43,6 @@ export default nextConnect()
 
 .put(async (req, res) => {
     try {
-        console.log(req.query)
         await dbConnect()
         const userRole = await User.findByIdAndUpdate(req.query.id, { role: req.query.role }).exec()
         console.log(userRole)
@@ -52,6 +51,24 @@ export default nextConnect()
         }
         else{
             return res.json({ error_msg: 'Los datos enviados no son correctos'})
+        }
+    }
+    catch(error){
+        console.log(error)
+        res.status(500).send({ error_msg: "Ups! 🙊 Error en el servidor, lo siento 🙈" })
+    } 
+})
+
+.post(async (req, res) => {
+    try{
+        await dbConnect()
+        
+        const user = await User.findById(req.body.id)
+        if(user.role === 'admin') {
+            return res.send(true)
+        }
+        else {
+            return res.send(false)
         }
     }
     catch(error){

@@ -83,7 +83,7 @@ const Navbar = styled.nav`
     flex-wrap: wrap;
     padding: 0 2rem;
     border-bottom: 1px solid;
-    background: ${(props) => props.theme.backgroundNav};
+    background: ${(props) => props.theme.backgroundLevel2};
     max-width: 1024px;
     margin: 0 auto;
     @media (max-width: 480px) {

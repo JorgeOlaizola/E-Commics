@@ -12,7 +12,7 @@ import { useRouter } from 'next/router'
 const FindDiv = styled.div`
   color: ${(props) => props.theme.fontColor};
   background: ${(props) => props.theme.body};
-  border: 1px solid ${(props) => props.theme.fontColor};
+  border: 1px solid ${(props) => props.theme.colorLevel3};
   ${'' /* @media (max-width: 480px) {
     border: none;
   } */}
@@ -21,7 +21,7 @@ const FindDiv = styled.div`
 
 const InputText = styled.input`
   color: ${(props) => props.theme.fontColor};
-  background: ${(props) => props.theme.backgroundInput};
+  background: ${(props) => props.theme.backgroundLevel2};
   width: 300px;
   height: 25px;
   border: none;

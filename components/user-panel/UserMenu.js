@@ -20,7 +20,7 @@ const UserMenu = () => {
 
   const dropdownRef = useRef(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
-  const onClick = () => setIsActive(!isActive);
+
 
   const dispatch = useDispatch()
 
@@ -36,14 +36,16 @@ const UserMenu = () => {
     setSignType("signUp")
     setShowModal(true)
     document.body.style.overflow = "hidden"
+    onClick()
   }
 
   function handleClickSignIn() {
     setSignType("signIn")
     setShowModal(true)
     document.body.style.overflow = "hidden"
+    onClick()
   }
-
+  const onClick = () => setIsActive(!isActive);
   function handleToggle(){
     dispatch(themeToggle())
   }
@@ -55,6 +57,11 @@ const UserMenu = () => {
 
   return (
     <div>
+      <Modal signType={signType}
+      onClose={() => setShowModal(false)}
+      show={showModal}
+      >
+      </Modal>
       <MenuContainer>
             <MenuTrigger onClick={onClick}>
               <MenuTriggerSpan>
@@ -87,22 +94,14 @@ const UserMenu = () => {
                   <a>Crear cuenta</a>
                   </Link>
                 </li> */}
+
                 <MenuLi>
                     <MenuButton onClick={() => handleClickSignUp()}>Crear cuenta</MenuButton>
-                    <Modal signType={signType}
-                    onClose={() => setShowModal(false)}
-                    show={showModal}
-                    >
-                    </Modal>
                 </MenuLi>
                 <MenuLi>
                     <MenuButton onClick={() => handleClickSignIn()}>Ingresar</MenuButton>
-                    <Modal signType={signType}
-                    onClose={() => setShowModal(false)}
-                    show={showModal}
-                    >
-                    </Modal>
                 </MenuLi>
+
                 {/* <li>
                 <Link href="/" passHref>
                   <a>Ingresá</a>

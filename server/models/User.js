@@ -37,7 +37,7 @@ const userSchema = new mongoose.Schema({
 		default: Number
 	},
 	location: {
-		type: String
+		type: [String]
 	},
 	favorites: [{
 		type: mongoose.Schema.ObjectId, 

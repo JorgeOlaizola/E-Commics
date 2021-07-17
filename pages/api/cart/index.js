@@ -31,19 +31,15 @@ export default nextConnect()
         if(carrito.length){
             let order = cart.pop()
             while(order){
-                console.log("entre al while")
-                console.log(carrito[0])
                 let orderByUpDate =  carrito[0].orders.find((or)=>{
                     return or._id.equals(order._id)
                 })
                 if(orderByUpDate){
-                    console.log("lo encontre al vendedor")
                     for(let i = 0; i< order.products.length; i++){
                         let product = orderByUpDate.products.find((product)=>{
                             return product._id.equals(order.products[i]._id)
                         })
                         if(product){
-                            console.log("lo encontre al producto")
                             product.quantity += order.products[i].quantity
                         }else{
                             orderByUpDate.products.push(order.products[i])
@@ -89,3 +85,22 @@ export default nextConnect()
         //         ]
         //     }
         // ]
+
+.delete(async (req,res)=>{
+    const {id} = req.query
+    try{
+        await dbConnect()
+        const result = await Cart.findByIdAndDelete(id).exec()
+        if(result){
+            return res.json({success_msg:"Carrito eliminado exitosamente"})
+        }
+        else{
+           return res.json({error_msg:"El carrito a eliminar no existe"})
+
+        }
+    }
+    catch(error){
+        console.log(error)
+        res.status(500).send({ error_msg: "Ups! 🙊 Error en el servidor, lo siento 🙈" })
+    }
+})

@@ -21,7 +21,9 @@ const ProductDetail = (props) => {
   export async function getServerSideProps(context){
     const {params} = context;
     const {productDetail } = params
-    const callProductData = await axios.get(`http://localhost:3000/api/products/detail?id=${productDetail}`)
+    const ABSOLUTE_URL = process.env.ABSOLUTE_URL
+    
+    const callProductData = await axios.get(`${ABSOLUTE_URL}/products/detail?id=${productDetail}`)
     const productData = callProductData.data
     
     

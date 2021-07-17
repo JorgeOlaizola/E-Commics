@@ -11,11 +11,22 @@ flex-direction:row;
 flex-wrap:wrap;
 margin:auto;
 `
-const Products = () => {
+const Products = (props) => {
+
+    const {productsOfOneUser} = props
+    if(productsOfOneUser) {
+        
+        return(
+            <CardsContainer>   
+                {productsOfOneUser.map(p => <Product key={p._id} id = {p._id} user={p.user.nickname} category={p.category.title} image={p.image} title={p.title} price={p.price} />)}
+            </CardsContainer>
+        )
+    } 
+        
     const dispatch = useDispatch();
     const products = useSelector(state => state.product.products);
     const filters = useSelector(state => state.product.filters)
-
+    console.log("aca en products", productsOfOneUser)
     useEffect(() => {
         dispatch(getFilteredProducts(filters))
         return () => {

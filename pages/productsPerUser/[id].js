@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useRouter } from 'next/router'
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -37,37 +38,46 @@ const UserDescriptionPanel = styled.div`
 `
 
 
-const ProductsPerUser = () => {
-    const router = useRouter()
-    const dispatch = useDispatch()
-    const filterMachine = useSelector(state => state.product.filters)
-    const products = useSelector(state => state.product.products)
+const ProductsPerUser = (props) => {
+    const { userID, productsOfOneUser} = props
     
-    const userID = {
-        ...filterMachine,
-        user: router.query.id
-    }
-
-    useEffect(()=>{
-        dispatch(getFilteredProducts(userID))
-    },[])
-    
-
-    
-
-//<div onClick={dispatch()}></div>
-
     return (
         <Container>
             <UserDescriptionPanel>Aca va la descripción del usuario, hoy lo completo</UserDescriptionPanel>
             <FiltersProducts>
             <Filters userId={userID}/>
-            <Products/>
+            <Products productsOfOneUser={productsOfOneUser}/>
             </FiltersProducts>
 
         </Container>
         
     )
 }
-
+    
 export default ProductsPerUser;
+
+export async function getServerSideProps(context){
+    const {params} = context;
+    const {id } = params;
+    const callAllProductsOfOneUser = await axios.get(`http://localhost:3000/api/products/?user=${id}`) 
+    
+    return {
+      props: {
+          productsOfOneUser: callAllProductsOfOneUser.data,
+          userID: id
+      }
+    }
+  }
+    
+    
+    
+    
+
+    
+
+
+
+
+    
+    
+    

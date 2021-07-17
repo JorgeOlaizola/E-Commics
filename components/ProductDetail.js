@@ -262,7 +262,7 @@ const ProductDetail = ({id, productData}) => {
                         <InfoTitle>Descripción</InfoTitle>
                         <Description>{productData.description}</Description>
                         <Description><strong>Vendido por:</strong> 
-                            <Link href={`/productsPerUser/[id]`} as={`/productsPerUser/${productData.user.id}` } passHref>
+                            <Link href={`/productsPerUser/[id]`} as={`/productsPerUser/${productData.user._id}` } passHref>
                               {productData.user.nickname}
                             </Link>
                         </Description>

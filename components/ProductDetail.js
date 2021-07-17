@@ -209,7 +209,8 @@ const StyledImage = styled.img`
     max-height: 800px;
 `
 
-const ProductDetail = ({id}) => {
+const ProductDetail = ({id, productData}) => {
+    console.log("ahora en el componente", productData)
     useEffect(() => {
         return () => {
             dispatch(resetProductDetail())
@@ -217,9 +218,10 @@ const ProductDetail = ({id}) => {
     }, [])
     const [question, setQuestion] = useState("");
     const dispatch = useDispatch()
-    const detail = useSelector(state => state.product.productDetail)
+   //const detail = useSelector(state => state.product.productDetail)
     const userData = useSelector(state => state.user.userData.user);
-    //if(!userData) return <h1>espero</h1>
+    
+    
     function handleChange(e) {
         setQuestion(e.target.value)
     }
@@ -230,7 +232,7 @@ const ProductDetail = ({id}) => {
             const questionCreated = {
                 content: question,
                 user: userData?.id,
-                product: detail._id,
+                product: productData._id,
             }
             dispatch(createQuestion(questionCreated, userData?.nickname))
 
@@ -239,37 +241,37 @@ const ProductDetail = ({id}) => {
 
     return (
         <Father>
-            {detail && <DetailConteiner>
+            <DetailConteiner>
                 <Space/>
                 <ImageInfo>
                     <ImageConteiner>
-                        <Link replace passHref href="/search">
+                        <Link passHref href="/search">
                             <BackLink>&#60; búsqueda</BackLink>
                         </Link>
                         <ImageView>
-                            <StyledImage src={detail.image[0]}/>
+                            <StyledImage src={productData.image[0]}/>
                         </ImageView>
                     </ImageConteiner>
                     <InfoConteiner>
-                        <Title>{detail.title}</Title>
-                        <InfoText>${detail.price}</InfoText>
+                        <Title>{productData.title}</Title>
+                        <InfoText>${productData.price}</InfoText>
                         {
-                            detail.stock === 0 ? <Advertise>No hay unidades disponibles por el momento</Advertise> :
-                            detail.stock === 1 ? <Advertise>¡Queda una sola unidad!</Advertise> :
-                            <Advertise>Quedan {detail.stock} unidades</Advertise>
+                            productData.stock === 0 ? <Advertise>No hay unidades disponibles por el momento</Advertise> :
+                            productData.stock === 1 ? <Advertise>¡Queda una sola unidad!</Advertise> :
+                            <Advertise>Quedan {productData.stock} unidades</Advertise>
                         }
                         <InfoTitle>Descripción</InfoTitle>
-                        <Description>{detail.description}</Description>
+                        <Description>{productData.description}</Description>
                         <Description><strong>Vendido por:</strong> 
-                            <Link href={`/productsPerUser/[id]`} as={`/productsPerUser/${detail.user.id}` } passHref>
-                            {detail.user.nickname}
+                            <Link href={`/productsPerUser/[id]`} as={`/productsPerUser/${productData.user.id}` } passHref>
+                            {productData.user.nickname}
                             </Link>
                         </Description>
 
-                        <Description><strong>Categoría:</strong> {detail.category.title}</Description>
+                        <Description><strong>Categoría:</strong> {productData.category.title}</Description>
                         <form  action={`http://localhost:3000/api/checkout`}  method="POST" >
-                        <input type="hidden" name="title" value = { detail.title } />
-                        <input type="hidden" name="price" value = { detail.price }  />  
+                        <input type="hidden" name="title" value = { productData.title } />
+                        <input type="hidden" name="price" value = { productData.price }  />  
                         <BuyButton>Comprar ahora</BuyButton>
                         </form>
                         <Advertise>Apúrate! Este artículo se va volando</Advertise>
@@ -279,7 +281,7 @@ const ProductDetail = ({id}) => {
                         <AddingButton><button onClick={() => dispatch(handleFavorites(detail._id, detail.image, detail.title, detail.price, userData._id))}><HeartIcon className="addFavIcon"/> Agregar a favoritos</button></AddingButton>
                         } */}
                         <AddingButton><HeartIcon className="addFavIcon"/> Agregar a favoritos</AddingButton>
-                        <AddingButton onClick={() => dispatch(addItem(detail))}><ShoppingCartIcon className="addCartIcon"/> Agregar al carrito</AddingButton>
+                        <AddingButton onClick={() => dispatch(addItem(productData))}><ShoppingCartIcon className="addCartIcon"/> Agregar al carrito</AddingButton>
                         <Space/>
                         <InfoTitle>Medios de pago</InfoTitle>
                         <Description>Descripción</Description>
@@ -291,8 +293,8 @@ const ProductDetail = ({id}) => {
                     <Space/>
                     <Title>Preguntas</Title>
                     {
-                    detail.questions.length ? 
-                        detail.questions.map(q => { 
+                    productData.questions.length ? 
+                        productData.questions.map(q => { 
                             return <div key={q.created_at} style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
                                 <Question>
                                     {q.content}
@@ -302,7 +304,7 @@ const ProductDetail = ({id}) => {
                                     q.answer &&
                                     <Answer>
                                         {q.answer}
-                                        <span style={{marginTop: "10px", fontSize: "1rem", color: "#FFF"}}>{detail.user.nickname}</span>
+                                        <span style={{marginTop: "10px", fontSize: "1rem", color: "#FFF"}}>{productData.user.nickname}</span>
                                     </Answer>
                                 }
                                 <Space/>
@@ -348,7 +350,7 @@ const ProductDetail = ({id}) => {
                         <Advertise style={{textAlign: "center"}}>Aún no hay reseñas para este artículo</Advertise>
                     </div>
                 </QuestionsContainer>
-            </DetailConteiner>}
+            </DetailConteiner>
         </Father>
     )
 }

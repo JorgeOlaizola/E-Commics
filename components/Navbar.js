@@ -66,7 +66,7 @@ const Nav = ({ theme}) => {
         <>
             <Navbar>
                 {/* <button onClick={() => props.themeToggle()}>Cambiar modo</button> */}
-                    <Link href="/" passHref replace>
+                    <Link href="/" passHref >
                         <StyledLogo>{theme === "light" 
                             ? <StyledImage>
                                 <Image 
@@ -84,7 +84,7 @@ const Nav = ({ theme}) => {
                             </StyledImage>}
                         </StyledLogo>
                     </Link>
-                    <Link href="/" passHref replace>
+                    <Link href="/" passHref >
                         <StyledLogoResponsive>
                             <StyledResponsive>
                                 <Image 
@@ -95,7 +95,7 @@ const Nav = ({ theme}) => {
                             </StyledResponsive>
                         </StyledLogoResponsive>
                     </Link>
-                    <Link href="/search" passHref replace>
+                    <Link href="/search" passHref >
                         <StyledLink className={router.pathname == '/search' ? "active" : ""}>Explorar</StyledLink>
                     </Link>
                     <div className="findItem"><div className="findItemMargin"><Find /></div></div>

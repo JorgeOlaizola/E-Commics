@@ -109,12 +109,12 @@ const UserMenu = () => {
               :
               <>
                 <MenuLi>
-                <Link href={'/user/[user]'} as={`/user/${userData.user.nickname}`} passHref replace>
+                <Link href={'/user/[user]'} as={`/user/${userData.user.nickname}`} passHref >
                   <MenuButton>Panel de usuario</MenuButton>
                 </Link>
                 </MenuLi>
                 <MenuLi>
-                <Link href="/" passHref replace>
+                <Link href="/" passHref >
                   <MenuButton onClick={() => {handleSignOut(); setShowModal(false)}}>Salir</MenuButton>
                 </Link>
                 </MenuLi>
@@ -140,7 +140,7 @@ const UserMenu = () => {
            </MenuLi>
           </MenuUl>
         </Menu>
-        <Link href="/" passHref relpace>
+        <Link href="/" passHref >
                     <ShoppingCartIcon className="cartIcon"/>
                     {/* <i class="fa fa-trash-o" aria-hidden="true"></i> */}
         </Link>

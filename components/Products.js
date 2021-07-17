@@ -25,19 +25,18 @@ const Products = (props) => {
     const filters = useSelector(state => state.product.filters)
     const {productsOfOneUser} = props
     
-    if(productsOfOneUser) {
-        return(
-            <CardsContainer>   
-                {productsOfOneUser.map(p => <Product key={p._id} id = {p._id} user={p.user.nickname} category={p.category.title} image={p.image} title={p.title} price={p.price} />)}
-            </CardsContainer>
-        )
-    } 
+    
         
     return (
+        
         <CardsContainer>   
-            {products && products.map(p => <Product key={p._id} id = {p._id} user={p.user.nickname} category={p.category.title} image={p.image} title={p.title} price={p.price} />)}
+            {productsOfOneUser ? 
+            productsOfOneUser.map(p => <Product key={p._id} id = {p._id} user={p.user.nickname} category={p.category.title} image={p.image} title={p.title} price={p.price} />) 
+            :
+            products && products.map(p => <Product key={p._id} id = {p._id} user={p.user.nickname} category={p.category.title} image={p.image} title={p.title} price={p.price} />)}
         </CardsContainer>    
     )
 }
 
 export default Products;
+

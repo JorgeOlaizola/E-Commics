@@ -20,34 +20,52 @@ export function addItem(product) {
     return (dispatch) => {
         dispatch({
             type: cart.ADD_ITEM,
-            payload: product,
+            payload: {
+                userId: product.user._id,
+                product: {
+                    _id: product._id,
+                    price: product.price,
+                    title: product.title
+                },
+                stock: product.stock
+            },
         });
     };
 }
 
-export function removeItem(id) {
+export function removeItem(userId, productId) {
     return (dispatch) => {
         dispatch({
             type: cart.REMOVE_ITEM,
-            payload: id
+            payload: {
+                userId,
+                productId
+            }
         });
     };
 }
 
-export function increaseItem(id) {
+export function increaseItem(userId, productId, stock) {
     return (dispatch) => {
         dispatch({
             type: cart.INCREASE_ITEM,
-            payload: id
+            payload: {
+                userId,
+                productId,
+                stock
+            }
         });
     };
 }
 
-export function decreaseItem(id) {
+export function decreaseItem(userId, productId) {
     return (dispatch) => {
         dispatch({
             type: cart.DECREASE_ITEM,
-            payload: id
+            payload: {
+                userId,
+                productId
+            }
         });
     };
 }

@@ -67,7 +67,7 @@ const Modal = ({ show, onSubmitSignUp, onClose, children, title, signType }) => 
     border: 1 px solid black;
   `;
   const StyledModalOverlay = styled.div`
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;

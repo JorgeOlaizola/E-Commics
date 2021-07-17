@@ -11,6 +11,8 @@ flex-direction:row;
 flex-wrap:wrap;
 margin:auto;
 `
+
+
 const Products = (props) => {
     
     useEffect(() => {
@@ -25,7 +27,11 @@ const Products = (props) => {
     const filters = useSelector(state => state.product.filters)
     const {productsOfOneUser} = props
     
-    
+    if(!products) return (
+        <CardsContainer>
+            <h1>Cargando...</h1>
+        </CardsContainer>
+    )
         
     return (
         
@@ -33,7 +39,11 @@ const Products = (props) => {
             {productsOfOneUser ? 
             productsOfOneUser.map(p => <Product key={p._id} id = {p._id} user={p.user.nickname} category={p.category.title} image={p.image} title={p.title} price={p.price} />) 
             :
-            products && products.map(p => <Product key={p._id} id = {p._id} user={p.user.nickname} category={p.category.title} image={p.image} title={p.title} price={p.price} />)}
+            products.length !== 0 ? products.map(p => <Product key={p._id} id = {p._id} user={p.user.nickname} category={p.category.title} image={p.image} title={p.title} price={p.price} />)
+            :
+            <h1>Lo siento nadie ha publicado lo que buscas</h1>    
+                  
+        }
         </CardsContainer>    
     )
 }

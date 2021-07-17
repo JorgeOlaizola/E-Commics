@@ -19,7 +19,7 @@ export const product = {
 export const user = {
     GET_USER_DATA: 'GET_USER_DATA',
     CLEAR_USER_DATA: 'CLEAR_USER_DATA',
-    HANDLE_FAVORITES: 'HANDLE_FAVORITES'
+    GET_FAVORITES: 'GET_FAVORITES'
 }
 
 //Types CATEGORY
@@ -57,4 +57,10 @@ export const cart = {
     DECREASE_ITEM: 'DECREASE_ITEM',
     EMPTY_CART: 'EMPTY_CART',
     VERIFIED: 'VERIFIED'
+}
+
+//Types ADMIN
+
+export const admin = {
+    
 }

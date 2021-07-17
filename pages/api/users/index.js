@@ -2,6 +2,9 @@ import dbConnect from '../../../utils/dbConnect'
 import nextConnect from 'next-connect'
 import jwt from 'jsonwebtoken'
 import { validateToken } from '../../../utils/auth'
+import User from '../../../server/models/User'
+import { ObjectID }  from 'mongodb'
+
 
 export default nextConnect()
 
@@ -21,3 +24,4 @@ export default nextConnect()
         res.status(500).send({ error_msg: "Ups! 🙊 Error en el servidor, lo siento 🙈" })
     }
 })
+

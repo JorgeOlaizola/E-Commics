@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+import {StyledLink} from '../globalStyle.js'
 
 export const MenuContainer = styled.div`
 position: relative;
@@ -44,17 +44,18 @@ border-radius: 90px;
 `
 
 export const Menu = styled.nav`
-background: #ffffff;
+background: ${(props) => props.theme.backgroundLevel2};
 /* border-radius: 8px; */
 position: absolute;
-top: 74px;
-right: 20px;
+top: 40px;
+right: 0px;
 width: 170px;
 box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
 opacity: 0;
 visibility: hidden;
 transform: translateY(-20px);
 transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+${'' /* border: 1px solid white; */}
 &:active{ opacity: 1;
     visibility: visible;
     transform: translateY(0);}
@@ -67,23 +68,29 @@ export const MenuUl =styled.ul`
 `
 
 export const MenuLi = styled.li`
-    border-bottom: 1px solid #dddddd;
+    border-bottom: 1px solid ${(props) => props.theme.colorLevel3};
+    margin-left: 10px;
+    margin-right: 10px;
+    &:last-child {
+        border: none;
+    }
 `
 
-export const MenuButton = styled.a`
-    text-decoration: none;
-    color: #808080;
+export const MenuButton = styled(StyledLink)`
+    color: ${(props) => props.theme.fontColor};
     padding: 15px 20px;
     display: block;
     border: none;
-    cursor: pointer;
-    font-size: 0.875rem;
     &:hover{
-    color: #404040;
+    color: #0096FF;
     }
     &:active{
     color: #202020;
     }
+`
+
+export const MenuButtonSwitch = styled(MenuButton)`
+    padding: 0px 20px 15px 20px;
 `
 
 

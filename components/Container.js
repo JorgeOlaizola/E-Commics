@@ -10,7 +10,7 @@ import { lightTheme, darkTheme, GlobalStyles, StyledApp} from './globalStyle'
 import styled, { ThemeProvider } from "styled-components";
 
 const DivContainer = styled.div`
-    background-color: ${(props) => props.theme.body};
+    background-color: ${(props) => props.theme.backgroundLevel1};
     ${'' /* width: 1024px; */}
     margin: 30px auto 30px auto;
     padding-bottom: 50px;

@@ -4,20 +4,31 @@ import styled from "styled-components";
 
 export const lightTheme = {
   body: '#fff',
+  backgroundLevel1: '#fff',
+  backgroundLevel2: '#fff',
+  backgroundLevel3: '#fff', 
+  backgroundSwitch: '#fff',
   fontColor: '#000',
+  colorLevel1: '#4B4B4B',
+  colorLevel2: '#646464',
+  colorLevel3: '#7D7D7D',
 	backgroundButton: '#fff',
 	borderButton: 'linear-gradient(to right, grey, #E4E4E4)',
-  backgroundInput: '#fff',
-  backgroundNav: '#fff',
 }
 
 export const darkTheme = {
-  body: '#000',
+  body: '#000',                // Negro
+  backgroundLevel1: '#101010', // gris oscuro++
+  backgroundLevel2: '#202020', // gris oscuro+
+  backgroundLevel3: '#303030', // gris oscuro
+  backgroundSwitch: '#FF0000',
   fontColor: '#fff',
+  colorLevel1: '#E1E1E1',
+  colorLevel2: '#C8C8C8',
+  colorLevel3: '#969696',
 	backgroundButton: '#000',
 	borderButton: 'linear-gradient(to right, grey, black)',
-  backgroundInput: '#202020', // gris oscuro
-  backgroundNav: '#101010', // gris oscuro++
+
 }
 
 // Estructura Aside left and right
@@ -203,6 +214,7 @@ ${'' /* switch */}
     height: 0;
     width: 0;
     visibility: hidden;
+    background: ${(props) => props.theme.colorLevel3};
   }
   
 .react-switch-label {
@@ -210,9 +222,10 @@ display: flex;
 /* align-items: center; */
 /* justify-content: space-between; */
 cursor: pointer;
-width: 50px;
-height: 20px;
-background: grey; 
+width: 60px;
+height: 25px;
+border: 1px solid ${(props) => props.theme.fontColor};
+background: ${(props) => props.theme.backgroundSwitch};
 border-radius: 2px;
 ${'' /* border: 1px solid white; */}
 position: relative;
@@ -226,11 +239,11 @@ content: '';
 position: absolute;
 top: 2px;
 left: 2px;
-width: 20px;
-height: 15px;
+width: 25px;
+height: 19px;
 border-radius: 2px;
 transition: 0.2s;
-background: white;
+background: ${(props) => props.theme.fontColor};
 box-shadow: 0 0 2px 0 rgba(10, 10, 10, 0.29);
 }
   

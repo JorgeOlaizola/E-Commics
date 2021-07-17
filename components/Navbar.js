@@ -18,7 +18,7 @@ const Navbar = styled.nav`
     flex-wrap: wrap;
     padding: 0 2rem;
     border-bottom: 1px solid;
-    background: ${(props) => props.theme.backgroundNav};
+    background: ${(props) => props.theme.backgroundLevel1};
     @media (max-width: 480px) {
       padding: 0 1rem;
     }
@@ -66,7 +66,7 @@ const Nav = ({ theme}) => {
         <>
             <Navbar>
                 {/* <button onClick={() => props.themeToggle()}>Cambiar modo</button> */}
-                    <Link href="/" passHref replace>
+                    <Link href="/" passHref >
                         <StyledLogo>{theme === "light" 
                             ? <StyledImage>
                                 <Image 
@@ -84,7 +84,7 @@ const Nav = ({ theme}) => {
                             </StyledImage>}
                         </StyledLogo>
                     </Link>
-                    <Link href="/" passHref replace>
+                    <Link href="/" passHref >
                         <StyledLogoResponsive>
                             <StyledResponsive>
                                 <Image 
@@ -95,7 +95,7 @@ const Nav = ({ theme}) => {
                             </StyledResponsive>
                         </StyledLogoResponsive>
                     </Link>
-                    <Link href="/search" passHref replace>
+                    <Link href="/search" passHref >
                         <StyledLink className={router.pathname == '/search' ? "active" : ""}>Explorar</StyledLink>
                     </Link>
                     <div className="findItem"><div className="findItemMargin"><Find /></div></div>

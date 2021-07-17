@@ -47,3 +47,14 @@ export const filter = {
 export const styles = {
     TOGGLE_THEME: "TOGGLE_THEME"
 }
+
+// Types CART
+
+export const cart = {
+    ADD_ITEM: 'ADD_ITEM',
+    REMOVE_ITEM: 'REMOVE_ITEM',
+    INCREASE_ITEM: 'INCREASE_ITEM',
+    DECREASE_ITEM: 'DECREASE_ITEM',
+    EMPTY_CART: 'EMPTY_CART',
+    VERIFIED: 'VERIFIED'
+}

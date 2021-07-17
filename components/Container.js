@@ -5,11 +5,12 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { getCategories } from '../store/actions/categoriesActions.js';
 import { getUserData } from '../store/actions/normalUsersActions.js';
+import { verificationCart } from '../store/actions/cartActions.js'; 
 import { lightTheme, darkTheme, GlobalStyles, StyledApp} from './globalStyle'
 import styled, { ThemeProvider } from "styled-components";
 
 const DivContainer = styled.div`
-    background-color: ${(props) => props.theme.body};
+    background-color: ${(props) => props.theme.backgroundLevel1};
     ${'' /* width: 1024px; */}
     margin: 30px auto 30px auto;
     padding-bottom: 50px;
@@ -37,6 +38,7 @@ const Container = (props) => {
     useEffect(() => {
         dispatch(getUserData());
         dispatch(getCategories());
+        dispatch(verificationCart());
     }, [dispatch])
 
     // Redux:

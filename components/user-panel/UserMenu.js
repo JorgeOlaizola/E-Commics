@@ -6,10 +6,13 @@ import { signOut } from '../../store/actions/normalUsersActions.js';
 import { themeToggle } from '../../store/actions/stylesActions.js';
 import Modal from './Modal.js';
 import React, {useState} from 'react';
-import {MenuContainer, MenuTrigger, MenuTriggerSpan, MenuTriggerImg, Menu, MenuUl, MenuLi, MenuButton} from './UserStyles';
-import { LigthDarkThemeDiv } from '../globalStyle'
-import { SearchIcon, ShoppingCartIcon } from '@heroicons/react/outline'
-import Image from 'next/image'
+import {MenuContainer, MenuTrigger, MenuTriggerSpan, MenuTriggerImg, Menu, MenuUl, MenuLi, MenuButton, MenuButtonSwitch} from './UserStyles';
+import { LigthDarkThemeDiv } from '../globalStyle';
+import styled from 'styled-components'
+import { SearchIcon, ShoppingCartIcon } from '@heroicons/react/outline';
+import Image from 'next/image';
+
+
 
 const UserMenu = () => {
   const [showModal, setShowModal] = useState(false);
@@ -25,6 +28,7 @@ const UserMenu = () => {
   const theme = useSelector(state => state.styles.theme)
 
   function handleSignOut() {
+    // borrar carrito
       dispatch(signOut())
   }
 
@@ -108,19 +112,19 @@ const UserMenu = () => {
               :
               <>
                 <MenuLi>
-                <Link href={'/user/[user]'} as={`/user/${userData.user.nickname}`} passHref replace>
+                <Link href={'/user/[user]'} as={`/user/${userData.user.nickname}`} passHref >
                   <MenuButton>Panel de usuario</MenuButton>
                 </Link>
                 </MenuLi>
                 <MenuLi>
-                <Link href="/" passHref replace>
+                <Link href="/" passHref >
                   <MenuButton onClick={() => {handleSignOut(); setShowModal(false)}}>Salir</MenuButton>
                 </Link>
                 </MenuLi>
               </>
             }
            <MenuLi>
-              <MenuButton>
+              <MenuButtonSwitch>
                 <input 
                 onChange={() => {handleToggle()}}
                 className="react-switch-checkbox"
@@ -133,13 +137,23 @@ const UserMenu = () => {
                 className="react-switch-label"
                 htmlFor={`react-switch-new1`}
                 >
+                  <Image 
+                  src={'/switch-flash.svg'}
+                  width={'30px'}
+                  height={'25px'}
+                  />
+                  <Image 
+                  src={'/switch-batman.svg'}
+                  width={'30px'}
+                  height={'22px'}
+                  />
                 <span className={`react-switch-button`} />
                 </label>
-              </MenuButton>
+              </MenuButtonSwitch>
            </MenuLi>
           </MenuUl>
         </Menu>
-        <Link href="/" passHref relpace>
+        <Link href="/" passHref >
                     <ShoppingCartIcon className="cartIcon"/>
                     {/* <i class="fa fa-trash-o" aria-hidden="true"></i> */}
         </Link>

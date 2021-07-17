@@ -11,7 +11,7 @@ const Navbar = styled.nav`
     flex-wrap: wrap;
     padding: 0 2rem;
     border-bottom: 1px solid;
-    background: ${(props) => props.theme.backgroundNav};
+    background: ${(props) => props.theme.backgroundLevel2};
     max-width: 960px;
     margin: 0 auto;
     @media (max-width: 480px) {
@@ -26,19 +26,19 @@ const UserPanelNav = () => {
     return(
         <>
             <Navbar>
-                    <Link href="/" passHref replace>
+                    <Link href="/" passHref >
                         <StyledLink className={router.pathname == '/' ? "active" : ""}>Perfil</StyledLink>
                     </Link>
-                    <Link href="/" passHref replace>
+                    <Link href="/" passHref >
                         <StyledLink className={router.pathname == '/' ? "active" : ""}>Compras</StyledLink>
                     </Link>
-                    <Link href="/" passHref replace>
+                    <Link href="/" passHref >
                         <StyledLink className={router.pathname == '/' ? "active" : ""}>Ventas</StyledLink>
                     </Link>
-                    <Link href="/" passHref replace>
+                    <Link href="/" passHref >
                         <StyledLink className={router.pathname == '/' ? "active" : ""}>Publicaciones</StyledLink>
                     </Link>
-                    <Link href="/" passHref replace>
+                    <Link href="/" passHref>
                         <StyledLink className={router.pathname == '/' ? "active" : ""}>Favoritos</StyledLink>
                     </Link>
             </Navbar>

@@ -1,25 +1,34 @@
 import Container from '../../components/Container';
 import Productdetail from '../../components/ProductDetail'
-import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react'
-import { useRouter } from 'next/router'
-import { getProductDetail } from '../../store/actions/productActions';
+import axios from 'axios';
 
-const ProductDetail = () => {
-  const router = useRouter()
-  const dispatch = useDispatch()
-    useEffect( () => {
-        dispatch(getProductDetail(router.query.productDetail))
-    }, [])
 
-  const detail = useSelector(state => state.product.productDetail)
+const ProductDetail = (props) => {
+  
+  
+   
     return (
       <>
         <Container>
-         {detail.category && <Productdetail id={router.query.productDetail}/>}
+         <Productdetail productData={props.productData}/>
         </Container>
       </>
     )
   }
   
   export default ProductDetail;
+
+  export async function getServerSideProps(context){
+    const {params} = context;
+    const {productDetail } = params
+    const ABSOLUTE_URL = process.env.ABSOLUTE_URL
+    
+    const callProductData = await axios.get(`${ABSOLUTE_URL}/products/detail?id=${productDetail}`)
+    const productData = callProductData.data
+    
+    
+    
+    return {
+      props: {productData}
+    }
+  }

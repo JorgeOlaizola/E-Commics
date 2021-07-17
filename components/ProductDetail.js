@@ -209,16 +209,12 @@ const StyledImage = styled.img`
     max-height: 800px;
 `
 
-const ProductDetail = ({id, productData}) => {
-    console.log("ahora en el componente", productData)
-    useEffect(() => {
-        return () => {
-            dispatch(resetProductDetail())
-        }
-    }, [])
+const ProductDetail = ({productData}) => {
+    
+    
     const [question, setQuestion] = useState("");
     const dispatch = useDispatch()
-   //const detail = useSelector(state => state.product.productDetail)
+   
     const userData = useSelector(state => state.user.userData.user);
 
     function handleChange(e) {

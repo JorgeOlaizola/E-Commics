@@ -350,7 +350,7 @@ const ProductDetail = ({id, productData}) => {
                         <Advertise style={{textAlign: "center"}}>Aún no hay reseñas para este artículo</Advertise>
                     </div>
                 </QuestionsContainer>
-            </DetailConteiner>}
+            </DetailConteiner>
         </Father>
     )
 }

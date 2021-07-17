@@ -20,10 +20,16 @@ export default function userReducer(state = initialState, action) {
                 userData: {log: false}
             }
         //Favorites
-        case user.HANDLE_FAVORITES:
+        case user.GET_FAVORITES:
             return {
                 ...state,
-                userData: { ...state.userData, favorites: action.payload}
+                userData: {
+                    ...state.userData,
+                    user: {
+                        ...state.userData.user,
+                        favorites: action.payload
+                    }
+                }
             }
         default:
             return state;

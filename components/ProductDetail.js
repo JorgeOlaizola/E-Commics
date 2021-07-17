@@ -270,11 +270,11 @@ const ProductDetail = ({productData}) => {
                         <BuyButton>Comprar ahora</BuyButton>
                         </form>
                         <Advertise>Apúrate! Este artículo se va volando</Advertise>
-                        {/* { userData.favorites && userData.favorites.find(f => f.productId === detail._id) ?
-                        <AddingButton><button onClick={() => dispatch(handleFavorites(detail._id, detail.image, detail.title, detail.price, userData._id))}><HeartIcon className="addFavIcon"/> Quitar de favoritos</button></AddingButton> 
+                         { userData && userData.favorites ? userData.favorites.find(f => f.productId === detail._id) ?
+                        <AddingButton><button onClick={() => dispatch(handleFavorites(userData.id, productData._id))}><HeartIcon className="addFavIcon"/> Quitar de favoritos</button></AddingButton> 
                         :
-                        <AddingButton><button onClick={() => dispatch(handleFavorites(detail._id, detail.image, detail.title, detail.price, userData._id))}><HeartIcon className="addFavIcon"/> Agregar a favoritos</button></AddingButton>
-                        } */}
+                        <AddingButton><button onClick={() => dispatch(handleFavorites(userData.id, productData._id))}><HeartIcon className="addFavIcon"/> Agregar a favoritos</button></AddingButton>
+                        : <span></span>} 
                         <AddingButton><HeartIcon className="addFavIcon"/> Agregar a favoritos</AddingButton>
                         <AddingButton onClick={() => dispatch(addItem(productData))}><ShoppingCartIcon className="addCartIcon"/> Agregar al carrito</AddingButton>
                         <Space/>

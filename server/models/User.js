@@ -39,22 +39,10 @@ const userSchema = new mongoose.Schema({
 	location: {
 		type: String
 	},
-	favorites: {
-		type: [{
-			productId: {
-				type: String
-			},
-			productImg: {
-				type: [String]
-			},
-			productTitle: {
-				type: String
-			},
-			productPrice: {
-				type: Number
-			}
-		}]
-	}
+	favorites: [{
+		type: mongoose.Schema.ObjectId, 
+        ref: "Product" 
+	}]
 });
 
 userSchema.methods.encryptPassword = async password => {

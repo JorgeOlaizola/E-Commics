@@ -1,6 +1,11 @@
 import Link from 'next/link';
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+    resetFilters,
+    searchByUser,
+    getFilteredProducts
+} from '../../store/actions/productActions'
 import styled from 'styled-components';
 import { GradientBorder, Input  } from '../globalStyle'
 import ImageSlider from '../ImageSlider.js';
@@ -43,25 +48,66 @@ const ProfileImg = styled.img`
     height: 150px;
 `
 
+//Products styles
+
+const ProductConteiner = styled.div`
+width: 70%;
+height: 200px;
+border: 1px solid grey;
+display: flex;
+padding: 30px;
+margin: 10px;
+border-radius: 0.5rem 0.5rem;
+justify-content: start;
+align-items: center;
+`
+
+//Product conteiner for the info
+const ProductInfoConteiner = styled.div`
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+width: 80%;
+`
+
 const UserPanelPublications = () => {
     const userData = useSelector(state => state.user.userData.user);
     const products = useSelector(state => state.product.products);
+    const filters = useSelector(state => state.product.filters);
+    const dispatch = useDispatch();
 
-    const userProducts= products.filter(p => p.user._id === userData.id)
     // const userProducts= products.forEach(p => console.log(p.user._id))
-    console.log(userProducts)
+
 
 
     useEffect(() => {
         if(userData.log === false) {
             window.location.href = "/"
         }
+        dispatch(resetFilters())
+        let search = {...filters, user: userData.id}
+        dispatch(getFilteredProducts(search))
+        return () => {
+            dispatch(resetFilters())
+        }
 }, []);
-console.log(userData)
     return (
         <StyledContainer>
-            publicaciones
+            Publicaciones
             <ImageSlider />
+            {products.length ? products.map(p => 
+                <ProductConteiner key={p._id}>
+                    <ProfileImg src={p.image}>
+                    </ProfileImg>
+                    <ProductInfoConteiner>
+                    <h3>{p.title} </h3>
+                    <span> Precio: {p.price}$</span> 
+                    <span> Categoría: {p.category.title}</span>
+                    <span><button>Eliminar</button><button>Modificar</button></span>
+                    </ProductInfoConteiner>
+                </ProductConteiner>
+            ) : <div>Todavía no tienes ningun producto</div> }
             <Link href="/addproduct" passHref >
                     <StyledButton>Crear publicacion</StyledButton>
             </Link>    

@@ -135,7 +135,7 @@ export function resetFilters() {
 
 export function getFilteredProducts (payload) {
     return(dispatch) => {
-        axios.get(`/api/products?user=${payload.user}&category=${payload.category}&scorestart=${payload.score.start}&scoreend=${payload.score.end}&pricestart=${payload.price.start}&priceend=${payload.price.end}&searchin=${payload.search.in}&searchtext=${payload.search.text}&orderin=${payload.order.in}&orderor=${payload.order.or}&page=${payload.page}&officialstore=${payload.officialstore}`)
+        axios.get(`/api/products/?user=${payload.user}&category=${payload.category}&scorestart=${payload.score.start}&scoreend=${payload.score.end}&pricestart=${payload.price.start}&priceend=${payload.price.end}&searchin=${payload.search.in}&searchtext=${payload.search.text}&orderin=${payload.order.in}&orderor=${payload.order.or}&page=${payload.page}&officialstore=${payload.officialstore}`)
         .then(r => dispatch({ type: filter.GET_FILTERING_PRODUCTS, payload: r.data }))
         .catch(e =>{
             console.log(e)

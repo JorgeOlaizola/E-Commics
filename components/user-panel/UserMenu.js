@@ -25,6 +25,7 @@ const UserMenu = () => {
   const theme = useSelector(state => state.styles.theme)
 
   function handleSignOut() {
+    // borrar carrito
       dispatch(signOut())
   }
 

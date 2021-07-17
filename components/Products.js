@@ -12,10 +12,20 @@ flex-wrap:wrap;
 margin:auto;
 `
 const Products = (props) => {
-
+    
+    useEffect(() => {
+        dispatch(getFilteredProducts(filters))
+        return () => {
+            dispatch(resetFilters())
+        }
+    }, [])
+     
+    const dispatch = useDispatch();
+    const products = useSelector(state => state.product.products);
+    const filters = useSelector(state => state.product.filters)
     const {productsOfOneUser} = props
+    
     if(productsOfOneUser) {
-        
         return(
             <CardsContainer>   
                 {productsOfOneUser.map(p => <Product key={p._id} id = {p._id} user={p.user.nickname} category={p.category.title} image={p.image} title={p.title} price={p.price} />)}
@@ -23,16 +33,6 @@ const Products = (props) => {
         )
     } 
         
-    const dispatch = useDispatch();
-    const products = useSelector(state => state.product.products);
-    const filters = useSelector(state => state.product.filters)
-    console.log("aca en products", productsOfOneUser)
-    useEffect(() => {
-        dispatch(getFilteredProducts(filters))
-        return () => {
-            dispatch(resetFilters())
-        }
-    }, [])
     return (
         <CardsContainer>   
             {products && products.map(p => <Product key={p._id} id = {p._id} user={p.user.nickname} category={p.category.title} image={p.image} title={p.title} price={p.price} />)}

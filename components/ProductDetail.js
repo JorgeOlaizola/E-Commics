@@ -145,6 +145,10 @@ const AddingButton = styled.div`
     color: #161D2F;
     font-size: 1.2rem;
     margin-bottom: 10px;
+
+    &:hover {
+        cursor: pointer;
+    }
 `
 
 const Space = styled.div`
@@ -270,12 +274,20 @@ const ProductDetail = ({productData}) => {
                         <BuyButton>Comprar ahora</BuyButton>
                         </form>
                         <Advertise>Apúrate! Este artículo se va volando</Advertise>
-                         { userData && userData.favorites ? userData.favorites.find(f => f.productId === detail._id) ?
-                        <AddingButton><button onClick={() => dispatch(handleFavorites(userData.id, productData._id))}><HeartIcon className="addFavIcon"/> Quitar de favoritos</button></AddingButton> 
-                        :
-                        <AddingButton><button onClick={() => dispatch(handleFavorites(userData.id, productData._id))}><HeartIcon className="addFavIcon"/> Agregar a favoritos</button></AddingButton>
-                        : <span></span>} 
-                        <AddingButton><HeartIcon className="addFavIcon"/> Agregar a favoritos</AddingButton>
+                       {/*  {
+                        userData && userData.favorites ? 
+                            (userData.favorites.find(f => f.productId === detail._id) ?
+                            <AddingButton><a onClick={() => dispatch(handleFavorites(userData.id, productData._id))}><HeartIcon className="addFavIcon"/> Quitar de favoritos</a></AddingButton> 
+                            :
+                            <AddingButton><a onClick={() => dispatch(handleFavorites(userData.id, productData._id))}><HeartIcon className="addFavIcon"/> Agregar a favoritos</a></AddingButton>)
+                        : <span></span>
+                        }  */}
+                        {
+                            userData && userData.favorites && userData.favorites.find(f => f.productId === detail._id) ? <AddingButton><a onClick={() => dispatch(handleFavorites(userData.id, productData._id))}><HeartIcon className="addFavIcon"/> Quitar de favoritos</a></AddingButton> :
+                            userData && userData.favorites && userData.favorites.find(f => f.productId === detail._id) === undefined ? <AddingButton><a onClick={() => dispatch(handleFavorites(userData.id, productData._id))}><HeartIcon className="addFavIcon"/> Agregar a favoritos</a></AddingButton> :
+                            <span></span>
+                        } 
+                        {/* <AddingButton><HeartIcon className="addFavIcon"/> Agregar a favoritos</AddingButton> */}
                         <AddingButton onClick={() => dispatch(addItem(productData))}><ShoppingCartIcon className="addCartIcon"/> Agregar al carrito</AddingButton>
                         <Space/>
                         <InfoTitle>Medios de pago</InfoTitle>
@@ -293,7 +305,7 @@ const ProductDetail = ({productData}) => {
                             return <div key={q.created_at} style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
                                 <Question>
                                     {q.content}
-                                    <span style={{marginTop: "10px", fontSize: "1rem", color: "#161D2F"}}>{q.userNickname} ({q.created_at.slice(0, 10)}) {q.answer ? <span>(respondido)</span> : <span>(pendiente de respuesta)</span>}</span>
+                                    <span style={{marginTop: "10px", fontSize: "1rem", color: "#161D2F"}}>{q.avatar} {q.userNickname} ({q.created_at.slice(0, 10)}) {q.answer ? <span>(respondido)</span> : <span>(pendiente de respuesta)</span>}</span>
                                 </Question>
                                 {
                                     q.answer &&

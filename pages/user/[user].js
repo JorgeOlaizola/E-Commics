@@ -1,9 +1,6 @@
 import Head from 'next/head';
 import Container from '../../components/Container';
 import UserPanel from '../../components/user-panel/UserPanel';
-import UserPanelNav from '../../components/user-panel/UserPanelNav';
-import UserPanelProfile from '../../components/user-panel/UserPanelProfile';
-import { MainDiv  } from '../../components/globalStyle'
 
 const User = () => {
   return (
@@ -13,8 +10,6 @@ const User = () => {
       </Head>
       <Container>
         <UserPanel/>
-        {/* <UserPanelNav/>
-        <UserPanelProfile/> */}
       </Container>
     </>
   )

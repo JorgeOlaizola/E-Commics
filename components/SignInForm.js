@@ -55,11 +55,8 @@ const SignInForm = () => {
         else{
             dispatch(getCart('60ecf7b0ef20060e68fbebf2'))
         }
-        document.body.style.overflow = ""
-
         document.body.style.overflow = "";
         dispatch(showHideModal(false))
->>>>>
     }
 
  

@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useDetectOutsideClick } from "./useDetectOutsideClick.js";
 import { signOut } from '../../store/actions/normalUsersActions.js';
 import { themeToggle } from '../../store/actions/stylesActions.js';
+import { showHideModal } from '../../store/actions/stylesActions.js';
 import Modal from './Modal.js';
 import React, {useState} from 'react';
 import {MenuContainer, MenuTrigger, MenuTriggerSpan, MenuTriggerImg, Menu, MenuUl, MenuLi, MenuButton, MenuButtonSwitch} from './UserStyles';
@@ -20,12 +21,14 @@ const UserMenu = () => {
 
   const dropdownRef = useRef(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
-
+  const onClick = () => setIsActive(!isActive);
 
   const dispatch = useDispatch()
 
   const userData = useSelector(state => state.user.userData)
   const theme = useSelector(state => state.styles.theme)
+  const modal = useSelector(state => state.styles.modal)
+
 
   function handleSignOut() {
     // borrar carrito
@@ -34,18 +37,19 @@ const UserMenu = () => {
 
   function handleClickSignUp() {
     setSignType("signUp")
-    setShowModal(true)
     document.body.style.overflow = "hidden"
     onClick()
+    console.log(showHideModal())
+    dispatch(showHideModal(true))
   }
 
   function handleClickSignIn() {
     setSignType("signIn")
-    setShowModal(true)
     document.body.style.overflow = "hidden"
     onClick()
+    dispatch(showHideModal(true))
   }
-  const onClick = () => setIsActive(!isActive);
+  
   function handleToggle(){
     dispatch(themeToggle())
   }
@@ -58,8 +62,8 @@ const UserMenu = () => {
   return (
     <div>
       <Modal signType={signType}
-      onClose={() => setShowModal(false)}
-      show={showModal}
+      onClose={() => dispatch(showHideModal(false))}
+      show={modal}
       >
       </Modal>
       <MenuContainer>

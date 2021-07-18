@@ -8,6 +8,7 @@ import {
     getCart,
     changeCart
 } from '../store/actions/cartActions'
+import { showHideModal } from '../store/actions/stylesActions.js';
 import {FormContainer, LogInForm, FormLabel, FormInputs, FormInput, FormSpan, Eye} from './user-panel/UserStyles.js';
 import { Input, GradientBorder, DisableBorder, InputDisable } from './globalStyle'
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -44,6 +45,7 @@ const SignInForm = () => {
 
     const handleSubmit = async (e) => {      
         e.preventDefault();
+
         dispatch(signIn(input));
         const cart = JSON.parse(localStorage.getItem('cartItems'))
         if(cart.length) {
@@ -54,6 +56,10 @@ const SignInForm = () => {
             dispatch(getCart('60ecf7b0ef20060e68fbebf2'))
         }
         document.body.style.overflow = ""
+
+        document.body.style.overflow = "";
+        dispatch(showHideModal(false))
+>>>>>
     }
 
  

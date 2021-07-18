@@ -45,7 +45,8 @@ export const filter = {
 // Types STYLES
 
 export const styles = {
-    TOGGLE_THEME: "TOGGLE_THEME"
+    TOGGLE_THEME: "TOGGLE_THEME",
+    SHOW_HIDE_MODAL: "SHOW_HIDE_MODAL"
 }
 
 // Types CART

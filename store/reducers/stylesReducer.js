@@ -2,7 +2,8 @@ import { styles } from '../types';
 
 const initialState = {
     theme: "light"
-    , themeDark: "dark"
+    , themeDark: "dark",
+    modal: false
 }
 
 // export default function stylesReducer(state = initialState, action) {
@@ -35,6 +36,11 @@ export default function stylesReducer(state = initialState, action) {
             return {
                 ...state,
                 theme: state.theme === "light" ? "dark" : "light"
+            }
+        case styles.SHOW_HIDE_MODAL:
+            return {
+                ...state,
+                modal: action.payload
             }
         default:
             return state;

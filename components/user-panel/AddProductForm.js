@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addSellingProduct } from '../../store/actions/productActions.js';
+import { getUserData } from '../../store/actions/normalUsersActions.js';
 import styled from 'styled-components'
 import axios from 'axios';
 import { useRouter } from 'next/router'
 import Image from 'next/image'
+import PacmanLoader from "react-spinners/PacmanLoader";
+
 const DivContainer = styled.div`
 margin:auto;
 display: flex;
@@ -66,6 +69,10 @@ const StyledImage = styled.img`
     width: 100%;
 `
 
+const Space = styled.div`
+    height: 100px;
+`
+
 const AddProductForm = () => {
     const dispatch = useDispatch();
     const user = useSelector(state => state.user.userData.user);
@@ -83,11 +90,16 @@ const AddProductForm = () => {
     })
     const router = useRouter()
 
-    useEffect(() => {
-        if (!user?.id.length) {
-            router.push("/")
+    /* useEffect(() => {
+        const start = () => {
+            dispatch(getUserData());
+            if (user?.id.length === 0 || user?.id.length === undefined) {
+                router.push("/")
+            }
         }
-    }, [])
+        start();
+    }, []) */
+
     function handleChange(e) {
         if (e.target.value < 0) {
             setInput({ ...input })
@@ -267,7 +279,8 @@ const AddProductForm = () => {
                 </DivContainer>
                 :
                 <DivContainer>
-                    <DivFormItem>No deberías poder acceder aqui sin estar logueado</DivFormItem>
+                    <Space/>
+                    <PacmanLoader color={"#000"} size={30}/>
                 </DivContainer>
             }
         </>

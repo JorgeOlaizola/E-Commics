@@ -18,7 +18,8 @@ export default async (req, res) => {
                         content: q.content,
                         answer: q.answer,
                         userNickname: q.user.nickname,
-                        created_at: q.created_at
+                        created_at: q.created_at,
+                        avatar: q.user.avatar
                     }
                 })
                 return res.json(quest)

@@ -93,27 +93,20 @@ const UserMenu = () => {
             {
               userData.log === false ?
               <>
-                {/* <li>
-                <Link href="/signuppage" passHref>
-                  <a>Crear cuenta</a>
-                  </Link>
-                </li> */}
-
                 <MenuLi>
                     <MenuButton onClick={() => handleClickSignUp()}>Crear cuenta</MenuButton>
                 </MenuLi>
                 <MenuLi>
                     <MenuButton onClick={() => handleClickSignIn()}>Ingresar</MenuButton>
                 </MenuLi>
-
-                {/* <li>
-                <Link href="/" passHref>
-                  <a>Ingresá</a>
-                  </Link>
-                </li> */}
               </>
               :
               <>
+                <MenuLi>
+                <Link href={'/addproduct'} passHref >
+                  <MenuButton>Nueva publicación</MenuButton>
+                </Link>
+                </MenuLi>
                 <MenuLi>
                 <Link href={'/user/[user]'} as={`/user/${userData.user.nickname}`} passHref >
                   <MenuButton>Panel de usuario</MenuButton>

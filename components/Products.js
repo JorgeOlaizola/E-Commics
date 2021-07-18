@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { getFilteredProducts, resetFilters } from '../store/actions/productActions'
 import Product from './Product'
 import styled from 'styled-components';
+import PacmanLoader from "react-spinners/PacmanLoader";
 
 const CardsContainer = styled.main`
 grid-area: main;
@@ -29,7 +30,7 @@ const Products = (props) => {
     
     if(!products) return (
         <CardsContainer>
-            <h1>Cargando...</h1>
+            <PacmanLoader color={"#000"} size={50}/>
         </CardsContainer>
     )
         

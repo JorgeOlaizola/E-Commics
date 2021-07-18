@@ -2,6 +2,7 @@ import e from "connect-flash";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { signIn } from "../store/actions/normalUsersActions";
+import { showHideModal } from '../store/actions/stylesActions.js';
 import {FormContainer, LogInForm, FormLabel, FormInputs, FormInput, FormSpan, Eye} from './user-panel/UserStyles.js';
 import { Input, GradientBorder, DisableBorder, InputDisable } from './globalStyle'
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -39,7 +40,8 @@ const SignInForm = () => {
     const handleSubmit = async (e) => {      
         e.preventDefault();
         dispatch(signIn(input)); 
-        document.body.style.overflow = ""
+        document.body.style.overflow = "";
+        dispatch(showHideModal(false))
     }
 
  

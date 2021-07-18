@@ -67,10 +67,9 @@ export default function cartReducer(state = initialState, action) {
                 }
             });
             localStorage.setItem("cartItems", JSON.stringify(itemsRemove));
-
             return {
-                cartId: '',
-                cartItems: []
+                ...state,
+                cartItems: itemsRemove
             };
         case cart.INCREASE_ITEM:
             const itemsIncrease = state.cartItems.slice();

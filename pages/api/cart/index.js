@@ -41,6 +41,11 @@ export default nextConnect()
                         })
                         if(product){
                             product.quantity += order.products[i].quantity
+                            if(product.quantity < 1 ){
+                                orderByUpDate.products = orderByUpDate.products.filter((p)=>{
+                                    return p._id !== product._id
+                                })
+                            }
                         }else{
                             orderByUpDate.products.push(order.products[i])
                         }

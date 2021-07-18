@@ -26,9 +26,10 @@ export function addItem(product) {
                 product: {
                     _id: product._id,
                     unit_price: product.price,
-                    title: product.title
+                    title: product.title,
+                    image: product.image,
+                    stock: product.stock
                 },
-                stock: product.stock
             },
         });
     };

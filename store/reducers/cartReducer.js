@@ -22,7 +22,7 @@ export default function cartReducer(state = initialState, action) {
                     userInOrder = true;
                     order.products.forEach((item) => {
                         if (item._id === action.payload.product._id) {
-                            if (item.quantity < action.payload.stock) {
+                            if (item.quantity < item.stock) {
                                 item.quantity += 1;
                                 itemInCart = true;
                             }
@@ -79,7 +79,7 @@ export default function cartReducer(state = initialState, action) {
                     order.products.forEach((item) => {
                         if (
                             item._id === action.payload.productId &&
-                            item.quantity < action.payload.stock
+                            item.quantity < item.stock
                         )
                             item.quantity += 1;
                     });

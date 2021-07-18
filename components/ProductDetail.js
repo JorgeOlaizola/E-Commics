@@ -257,14 +257,14 @@ const ProductDetail = ({productData}) => {
                         }
                         <InfoTitle>Descripción</InfoTitle>
                         <Description>{productData.description}</Description>
-                        <Description><strong>Vendido por:</strong> 
+                        <Description><strong>Vendido por: </strong> 
                             <Link href={`/productsPerUser/[id]`} as={`/productsPerUser/${productData.user._id}` } passHref>
                               {productData.user.nickname}
                             </Link>
                         </Description>
 
                         <Description><strong>Categoría:</strong> {productData.category.title}</Description>
-                        <form  action={`http://localhost:3000/api/checkout`}  method="POST" >
+                        <form  action={`/api/checkout`}  method="POST" >
                         <input type="hidden" name="title" value = { productData.title } />
                         <input type="hidden" name="price" value = { productData.price }  />  
                         <BuyButton>Comprar ahora</BuyButton>

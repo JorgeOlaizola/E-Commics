@@ -1,7 +1,7 @@
 import { product, filter } from '../types';
 
 const initialState = {
-    products: [],
+    products: undefined,
     ownProducts: [],
     productDetail: {},
     filters: {

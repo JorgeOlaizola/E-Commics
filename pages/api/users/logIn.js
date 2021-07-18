@@ -53,7 +53,8 @@ export default nextConnect()
                     email: user.email,
                     name: user.name,
                     surname: user.surname,
-                    id: user._id
+                    id: user._id,
+                    favorites: []
                     // favorites: user.favorites,
                 },
                 token: token

@@ -43,11 +43,29 @@ export function signOut() {
 
 // Tools
 
-export function handleFavorites(productId, productImg, productTitle, productPrice, userId) {
-    return (dispatch) => {
-        axios.post(`/api/users/favorites`, {productId, productImg, productTitle, productPrice, userId})
-        .then((response => dispatch({ type: user.HANDLE_FAVORITES, payload: response.data})
-        ))}}
+
+export  function handleFavorites(userId, productId) {
+    return async function () {
+        try {
+            await axios.put("/api/users/favorites", { userId: userId, productId: productId })
+        }
+        catch (error) {
+        console.error(error)    
+        }
+    }}
+
+export function getFavorites (userID) {
+    return async function(dispatch) {
+        try {
+            const localData = JSON.parse(localStorage.getItem("sessionSaved"));
+            axios.get(`/api/users/favorites?token=${localData.token}&userID=${userID}`)
+            .then((r) => dispatch({ type: user.GET_FAVORITES, payload: r.data }))
+
+        } catch (error) {
+            console.error(error)    
+        }
+    }
+}
 
 // ADMIN users actions
 

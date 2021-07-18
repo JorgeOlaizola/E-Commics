@@ -1,4 +1,5 @@
 import { cart } from "../types";
+import axios from 'axios'
 
 export function verificationCart() {
     return (dispatch) => {
@@ -24,13 +25,29 @@ export function addItem(product) {
                 userId: product.user._id,
                 product: {
                     _id: product._id,
-                    price: product.price,
+                    unit_price: product.price,
                     title: product.title
                 },
                 stock: product.stock
             },
         });
     };
+}
+
+export function getCart (userID) {
+    return  (dispatch) => {
+        axios.get(`/api/cart?user=${userID}`)
+        .then(r => {
+            return dispatch({ type: cart.GET_CART, payload: r.data[0]})})
+    }
+}
+
+export function changeCart (userID, cartLE) {
+    return  (dispatch) => {
+        axios.put(`/api/cart`, { user: userID, cart: cartLE })
+        .then(r => {
+            return dispatch({ type: cart.GET_CART, payload: r.data })})
+    }
 }
 
 export function removeItem(userId, productId) {

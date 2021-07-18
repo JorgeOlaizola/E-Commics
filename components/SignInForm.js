@@ -1,7 +1,13 @@
-import e from "connect-flash";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { signIn } from "../store/actions/normalUsersActions";
+import { 
+    signIn, 
+} from "../store/actions/normalUsersActions";
+import {
+    emptyCart, 
+    getCart,
+    changeCart
+} from '../store/actions/cartActions'
 import {FormContainer, LogInForm, FormLabel, FormInputs, FormInput, FormSpan, Eye} from './user-panel/UserStyles.js';
 import { Input, GradientBorder, DisableBorder, InputDisable } from './globalStyle'
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -38,7 +44,15 @@ const SignInForm = () => {
 
     const handleSubmit = async (e) => {      
         e.preventDefault();
-        dispatch(signIn(input)); 
+        dispatch(signIn(input));
+        const cart = JSON.parse(localStorage.getItem('cartItems'))
+        if(cart.length) {
+            dispatch(emptyCart())
+            dispatch(changeCart('60ecf7b0ef20060e68fbebf2', cart))            
+        }
+        else{
+            dispatch(getCart('60ecf7b0ef20060e68fbebf2'))
+        }
         document.body.style.overflow = ""
     }
 

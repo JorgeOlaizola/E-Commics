@@ -52,6 +52,7 @@ export const styles = {
 
 export const cart = {
     ADD_ITEM: 'ADD_ITEM',
+    GET_CART: 'GET_CART',
     REMOVE_ITEM: 'REMOVE_ITEM',
     INCREASE_ITEM: 'INCREASE_ITEM',
     DECREASE_ITEM: 'DECREASE_ITEM',

@@ -2,12 +2,14 @@ import { cart } from "../types";
 
 const initialState = {
     cartItems: [],
+    cartId: ''
 };
 
 export default function cartReducer(state = initialState, action) {
     switch (action.type) {
         case cart.VERIFIED:
             return {
+                ...state,
                 cartItems: action.payload,
             };
         case cart.ADD_ITEM:
@@ -49,6 +51,7 @@ export default function cartReducer(state = initialState, action) {
             localStorage.setItem("cartItems", JSON.stringify(addItems));
 
             return {
+                ...state,
                 cartItems: addItems,
             };
         case cart.REMOVE_ITEM:
@@ -66,7 +69,8 @@ export default function cartReducer(state = initialState, action) {
             localStorage.setItem("cartItems", JSON.stringify(itemsRemove));
 
             return {
-                cartItems: itemsRemove,
+                cartId: '',
+                cartItems: []
             };
         case cart.INCREASE_ITEM:
             const itemsIncrease = state.cartItems.slice();
@@ -86,6 +90,7 @@ export default function cartReducer(state = initialState, action) {
             localStorage.setItem("cartItems", JSON.stringify(itemsIncrease));
 
             return {
+                ...state,
                 cartItems: itemsIncrease,
             };
         case cart.DECREASE_ITEM:
@@ -110,14 +115,18 @@ export default function cartReducer(state = initialState, action) {
             localStorage.setItem("cartItems", JSON.stringify(itemsDecrease));
 
             return {
+                ...state,
                 cartItems: itemsDecrease,
             };
         case cart.EMPTY_CART:
             localStorage.setItem("cartItems", JSON.stringify([]));
 
             return {
+                ...state,
                 cartItems: [],
             };
+        case cart.GET_CART:
+            return { ...state, cartId: action.payload._id, cartItems: action.payload.orders }
         default:
             return state;
     }

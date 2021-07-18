@@ -41,6 +41,9 @@ export default nextConnect()
                         })
                         if(product){
                             product.quantity += order.products[i].quantity
+                            if(product.quantity > product.stock){
+                                product.quantity = product.stock
+                            }
                             if(product.quantity < 1 ){
                                 orderByUpDate.products = orderByUpDate.products.filter((p)=>{
                                     return p._id !== product._id
@@ -88,9 +91,11 @@ export default nextConnect()
         //         products:[
         //             {
         //             _id:"60f0f8ffed61124146ea0126",//producto
-        //             price:176000,
+        //             unit_price:176000,
         //             title:"Superman",
-        //             cantidad:2
+        //             quantity:2,
+        //             image:"URL",
+        //             stock:4 
         //             }
         //         ]
         //     }

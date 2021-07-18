@@ -50,6 +50,11 @@ export default nextConnect()
                             orderByUpDate.products.push(order.products[i])
                         }
                     }
+                    if(orderByUpDate.products.length < 1 ){
+                        carrito[0].orders = carrito[0].orders.filter((o)=>{
+                            return o._id !== orderByUpDate._id
+                        })
+                    }
                 }else{
                     carrito[0].orders.push(order)
                 }

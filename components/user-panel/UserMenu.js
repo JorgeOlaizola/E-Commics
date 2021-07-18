@@ -156,7 +156,7 @@ const UserMenu = () => {
            </MenuLi>
           </MenuUl>
         </Menu>
-        <Link href="/" passHref >
+        <Link href="/cart" passHref >
                     <ShoppingCartIcon className="cartIcon"/>
                     {/* <i class="fa fa-trash-o" aria-hidden="true"></i> */}
         </Link>

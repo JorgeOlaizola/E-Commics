@@ -33,13 +33,22 @@ body {
     width: 20px;
   }
 
+  .findIcon480 {
+    display: none;
+  }
+
   @media (max-width: 480px) {
     .findIcon {
       width: 10px;
     }
+    .findIcon480 {
+      width: 15px;
+      display: inline;
+    }
     .findItem{
       order: 5;
       margin: 0 auto;
+      display: none;
     }
     .findItemMargin{
       margin: 10px 0px;

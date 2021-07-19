@@ -214,7 +214,16 @@ const StyledImage = styled.img`
 `
 
 const ProductDetail = ({productData}) => {
-    
+
+    const [favorite, setFavorite] = useState(undefined);
+
+    useEffect(() => {
+        if(userData?.favorites.find(f => f.productId === detail._id)) {
+            setFavorite(true);
+        } else {
+            setFavorite(false);
+        }
+    }, [])
     
     const [question, setQuestion] = useState("");
     const dispatch = useDispatch()
@@ -283,8 +292,8 @@ const ProductDetail = ({productData}) => {
                         : <span></span>
                         }  */}
                         {
-                            userData && userData.favorites && userData.favorites.find(f => f.productId === detail._id) ? <AddingButton><a onClick={() => dispatch(handleFavorites(userData.id, productData._id))}><HeartIcon className="addFavIcon"/> Quitar de favoritos</a></AddingButton> :
-                            userData && userData.favorites && userData.favorites.find(f => f.productId === detail._id) === undefined ? <AddingButton><a onClick={() => dispatch(handleFavorites(userData.id, productData._id))}><HeartIcon className="addFavIcon"/> Agregar a favoritos</a></AddingButton> :
+                            userData && userData.favorites && favorite ? <AddingButton><a onClick={() => {dispatch(handleFavorites(userData.id, productData._id)); setFavorite(false)}}><HeartIcon className="addFavIcon"/> Quitar de favoritos</a></AddingButton> :
+                            userData && userData.favorites && !favorite ? <AddingButton><a onClick={() => {dispatch(handleFavorites(userData.id, productData._id)); setFavorite(true)}}><HeartIcon className="addFavIcon"/> Agregar a favoritos</a></AddingButton> :
                             <span></span>
                         } 
                         {/* <AddingButton><HeartIcon className="addFavIcon"/> Agregar a favoritos</AddingButton> */}

@@ -18,11 +18,18 @@ export function getUserData() {
     }
 }
 
-export function signIn(data) {
+export function signIn(info, cart) {
     return async function(dispatch) {
         try {
-            const userData = await axios.post(`/api/users/logIn`, data);
-            /* const userData = await axios.get(`/api/users`); */
+
+            const userData = await axios.post(`/api/users/logIn`, info);
+            console.log(userData.data.user.id)
+            if(userData.data.user.id && cart){
+                console.log('Buenas')
+               const carrito = await axios.put(`/api/cart`, { user: userData.data.user.id, cart: cart })
+               console.log(carrito)
+               localStorage.setItem("cartItems", JSON.stringify([]));
+            }
             localStorage.setItem("sessionSaved", JSON.stringify(userData.data))
             dispatch({ type: user.GET_USER_DATA, payload: userData.data })
             
@@ -46,7 +53,7 @@ export function signOut() {
 // Tools
 
 
-export  function handleFavorites(userId, productId) {
+export function handleFavorites(userId, productId) {
     return async function () {
         try {
             await axios.put("/api/users/favorites", { userId: userId, productId: productId })

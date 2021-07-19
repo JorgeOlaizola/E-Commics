@@ -88,6 +88,9 @@ width:8%;
 display:flex;
 justify-content:flex-end;
 padding-right:1rem;
+& span {
+	font-size:1.5rem;
+}
 @media (max-width: 900px){
 	background-color: #161D2F;
 	width:100%;
@@ -132,7 +135,7 @@ const CartItems = () => {
 	const dispatch = useDispatch()
 	const cartItems = useSelector(state => state.cart.cartItems);
 	const userData = useSelector(state => state.user.userData.user);
-	console.log("ya la empece a bardear", userData)
+	
 	let total = 0
 
 	return(

@@ -145,9 +145,15 @@ const AddingButton = styled.div`
     color: #161D2F;
     font-size: 1.2rem;
     margin-bottom: 10px;
+    transition:  all 0.5s ease-out;
 
     &:hover {
+        display:flex;
+        justify-content:center;
+        color:#FFF;
         cursor: pointer;
+        background-color:#161D2F;
+        padding:0.5rem;
     }
 `
 
@@ -262,10 +268,14 @@ const ProductDetail = ({productData}) => {
                         <InfoTitle>Descripción</InfoTitle>
                         <Description>{productData.description}</Description>
                         <Description><strong>Vendido por: </strong> 
-                            <Link href={`/productsPerUser/[id]`} as={`/productsPerUser/${productData.user._id}` } passHref>
                               {productData.user.nickname}
-                            </Link>
                         </Description>
+                            <Link href={`/productsPerUser/[id]`} as={`/productsPerUser/${productData.user._id}` } passHref>
+                                <AddingButton>
+
+                                    mas productos de {productData.user.nickname}
+                                </AddingButton>
+                            </Link>
 
                         <Description><strong>Categoría:</strong> {productData.category.title}</Description>
                         <form  action={`/api/checkout`}  method="POST" >

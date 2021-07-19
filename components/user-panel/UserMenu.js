@@ -7,6 +7,9 @@ import { themeToggle } from '../../store/actions/stylesActions.js';
 import { showHideModal } from '../../store/actions/stylesActions.js';
 import Modal from './Modal.js';
 import React, {useState} from 'react';
+import { 
+  emptyCart 
+} from '../../store/actions/cartActions'
 import {MenuContainer, MenuTrigger, MenuTriggerSpan, MenuTriggerImg, Menu, MenuUl, MenuLi, MenuButton, MenuButtonSwitch} from './UserStyles';
 import { LigthDarkThemeDiv } from '../globalStyle';
 import styled from 'styled-components'
@@ -33,6 +36,7 @@ const UserMenu = () => {
   function handleSignOut() {
     // borrar carrito
       dispatch(signOut())
+      dispatch(emptyCart())
   }
 
   function handleClickSignUp() {

@@ -15,7 +15,8 @@ import {
 import { HeartIcon, ShoppingCartIcon } from '@heroicons/react/outline'
 import Link from 'next/link';
 import Image from 'next/image';
-import { StyledLink } from './globalStyle';
+import { StyledLink, Input, GradientBorder } from './globalStyle';
+
 
 const Father = styled.div`
     width: 100%;
@@ -32,6 +33,9 @@ const ImageInfo = styled.div`
     flex-wrap: wrap;
     width: 100%;
     height: 100%;
+    @media (max-width: 900px) {
+        
+    }
 `
 
 const DetailContainer = styled.div`
@@ -42,10 +46,12 @@ const DetailContainer = styled.div`
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    margin-top: 20px;
 `
 
 const ImageContainer = styled.div`
     width: 66%;
+    min-width: 280px;
     height: 100%;
 `
 
@@ -53,32 +59,42 @@ const ImageView = styled.div`
     display: flex;
     justify-content: center;
 `
-const InfoConteiner = styled.div`
+const InfoContainer = styled.div`
     width: 33%;
+    min-width: 280px;
     height: 90%;
     padding-left: 20px;
+    @media (max-width: 914px) {
+        width: 100%;
+        padding: 0 16px;
+    }
+    
 `
 
 const Title = styled.h1`
     ${'' /* font-size: 2rem; */}
     ${'' /* font-weight: bold; */}
     margin-bottom: 30px;
+    @media (max-width: 914px) {
+        display: none;
+    }
 `
+
+const ResponsiveTitle = styled.h1`
+    ${'' /* font-size: 2rem; */}
+    ${'' /* font-weight: bold; */}
+    margin: 30px 0;
+    display: none;
+    @media (max-width: 914px) {
+        display: block;
+    }
+`
+
 
 const InfoTitle = styled.h2`
-    font-size: 1.5rem;
+    ${'' /* font-size: 1.5rem; */}
     font-weight: bold;
     margin-bottom: 20px;
-`
-
-const BackLink = styled.a`
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 20px;
-
-    &:hover {
-        text-decoration: underline;
-    }
 `
 
 const InfoText = styled.p`
@@ -91,11 +107,18 @@ const Description = styled.p`
     color: ${(props) => props.theme.colorLevel2}
 `
 
+const UserStyledLink = styled(StyledLink)`
+    font-size: 1rem;
+    text-decoration: underline;
+`
+
+
 const BuyButton = styled.button`
     width: 100%;
     height: 45px;
     margin: 10px 0;
     background-color: ${(props) => props.theme.blueColor};
+    border: 1px solid ${(props) => props.theme.backgroundLevel1};
     border-style: hidden;
     color: #FFF;
     font-size: 1.2rem;
@@ -104,30 +127,24 @@ const BuyButton = styled.button`
     align-items: center;
     cursor: pointer;
     &:hover {
-        box-shadow: 0 3px 3px 2px rgba(0,0,0,0.3);
+        background-color: #123AC9;
+        border: 1px solid ${(props) => props.theme.backgroundLevel1};
+        transition: 0.3s;
     }
-`
-
-const SendButton = styled.button`
-    width: auto;
-    height: auto;
-    padding: 10px;
-    margin-top: 10px;
-    background-color: ${(props) => props.theme.blueColor};
-    border-style: hidden;
-    color: #FFF;
-    font-size: 1.2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    &:hover {
-        box-shadow: 0 3px 3px 2px rgba(0,0,0,0.3);
+    &:active {
+        background-color: ${(props) => props.theme.blueColorActive};
+        border: 1px solid ${(props) => props.theme.backgroundLevel1};
     }
 `
 
 const Advertise = styled.p`
     color: ${(props) => props.theme.blueColor};
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+`
+
+const HurryAdvertise = styled.p`
     margin-bottom: 20px;
     display: flex;
     align-items: center;
@@ -149,6 +166,11 @@ const AddingButton = styled.div`
 
     &:hover {
         cursor: pointer;
+        color: ${(props) => props.theme.blueColorHover};
+    }
+    &:active {
+        cursor: pointer;
+        color: ${(props) => props.theme.blueColor};
     }
 `
 
@@ -156,21 +178,26 @@ const Space = styled.div`
     height: 20px;
 `
 
+const QuestionsDiv = styled.div`
+    max-width: 800px;
+`
+
 const QuestionsContainer = styled.div`
-    width: 66%;
+    width: 90%;
+    min-width: 280px; 
     height: auto;
     padding: 10px;
     margin-top: 10px;
 `
 
 const Question = styled.div`
-    width: 80%;
+    width: 100%;
     ${'' /* background-color: #fff; */}
 	padding: 15px 20px;
 	font-size: 1.2rem;
-    border: 1px solid #000;
-	border-radius: 15px 15px 15px 0;
-    box-shadow:	0 5px 5px rgba(0, 0, 0, .3), 0 3px 2px rgba(0, 0, 0, .2);
+    border: 1px solid ${(props) => props.theme.blueColor};
+	border-radius: 8px 0px 8px 0;
+    ${'' /* box-shadow:	0 5px 5px rgba(0, 0, 0, .3), 0 3px 2px rgba(0, 0, 0, .2); */}
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -193,18 +220,20 @@ const Answer = styled.div`
 
 const StyledInput = styled.input`
     margin-top: 20px;
-    width: 66%;
+    width: 100%;
     ${'' /* background-color: #fff; */}
 	padding: 5px 10px;
-	font-size: 1.2rem;
-	border-radius: 15px;
-    border-style: hidden;
-    box-shadow:	0 5px 5px rgba(0, 0, 0, .3), 0 3px 2px rgba(0, 0, 0, .2);
+	font-size: 1rem;
+    border: 1px solid ${(props) => props.theme.colorLevel3};
+	border-radius: 8px 0px 8px 0;
+    ${'' /* border-style: hidden; */}
+    ${'' /* box-shadow:	0 5px 5px rgba(0, 0, 0, .3), 0 3px 2px rgba(0, 0, 0, .2); */}
 `
 
 const Separator = styled.div`
     width: 100%;
     height: 1px;
+    margin-top: 20px;
     background-color: ${(props) => props.theme.blueColor};
 `
 
@@ -266,17 +295,20 @@ const ProductDetail = ({productData}) => {
     return (
         <Father>
             <DetailContainer>
-                <Space/>
+
                 <ImageInfo>
+
                     <ImageContainer>
                         <Link passHref href="/search">
                             <StyledLink>← búsqueda</StyledLink>
                         </Link>
+                        <ResponsiveTitle>{productData.title}</ResponsiveTitle>
                         <ImageView>
                             <StyledImage src={productData.image[0]}/>
                         </ImageView>
                     </ImageContainer>
-                    <InfoConteiner>
+
+                    <InfoContainer>
                         <Title>{productData.title}</Title>
                         <InfoText>${productData.price}</InfoText>
                         {
@@ -287,9 +319,11 @@ const ProductDetail = ({productData}) => {
                         <InfoTitle>Descripción</InfoTitle>
                         <Description>{productData.description}</Description>
                         <Description><strong>Vendido por: </strong> 
-                            <Link style={{textDecoration: 'underline'}} href={`/productsPerUser/[id]`} as={`/productsPerUser/${productData.user._id}` } passHref>
-                              {productData.user.nickname}
-                            </Link>
+                            <UserStyledLink>
+                                <Link style={{textDecoration: 'underline'}} href={`/productsPerUser/[id]`} as={`/productsPerUser/${productData.user._id}` } passHref>
+                                  {productData.user.nickname}
+                                </Link>
+                            </UserStyledLink>
                         </Description>
 
                         <Description><strong>Categoría:</strong> {productData.category.title}</Description>
@@ -298,7 +332,7 @@ const ProductDetail = ({productData}) => {
                         <input type="hidden" name="price" value = { productData.price }  />  
                         <BuyButton>Comprar ahora</BuyButton>
                         </form>
-                        <Advertise>Apúrate! Este artículo se va volando</Advertise>
+                        <HurryAdvertise><em>Apúrate! Este artículo se va volando</em></HurryAdvertise>
                        {/*  {
                         userData && userData.favorites ? 
                             (userData.favorites.find(f => f.productId === detail._id) ?
@@ -318,74 +352,83 @@ const ProductDetail = ({productData}) => {
                         <Space/>
                         <InfoTitle>Medios de pago</InfoTitle>
                         <Description>Descripción</Description>
-                    </InfoConteiner>
+                    </InfoContainer>
+                    <Separator/>
                 </ImageInfo>
-                <Space/>
-                <Separator/>
-                <QuestionsContainer>
+                
+                <QuestionsDiv>
+                    
                     <Space/>
-                    <Title>Preguntas</Title>
-                    {
-                    productData.questions.length ? 
-                        productData.questions.map(q => { 
-                            return <div key={q.created_at} style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-                                <Question>
-                                    {q.content}
-                                    <span style={{marginTop: "10px", fontSize: "1rem", color: "${(props) => props.theme.blueColor}"}}>{q.avatar} {q.userNickname} ({q.created_at.slice(0, 10)}) {q.answer ? <span>(respondido)</span> : <span>(pendiente de respuesta)</span>}</span>
-                                </Question>
-                                {
-                                    q.answer &&
-                                    <Answer>
-                                        {q.answer}
-                                        <span style={{marginTop: "10px", fontSize: "1rem"}}>{productData.user.nickname}</span>
-                                    </Answer>
-                                }
-                                <Space/>
-                            </div>        
-                        })
-                    : 
-                        <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-                            <QuestionAdvertise>Todavía no se ha realizado ninguna pregunta en esta publicación ¡Se el primero!</QuestionAdvertise>
+                    <QuestionsContainer>
+                        <Title>Preguntas</Title>
+                        {
+                        productData.questions.length ? 
+                            productData.questions.map(q => { 
+                                return <div key={q.created_at} style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+                                    <Question>
+                                        {q.content}
+                                        <span style={{marginTop: "10px", fontSize: "1rem", color: "${(props) => props.theme.blueColor}"}}>{q.avatar} {q.userNickname} ({q.created_at.slice(0, 10)}) {q.answer ? <span>(respondido)</span> : <span>(pendiente de respuesta)</span>}</span>
+                                    </Question>
+                                    {
+                                        q.answer &&
+                                        <Answer>
+                                            {q.answer}
+                                            <span style={{marginTop: "10px", fontSize: "1rem"}}>{productData.user.nickname}</span>
+                                        </Answer>
+                                    }
+                                    <Space/>
+                                </div>        
+                            })
+                        : 
+                            <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+                                <QuestionAdvertise>Todavía no se ha realizado ninguna pregunta en esta publicación ¡Se el primero!</QuestionAdvertise>
+                            </div>
+                                
+                        }
+                        {
+                            userData && userData.log !== false ?
+                                <>
+                                    <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+                                    {productData.questions.length ? <QuestionAdvertise>¿Quieres saber más?</QuestionAdvertise> : <></>}
+                                        <QuestionAdvertise>Pregúntale al vendedor</QuestionAdvertise>
+                                    </div>
+                                    <form
+                                        style={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center"}}
+                                        onSubmit={(e) => {handleSubmit(e)}}
+                                    >
+                                    <StyledInput 
+                                        rows="3"
+                                        cols="50"
+                                        name="question"
+                                        value={question}
+                                        onChange={(e) => handleChange(e)}
+                                    />
+                                    <GradientBorder>
+                                        <Input type="submit">Preguntar</Input>
+                                    </GradientBorder>
+                                    </form>
+                                </>
+                            :
+                                <>
+                                    <Space/>
+                                    <Advertise style={{textAlign: "center"}}>Para realizar preguntas primero debes iniciar sesión. ¿Aún no tienes una cuenta de Ecommics? ¿Qué estás esperando?</Advertise>
+                                </>
+                        }
+                    </QuestionsContainer>
+                    <QuestionsContainer>
+                        <Space/>
+                        <Title>Reseñas</Title>
+                        <div style={{display: "flex", justifyContent: "center"}}>
+                            <Advertise style={{textAlign: "center"}}>Aún no hay reseñas para este artículo</Advertise>
                         </div>
-                            
-                    }
-                    {
-                        userData && userData.log !== false ?
-                            <>
-                                <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-                                    <QuestionAdvertise>Dejanos tus preguntas aquí, responderemos cuanto antes.</QuestionAdvertise>
-                                </div>
-                                <form
-                                    style={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center"}}
-                                    onSubmit={(e) => {handleSubmit(e)}}
-                                >
-                                <StyledInput 
-                                    rows="3"
-                                    cols="50"
-                                    name="question"
-                                    value={question}
-                                    onChange={(e) => handleChange(e)}
-                                />
-                                <SendButton type='submit'>Enviar</SendButton>
-                                </form>
-                            </>
-                        :
-                            <>
-                                <Space/>
-                                <Advertise style={{textAlign: "center"}}>Para realizar preguntas primero debes iniciar sesión. ¿Aún no tienes una cuenta de Ecommics? ¿Qué estás esperando?</Advertise>
-                            </>
-                    }
-                </QuestionsContainer>
-                <QuestionsContainer>
-                    <Space/>
-                    <Title>Reseñas</Title>
-                    <div style={{display: "flex", justifyContent: "center"}}>
-                        <Advertise style={{textAlign: "center"}}>Aún no hay reseñas para este artículo</Advertise>
-                    </div>
-                </QuestionsContainer>
+                    </QuestionsContainer>
+                </QuestionsDiv>
+
             </DetailContainer>
         </Father>
     )
 }
 
 export default ProductDetail
+
+

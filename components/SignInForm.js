@@ -46,14 +46,14 @@ const SignInForm = () => {
     const handleSubmit = async (e) => {      
         e.preventDefault();
 
-        dispatch(signIn(input));
         const cart = JSON.parse(localStorage.getItem('cartItems'))
         if(cart.length) {
-            dispatch(emptyCart())
-            dispatch(changeCart('60ecf7b0ef20060e68fbebf2', cart))            
+            dispatch(signIn(input, cart));
+            // dispatch(changeCart('60ecf7b0ef20060e68fbebf2', cart))            
         }
         else{
-            dispatch(getCart('60ecf7b0ef20060e68fbebf2'))
+            dispatch(signIn(input, null));
+            // dispatch(getCart('60ecf7b0ef20060e68fbebf2'))
         }
         document.body.style.overflow = "";
         dispatch(showHideModal(false))

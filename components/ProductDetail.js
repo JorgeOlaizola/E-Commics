@@ -9,7 +9,8 @@ import {
     handleFavorites
 } from '../store/actions/normalUsersActions'
 import {
-    addItem
+    addItem,
+    changeCart
 } from '../store/actions/cartActions'
 import { HeartIcon, ShoppingCartIcon } from '@heroicons/react/outline'
 import Link from 'next/link';
@@ -238,6 +239,30 @@ const ProductDetail = ({productData}) => {
         }
     }
 
+    const handleCart = async () => {
+        if(userData) {
+            let orders = [
+                    {
+                        _id: productData.user._id,// vendedor
+                        products:[
+                            {
+                            _id: productData._id,//producto
+                            unit_price: productData.price,
+                            title: productData.title,
+                            quantity: 1,
+                            image: productData.image,
+                            stock: productData.stock
+                            }
+                        ]
+                    }
+                ]
+            return dispatch(changeCart(userData.id, orders))
+        }
+        else{
+            return dispatch(addItem(productData))
+        }
+    }
+
     return (
         <Father>
             <DetailConteiner>
@@ -288,7 +313,8 @@ const ProductDetail = ({productData}) => {
                             <span></span>
                         } 
                         {/* <AddingButton><HeartIcon className="addFavIcon"/> Agregar a favoritos</AddingButton> */}
-                        <AddingButton onClick={() => dispatch(addItem(productData))}><ShoppingCartIcon className="addCartIcon"/> Agregar al carrito</AddingButton>
+
+                        <AddingButton onClick={() => handleCart()}><ShoppingCartIcon className="addCartIcon"/> Agregar al carrito</AddingButton>
                         <Space/>
                         <InfoTitle>Medios de pago</InfoTitle>
                         <Description>Descripción</Description>

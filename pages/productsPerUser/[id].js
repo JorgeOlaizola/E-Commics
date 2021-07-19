@@ -43,7 +43,7 @@ const ProductsPerUser = (props) => {
     
     return (
         <Container>
-            <UserDescriptionPanel>Aca va la descripción del usuario, hoy lo completo</UserDescriptionPanel>
+            <UserDescriptionPanel>RUTA DEL BACK</UserDescriptionPanel>
             <FiltersProducts>
             <Filters userId={userID}/>
             <Products productsOfOneUser={productsOfOneUser}/>
@@ -59,7 +59,7 @@ export default ProductsPerUser;
 export async function getServerSideProps(context){
     const {params} = context;
     const {id } = params;
-    const callAllProductsOfOneUser = await axios.get(`http://localhost:3000/api/products/?user=${id}`) 
+    const callAllProductsOfOneUser = await axios.get(`https://e-commics.vercel.app/api/products?user=${id}`) 
     
     return {
       props: {

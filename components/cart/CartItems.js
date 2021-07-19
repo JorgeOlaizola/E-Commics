@@ -1,11 +1,13 @@
 import { useSelector, useDispatch }  from 'react-redux';
+import { useEffect } from 'react'
 import Link from 'next/link'
 import styled from 'styled-components';
 import { 
 	removeItem,
 	decreaseItem,
 	increaseItem,
-	changeCart 
+	changeCart,
+	getCart 
 } from '../../store/actions/cartActions'
 
 const CartContainer = styled.div`
@@ -30,10 +32,11 @@ margin:1rem auto;
 	
 }
 `
-
 const ImageContainer = styled.div`
 width:20%;
 height:100%;
+display:flex;
+justify-content:center;
 background-color:black;
 @media (max-width: 900px){
 	height: 50%;
@@ -41,8 +44,13 @@ background-color:black;
 }
 
 `;
+const CartItemImage =  styled.img`
+height:100%;
+width:auto;
+max-width:100%;
+`
 
-//titulo y actiones 
+//titulo y ACTIONES 
 
 const TitleAndOption =styled.div`
 width:60%;
@@ -132,10 +140,17 @@ width: 100%;
 
 const CartItems = () => {
 	
-	const dispatch = useDispatch()
-	const cartItems = useSelector(state => state.cart.cartItems);
 	const userData = useSelector(state => state.user.userData.user);
-	
+	const dispatch = useDispatch()
+	useEffect(() => {
+		if(userData) {
+			dispatch(getCart(userData.id))
+		}
+	}, [dispatch])
+	const cartItems = useSelector(state => state.cart.cartItems);
+
+	const userData = useSelector(state => state.user.userData.user);
+
 	let total = 0
 
 	return(
@@ -146,26 +161,30 @@ const CartItems = () => {
 				 cartItems && cartItems.length ? <div> {cartItems.map(ci => {
 					 console.log("en card",ci)
 					return ( <div key={ci._id}>
-						{ ci.products.map(p => 
+						{ ci.products?.map(p => 
 						{ { total += (p.unit_price * p.quantity) }
 
 							return <ItemConteiner key={p._id}>
-								<ImageContainer></ImageContainer>
+								<ImageContainer>
+								<CartItemImage src={p.image[0]}></CartItemImage>
+								</ImageContainer>
 								<TitleAndOption>
 									<ProductTitleContainer>
 										<h3>{p.title}</h3>
 									</ProductTitleContainer>
 									
 									<Options>
-										<button onClick={() => dispatch(changeCart('60ecf7b0ef20060e68fbebf2', [{...ci, products: [{...p, quantity: -p.quantity}]}]))}>Remove</button>
+										<button onClick={() => dispatch(changeCart(userData.id, [{...ci, products: [{...p, quantity: -p.quantity}]}]))}>Remove</button>
 									</Options>
 
 									
 								</TitleAndOption>
 								<Quantity>
 									<span>Cantidad</span>
+									Stock restante: {p.stock - p.quantity}
 									<div>
-										<ButtonAction onClick={() => dispatch(changeCart('60ecf7b0ef20060e68fbebf2', [{...ci, products: [{...p, quantity: - 1}]}]))}>-</ButtonAction> {p.quantity} <ButtonAction onClick={() => dispatch(changeCart('60ecf7b0ef20060e68fbebf2', [{...ci, products: [{...p, quantity: 1}]}]))}>+</ButtonAction>
+										
+										<ButtonAction onClick={() => dispatch(changeCart(userData.id, [{...ci, products: [{...p, quantity: - 1}]}]))}>-</ButtonAction> {p.quantity} <ButtonAction onClick={() => dispatch(changeCart(userData.id, [{...ci, products: [{...p, quantity: 1}]}]))}>+</ButtonAction>
 
 									</div>
 
@@ -193,10 +212,12 @@ const CartItems = () => {
 				:
 				cartItems && cartItems.length ? <div> {cartItems.map(ci => {
 					return ( <div key={ci._id}>
-						{ ci.products.map(p => 
+						{ ci.products?.map(p => 
 						{ { total += (p.unit_price * p.quantity) }
 							return <ItemConteiner key={p._id}>
-										<ImageContainer></ImageContainer>
+										<ImageContainer>
+										<CartItemImage src={p.image[0]}></CartItemImage>
+										</ImageContainer>
 										<TitleAndOption>
 											<ProductTitleContainer>
 												<h3>{p.title}</h3>

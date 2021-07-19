@@ -2,6 +2,7 @@ import { product, filter } from '../types';
 
 const initialState = {
     products: undefined,
+    ownProducts: [],
     productDetail: {},
     filters: {
         user : "",
@@ -64,6 +65,9 @@ export default function productReducer(state = initialState, action) {
         //Get filtered products
         case filter.GET_FILTERING_PRODUCTS:
         return {...state, products: action.payload}
+        //Get own products
+        case filter.GET_OWN_PRODUCTS:
+        return { ...state, ownProducts: action.payload}
         default:
         return state;
     }

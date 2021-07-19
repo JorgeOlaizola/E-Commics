@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getFilteredProducts, resetFilters } from '../store/actions/productActions'
 import Product from './Product'
 import styled from 'styled-components';
@@ -17,18 +17,19 @@ margin:auto;
 const Products = (props) => {
     
     useEffect(() => {
-        dispatch(getFilteredProducts(filters))
+        dispatch(getFilteredProducts(filters));
         return () => {
-            dispatch(resetFilters())
+            dispatch(resetFilters());
         }
-    }, [])
+    }, []
+    )
      
     const dispatch = useDispatch();
     const products = useSelector(state => state.product.products);
-    const filters = useSelector(state => state.product.filters)
-    const {productsOfOneUser} = props
+    const filters = useSelector(state => state.product.filters);
+    const {productsOfOneUser} = props;
     
-    if(!products) return (
+    if(products === undefined) return (
         <CardsContainer>
             <PacmanLoader color={"#000"} size={50}/>
         </CardsContainer>

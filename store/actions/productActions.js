@@ -142,3 +142,36 @@ export function getFilteredProducts (payload) {
         })
     }
 }
+
+//Get own products
+
+export function getOwnProducts (user) {
+    var payload = {
+        user : user,
+        category: "",
+        score : {
+            start: 0,
+            end: 0
+        },
+        price : {
+            start: 0,
+            end: 0
+        },
+        search:{
+            in: "title",
+            text: ""
+        },
+        order:{
+            in: "",
+            or: 1
+        },
+        page: 1
+    }
+    return(dispatch) => {
+        axios.get(`/api/products/?user=${payload.user || ""}&category=${payload.category || ""}&scorestart=${payload.score.start || 0}&scoreend=${payload.score.end ? payload.score.end : 0}&pricestart=${payload.price.start || 0 }&priceend=${payload.price.end ? payload.price.end : 0 }&searchin=${payload.search.in ? payload.search.in : ""}&searchtext=${payload.search.text ? payload.search.text : "" }&orderin=${payload.order.in ? payload.order.in : "" }&orderor=${payload.order.or ? payload.order.or : 1}&page=${payload.page ? payload.page : 1 }&officialstore=${payload.officialstore ? payload.officialstore : false}`)
+        .then(r => dispatch({ type: filter.GET_OWN_PRODUCTS, payload: r.data }))
+        .catch(e =>{
+            console.log(e)
+        })
+    }
+}

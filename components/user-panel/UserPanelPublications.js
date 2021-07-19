@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
     resetFilters,
     searchByUser,
-    getFilteredProducts
+    getOwnProducts
 } from '../../store/actions/productActions'
 import styled from 'styled-components';
 import { GradientBorder, Input  } from '../globalStyle'
@@ -73,7 +73,7 @@ width: 80%;
 
 const UserPanelPublications = () => {
     const userData = useSelector(state => state.user.userData.user);
-    const products = useSelector(state => state.product.products);
+    const products = useSelector(state => state.product.ownProducts);
     const filters = useSelector(state => state.product.filters);
     const dispatch = useDispatch();
 
@@ -85,9 +85,7 @@ const UserPanelPublications = () => {
         if(userData.log === false) {
             window.location.href = "/"
         }
-        dispatch(resetFilters())
-        let search = {...filters, user: userData.id}
-        dispatch(getFilteredProducts(search))
+        dispatch(getOwnProducts(userData.id))
         return () => {
             dispatch(resetFilters())
         }
@@ -96,7 +94,7 @@ const UserPanelPublications = () => {
         <StyledContainer>
             Publicaciones
             <ImageSlider />
-            {products.length ? products.map(p => 
+            {products && products.length > 0 ? products.map(p => 
                 <ProductConteiner key={p._id}>
                     <ProfileImg src={p.image}>
                     </ProfileImg>

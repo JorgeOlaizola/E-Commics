@@ -25,3 +25,28 @@ export default nextConnect()
     }
 })
 
+.post( async(req, res) => {
+    try{
+        await dbConnect()
+        const { userID } = req.body
+        const user = await User.findById(userID)
+        if(user){
+            return res.json({
+                _id: user._id,
+                name: user.name,
+                surname: user.surname,
+                avatar: user.avatar,
+                nickname: user.nickname,
+                role: user.role
+            })
+        }
+        else{
+            return res.json({ error_msg: 'No se encontró el usuario' })
+        }
+    }
+    catch (error) {
+        console.log(error)
+        res.status(500).send({ error_msg: "Ups! 🙊 Error en el servidor, lo siento 🙈" })
+    }
+})
+

@@ -9,6 +9,7 @@ export const lightTheme = {
   backgroundLevel3: '#fff', 
   backgroundSwitch: '#fff',
   fontColor: '#000',
+  blueColor: '#002060',
   colorLevel1: '#4B4B4B',
   colorLevel2: '#646464',
   colorLevel3: '#7D7D7D',
@@ -23,6 +24,7 @@ export const darkTheme = {
   backgroundLevel3: '#303030', // gris oscuro
   backgroundSwitch: '#FF0000',
   fontColor: '#fff',
+  blueColor: '#00A0FF',
   colorLevel1: '#E1E1E1',
   colorLevel2: '#C8C8C8',
   colorLevel3: '#969696',

@@ -14,7 +14,8 @@ import {
 } from '../store/actions/cartActions'
 import { HeartIcon, ShoppingCartIcon } from '@heroicons/react/outline'
 import Link from 'next/link';
-import Image from 'next/image'
+import Image from 'next/image';
+import { StyledLink } from './globalStyle';
 
 const Father = styled.div`
     width: 100%;
@@ -33,17 +34,17 @@ const ImageInfo = styled.div`
     height: 100%;
 `
 
-const DetailConteiner = styled.div`
+const DetailContainer = styled.div`
     width: 90%;
     height: 90%;
-    background: white;
+    background: ${(props) => props.theme.backgroundLevel1};
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
 `
 
-const ImageConteiner = styled.div`
+const ImageContainer = styled.div`
     width: 66%;
     height: 100%;
 `
@@ -58,13 +59,13 @@ const InfoConteiner = styled.div`
     padding-left: 20px;
 `
 
-const Title = styled.div`
-    font-size: 2rem;
-    font-weight: bold;
+const Title = styled.h1`
+    ${'' /* font-size: 2rem; */}
+    ${'' /* font-weight: bold; */}
     margin-bottom: 30px;
 `
 
-const InfoTitle = styled.div`
+const InfoTitle = styled.h2`
     font-size: 1.5rem;
     font-weight: bold;
     margin-bottom: 20px;
@@ -80,28 +81,28 @@ const BackLink = styled.a`
     }
 `
 
-const InfoText = styled.div`
+const InfoText = styled.p`
     font-size: 1.5rem;
     margin-bottom: 20px;
 `
 
-const Description = styled.div`
-    font-size: 1.2rem;
+const Description = styled.p`
     margin-bottom: 20px;
+    color: ${(props) => props.theme.colorLevel2}
 `
 
 const BuyButton = styled.button`
     width: 100%;
     height: 45px;
     margin: 10px 0;
-    background-color: #161D2F;
+    background-color: ${(props) => props.theme.blueColor};
     border-style: hidden;
     color: #FFF;
     font-size: 1.2rem;
     display: flex;
     justify-content: center;
     align-items: center;
-
+    cursor: pointer;
     &:hover {
         box-shadow: 0 3px 3px 2px rgba(0,0,0,0.3);
     }
@@ -112,7 +113,7 @@ const SendButton = styled.button`
     height: auto;
     padding: 10px;
     margin-top: 10px;
-    background-color: #161D2F;
+    background-color: ${(props) => props.theme.blueColor};
     border-style: hidden;
     color: #FFF;
     font-size: 1.2rem;
@@ -125,16 +126,15 @@ const SendButton = styled.button`
     }
 `
 
-const Advertise = styled.div`
-    color: #161D2F;
-    font-size: 1.2rem;
+const Advertise = styled.p`
+    color: ${(props) => props.theme.blueColor};
     margin-bottom: 20px;
     display: flex;
     align-items: center;
 `
 
 const QuestionAdvertise = styled.div`
-    color: #161D2F;
+    color: ${(props) => props.theme.blueColor};
     font-size: 1.2rem;
     margin-top: 20px;
     margin-bottom: 10px;
@@ -143,7 +143,7 @@ const QuestionAdvertise = styled.div`
 `
 
 const AddingButton = styled.div`
-    color: #161D2F;
+    color: ${(props) => props.theme.blueColor};
     font-size: 1.2rem;
     margin-bottom: 10px;
 
@@ -165,7 +165,7 @@ const QuestionsContainer = styled.div`
 
 const Question = styled.div`
     width: 80%;
-    background-color: #fff;
+    ${'' /* background-color: #fff; */}
 	padding: 15px 20px;
 	font-size: 1.2rem;
     border: 1px solid #000;
@@ -179,8 +179,8 @@ const Question = styled.div`
 const Answer = styled.div`
     margin-top: 10px;
     width: 80%;
-    background-color: #161D2F;
-    color: #FFF;
+    background-color: ${(props) => props.theme.blueColor};
+    ${'' /* color: #FFF; */}
 	padding: 15px 20px;
 	font-size: 1.2rem;
     border: 1px solid #000;
@@ -194,7 +194,7 @@ const Answer = styled.div`
 const StyledInput = styled.input`
     margin-top: 20px;
     width: 66%;
-    background-color: #fff;
+    ${'' /* background-color: #fff; */}
 	padding: 5px 10px;
 	font-size: 1.2rem;
 	border-radius: 15px;
@@ -205,7 +205,7 @@ const StyledInput = styled.input`
 const Separator = styled.div`
     width: 100%;
     height: 1px;
-    background-color: #161D2F;
+    background-color: ${(props) => props.theme.blueColor};
 `
 
 const StyledImage = styled.img`
@@ -265,17 +265,17 @@ const ProductDetail = ({productData}) => {
 
     return (
         <Father>
-            <DetailConteiner>
+            <DetailContainer>
                 <Space/>
                 <ImageInfo>
-                    <ImageConteiner>
+                    <ImageContainer>
                         <Link passHref href="/search">
-                            <BackLink>&#60; búsqueda</BackLink>
+                            <StyledLink>← búsqueda</StyledLink>
                         </Link>
                         <ImageView>
                             <StyledImage src={productData.image[0]}/>
                         </ImageView>
-                    </ImageConteiner>
+                    </ImageContainer>
                     <InfoConteiner>
                         <Title>{productData.title}</Title>
                         <InfoText>${productData.price}</InfoText>
@@ -287,7 +287,7 @@ const ProductDetail = ({productData}) => {
                         <InfoTitle>Descripción</InfoTitle>
                         <Description>{productData.description}</Description>
                         <Description><strong>Vendido por: </strong> 
-                            <Link href={`/productsPerUser/[id]`} as={`/productsPerUser/${productData.user._id}` } passHref>
+                            <Link style={{textDecoration: 'underline'}} href={`/productsPerUser/[id]`} as={`/productsPerUser/${productData.user._id}` } passHref>
                               {productData.user.nickname}
                             </Link>
                         </Description>
@@ -331,13 +331,13 @@ const ProductDetail = ({productData}) => {
                             return <div key={q.created_at} style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
                                 <Question>
                                     {q.content}
-                                    <span style={{marginTop: "10px", fontSize: "1rem", color: "#161D2F"}}>{q.avatar} {q.userNickname} ({q.created_at.slice(0, 10)}) {q.answer ? <span>(respondido)</span> : <span>(pendiente de respuesta)</span>}</span>
+                                    <span style={{marginTop: "10px", fontSize: "1rem", color: "${(props) => props.theme.blueColor}"}}>{q.avatar} {q.userNickname} ({q.created_at.slice(0, 10)}) {q.answer ? <span>(respondido)</span> : <span>(pendiente de respuesta)</span>}</span>
                                 </Question>
                                 {
                                     q.answer &&
                                     <Answer>
                                         {q.answer}
-                                        <span style={{marginTop: "10px", fontSize: "1rem", color: "#FFF"}}>{productData.user.nickname}</span>
+                                        <span style={{marginTop: "10px", fontSize: "1rem"}}>{productData.user.nickname}</span>
                                     </Answer>
                                 }
                                 <Space/>
@@ -383,7 +383,7 @@ const ProductDetail = ({productData}) => {
                         <Advertise style={{textAlign: "center"}}>Aún no hay reseñas para este artículo</Advertise>
                     </div>
                 </QuestionsContainer>
-            </DetailConteiner>
+            </DetailContainer>
         </Father>
     )
 }

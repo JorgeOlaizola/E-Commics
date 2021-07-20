@@ -47,7 +47,7 @@ const SignInForm = () => {
         e.preventDefault();
 
         const cart = JSON.parse(localStorage.getItem('cartItems'))
-        if(cart.length) {
+        if(cart?.length) {
             dispatch(signIn(input, cart));
             // dispatch(changeCart('60ecf7b0ef20060e68fbebf2', cart))            
         }

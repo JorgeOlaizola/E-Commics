@@ -7,7 +7,8 @@ import {
 	decreaseItem,
 	increaseItem,
 	changeCart,
-	getCart 
+	getCart,
+	buyCart
 } from '../../store/actions/cartActions'
 
 const CartContainer = styled.div`
@@ -145,9 +146,9 @@ const CartItems = () => {
 		}
 	}, [dispatch])
 	const cartItems = useSelector(state => state.cart.cartItems);
+	const cartId = useSelector(state => state.cart.cartId);
 	console.log("ya la empece a bardear", userData)
 	let total = 0
-
 	return(
 		<CartContainer><h1>Shopping Cart</h1>
 
@@ -201,7 +202,7 @@ const CartItems = () => {
 				
 				<p>Total: {total}$</p>
 				<Link href="/" passHref>
-					<BuyButtonAction>Comprar ahora</BuyButtonAction> 
+					<BuyButtonAction onClick={()=> dispatch(buyCart(cartId))}>Comprar ahora</BuyButtonAction> 
 					</Link>
 				</div> : 'Todavía no agregaste nada al carrito'
 				:

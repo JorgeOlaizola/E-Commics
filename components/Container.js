@@ -8,6 +8,7 @@ import { getUserData } from '../store/actions/normalUsersActions.js';
 import { verificationCart } from '../store/actions/cartActions.js'; 
 import { lightTheme, darkTheme, GlobalStyles, StyledApp} from './globalStyle'
 import styled, { ThemeProvider } from "styled-components";
+import { useRouter } from 'next/router';
 
 const DivContainer = styled.div`
     background-color: ${(props) => props.theme.backgroundLevel1};
@@ -32,15 +33,21 @@ const DivContainer = styled.div`
 
 const Container = (props) => {
     const dispatch = useDispatch()
-
+    const router = useRouter()
     const theme = useSelector(state => state.styles.theme)
-    
+    const buy = useSelector(state => state.cart.buy)
     useEffect(() => {
         dispatch(getUserData());
         dispatch(getCategories());
         dispatch(verificationCart());
     }, [dispatch])
 
+    useEffect(()=>{
+        if(buy){
+            console.log(buy)
+            router.push(buy)
+        }
+    },[buy])
     // Redux:
     // const [theme, setTheme] = useState("light");
     // const themeToggle = () => {

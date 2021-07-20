@@ -22,6 +22,23 @@ export default nextConnect()
     }
 })
 
+.post(async (req,res )=>{
+    const {user, orden} = req.body
+    console.log(user)
+    await dbConnect()
+    try{
+        const carrito = await new Cart({
+            user,
+            orders:orden
+        })
+        await carrito.save()
+        return res.json(carrito)
+    }
+    catch(error){
+        console.log(error)
+        res.status(500).send({ error_msg: "Ups! 🙊 Error en el servidor, lo siento 🙈" })
+    }
+})
 
 .put(async (req,res)=>{
     const {user, cart} = req.body

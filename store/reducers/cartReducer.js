@@ -2,7 +2,8 @@ import { cart } from "../types";
 
 const initialState = {
     cartItems: [],
-    cartId: ''
+    cartId: '',
+    buy: null
 };
 
 export default function cartReducer(state = initialState, action) {
@@ -125,8 +126,13 @@ export default function cartReducer(state = initialState, action) {
                 cartItems: [],
             };
         case cart.GET_CART:
-            return { ...state, cartId: action.payload._id, cartItems: action.payload.orders }
-        default:
+            return { ...state, cartId: action.payload._id, cartItems: action.payload.orders };
+        case cart.BUY:
+            return {
+                ...state,
+                buy: action.payload
+            };
+            default:
             return state;
     }
 }

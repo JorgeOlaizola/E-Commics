@@ -15,6 +15,7 @@ export default nextConnect()
     const { id } = req.query;
     try{
         await dbConnect()
+        console.log(id)
         let items =[];
         const cart = await Cart.findById(id).exec()
         if(!cart)  return res.json({error_msg:"No existe un carrito con el id proporcionado"})
@@ -25,18 +26,21 @@ export default nextConnect()
         let preference = {
             items,
             back_urls: {
-                "success": "http://localhost:3000/api/checkout",
+                "success": `http://localhost:3000/api/checkout`,
                 "failure": "http://localhost:3000/api/checkout",
                 "pending": "http://localhost:3000/api/checkout"
             },
-            auto_return: 'approved'
+            auto_return: 'approved',
+            additional_info : id
+
         };
     
         cartId = id;
         
         mercadopago.preferences.create(preference)
         .then(function(response){
-            res.redirect(response.body.init_point)
+            console.log("estoy mandando la url")
+            res.json({ buy: response.body.init_point })
         })
         .catch(function(error){
             console.log(error);
@@ -56,6 +60,7 @@ export default nextConnect()
         Status: req.query.status,
         MerchantOrder: req.query.merchant_order_id
     }
+
     console.log(dataResponse)
     if(req.query.status === "approved") res.redirect('/buy/success');
     if(req.query.status === "pending") res.redirect('/buy/pending');

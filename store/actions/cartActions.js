@@ -51,6 +51,21 @@ export function changeCart (userID, cartLE) {
     }
 }
 
+export function buyCart (cartId) {
+    return  (dispatch) => {
+        axios.post(`/api/checkout?id=${cartId}`)
+        .then((r)=>{
+            console.log(r.data)
+           return  dispatch({ type: cart.BUY, payload: r.data.buy })
+
+        })
+        .catch((e)=>{
+            console.log(e)
+        })
+    }
+}
+
+
 export function removeItem(userId, productId) {
     return (dispatch) => {
         dispatch({

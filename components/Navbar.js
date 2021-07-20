@@ -21,8 +21,13 @@ const Navbar = styled.nav`
     align-items: center;
     flex-wrap: wrap;
     padding: 0 2rem;
-    border-bottom: 1px solid;
+    border-bottom: 1px solid ${(props) => props.theme.colorLevel3};
     background: ${(props) => props.theme.backgroundLevel1};
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0px;
+    z-index: 1000;
+    box-shadow: 0 0 11px rgba(33,33,33,.2);
     @media (max-width: 480px) {
       padding: 0 1rem;
     }
@@ -33,7 +38,11 @@ const NavbarSearch = styled.nav`
     border-bottom: 1px solid;
     width: 100%;
     background: ${(props) => props.theme.backgroundLevel1};
-
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0px;
+    z-index: 1000;
+    box-shadow: 0 0 11px rgba(33,33,33,.2);
 `
 
 const StyledLogoResponsive = styled.a`

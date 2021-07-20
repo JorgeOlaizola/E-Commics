@@ -14,15 +14,10 @@ body {
 
   .active {
     color: #0096FF;
-
   }
 
   .findIcon {
     width: 10px;
-  }
-
-  .cartIcon {
-    width: 20px;
   }
 
   .addFavIcon {

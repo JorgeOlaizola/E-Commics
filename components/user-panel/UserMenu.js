@@ -17,6 +17,29 @@ import { SearchIcon, ShoppingCartIcon } from '@heroicons/react/outline';
 import Image from 'next/image';
 
 
+const SuperCart = styled(ShoppingCartIcon)`
+    width: 20px;
+    cursor: pointer;
+    color: ${(props) => props.theme.colorLevel2};
+    &:hover{
+      color: ${(props) => props.theme.fontColor};
+    }
+`
+
+const CartCounter = styled.span`
+  position: absolute;
+  font-family: ubuntu;
+  top: -30px;
+  left: 12px;
+  background: #E10000;
+  padding: 1px 4px;
+  border-radius: 50%;
+  color: #fff;
+  cursor: pointer;
+  &:hover{
+    background: #FF0000;
+    }
+`
 
 const UserMenu = () => {
   const [showModal, setShowModal] = useState(false);
@@ -31,8 +54,8 @@ const UserMenu = () => {
   const userData = useSelector(state => state.user.userData)
   const theme = useSelector(state => state.styles.theme)
   const modal = useSelector(state => state.styles.modal)
-
-
+  const cartItems = useSelector(state => state.cart.cartItems)
+ console.log(cartItems)
   function handleSignOut() {
     // borrar carrito
       dispatch(signOut())
@@ -153,9 +176,11 @@ const UserMenu = () => {
            </MenuLi>
           </MenuUl>
         </Menu>
-        <Link href="/cart" passHref >
-                    <ShoppingCartIcon className="cartIcon"/>
-                    {/* <i class="fa fa-trash-o" aria-hidden="true"></i> */}
+        <Link href="/cart" passHref  >
+          <div>
+            <SuperCart />
+            <div style={{position: "relative"}}>{cartItems.length ? <CartCounter> {cartItems.length} </CartCounter> : <></>}</div>
+          </div>
         </Link>
       </MenuContainer>
     </div>

@@ -16,6 +16,8 @@ import { HeartIcon, ShoppingCartIcon } from '@heroicons/react/outline'
 import Link from 'next/link';
 import Image from 'next/image';
 import { StyledLink, Input, GradientBorder } from './globalStyle';
+import axios from 'axios'
+import {useRouter} from 'next/router'
 
 
 const Father = styled.div`
@@ -247,23 +249,33 @@ const ProductDetail = ({productData}) => {
     
     
     const [question, setQuestion] = useState("");
+    
     const dispatch = useDispatch()
-   
+    
     const userData = useSelector(state => state.user.userData.user);
-
+    
     function handleChange(e) {
         setQuestion(e.target.value)
     }
+    
+    
 
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
         event.preventDefault();
+        
+        
         if(userData){
             const questionCreated = {
                 content: question,
                 user: userData?.id,
                 product: productData._id,
             }
-            dispatch(createQuestion(questionCreated, userData?.nickname))
+            const postQuestion = await axios.post('/api/questions', questionCreated)
+            const questionData = await postQuestion.data
+            setNewQuestion({...questionData})
+            return alert("yo te aviso")
+
+            
 
         }
     }
@@ -376,15 +388,18 @@ const ProductDetail = ({productData}) => {
                                             <span style={{marginTop: "10px", fontSize: "1rem"}}>{productData.user.nickname}</span>
                                         </Answer>
                                     }
+
                                     <Space/>
                                 </div>        
                             })
+                           
                         : 
                             <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
                                 <QuestionAdvertise>Todavía no se ha realizado ninguna pregunta en esta publicación ¡Se el primero!</QuestionAdvertise>
                             </div>
                                 
                         }
+                        
                         {
                             userData && userData.log !== false ?
                                 <>

@@ -39,7 +39,8 @@ const UserDescriptionPanel = styled.div`
 
 
 const ProductsPerUser = (props) => {
-    const { userID, productsOfOneUser} = props
+    const { userID, productsOfOneUser, infoUser} = props
+    console.log("en todos los de un usuairo", infoUser)
     
     return (
         <Container>
@@ -60,11 +61,12 @@ export async function getServerSideProps(context){
     const {params} = context;
     const {id } = params;
     const callAllProductsOfOneUser = await axios.get(`https://e-commics.vercel.app/api/products?user=${id}`) 
-    
+    const callInfoUser = await axios.post(`https://e-commics.vercel.app/api/users`, {userID: id})
     return {
       props: {
           productsOfOneUser: callAllProductsOfOneUser.data,
-          userID: id
+          userID: id,
+          infoUser: callInfoUser.data
       }
     }
   }

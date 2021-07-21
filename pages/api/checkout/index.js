@@ -1,6 +1,8 @@
 import nextConnect from 'next-connect'
 import Cart from '../../../server/models/Cart';
 import dbConnect from '../../../utils/dbConnect'
+import Order from '../../../server/models/Order'
+import Product from '../../../server/models/Product'
 
 const mercadopago = require ('mercadopago');
 
@@ -15,7 +17,6 @@ export default nextConnect()
     const { id } = req.query;
     try{
         await dbConnect()
-        console.log(id)
         let items =[];
         const cart = await Cart.findById(id).exec()
         if(!cart)  return res.json({error_msg:"No existe un carrito con el id proporcionado"})
@@ -26,9 +27,9 @@ export default nextConnect()
         let preference = {
             items,
             back_urls: {
-                "success": `http://localhost:3000/api/checkout`,
-                "failure": "http://localhost:3000/api/checkout",
-                "pending": "http://localhost:3000/api/checkout"
+                "success": `http://localhost:3000/api/checkout?id=${id}`,
+                "failure": `http://localhost:3000/api/checkout?id=${id}`,
+                "pending": `http://localhost:3000/api/checkout?id=${id}`
             },
             auto_return: 'approved',
             additional_info : id
@@ -52,17 +53,39 @@ export default nextConnect()
     }
 })
 
-.get(function(req, res) {
+.get(async (req, res) => {
+    try{
+        await dbConnect()
+        
+        const { id, payment_id, status, merchant_order_id } = req.query 
 
+        if(status === "failure") return res.redirect('/buy/failure');
+
+        const cart = await Cart.findById(id).exec()
+        if(!cart)  return res.json({ error_msg:"No existe un carrito con el id proporcionado" })
+        cart.orders.forEach(async (order) => {
+            order.products.forEach( async(p) => {
+                await Product.findByIdAndUpdate(p._id, { stock: (p.stock - p.quantity) })
+            })
+            const obj = {
+                buyer: cart.user,
+                seller: order._id,
+                products: order.products,
+                status: status,
+                MerchantOrder: merchant_order_id,
+                Payment: payment_id
+            }
+            await Order.create(obj)
+        })
+
+
+        await Cart.findByIdAndDelete(id)
     
-    const dataResponse = {
-        Payment: req.query.payment_id,
-        Status: req.query.status,
-        MerchantOrder: req.query.merchant_order_id
+        if(status === "approved") return res.redirect('/buy/success');
+        if(status === "pending") return res.redirect('/buy/pending');
     }
-
-    console.log(dataResponse)
-    if(req.query.status === "approved") res.redirect('/buy/success');
-    if(req.query.status === "pending") res.redirect('/buy/pending');
-    if(req.query.status === "failure") res.redirect('/buy/failure');
+    catch(error){
+        console.log(error)
+        res.status(500).send({ error_msg: "Ups! 🙊 Error en el servidor, lo siento 🙈" })
+    }
 });

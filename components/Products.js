@@ -10,7 +10,11 @@ grid-area: main;
 display:flex;
 flex-direction:row;
 flex-wrap:wrap;
-margin:auto;
+margin-left: 16px;
+@media (max-width: 900px){
+    justify-content:center;
+    margin-left: 0px;
+}
 `
 
 
@@ -43,7 +47,7 @@ const Products = (props) => {
             :
             products.length !== 0 ? products.map(p => <Product key={p._id} id = {p._id} user={p.user.nickname} category={p.category.title} image={p.image} title={p.title} price={p.price} />)
             :
-            <h1>Lo siento nadie ha publicado lo que buscas</h1>    
+            <h2 >Lo siento nadie ha publicado lo que buscas</h2>    
                   
         }
         </CardsContainer>    

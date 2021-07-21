@@ -1,8 +1,9 @@
 import Link from 'next/link';
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { GradientBorder, Input  } from '../globalStyle'
+import { getOrders } from '../../store/actions/normalUsersActions'
 
 
 const StyledContainer = styled.div`
@@ -56,19 +57,27 @@ const ProfileImg = styled.img`
 `
 
 const UserPanelBuys = () => {
-    const userData = useSelector(state => state.user.userData);
+    const userData = useSelector(state => state.user.userData.user);
+    const buyersOrders = useSelector(state => state.user.buyerOrders)
+    const dispatch = useDispatch()
     useEffect(() => {
         if(userData.log === false) {
             window.location.href = "/"
         }
+        dispatch(getOrders('buyer', userData.id))
 }, []);
-
 
     return (
         <StyledContainer>
             <DataSection>
-                compras
+                Compras
             </DataSection>
+            { 
+            buyersOrders && buyersOrders.length > 0 ? 
+            buyersOrders.map(order => <div>{order.status} - {order.seller}</div>) 
+            : 
+            <div>No tienes compras todavía!</div>
+            }
         </StyledContainer>
     )
 }

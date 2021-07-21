@@ -23,7 +23,7 @@ export default nextConnect()
         if(testNickname.length) return res.json({ error_msg: 'El nickname se encuentra en uso' })
     
         //Creating the user in the DB
-        const newUser = new User({ name, surname, password, nickname, email, avatar, role:'user' })
+        const newUser = new User({ name, surname, password, nickname, email, avatar, role:'user', status:'inactive' })
         newUser.password = await newUser.encryptPassword(password)
         await newUser.save()
         return res.json({ success_msg: 'Bienvenido a E-Commics! El registro se ha realizado con éxito'})

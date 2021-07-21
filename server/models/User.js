@@ -37,12 +37,26 @@ const userSchema = new mongoose.Schema({
 		default: Number
 	},
 	location: {
-		type: [String]
+        type: mongoose.Schema.ObjectId, 
+        ref: "Location" 
+    },
+	street: {
+		type: String
+	},
+	cellphone: {
+		type: String
 	},
 	favorites: [{
 		type: mongoose.Schema.ObjectId, 
         ref: "Product" 
-	}]
+	}],
+	status: {
+		type: String,
+		required: true
+	},
+	notifications: {
+		type: [String]
+	}
 });
 
 userSchema.methods.encryptPassword = async password => {

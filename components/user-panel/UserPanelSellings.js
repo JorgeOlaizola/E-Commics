@@ -70,7 +70,7 @@ const UserPanelSellings = () => {
             </DataSection>
             { 
             sellerOrders && sellerOrders.length > 0 ? 
-            sellerOrders.map(order => <div>{order.status} - {order.seller}</div>) 
+            sellerOrders.map(order => <div key={order._id}>{order.status} - {order.seller}</div>) 
             : 
             <div>No tienes ventas todavía!</div>
             }

@@ -15,6 +15,7 @@ export const lightTheme = {
   colorLevel1: '#4B4B4B',
   colorLevel2: '#646464',
   colorLevel3: '#7D7D7D',
+  colorLevel4: '#C8C8C8',
 	backgroundButton: '#fff',
 	borderButton: 'linear-gradient(to right, grey, #E4E4E4)',
 }
@@ -32,6 +33,7 @@ export const darkTheme = {
   colorLevel1: '#E1E1E1',
   colorLevel2: '#C8C8C8',
   colorLevel3: '#969696',
+  colorLevel4: '#606060',
 	backgroundButton: '#000',
 	borderButton: 'linear-gradient(to right, grey, black)',
 
@@ -185,20 +187,27 @@ a {
 h1 {
 	font-family: Ubuntu;
   font-weight: 500;
-	font-size: 2rem;
+	font-size: 2.25rem;
 	margin: 1rem 0;
 }
 h2 {
 	font-family: Ubuntu;
-	font-weight: 500;
-	font-size: 1.5rem;
+	font-weight: 700;
+	font-size: 1.75rem;
 	margin: 1rem 0;
 }
 h3 {
 	font-family: Ubuntu;
 	font-weight: 500;
-	font-size: 1.25rem;
+	font-size: 1.4rem;
 	margin: 1rem 0;
+}
+h4 {
+	font-family: Ubuntu;
+	font-weight: 300;
+	font-size: 1.2rem;
+	margin: 1rem 0;
+  line-height: 1.5rem;
 }
 
 p {

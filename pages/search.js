@@ -18,9 +18,6 @@ grid-template-columns: 25% auto;
   "main";
   justify-content:center;
 }
-
-
-
 `
 //grid-template-columns: 25% auto;
 

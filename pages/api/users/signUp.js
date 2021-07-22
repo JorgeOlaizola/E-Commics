@@ -1,7 +1,7 @@
 import nextConnect from 'next-connect'
 import dbConnect from '../../../utils/dbConnect'
 import User from '../../../server/models/User'
-
+import { sendConfirmationEmail } from '../../../utils/emailService'
 
 export default nextConnect()
 
@@ -26,6 +26,15 @@ export default nextConnect()
         const newUser = new User({ name, surname, password, nickname, email, avatar, role:'user', status:'inactive' })
         newUser.password = await newUser.encryptPassword(password)
         await newUser.save()
+        
+        //Confirmation e-mail
+        const user = {
+            name: name,
+            email: email
+        }
+        
+        sendConfirmationEmail(user)
+        
         return res.json({ success_msg: 'Bienvenido a E-Commics! El registro se ha realizado con éxito'})
     }
     catch (error) {

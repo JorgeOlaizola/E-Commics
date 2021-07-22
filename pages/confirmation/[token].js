@@ -1,7 +1,18 @@
 import Head from 'next/head';
 import Container from '../../components/Container';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 const Confirmation = () => {
+
+  const router = useRouter()
+  const { token } = router.query
+
+  useEffect(() => {
+    console.log(token)
+    //ACA VA EL DISPATCH DE UNA ACTION QUE CAMBIE EL CONFIRMED DEL MODELO PASANDOLE EL TOKEN
+  }, [])
+
   return (
     <>
       <Head>

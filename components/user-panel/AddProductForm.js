@@ -90,16 +90,6 @@ const AddProductForm = () => {
     })
     const router = useRouter()
 
-    /* useEffect(() => {
-        const start = () => {
-            dispatch(getUserData());
-            if (user?.id.length === 0 || user?.id.length === undefined) {
-                router.push("/")
-            }
-        }
-        start();
-    }, []) */
-
     function handleChange(e) {
         if (e.target.value < 0) {
             setInput({ ...input })

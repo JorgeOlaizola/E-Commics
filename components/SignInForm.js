@@ -60,28 +60,29 @@ const SignInForm = () => {
     }
 
  
-    return (
-        <LogInForm onSubmit={handleSubmit}>
-        <h2>Iniciar sesión</h2>
-            <FormInputs>
-                <FormLabel>Email</FormLabel>
-                <FormInput type="email" id='email' name="email" onChange={e => handleInputChange(e)} required></FormInput>
-            </FormInputs>
-            <FormInputs>
-                <FormLabel>Contraseña</FormLabel>
-                <FormInput type={passwordShown ? "text" : "password"} id='password' name="password" onChange={e => handleInputChange(e)} required></FormInput>
-                <ProcessedFaEye onClick={togglePasswordVisiblity}>{!passwordShown ? <FaEye/> : <FaEyeSlash/>}</ProcessedFaEye>
-            </FormInputs>
-            {!input ?
-                        <DisableBorder className="">
-                            <InputDisable type="submit" >Iniciar sesión</InputDisable>
-                        </DisableBorder>
-                        : 
-                        <GradientBorder className="">
-                            <Input type="submit">Iniciar sesión</Input>
-                        </GradientBorder>
-            }
-        </LogInForm>
+    return (    
+            <LogInForm onSubmit={handleSubmit}>
+                <h2 style={{paddingLeft: '10px', textAlign: 'left'}}>Iniciar sesión</h2>
+                <FormInputs>
+                    <FormLabel>Email</FormLabel>
+                    <FormInput type="email" id='email' name="email" onChange={e => handleInputChange(e)} required></FormInput>
+                </FormInputs>
+                <FormInputs>
+                    <FormLabel>Contraseña</FormLabel>
+                    <FormInput type={passwordShown ? "text" : "password"} id='password' name="password" onChange={e => handleInputChange(e)} required></FormInput>
+                    <ProcessedFaEye onClick={togglePasswordVisiblity}>{!passwordShown ? <FaEye/> : <FaEyeSlash/>}</ProcessedFaEye>
+                </FormInputs>
+                {!input ?
+                            <DisableBorder>
+                                <InputDisable type="submit" >Iniciar sesión</InputDisable>
+                            </DisableBorder>
+                            : 
+                            <GradientBorder>
+                                <Input type="submit">Iniciar sesión</Input>
+                            </GradientBorder>
+                }
+            </LogInForm>
+
     )
 }
 

@@ -61,16 +61,16 @@ const UserPanelBuys = () => {
     const buyersOrders = useSelector(state => state.user.buyerOrders)
     const dispatch = useDispatch()
     useEffect(() => {
-        if(userData.log === false) {
-            window.location.href = "/"
-        }
+        // if(userData.log === false) {
+        //     window.location.href = "/"
+        // }
         dispatch(getOrders('buyer', userData.id))
 }, []);
 
     return (
         <StyledContainer>
             <DataSection>
-                Compras
+                <h3>Compras</h3>
             </DataSection>
             { 
             buyersOrders && buyersOrders.length > 0 ? 

@@ -82,9 +82,9 @@ const UserPanelPublications = () => {
 
 
     useEffect(() => {
-        if(userData.log === false) {
-            window.location.href = "/"
-        }
+        // if(userData.log === false) {
+        //     window.location.href = "/"
+        // }
         dispatch(getOwnProducts(userData.id))
         return () => {
             dispatch(resetFilters())
@@ -92,7 +92,7 @@ const UserPanelPublications = () => {
 }, []);
     return (
         <StyledContainer>
-            Publicaciones
+            <DataSection><h3>Publicaciones</h3></DataSection>
             <ImageSlider />
             {products && products.length > 0 ? products.map(p => 
                 <ProductConteiner key={p._id}>
@@ -105,12 +105,15 @@ const UserPanelPublications = () => {
                     <span><button>Eliminar</button><button>Modificar</button></span>
                     </ProductInfoConteiner>
                 </ProductConteiner>
-            ) : <div>Todavía no tienes ningun producto</div> }
+            ) : <div>Todavía no tienes ningún producto</div> }
             <Link href="/addproduct" passHref >
-                    <StyledButton>Crear publicacion</StyledButton>
+                <GradientBorder>
+                    <Input>Crear publicacion</Input>
+                </GradientBorder>
             </Link>    
         </StyledContainer>
     )
 }
 
 export default UserPanelPublications;
+

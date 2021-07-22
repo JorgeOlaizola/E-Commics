@@ -39,7 +39,7 @@ export const sendConfirmationEmail = (user) => {
           dynamic_template_data:{
              name: `${user.name}`,
              token: `${url}`
-           }
+          }
        }
     ],
     template_id:"d-8a9f8241454248cc8a6ffd0f85e81687"
@@ -58,11 +58,24 @@ export const sendResetPassword = (email) => {
     const token = jwt.sign({ email: email }, process.env.JWT_SECRET);
     const url = `http://localhost:3000/reset/${token}`;
     const msg = {
-        to: `${email} <${email}>`,
-        from: "ecommics@gmail.com",
-        subject: "Recuperacion de contraseña",
-        html: `Para recuperar tu contraseña haz click en <a href=${url}>este link</a>`
-    }
+      from:{
+        email: "ecommics@gmail.com"
+      },
+      personalizations:[
+         {
+            to:[
+               {
+                  email: `${email}`
+               }
+            ],
+            dynamic_template_data:{
+               token: `${url}`
+            },
+         }
+      ],
+      subject: "Reestablece tu contraseña",
+      template_id:"d-52f5812577ec419da52fb3d2967869bf"
+   }
     sgMail
       .send(msg)
       .then(() => {

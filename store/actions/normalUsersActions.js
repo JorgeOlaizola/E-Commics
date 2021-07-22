@@ -50,6 +50,20 @@ export function signOut() {
     }
 }
 
+export function resetPassword(user) {
+    const data = {
+        email: user
+    }
+    return async function() {
+        try {
+            const response = await axios.post('http://localhost:3000/api/users/resetPassword', data);
+            console.log(response)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+
 // Tools
 
 

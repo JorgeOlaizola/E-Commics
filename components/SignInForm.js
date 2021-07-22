@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { 
+    resetPassword,
     signIn, 
 } from "../store/actions/normalUsersActions";
 import {
@@ -31,6 +32,7 @@ const SignInForm = () => {
     const dispatch = useDispatch();
     const [input, setInput] = useState()
     const [passwordShown, setPasswordShown] = useState(false);
+    const [passwordReset, setPasswordReset] = useState(false);
 
     const togglePasswordVisiblity = () => {
         setPasswordShown(passwordShown ? false : true);
@@ -45,7 +47,6 @@ const SignInForm = () => {
 
     const handleSubmit = async (e) => {      
         e.preventDefault();
-
         const cart = JSON.parse(localStorage.getItem('cartItems'))
         if(cart?.length) {
             dispatch(signIn(input, cart));
@@ -59,29 +60,59 @@ const SignInForm = () => {
         dispatch(showHideModal(false))
     }
 
+    const handleReset = (e) => {
+        e.preventDefault();
+        dispatch(resetPassword(input.email))   
+    }
+
  
     return (
-        <LogInForm onSubmit={handleSubmit}>
-        <h2>Iniciar sesión</h2>
-            <FormInputs>
-                <FormLabel>Email</FormLabel>
-                <FormInput type="email" id='email' name="email" onChange={e => handleInputChange(e)} required></FormInput>
-            </FormInputs>
-            <FormInputs>
-                <FormLabel>Contraseña</FormLabel>
-                <FormInput type={passwordShown ? "text" : "password"} id='password' name="password" onChange={e => handleInputChange(e)} required></FormInput>
-                <ProcessedFaEye onClick={togglePasswordVisiblity}>{!passwordShown ? <FaEye/> : <FaEyeSlash/>}</ProcessedFaEye>
-            </FormInputs>
-            {!input ?
-                        <DisableBorder className="">
-                            <InputDisable type="submit" >Iniciar sesión</InputDisable>
-                        </DisableBorder>
-                        : 
-                        <GradientBorder className="">
-                            <Input type="submit">Iniciar sesión</Input>
-                        </GradientBorder>
+        <>
+            {
+                passwordReset === false ?
+                    <LogInForm onSubmit={handleSubmit}>
+                        <h2>Iniciar sesión</h2>
+                        <FormInputs>
+                            <FormLabel>Email</FormLabel>
+                            <FormInput type="email" id='email' name="email" onChange={e => handleInputChange(e)} required></FormInput>
+                        </FormInputs>
+                        <FormInputs>
+                            <FormLabel>Contraseña</FormLabel>
+                            <FormInput type={passwordShown ? "text" : "password"} id='password' name="password" onChange={e => handleInputChange(e)} required></FormInput>
+                            <ProcessedFaEye onClick={togglePasswordVisiblity}>{!passwordShown ? <FaEye/> : <FaEyeSlash/>}</ProcessedFaEye>
+                        </FormInputs>
+                        <span onClick={() => {setPasswordReset(true)}}>Olvidé mi contraseña</span>
+                        {!input ?
+                                    <DisableBorder className="">
+                                        <InputDisable type="submit" >Iniciar sesión</InputDisable>
+                                    </DisableBorder>
+                                    : 
+                                    <GradientBorder className="">
+                                        <Input type="submit">Iniciar sesión</Input>
+                                    </GradientBorder>
+                        }
+                    </LogInForm>
+                :
+                    <LogInForm onSubmit={(e) => {handleReset(e)}}>
+                        <h2>Recuperar contraseña</h2>
+                        <FormInputs>
+                            <FormLabel>Email</FormLabel>
+                            <FormInput type="email" id='email' name="email" onChange={e => handleInputChange(e)} required></FormInput>
+                        </FormInputs>
+                        <span onClick={() => {setPasswordReset(false)}}>Atrás</span>
+                        {!input ?
+                                    <DisableBorder className="">
+                                        <InputDisable type="submit" >Iniciar sesión</InputDisable>
+                                    </DisableBorder>
+                                    : 
+                                    <GradientBorder className="">
+                                        <Input type="submit">Enviar correo</Input>
+                                    </GradientBorder>
+                        }
+                    </LogInForm>
             }
-        </LogInForm>
+            
+        </>
     )
 }
 

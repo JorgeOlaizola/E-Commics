@@ -53,3 +53,22 @@ export const sendConfirmationEmail = (user) => {
       console.error(error)
     })
 }
+
+export const sendResetPassword = (email) => {
+    const token = jwt.sign({ email: email }, process.env.JWT_SECRET);
+    const url = `http://localhost:3000/reset/${token}`;
+    const msg = {
+        to: `${email} <${email}>`,
+        from: "ecommics@gmail.com",
+        subject: "Recuperacion de contraseña",
+        html: `Para recuperar tu contraseña haz click en <a href=${url}>este link</a>`
+    }
+    sgMail
+      .send(msg)
+      .then(() => {
+        console.log('Correo enviado')
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+}

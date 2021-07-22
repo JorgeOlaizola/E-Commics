@@ -55,7 +55,7 @@ const UserMenu = () => {
   const theme = useSelector(state => state.styles.theme)
   const modal = useSelector(state => state.styles.modal)
   const cartItems = useSelector(state => state.cart.cartItems)
- console.log(cartItems)
+
   function handleSignOut() {
     // borrar carrito
       dispatch(signOut())
@@ -66,7 +66,6 @@ const UserMenu = () => {
     setSignType("signUp")
     document.body.style.overflow = "hidden"
     onClick()
-    console.log(showHideModal())
     dispatch(showHideModal(true))
   }
 

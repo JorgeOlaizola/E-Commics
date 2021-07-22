@@ -76,6 +76,21 @@ export function getFavorites (userID) {
     }
 }
 
+export function getOrders (eachCase, userId) {
+    return async function(dispatch) {
+        try{
+            let type = ""
+            if(eachCase === "seller") type = 'seller'
+            if(eachCase === "buyer") type = 'buyer'
+            axios.get(`/api/orders?eachCase=${eachCase}&userId=${userId}`)
+            .then( r => dispatch({ type: type, payload: r.data }))
+        }
+        catch (error) {
+            console.error(error)  
+        }
+    }
+}
+
 // ADMIN users actions
 
 export function findUser(nickname) {

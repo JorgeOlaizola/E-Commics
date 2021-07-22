@@ -11,27 +11,37 @@ import { useEffect } from "react";
 
 
 //Component conteiner
-const FilterConteiner = styled.aside`
+const FilterContainer = styled.aside`
 grid-area: asideLeft;
 display: flex;
 align-items: center;
 flex-direction: column;
-
-box-shadow: 0 0 11px rgba(33,33,33,.2);
-margin: 1rem;
+border-right: 1px solid ${(props) => props.theme.colorLevel4};
+${'' /* box-shadow: 0 0 11px rgba(33,33,33,.2); */}
+margin: 1rem 0;
+padding: 0 16px;
 position: relative;
+@media (max-width: 900px){
+    border-right: none;
+    border-bottom: 1px solid ${(props) => props.theme.colorLevel4};
+}
 `
 
 //Title "Filtros"
-const FiltersTitle = styled.h3`
-margin-top: 1rem;
-font-size: 2rem;
+const FiltersTitle = styled.h2`
+${'' /* margin-top: 1rem; */}
 `
 
 //Title of each filter division
-const EachFilterTitle = styled.h6`
-font-size: 1.3rem;
-padding: 1rem;
+const EachFilterTitle = styled.h3`
+${'' /* font-size: 1.3rem; */}
+${'' /* padding: 1rem; */}
+`
+
+const MinMaxDiv = styled.div`
+display: flex;
+gap: 10px;
+margin-bottom: 1rem;
 `
 
 //Category filters conteiner
@@ -98,7 +108,7 @@ const Filters = ({userId}) => {
         dispatch(getFilteredProducts(newFilters))
     }
     return (
-        <FilterConteiner> 
+        <FilterContainer> 
             <FiltersTitle>Filtros</FiltersTitle>
             <CategoriesFilterCont>
                 <EachFilterTitle>Categorías</EachFilterTitle>
@@ -113,13 +123,15 @@ const Filters = ({userId}) => {
                     )}
             </CategoriesFilterCont>
             <EachFilterTitle>Precio</EachFilterTitle>
-                <input type="number" name="min" placeholder="min" onChange={handlePrice}></input>
-                <input type="number" name="max" placeholder="max" onChange={handlePrice}></input>
+                <MinMaxDiv>
+                    <input style={{width: '75px'}} type="number" name="min" placeholder="min" onChange={handlePrice}></input>
+                    <input style={{width: '75px'}} type="number" name="max" placeholder="max" onChange={handlePrice}></input>
+                </MinMaxDiv>
                 <GradientBorder>
                          <Input type="submit" onClick={handleSubmit}>Filtrar</Input>
                 </GradientBorder>
            
-        </FilterConteiner>
+        </FilterContainer>
     )
 }
 

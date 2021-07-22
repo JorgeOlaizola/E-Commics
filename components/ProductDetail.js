@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { useSelector, useDispatch }  from 'react-redux'
 import { useEffect, useState } from 'react'
 import { 
+    getFilteredProducts,
     resetProductDetail,
     createQuestion    
 } from '../store/actions/productActions'
@@ -16,7 +17,7 @@ import { HeartIcon, ShoppingCartIcon } from '@heroicons/react/outline'
 import Link from 'next/link';
 import Image from 'next/image';
 import { StyledLink, Input, GradientBorder } from './globalStyle';
-
+import { useRouter } from 'next/router'
 
 const Father = styled.div`
     width: 100%;
@@ -244,8 +245,8 @@ const StyledImage = styled.img`
 `
 
 const ProductDetail = ({productData}) => {
-    
-    
+    const router = useRouter()
+    const filters = useSelector(state => state.product.filters)
     const [question, setQuestion] = useState("");
     const dispatch = useDispatch()
    
@@ -267,6 +268,8 @@ const ProductDetail = ({productData}) => {
 
         }
     }
+
+
 
     const handleCart = async () => {
         if(userData) {
@@ -291,6 +294,16 @@ const ProductDetail = ({productData}) => {
             return dispatch(addItem(productData))
         }
     }
+
+    const handleClick = (e, path) => {
+        e.preventDefault();
+
+        filters.user = productData.user._id;
+        dispatch(getFilteredProducts(filters));
+        console.log(filters);
+        router.push(path)
+    }
+{/* <Link style={{textDecoration: 'underline'}} href={`/productsPerUser/[id]`} as={`/productsPerUser/${productData.user._id}` } passHref></Link> */}
 
     return (
         <Father>
@@ -320,9 +333,9 @@ const ProductDetail = ({productData}) => {
                         <Description>{productData.description}</Description>
                         <Description><strong>Vendido por: </strong> 
                             <UserStyledLink>
-                                <Link style={{textDecoration: 'underline'}} href={`/productsPerUser/[id]`} as={`/productsPerUser/${productData.user._id}` } passHref>
+                                <button style={{textDecoration: 'underline'}} onClick={(e) => handleClick(e, "/search")} >
                                   {productData.user.nickname}
-                                </Link>
+                                </button>
                             </UserStyledLink>
                         </Description>
 

@@ -5,6 +5,9 @@ body {
     font-family: Roboto, Ubuntu, 'Helvetica Neue', sans-serif;
   }
 
+html {
+  background: black;
+}
 
   .menu.active {
     opacity: 1;

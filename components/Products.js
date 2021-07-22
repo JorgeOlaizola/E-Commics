@@ -4,18 +4,52 @@ import { getFilteredProducts, resetFilters } from '../store/actions/productActio
 import Product from './Product'
 import styled from 'styled-components';
 import PacmanLoader from "react-spinners/PacmanLoader";
+import Pagination from '../components/Pagination';
 
 const CardsContainer = styled.main`
 grid-area: main;
 display:flex;
 flex-direction:row;
 flex-wrap:wrap;
-margin:auto;
+margin-left: 16px;
+@media (max-width: 900px){
+    justify-content:center;
+    margin-left: 0px;
+}
+`
+
+const UserXNoUser = styled.button`
+margin-left: 20px;
+background: ${(props) => props.theme.backgroundButton2};
+color: ${(props) => props.theme.colorLevel2};
+border: none;
+cursor: pointer;
+font-size: 0.75rem;
+font-family: ubuntu;
+font-weight: 300;
+padding: 4px;
+&:hover {
+        color: ${(props) => props.theme.fontColor};
+    }
+`
+
+const UserXnoUserSpan = styled.p`
+font-size: 0.75rem;
+font-family: ubuntu;
+display: inline;
+font-weight: 900;
+padding: 0 8px;
 `
 
 
 const Products = (props) => {
-    
+    const dispatch = useDispatch();
+    const products = useSelector(state => state.product.products);
+    const filters = useSelector(state => state.product.filters);
+    const userData = useSelector(state => state.user.userData.user);
+    const {productsOfOneUser} = props;
+
+
     useEffect(() => {
         dispatch(getFilteredProducts(filters));
         return () => {
@@ -23,30 +57,37 @@ const Products = (props) => {
         }
     }, []
     )
-     
-    const dispatch = useDispatch();
-    const products = useSelector(state => state.product.products);
-    const filters = useSelector(state => state.product.filters);
-    const {productsOfOneUser} = props;
+    
+    const handleNoUser = (e) => {
+        e.preventDefault();
+        filters.user= "";
+        dispatch(getFilteredProducts(filters));
+    }
+
     
     if(products === undefined) return (
         <CardsContainer>
             <PacmanLoader color={"#000"} size={50}/>
         </CardsContainer>
     )
-        
+
     return (
         
-        <CardsContainer>   
-            {productsOfOneUser ? 
-            productsOfOneUser.map(p => <Product key={p._id} id = {p._id} user={p.user.nickname} category={p.category.title} image={p.image} title={p.title} price={p.price} />) 
-            :
-            products.length !== 0 ? products.map(p => <Product key={p._id} id = {p._id} user={p.user.nickname} category={p.category.title} image={p.image} title={p.title} price={p.price} />)
-            :
-            <h1>Lo siento nadie ha publicado lo que buscas</h1>    
-                  
-        }
-        </CardsContainer>    
+        <div>
+            {filters.user? <UserXNoUser onClick={handleNoUser}> Productos del usuario {filters.user} <UserXnoUserSpan>X</UserXnoUserSpan> </UserXNoUser> : <></>}
+            <CardsContainer>   
+                
+                {productsOfOneUser ? 
+                productsOfOneUser.map(p => <Product key={p._id} id = {p._id} user={p.user.nickname} category={p.category.title} image={p.image} title={p.title} price={p.price} />) 
+                :
+                products.length !== 0 ? products.map(p => <Product key={p._id} id = {p._id} user={p.user.nickname} category={p.category.title} image={p.image} title={p.title} price={p.price} />)
+                :
+                <h2 >Lo siento nadie ha publicado lo que buscas</h2>    
+                      
+            }
+            </CardsContainer>   
+            <Pagination />
+        </div> 
     )
 }
 

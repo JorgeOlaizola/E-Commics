@@ -16,7 +16,9 @@ export const lightTheme = {
   colorLevel2: '#646464',
   colorLevel3: '#7D7D7D',
   colorLevel4: '#C8C8C8',
+  colorFontbutton: '#646464',
 	backgroundButton: '#fff',
+  backgroundButton2: '#C8C8C8',
 	borderButton: 'linear-gradient(to right, grey, #E4E4E4)',
 }
 
@@ -34,7 +36,9 @@ export const darkTheme = {
   colorLevel2: '#C8C8C8',
   colorLevel3: '#969696',
   colorLevel4: '#606060',
+  colorFontbutton: '#646464',
 	backgroundButton: '#000',
+  backgroundButton2: '#4B4B4B',
 	borderButton: 'linear-gradient(to right, grey, black)',
 
 }

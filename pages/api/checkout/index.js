@@ -71,7 +71,7 @@ export default nextConnect()
                 buyer: cart.user,
                 seller: order._id,
                 products: order.products,
-                status: status,
+                status: status === "approved" ? 'Pago realizado' : 'Pendiente de pago',
                 MerchantOrder: merchant_order_id,
                 Payment: payment_id
             }

@@ -3,6 +3,7 @@ import Product from '../../../server/models/Product'
 import User from '../../../server/models/User'
 import dbConnect from '../../../utils/dbConnect'
 import nextConnect from 'next-connect'
+import { product } from '../../../store/types'
 
 export default nextConnect()
 
@@ -26,8 +27,8 @@ export default nextConnect()
         or:parseInt(orderor)
     }
     if (!page) page = 1 
-    let itemXPage = 20;
-    let limite = page * itemXPage
+    let itemXPage = 4;
+    let limite =  (page + 1)  * itemXPage
     let opts = { $and: [] }
     //filtro por user id
     if (user && user !== "") opts["$and"].push({ user: user })
@@ -74,7 +75,7 @@ export default nextConnect()
             }
         })
         let result = ProductsTotal.slice(itemXPage * (page - 1), (itemXPage * (page - 1)) + itemXPage)
-        res.json(result)
+        res.json({products: result, totalProducts: ProductsTotal.length, itemPerPage: itemXPage})
     }
     catch (error) {
         console.log(error)

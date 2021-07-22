@@ -2,6 +2,8 @@ import { product, filter } from '../types';
 
 const initialState = {
     products: undefined,
+    totalProducts: null,
+    itemPerPage: null,
     ownProducts: [],
     productDetail: {},
     filters: {
@@ -31,9 +33,9 @@ export default function productReducer(state = initialState, action) {
     switch (action.type) {
         //Product reducer
         case product.GET_PRODUCTS:
-        return {...state, products: action.payload}
+        return {...state, products: action.payload.products, totalProducts: action.payload.totalProducts, itemPerPage: action.payload.itemPerPage}
         case product.GET_PRODUCTS_BY_USER:
-        return {...state, products: action.payload}
+        return {...state, products: action.payload.products, totalProducts: action.payload.totalProducts, itemPerPage: action.payload.itemPerPage}
         case product.GET_PRODUCT_DETAIL:
         return {...state, productDetail: action.payload}
         //Reset product detial
@@ -64,7 +66,7 @@ export default function productReducer(state = initialState, action) {
         return {...state, filters: action.payload}
         //Get filtered products
         case filter.GET_FILTERING_PRODUCTS:
-        return {...state, products: action.payload}
+        return {...state, products: action.payload.products, totalProducts: action.payload.totalProducts, itemPerPage: action.payload.itemPerPage}
         //Get own products
         case filter.GET_OWN_PRODUCTS:
         return { ...state, ownProducts: action.payload}

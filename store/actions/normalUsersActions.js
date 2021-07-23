@@ -62,10 +62,26 @@ export function resetPassword(user) {
     }
 }
 
-export function confirmUser(user) {
-        const data = {
-            token: user
+export function setNewPassword(token, password) {
+    const data = {
+        email: token,
+        password: password
+    }
+    return async function() {
+        try {
+            const response = await axios.post('http://localhost:3000/api/users/setNewPassword', data)
+            console.log(response.data)
         }
+        catch (error) {
+            console.log(error)
+        }
+    }
+}
+
+export function confirmUser(user) {
+    const data = {
+        token: user
+    }
     return async function() {
         try{
             const response = await axios.post('http://localhost:3000/api/users/confirm', data);

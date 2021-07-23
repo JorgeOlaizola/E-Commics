@@ -1,28 +1,28 @@
 import jwt from 'jsonwebtoken'
 import nextConnect from 'next-connect'
 import User from '../../../server/models/User'
-import Token from '../../../server/models/Token'
 import dbConnect from '../../../utils/dbConnect'
-import { validateToken } from '../../../utils/auth'
-
-const KEY = 'top_secret'
 
 export default nextConnect()
 
   .post(async (req, res) => {
     const { token } = req.body
-
-    const user = await User.findOne({ email: token })
-
-    if(!user) {
-        return res.json({
-            error_msg: 'El usuario no se encuentra registrado'
-        })        
+    const parsedEmail = jwt.decode(token).email;
+    const user = await User.findOne({ email: parsedEmail })
+    try {
+      await dbConnect()  
+      if(!user) {
+          return res.json({
+              error_msg: 'El usuario no se encuentra registrado'
+          })        
+      }
+      await User.findOneAndUpdate({ email: parsedEmail }, { status: 'active' })
+      return res.json({
+          success_msg: 'Usuario verificado'
+      })
     }
-
-    await User.findOneAndUpdate({ email: token }, { status: 'active' })
-
-    return res.json({
-        success_msg: 'Usuario verificado'
-    })
+    catch (error) {
+      console.log(error)
+      res.status(500).send({ error_msg: "Ups! 🙊 Error en el servidor, lo siento 🙈" })
+    }
   })

@@ -2,6 +2,9 @@ import Head from 'next/head';
 import Container from '../../components/Container';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
+import { useState } from 'react';
+import { setNewPassword } from '../../store/actions/normalUsersActions';
 
 const DivContainer = styled.div`
 margin:auto;
@@ -57,13 +60,21 @@ transition: all 0.5s;
 
 const Reset = () => {
 
+  const dispatch = useDispatch()
+
+  const [input, setInput] = useState("")
+
   const router = useRouter()
   const { token } = router.query
+
+  function handleChange(e) {
+    setInput(e.target.value)
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    //ACA VA EL DISPATCH DE LA ACTION PARA CAMBIAR LA PASS, LLEVA EL TOKEN PARA EL BACK
+    dispatch(setNewPassword(token, input))
 
     // ACA APARECE ALGÚN DISPLAY DE QUE TODO SALIÓ BIEN
   }
@@ -81,7 +92,7 @@ const Reset = () => {
                 <DivFormItem>
                     <label htmlFor="inputNombre">Ingresa tu nueva contraseña</label>
                     <br />
-                    <FormInput
+                    <FormInput onChange={(e) => {handleChange(e)}} value={input}
                     />
                 </DivFormItem>
                 <DivFormItem>

@@ -4,10 +4,7 @@ import sgMail from '@sendgrid/mail';
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
 export const sendConfirmationEmail = (user) => {
-//   const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET);
-
-   const token = user.email;
-
+   const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET);
    const url = `http://localhost:3000/confirmation/${token}`;
    const msg = {
       from:{

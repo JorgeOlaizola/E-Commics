@@ -82,8 +82,25 @@ margin-top: 10px;
 const StyledButton = styled(StyledLink)`
 margin-bottom: 5px;
 color: #FF0000;
+display: inline;
+padding-right: 2px;
+transition: 0.2s;
+
 &:hover {
     color: #E10000;
+    padding-right: 7px;
+    transition: 0.2s;
+}
+`
+
+const ArrowSpan = styled.span`
+display: inline;
+padding-left: 2px;
+transition: 0.2s;
+color: #FF0000;
+&:hover {
+    padding-left: 7px;
+    transition: 0.2s;
 }
 `
 
@@ -107,9 +124,11 @@ const Product = (props) => {
                         <PriceTitle>${props.price}</PriceTitle> 
                         <CardProductTitle> {props.title}  </CardProductTitle>
                     </div>
-                    <StyledButton onClick={() => dispatch(getProductDetail(props.id))}>
-                        ver detalle →
-                    </StyledButton>
+                    <div>
+                        <StyledButton onClick={() => dispatch(getProductDetail(props.id))}>
+                            ver detalle 
+                        </StyledButton><ArrowSpan>→</ArrowSpan>
+                    </div>
                 </ContainerDetail>
             </CardContainer>
         </Link>   

@@ -64,6 +64,18 @@ export function buyCart (cartId) {
         })
     }
 }
+export function buyProduct ({user,product,quantity}) {
+    return  (dispatch) => {
+        axios.post(`/api/checkout/oneProduct`,{user,quantity,product})
+        .then((r)=>{
+           return  dispatch({ type: cart.BUY, payload: r.data.buy })
+
+        })
+        .catch((e)=>{
+            console.log(e)
+        })
+    }
+}
 
 
 export function removeItem(userId, productId) {

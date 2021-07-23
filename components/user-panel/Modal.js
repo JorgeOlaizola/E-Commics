@@ -5,6 +5,20 @@ import SignUp from '../SignUp';
 import SignInForm from '../SignInForm';
 import { LigthDarkThemeDiv } from '../globalStyle'
 
+const ModalX = styled.a`
+
+color: ${(props) => props.theme.colorLevel2};
+border: none;
+cursor: pointer;
+${'' /* font-size: 0.75rem; */}
+font-family: ubuntu;
+font-weight: 700;
+padding: 0 4px;
+&:hover {
+  background: ${(props) => props.theme.backgroundButton2};
+  color: ${(props) => props.theme.fontColor};
+}
+`
 
 const Modal = ({ show, onSubmitSignUp, onClose, children, title, signType }) => {
     const [isBrowser, setIsBrowser] = useState(false);
@@ -19,13 +33,13 @@ const Modal = ({ show, onSubmitSignUp, onClose, children, title, signType }) => 
     };
   
     const modalContent = show ? (
-      <StyledModalOverlay style={{zIndex: '10'}}>
+      <StyledModalOverlay style={{zIndex: '1001'}}>
         <LigthDarkThemeDiv>
           <StyledModal>
             <StyledModalHeader>
-              <a href="#" onClick={handleCloseClick}>
+              <ModalX href="#" onClick={handleCloseClick}>
                 x
-              </a>
+              </ModalX>
             </StyledModalHeader>
             {title && <span>{title}</span>}
             <StyledModalBody>

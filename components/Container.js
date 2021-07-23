@@ -8,6 +8,7 @@ import { getUserData } from '../store/actions/normalUsersActions.js';
 import { verificationCart } from '../store/actions/cartActions.js'; 
 import { lightTheme, darkTheme, GlobalStyles, StyledApp} from './globalStyle'
 import styled, { ThemeProvider } from "styled-components";
+import  ModalAlert from './ModalAlert';
 import { useRouter } from 'next/router';
 
 const DivContainer = styled.div`
@@ -44,7 +45,7 @@ const Container = (props) => {
 
     useEffect(()=>{
         if(buy){
-            console.log(buy)
+            
             router.push(buy)
         }
     },[buy])
@@ -66,8 +67,11 @@ const Container = (props) => {
             <StyledApp>
                 <DivContainer>
                     <Navbar theme={theme}/>
+                    <ModalAlert/>
                     {props.children}
                 </DivContainer>
+                        
+                   
                 <Footer/>
             </StyledApp>
         </ThemeProvider>

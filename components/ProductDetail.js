@@ -11,7 +11,8 @@ import {
 } from '../store/actions/normalUsersActions'
 import {
     addItem,
-    changeCart
+    changeCart,
+    buyProduct
 } from '../store/actions/cartActions'
 import { HeartIcon, ShoppingCartIcon } from '@heroicons/react/outline'
 import Link from 'next/link';
@@ -269,7 +270,14 @@ const ProductDetail = ({productData}) => {
         }
     }
 
-
+    const buy = ()=>{
+        if(userData && userData.id){
+            dispatch(buyProduct({user: userData.id, quantity: 1, product:productData  }))
+        }
+        else{
+            alert("Debes iniciar sesion para comprar!")
+        }
+    }
 
     const handleCart = async () => {
         if(userData) {
@@ -340,11 +348,9 @@ const ProductDetail = ({productData}) => {
                         </Description>
 
                         <Description><strong>Categoría:</strong> {productData.category.title}</Description>
-                        <form  action={`/api/checkout`}  method="POST" >
-                        <input type="hidden" name="title" value = { productData.title } />
-                        <input type="hidden" name="price" value = { productData.price }  />  
-                        <BuyButton>Comprar ahora</BuyButton>
-                        </form>
+
+                        <BuyButton onClick={()=>buy()}>Comprar ahora</BuyButton>
+
                         <HurryAdvertise><em>Apúrate! Este artículo se va volando</em></HurryAdvertise>
                        {/*  {
                         userData && userData.favorites ? 

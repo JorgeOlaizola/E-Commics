@@ -370,7 +370,13 @@ const ProductDetail = ({productData}) => {
                         <AddingButton onClick={() => handleCart()}><ShoppingCartIcon className="addCartIcon"/> Agregar al carrito</AddingButton>
                         <Space/>
                         <InfoTitle>Medios de pago</InfoTitle>
-                        <Description>Descripción</Description>
+                        <Description>
+                        <Image 
+                                src={'/medios-pago-mercado.png'} 
+                                width={'280px'}
+                                height={'71px'}
+                                alt="logo"/>
+                        </Description>
                     </InfoContainer>
                     <Separator/>
                 </ImageInfo>

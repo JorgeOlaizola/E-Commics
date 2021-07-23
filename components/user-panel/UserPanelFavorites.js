@@ -100,7 +100,9 @@ const UserPanelFavorites = () => {
             <ProductConteiner key={f._id}>
                 <ProfileImg src={f.image}></ProfileImg>
                 <ProductInfoConteiner>
+                {/* <Link href={'/detail/[productDetail]'} as={`/detail/${f._id}` } passHref> */}
                     <h3>{f.title} </h3>
+                {/* </Link> */}
                     <span> Precio: {f.price}$</span> 
                     <span> Categoría: {f.category.title}</span>
                     <button onClick={() => dispatch(handleFavorites(userData.id, f._id)) } >Eliminar favorito</button>

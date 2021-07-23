@@ -21,9 +21,8 @@ export function getUserData() {
 export function signIn(info, cart) {
     return async function(dispatch) {
         try {
-
             const userData = await axios.post(`/api/users/logIn`, info);
-            console.log(userData.data.user.id)
+            console.log(userData.data)
             if(userData.data.user.id && cart){
                 console.log('Buenas')
                const carrito = await axios.put(`/api/cart`, { user: userData.data.user.id, cart: cart })
@@ -32,7 +31,6 @@ export function signIn(info, cart) {
             }
             localStorage.setItem("sessionSaved", JSON.stringify(userData.data))
             dispatch({ type: user.GET_USER_DATA, payload: userData.data })
-            
         } catch (error) {
             console.error(error)    
         }
@@ -59,6 +57,21 @@ export function resetPassword(user) {
             const response = await axios.post('http://localhost:3000/api/users/resetPassword', data);
             console.log(response)
         } catch (error) {
+            console.log(error)
+        }
+    }
+}
+
+export function confirmUser(user) {
+        const data = {
+            token: user
+        }
+    return async function() {
+        try{
+            const response = await axios.post('http://localhost:3000/api/users/confirm', data);
+            console.log(response)
+        }
+        catch (error) {
             console.log(error)
         }
     }

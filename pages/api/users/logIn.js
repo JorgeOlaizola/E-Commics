@@ -32,6 +32,13 @@ export default nextConnect()
 
         //Valid credentials
         else {
+            //Verify if user is confirmed
+            if(user.status !== 'active') {
+                return res.json({
+                    error_msg: 'El usuario aún no se encuentra activo'
+                })
+            }
+
             //New token
             const token = jwt.sign({ id: user._id }, KEY)
             

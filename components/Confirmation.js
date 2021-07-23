@@ -1,9 +1,22 @@
 import { useSelector } from 'react-redux';
-
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { confirmUser } from '../store/actions/normalUsersActions';
 import { useRouter } from 'next/router';
+import styled from "styled-components";
+
+const StyledDiv = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`
+
+const StyledMsg = styled.div`
+    width: 50%;
+    text-align: center;
+    margin-top: 50px;
+`
 
 const Confirmation = () => {
 
@@ -19,9 +32,11 @@ const Confirmation = () => {
     const response = useSelector(state => state.user.confirmation);
 
     return (
-        <div>
-            {response.error_msg || response.success_msg}
-        </div>
+        <StyledDiv>
+            <StyledMsg>
+                <h2>{response.error_msg || response.success_msg}</h2>
+            </StyledMsg>
+        </StyledDiv>
     )
 }
 

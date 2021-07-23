@@ -7,11 +7,6 @@ export default nextConnect()
 
   .post(async (req, res) => {
     const { token } = req.body
-    if(typeof(token) === "string") {
-      return res.json({
-        error_msg: 'La información provista no corresponde a ningún usuario registrado. Por favor comprueba el link enviado a tu dirección de correo electrónico. En caso de tratarse de un error por favor contáctanos.'
-      })
-    }
     const parsedEmail = jwt.decode(token).email;
     const user = await User.findOne({ email: parsedEmail })
     try {

@@ -6,7 +6,8 @@ const initialState = {
     boughtProducts: [],
     soldProducts: [],
     buyerOrders: [],
-    sellerOrders: []
+    sellerOrders: [],
+    confirmation: []
 }
 
 export default function userReducer(state = initialState, action) {
@@ -19,6 +20,11 @@ export default function userReducer(state = initialState, action) {
         case user.CLEAR_USER_DATA:
             return {
                 userData: {log: false}
+            }
+        case user.USER_CONFIRMATION:
+            return {
+                ...state,
+                confirmation: action.payload
             }
         //Favorites
         case user.GET_FAVORITES:

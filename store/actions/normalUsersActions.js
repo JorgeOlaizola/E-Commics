@@ -78,18 +78,14 @@ export function setNewPassword(token, password) {
     }
 }
 
-export function confirmUser(user) {
+export function confirmUser(arg) {
     const data = {
-        token: user
+        token: arg
     }
-    return async function() {
-        try{
-            const response = await axios.post('http://localhost:3000/api/users/confirm', data);
-            console.log(response)
-        }
-        catch (error) {
-            console.log(error)
-        }
+    return async function(dispatch) {
+        axios.post('http://localhost:3000/api/users/confirm', data)
+        .then((r) => dispatch({ type: user.USER_CONFIRMATION, payload: r.data }))
+        .catch((error) => {console.log(error)})
     }
 }
 

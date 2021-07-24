@@ -103,7 +103,7 @@ const UserPanelSellings = () => {
                     order.products.map(p => {
                         total += (p.quantity * p.unit_price)
                         return (
-                        <ProductOrderConteiner>
+                        <ProductOrderConteiner key={p._id}>
                             <span>Producto: <Link href={`/detail/${p._id}`} passHref >{p.title}</Link> __ Clickea el título para acceder al producto</span>
                             <span>Cantidad: {p.quantity}</span>
                             <span>Precio total: {p.quantity * p.unit_price}$</span>

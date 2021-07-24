@@ -1,14 +1,21 @@
 import Link from 'next/link';
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch }  from 'react-redux';
 import { getProductDetail } from '../store/actions/productActions';
 import styled from 'styled-components';
 import { StyledLink } from './globalStyle';
+import { HeartIcon as HeartIconOutline, ShoppingCartIcon as CartIconOutline } from '@heroicons/react/outline';
+import { HeartIcon as HeartIconSolid, ShoppingCartIcon as  CartIconSolid } from '@heroicons/react/solid';
+import {
+    addItem,
+    changeCart,
+    buyProduct
+} from '../store/actions/cartActions';
 
 //Component conteiner
 const CardContainer = styled.div`
 transition:  all 0.2s ease-out;
 border: 1px solid ${(props) => props.theme.colorLevel4};
-cursor: pointer;
+
 
 margin: 1rem;
 display: flex;
@@ -23,9 +30,10 @@ ${'' /* box-shadow: 0 0 11px rgba(33,33,33,.2); */}
     background: ${(props) => props.theme.backgroundLevel2}
 }
 @media (max-width: 320px) {
-    margin: 0rem;
+    margin: 0.6rem 0;
     }
 `
+
 
 
 
@@ -37,7 +45,7 @@ background-position:center;
 backdrop-filter: brightness(1.5);
 background-size:cover;
 
-
+cursor: pointer;
 border-bottom: 1px solid grey;
 width:100%;
 height:60%;
@@ -71,11 +79,15 @@ max-width:100%;
 const PriceTitle = styled.h3`
 ${'' /* font-size:1.5rem; */}
 margin-bottom:5px;
+cursor: pointer;
+
 `
 //card product title
 const CardProductTitle = styled.h4`
 ${'' /* font-size:1.2rem; */}
 margin-top: 10px;
+cursor: pointer;
+
 `
 
 //Styled link button
@@ -104,34 +116,84 @@ color: #FF0000;
 }
 `
 
+// Over the image? No soo good
+// const CardIconContainer = styled.div`
+// position: absolute;
+// display: flex;
+// flex-direction: column;
+// justify-content: space-between;
+// height: 50px;
+// top: 5px;
+// right: 10px;
+// `
+
+const IconContainer = styled.div`
+position: relative;
+top: 2px;
+background: ${(props) => props.theme.colorFont};
+padding: 3px;
+margin-right: 10px;
+display: inline;
+opacity: 0.5;
+border-radius: 50%;
+cursor: pointer;
+&:hover {
+    transition: 0.2s;
+    opacity: 1;
+}
+`
+
 //backdrop-filter: blur(5px)git pull
 
+  
 const Product = (props) => {
+    const userData = useSelector(state => state.user.userData.user);
+    const cartItems = useSelector(state => state.cart.cartItems);
+
     const dispatch = useDispatch()
     const image= props.image[0];
+    console.log(cartItems)
+    // console.log(userData)
+    console.log(props.id)
     // console.log("aca viendo algo en product", props)
+
+
     return (
-        <Link href={'/detail/[productDetail]'} as={`/detail/${props.id}` } passHref>
-            <CardContainer>
-                <ImageContainer imgUrl={image}>
-                    <DivParaSafar>
-                        {/* <img height="100%" src={props.image} ></img> */}
-                        <ProductImage src={props.image[0]}></ProductImage>
-                    </DivParaSafar>
-                </ImageContainer>
-                <ContainerDetail>
-                    <div>
-                        <PriceTitle>${props.price}</PriceTitle> 
-                        <CardProductTitle> {props.title}  </CardProductTitle>
-                    </div>
-                    <div>
-                        <StyledButton onClick={() => dispatch(getProductDetail(props.id))}>
-                            ver detalle 
-                        </StyledButton><ArrowSpan>→</ArrowSpan>
-                    </div>
-                </ContainerDetail>
-            </CardContainer>
-        </Link>   
+        <>
+                <CardContainer>
+                <Link href={'/detail/[productDetail]'} as={`/detail/${props.id}` } passHref>
+                    <ImageContainer imgUrl={image}>
+                        <DivParaSafar>
+                            {/* <img height="100%" src={props.image} ></img> */}
+                            <ProductImage src={props.image[0]}></ProductImage>
+                        </DivParaSafar>
+                    </ImageContainer>
+                    </Link>
+                    <ContainerDetail>
+                    <Link href={'/detail/[productDetail]'} as={`/detail/${props.id}` } passHref>
+                        <div>
+                            <PriceTitle>${props.price}</PriceTitle> 
+                            <CardProductTitle> {props.title}  </CardProductTitle>
+                        </div>
+                    </Link>
+                        <div>
+                            <IconContainer><HeartIconOutline className="addFavIcon"/></IconContainer>
+                            <IconContainer>
+                            {/* { userData && cartItems[0] && cartItems[0].products[.find(obj => obj]._id === props.id) ?
+                                <CartIconSolid className="addCartIcon"/> : <CartIconOutline className="addCartIcon"/>} */}
+                                { userData && cartItems[0] && cartItems.find(obj => obj.products[0]._id === props.id) ?
+                                <CartIconSolid  className="addCartIcon"/> 
+                                : <CartIconOutline className="addCartIcon"/>}
+                            </IconContainer>
+                            <Link href={'/detail/[productDetail]'} as={`/detail/${props.id}` } passHref>
+                            
+                                <StyledButton onClick={() => dispatch(getProductDetail(props.id))}>ver detalle </StyledButton>
+                                </Link><ArrowSpan>→</ArrowSpan>
+                        </div>
+                    </ContainerDetail>
+                </CardContainer>
+            
+        </>   
     )
 }
 

@@ -21,14 +21,20 @@ html {
 
   .findIcon {
     width: 10px;
+    position: relative;
+    top: 2px;
   }
 
   .addFavIcon {
     width: 20px;
+    position: relative;
+    top: 2px;
   }
 
   .addCartIcon {
     width: 20px;
+    position: relative;
+    top: 2px;
   }
 
   .findIcon480 {

@@ -7,7 +7,10 @@ const initialState = {
     soldProducts: [],
     buyerOrders: [],
     sellerOrders: [],
-    confirmation: []
+    confirmation: [],
+    passReset: [],
+    passTokenCheck: [],
+    locations: []
 }
 
 export default function userReducer(state = initialState, action) {
@@ -25,6 +28,21 @@ export default function userReducer(state = initialState, action) {
             return {
                 ...state,
                 confirmation: action.payload
+            }
+        case user.PASSWORD_RESET:
+            return {
+                ...state,
+                passReset: action.payload
+            }
+        case user.CHECK_TOKEN:
+            return {
+                ...state,
+                passTokenCheck: action.payload
+            }
+        case user.GET_LOCATIONS:
+            return {
+                ...state,
+                locations: action.payload
             }
         //Favorites
         case user.GET_FAVORITES:

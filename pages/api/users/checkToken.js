@@ -6,14 +6,14 @@ import jwt from 'jsonwebtoken';
 export default nextConnect()
 
 .post( async (req, res) => {
-    const { email, password } = req.body;
-
-    const parsedEmail = jwt.decode(email).email;
-
+    const { token } = req.body;
+    console.log("entré")
     try{
+        const parsedEmail = jwt.decode(token).email;
+        console.log("todavia no rompi")
         await dbConnect()          
         
-        const user = await User.findOne({ email: parsedEmail })
+        const user = await User.findOne({ email: token })
 
         if(!user) {
             return res.json({
@@ -21,13 +21,7 @@ export default nextConnect()
             })        
         }
 
-        const newPassword = await user.encryptPassword(password)
-
-        await User.findOneAndUpdate({ email: parsedEmail }, { password: newPassword })
-
-        const updatedUser = await User.findOne({ email: parsedEmail })
-
-        return res.json({ success_msg: 'Tu contraseña ha sido reestablecida con éxito, ya puedes iniciar sesión y seguir disfrutando de todos los beneficios de E-commics!'})
+        return res.json({ success_msg: 'Success'})
     }
     catch (error) {
         console.log(error)

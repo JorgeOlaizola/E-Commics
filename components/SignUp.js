@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import axios from 'axios';
-import styled from 'styled-components'
-import { Input, GradientBorder, DisableBorder, InputDisable } from './globalStyle'
+import styled from 'styled-components';
+import { Input, GradientBorder, DisableBorder, InputDisable } from './globalStyle';
 import SignInForm from './SignInForm';
 import {FormContainer, LogInForm, FormLabel, FormInputs, FormInput, FormSpan, Eye} from './user-panel/UserStyles.js';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -27,7 +28,8 @@ const SignUp = ({onClose}) => {
         email: "",
         avatar: "",
         password: "",
-        password2: ""
+        password2: "",
+        locationId: "0000"
     })
 
     const [thanks, setThanks] = useState(false)
@@ -47,6 +49,7 @@ const SignUp = ({onClose}) => {
     
     const [loading, setLoading] = useState(false);
 
+    const locations = useSelector(state => state.user.locations)
 
     function validateUserName(value) {
         if(!value){
@@ -100,6 +103,11 @@ const SignUp = ({onClose}) => {
         }
         setNewUser(prevState =>
             ({...prevState, email: value}));
+    }
+
+    function validateLocation(value) {
+        setNewUser(prevState =>
+            ({...prevState, locationId: value}));
     }
 
     function validatePassword(value) {
@@ -213,6 +221,15 @@ const SignUp = ({onClose}) => {
                                     <FormLabel>Email *</FormLabel>
                                     <FormInput name="email" value={newUser.email} placeholder="" onChange={(e)=> validateEmail(e.target.value)}/>
                                     {!errorEmail ? null : <span style={FormSpan}>{errorEmail}</span>}
+                                </FormInputs>
+                                <FormInputs>
+                                    <FormLabel>Localidad *</FormLabel>
+                                    <select name="location" value={newUser.location} placeholder="" onChange={(e)=> validateLocation(e.target.value)}>
+                                        <option selected value = "0000">Selecciona una localidad</option>
+                                        {
+                                            locations?.map((l) => <option key={l._id} value={l._id}>{l.location}</option>) 
+                                        }
+                                    </select>
                                 </FormInputs>
                                 <FormInputs>
                                     <FormLabel>Avatar</FormLabel>

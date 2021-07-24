@@ -4,7 +4,7 @@ import Footer from './Footer.js';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { getCategories } from '../store/actions/categoriesActions.js';
-import { getUserData } from '../store/actions/normalUsersActions.js';
+import { getUserData, getLocations } from '../store/actions/normalUsersActions.js';
 import { verificationCart } from '../store/actions/cartActions.js'; 
 import { lightTheme, darkTheme, GlobalStyles, StyledApp} from './globalStyle'
 import styled, { ThemeProvider } from "styled-components";
@@ -40,6 +40,7 @@ const Container = (props) => {
         dispatch(getUserData());
         dispatch(getCategories());
         dispatch(verificationCart());
+        dispatch(getLocations())
     }, [dispatch])
 
     useEffect(()=>{

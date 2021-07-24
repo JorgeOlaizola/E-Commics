@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import Link from 'next/link'
 import { useSelector, useDispatch } from 'react-redux'
+import { updateOrders } from '../store/actions/normalUsersActions'
 
 const OrderDetailConteiner = styled.div`
 width: 80%;
@@ -28,6 +29,7 @@ const OrderDetailComponent = ({ orderProps }) => {
     
     console.log(orderProps)
     const userData = useSelector(state => state.user.userData.user)
+    const dispatch = useDispatch()
     console.log(userData)
 
     return (
@@ -50,10 +52,10 @@ const OrderDetailComponent = ({ orderProps }) => {
             :
             'No hay productos'
             }</p>
-            { userData.id === orderProps.seller &&  orderProps.status === 'approved' ? <button>Despaché este producto</button> : null}
-            { userData.id === orderProps.buyer &&  orderProps.status === 'En proceso de entrega' ? <button>Recibí este producto</button> : null}
-            { userData.id === orderProps.buyer &&  orderProps.status === 'Recibido' ? <button>Dejar review</button> : null}
-            { userData.id === orderProps.seller &&  orderProps.status === 'Recibido' ? <button>Dejar reseña de usuario</button> : null}
+            { userData.id && userData.id === orderProps.seller &&  orderProps.status === 'approved' ? <button onClick={() => dispatch(updateOrders(orderProps._id, orderProps.status, userData.id))}>Despaché este producto</button> : null}
+            { userData.id && userData.id === orderProps.buyer &&  orderProps.status === 'En proceso de entrega' ? <button onClick={() => dispatch(updateOrders(orderProps._id, orderProps.status, userData.id))}>Recibí este producto</button> : null}
+            { userData.id && userData.id === orderProps.buyer &&  orderProps.status === 'Recibido' ? <button>Dejar review</button> : null}
+            { userData.id && userData.id === orderProps.seller &&  orderProps.status === 'Recibido' ? <button>Dejar reseña de usuario</button> : null}
         </OrderDetailConteiner>
     )
 }

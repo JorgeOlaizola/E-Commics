@@ -140,7 +140,9 @@ const UserPanel = (props) => {
 
     // console.log(dispatch(searchByUser(userData._id)))
     // console.log(userData._id)
-
+    if (!userData.user) {
+        return <StyledContainer>Cargando...</StyledContainer>
+    }
 
     
     return (

@@ -103,12 +103,24 @@ const UserMenu = () => {
                     <span>{userData.user.nickname}</span>
                 }
               </MenuTriggerSpan>
-                <Image 
+              {
+                  userData.log === false
+                  ?
+                  <Image 
+                  src="/ecommics-riddler.png"
+                  alt="User avatar"
+                  width={'25px'}
+                  height={'25px'}
+                />
+                  :
+                  <Image 
                   src="https://ecommics.s3.sa-east-1.amazonaws.com/images/superuser.png"
                   alt="User avatar"
                   width={'25px'}
                   height={'25px'}
                 />
+                }
+
             </MenuTrigger>
         <Menu
           style={{zIndex: '10'}}

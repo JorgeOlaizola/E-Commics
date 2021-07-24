@@ -13,7 +13,7 @@ import { useRouter } from 'next/router';
 const DivContainer = styled.div`
     background-color: ${(props) => props.theme.backgroundLevel1};
     ${'' /* width: 1024px; */}
-    margin: 30px auto 30px auto;
+    margin: 0px auto 30px auto;
     padding-bottom: 50px;
     min-height: 100vh;
     box-shadow: rgb(0 0 0 / 50%) 0px 0px 7px 1px;
@@ -30,6 +30,13 @@ const DivContainer = styled.div`
         margin: 0 auto;
     }
 `;
+
+const TopDiv = styled.div`
+    height: 30px;
+    @media (max-width: 1024px) {
+        height: 0;
+    }
+`
 
 const Container = (props) => {
     const dispatch = useDispatch()
@@ -64,7 +71,8 @@ const Container = (props) => {
             </Head>
             <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
             <GlobalStyles/>
-            <StyledApp>
+            <StyledApp>                    
+            <TopDiv ></TopDiv>
                 <DivContainer>
                     <Navbar theme={theme}/>
                     {props.children}

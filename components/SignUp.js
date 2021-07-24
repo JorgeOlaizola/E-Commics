@@ -198,9 +198,9 @@ const SignUp = ({onClose}) => {
         <FormContainer >
             {
             loading ? <div style={{display: "flex", alignItems: "center", justifyContent: "center", height: '500px'}}><PacmanLoader color={"#000"} size={30}/></div> :
-            thanks  ? <div style={{height: '350px'}}><h2>Super! Ya eres miembro de la comunidad de ecommics 🦸 </h2><SignInForm/> </div> : 
+            thanks  ? <div style={{height: '400px'}}><h2 style={{paddingLeft: '10px'}}>Super! Ya eres miembro de la comunidad de ecommics 🦸 🦹‍♀️ 🦸‍♂️ 🦹‍♂️</h2><SignInForm/> </div> : 
             <>
-                <h2>Únete hoy a ecommics!</h2>
+                <h2 style={{paddingLeft: '10px'}}>Únete hoy a ecommics!</h2>
                     <LogInForm onSubmit={(e) => handleSubmit(e)}>
                                 <FormInputs>
                                 <FormLabel>Nombre *</FormLabel>

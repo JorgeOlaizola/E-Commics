@@ -1,9 +1,13 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
 
-function WelcomeMessage({userDataName}) {
+
+function WelcomeMessage() {
+    const userData = useSelector(state => state.user.userData)
+
     return (
         <>
-            <h1>¡Hola {userDataName}!</h1>
+            {userData.user.nickname? <h1>¡Hola  {userData.user.nickname} !</h1>: <h1>Quién eres?</h1>}
         </>
     )
 }

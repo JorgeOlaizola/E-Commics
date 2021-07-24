@@ -64,8 +64,7 @@ const SignInForm = () => {
         e.preventDefault();
         dispatch(resetPassword(input.email))   
     }
-
- 
+    
     return (
         <>
             {

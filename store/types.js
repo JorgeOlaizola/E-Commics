@@ -68,3 +68,11 @@ export const cart = {
 export const admin = {
     
 }
+
+//Types ModalAlert
+
+export const modalAlert = {
+    SHOW_HIDE_MODAL_ALERT: "SHOW_HIDE_MODAL_ALERT",
+    CLOSE_MODAL_ALERT : "CLOSE_MODAL_ALERT"
+
+}

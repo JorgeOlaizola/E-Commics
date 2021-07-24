@@ -19,6 +19,12 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { StyledLink, Input, GradientBorder } from './globalStyle';
 import { useRouter } from 'next/router'
+import axios from 'axios'
+import { showModalAlert } from '../store/actions/modalAlertActions'
+
+
+
+//Styled components
 
 const Father = styled.div`
     width: 100%;
@@ -257,7 +263,7 @@ const ProductDetail = ({productData}) => {
         setQuestion(e.target.value)
     }
 
-    function handleSubmit(event) {
+   async function handleSubmit(event) {
         event.preventDefault();
         if(userData){
             const questionCreated = {
@@ -265,7 +271,19 @@ const ProductDetail = ({productData}) => {
                 user: userData?.id,
                 product: productData._id,
             }
-            dispatch(createQuestion(questionCreated, userData?.nickname))
+            try {
+                const postQuestion = await axios.post('/api/questions', questionCreated);
+                const questionData = await postQuestion.data
+                if(questionData) {
+                    dispatch(showModalAlert({show:true, message:"La pregunta se ah realizado con exito, te avisaremos cuando el vendedor responda, mientras tanto seguí disfrutando de e-commics"}))
+                    setQuestion("")
+                    document.body.style.overflow = ""
+                } //
+                
+            } catch (error) {
+                console.log(error)
+            }
+
 
         }
     }

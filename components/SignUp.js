@@ -29,7 +29,7 @@ const SignUp = ({onClose}) => {
         avatar: "",
         password: "",
         password2: "",
-        locationId: "0000"
+        locationId: `${process.env.DEFAULT_LOCATION}`
     })
 
     const [thanks, setThanks] = useState(false)
@@ -225,7 +225,7 @@ const SignUp = ({onClose}) => {
                                 <FormInputs>
                                     <FormLabel>Localidad *</FormLabel>
                                     <select name="location" value={newUser.location} placeholder="" onChange={(e)=> validateLocation(e.target.value)}>
-                                        <option selected value = "0000">Selecciona una localidad</option>
+                                        <option selected value = {process.env.DEFAULT_LOCATION}>Selecciona una localidad</option>
                                         {
                                             locations?.map((l) => <option key={l._id} value={l._id}>{l.location}</option>) 
                                         }

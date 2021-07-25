@@ -10,6 +10,11 @@ import {
     changeCart,
     buyProduct
 } from '../store/actions/cartActions';
+import { useEffect } from 'react';
+import {
+    getFavorites,
+    handleFavorites 
+} from '../store/actions/normalUsersActions'
 
 //Component conteiner
 const CardContainer = styled.div`
@@ -152,11 +157,16 @@ const Product = (props) => {
 
     const dispatch = useDispatch()
     const image= props.image[0];
-    console.log(cartItems)
-    // console.log(userData)
+    // console.log(cartItems)
     console.log(props.id)
     // console.log("aca viendo algo en product", props)
 
+    useEffect(() => {
+        // if(userData.log === false) {
+        //     window.location.href = "/"
+        // }
+        userData && dispatch(getFavorites(userData.id))
+    }, []);
 
     return (
         <>
@@ -177,18 +187,21 @@ const Product = (props) => {
                         </div>
                     </Link>
                         <div>
-                            <IconContainer><HeartIconOutline className="addFavIcon"/></IconContainer>
                             <IconContainer>
-                            {/* { userData && cartItems[0] && cartItems[0].products[.find(obj => obj]._id === props.id) ?
-                                <CartIconSolid className="addCartIcon"/> : <CartIconOutline className="addCartIcon"/>} */}
-                                { userData && cartItems[0] && cartItems.find(obj => obj.products[0]._id === props.id) ?
+                                { 
+                                userData && userData.favorites && userData.favorites.some(obj => obj._id === props.id) ? <HeartIconSolid className="addFavIcon"/>
+                                : userData ? <HeartIconOutline className="addFavIcon"/> 
+                                : <></>
+                                }
+                            </IconContainer>
+                            <IconContainer>
+                                { userData && cartItems[0] && cartItems.some(obj => obj.products[0]._id === props.id) ?
                                 <CartIconSolid  className="addCartIcon"/> 
                                 : <CartIconOutline className="addCartIcon"/>}
                             </IconContainer>
                             <Link href={'/detail/[productDetail]'} as={`/detail/${props.id}` } passHref>
-                            
                                 <StyledButton onClick={() => dispatch(getProductDetail(props.id))}>ver detalle </StyledButton>
-                                </Link><ArrowSpan>→</ArrowSpan>
+                            </Link><ArrowSpan>→</ArrowSpan>
                         </div>
                     </ContainerDetail>
                 </CardContainer>

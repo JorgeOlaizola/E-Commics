@@ -86,7 +86,7 @@ const Products = (props) => {
                       
             }
             </CardsContainer>   
-            <Pagination />
+            { products.length !== 0 ? <Pagination /> : <></> }
         </div> 
     )
 }

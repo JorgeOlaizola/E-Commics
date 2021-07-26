@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^1.0.1",
+    "@sendgrid/mail": "^7.4.5",
     "axios": "^0.21.1",
     "babel-plugin-styled-components": "^1.13.2",
     "bcryptjs": "^2.4.3",

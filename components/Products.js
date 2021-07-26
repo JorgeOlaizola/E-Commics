@@ -55,7 +55,7 @@ const Products = (props) => {
         return () => {
             dispatch(resetFilters());
         }
-    }, []
+    }, [dispatch]
     )
     
     const handleNoUser = (e) => {

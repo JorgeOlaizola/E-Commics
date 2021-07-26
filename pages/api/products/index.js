@@ -88,14 +88,13 @@ export default nextConnect()
     const { title, description, image, stock, price, user ,category } = req.body
     try {
         if (!title || !description || !image || !stock || !price || !user ||!category) {
-            !title && req.flash("error_msg", "required title")
-            !description && req.flash("error_msg", "required description")
-            !image && req.flash("error_msg", "required image")
-            !stock && req.flash("error_msg", "required stock")
-            !price && req.flash("error_msg", "required price")
-            !user && req.flash("error_msg", "required user")
-            !category && req.flash("error_msg", "required category")
-            return res.send(req.flash())
+            return !title && res.send("error_msg", "required title")
+            return !description && res.send("error_msg", "required description")
+            return !image && res.send("error_msg", "required image")
+            return !stock && res.send("error_msg", "required stock")
+            return !price && res.send("error_msg", "required price")
+            return !user && res.send("error_msg", "required user")
+            return !category && res.send("error_msg", "required category")
         }
         const newProduct = await new Product({ title, description, image, stock, price, user ,category})
         await newProduct.save()

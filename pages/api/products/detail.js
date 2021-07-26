@@ -57,20 +57,20 @@ export default nextConnect()
 
     .put(async (req, res) => {
         try {
-            const product = req.body
+            const { product } = req.body
             await dbConnect()
             let productDB = await Product.findById(product._id)
-            if(!product.user || !productDB.user.equals(product.user)) {
+            if(!product.user || !productDB.user.equals(product.user._id)) {
                 return res.json({error_msg:"El usuario no es válido"})
             } 
-            if (product.category) productDB.category = product.category
+            if (product.category?._id) productDB.category = product.category._id
             if (product.title) productDB.title = product.title
             if (product.description) productDB.description = product.description
             if (product.image && Array.isArray(product.image)) productDB.image = product.image.join('&&')
             if (product.stock) productDB.stock = product.stock
             if (product.price) productDB.price = product.price
             await productDB.save()
-            return res.send("Producto actualizado correctamente")
+            return res.send(productDB)
         }
         catch (error) {
             console.log(error)

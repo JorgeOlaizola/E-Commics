@@ -33,6 +33,16 @@ import e from 'connect-flash'
 //     page: 1
 // }
 
+export function productToUpDate(product){
+    return (dispatch)=>{
+        axios.put('/api/products/detail', { product }).then((response)=>{
+            // console.log(response.data)
+        })
+        .catch((e)=>{
+            console.log(e)
+        })
+    }
+}
 
 
 export function getProductDetail (id) {

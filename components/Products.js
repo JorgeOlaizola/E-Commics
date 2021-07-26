@@ -41,6 +41,11 @@ font-weight: 900;
 padding: 0 8px;
 `
 
+const LoaderContainer = styled.div`
+display: flex;
+justify-content: center;
+margin-top: 50px;
+`
 
 const Products = (props) => {
     const dispatch = useDispatch();
@@ -66,9 +71,9 @@ const Products = (props) => {
 
     
     if(products === undefined) return (
-        <CardsContainer>
-            <PacmanLoader color={"#000"} size={50}/>
-        </CardsContainer>
+        <LoaderContainer>
+            <PacmanLoader color={"#000"} size={40}/>
+        </LoaderContainer>
     )
 
     return (

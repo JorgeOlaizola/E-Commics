@@ -157,14 +157,8 @@ const Product = (props) => {
 
     const dispatch = useDispatch()
     const image= props.image[0];
-    // console.log(cartItems)
-    console.log(props.id)
-    // console.log("aca viendo algo en product", props)
-
+    
     useEffect(() => {
-        // if(userData.log === false) {
-        //     window.location.href = "/"
-        // }
         userData && dispatch(getFavorites(userData.id))
     }, []);
 

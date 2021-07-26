@@ -7,10 +7,8 @@ export default nextConnect()
 
 .post( async (req, res) => {
     const { token } = req.body;
-    console.log("entré")
     try{
         const parsedEmail = jwt.decode(token).email;
-        console.log("todavia no rompi")
         await dbConnect()          
         
         const user = await User.findOne({ email: token })

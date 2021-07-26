@@ -96,7 +96,7 @@ const UserPanelPublications = () => {
             <ImageSlider />
             {products && products.length > 0 ? products.map(p => 
                 <ProductConteiner key={p._id}>
-                    <ProfileImg src={p.image}>
+                    <ProfileImg src={p.image[0]}>
                     </ProfileImg>
                     <ProductInfoConteiner>
                     <h3>{p.title} </h3>

@@ -98,7 +98,7 @@ const UserPanelFavorites = () => {
             </DataSection>
             { userData.favorites.length ? userData.favorites.map(f => 
             <ProductConteiner key={f._id}>
-                <ProfileImg src={f.image}></ProfileImg>
+                <ProfileImg src={f.image[0]}></ProfileImg>
                 <ProductInfoConteiner>
                 {/* <Link href={'/detail/[productDetail]'} as={`/detail/${f._id}` } passHref> */}
                     <h3>{f.title} </h3>

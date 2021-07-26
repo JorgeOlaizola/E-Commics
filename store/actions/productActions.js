@@ -4,12 +4,46 @@ import Filters from '../../components/Filters'
 import e from 'connect-flash'
 
 
-export function getProductsByUser (userData) {
-    return (dispatch) => {
-    axios.post(`/api/products/get`, userData)
-    .then(r => dispatch({ type: product.GET_PRODUCTS_BY_USER, payload: r.data }))
+// export function getProductsByUser (userData) {
+//     return (dispatch) => {
+//     axios.post(`/api/products/get`, userData)
+//     .then(r => dispatch({ type: product.GET_PRODUCTS_BY_USER, payload: r.data }))
+//     }
+// }
+// let { user,category,scorestart,scoreend,pricestart,priceend,searchin,searchtext,orderin,orderor,page, officialstore } = req.query
+// filters: {
+//     user : "",
+//     category: "",
+//     score : {
+//         start: 0,
+//         end: 0
+//     },
+//     price : {
+//         start: 0,
+//         end: 0
+//     },
+//     search:{
+//         in: "title",
+//         text: ""
+//     },
+//     order:{
+//         in: "",
+//         or: 1
+//     },
+//     page: 1
+// }
+
+export function productToUpDate(product){
+    return (dispatch)=>{
+        axios.put('/api/products/detail', { product }).then((response)=>{
+            // console.log(response.data)
+        })
+        .catch((e)=>{
+            console.log(e)
+        })
     }
 }
+
 
 export function getProductDetail (id) {
     return (dispatch) => {

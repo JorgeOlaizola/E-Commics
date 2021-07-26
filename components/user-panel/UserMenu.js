@@ -55,7 +55,7 @@ const UserMenu = () => {
   const theme = useSelector(state => state.styles.theme)
   const modal = useSelector(state => state.styles.modal)
   const cartItems = useSelector(state => state.cart.cartItems)
- console.log(cartItems)
+
   function handleSignOut() {
     // borrar carrito
       dispatch(signOut())
@@ -66,7 +66,6 @@ const UserMenu = () => {
     setSignType("signUp")
     document.body.style.overflow = "hidden"
     onClick()
-    console.log(showHideModal())
     dispatch(showHideModal(true))
   }
 
@@ -104,12 +103,24 @@ const UserMenu = () => {
                     <span>{userData.user.nickname}</span>
                 }
               </MenuTriggerSpan>
-                <Image 
+              {
+                  userData.log === false
+                  ?
+                  <Image 
+                  src="/ecommics-riddler.png"
+                  alt="User avatar"
+                  width={'25px'}
+                  height={'25px'}
+                />
+                  :
+                  <Image 
                   src="https://ecommics.s3.sa-east-1.amazonaws.com/images/superuser.png"
                   alt="User avatar"
                   width={'25px'}
                   height={'25px'}
                 />
+                }
+
             </MenuTrigger>
         <Menu
           style={{zIndex: '10'}}

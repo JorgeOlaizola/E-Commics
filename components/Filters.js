@@ -24,6 +24,7 @@ position: relative;
 @media (max-width: 900px){
     border-right: none;
     border-bottom: 1px solid ${(props) => props.theme.colorLevel4};
+    margin: 0 0 1rem 0;
 }
 `
 
@@ -36,12 +37,28 @@ ${'' /* margin-top: 1rem; */}
 const EachFilterTitle = styled.h3`
 ${'' /* font-size: 1.3rem; */}
 ${'' /* padding: 1rem; */}
+@media (max-width: 900px) {
+    display: none;
+    }
+`
+const EachFilterTitleRes = styled.h4`
+${'' /* font-size: 1.3rem; */}
+${'' /* padding: 1rem; */}
+display: none;
+@media (max-width: 900px) {
+   display: inline;
+   padding-right: 10px;
+}
 `
 
 const MinMaxDiv = styled.div`
 display: flex;
 gap: 10px;
 margin-bottom: 1rem;
+@media (max-width: 900px) {
+    margin-bottom: 0;
+
+}
 `
 
 //Category filters conteiner
@@ -51,7 +68,21 @@ flex-direction: column;
 justify-content: center;
 align-items: center;
 padding: 1rem;
+@media (max-width: 900px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 0.2rem;
+    }
 `
+
+const ResponsiveFilters = styled.div`
+@media (max-width: 900px) {
+    dispay: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    }
+`
+
 //Category filters
 const SelectCategories = styled.select`
 display: block;
@@ -59,6 +90,11 @@ padding: 0 10px;
 outline: none;
 border-radius: 2px;
 width: 100%;
+@media (max-width: 900px) {
+    position: relative;
+    display: inline;
+    ${'' /* width: 90%; */}
+    }
 `
 
 const CategoryFiltersOption = styled.option`
@@ -67,6 +103,10 @@ padding: 0 10px;
 outline: none;
 border-radius: 2px;
 width: 100%;
+@media (max-width: 900px) {
+    display: inline;
+    ${'' /* width: 90%; */}
+}
 `
 
 
@@ -110,27 +150,31 @@ const Filters = ({userId}) => {
     return (
         <FilterContainer> 
             <FiltersTitle>Filtros</FiltersTitle>
-            <CategoriesFilterCont>
-                <EachFilterTitle>Categorías</EachFilterTitle>
-                {categories && (
-                    
-                        <SelectCategories onClick={CategoryFilter}>
-                            {categories.map(category => <CategoryFiltersOption key={category._id} value={category._id} >{category.title}</CategoryFiltersOption>)}
-                        <option value="" selected defaultValue>Todas las categorías</option>  
-                        {/* {categories.map(c => <button onClick={CategoryFilter}value={c._id}>{c.title}</button>)} */}
-                        </SelectCategories>  
-                   
+            <ResponsiveFilters>
+                <CategoriesFilterCont>
+                    <EachFilterTitle>Categorías</EachFilterTitle>
+                    {categories && (
+                        
+                            <SelectCategories onClick={CategoryFilter}>
+                                {categories.map(category => <CategoryFiltersOption key={category._id} value={category._id} >{category.title}</CategoryFiltersOption>)}
+                            <option value="" selected defaultValue>Todas las categorías</option>  
+                            {/* {categories.map(c => <button onClick={CategoryFilter}value={c._id}>{c.title}</button>)} */}
+                            </SelectCategories>  
+                       
                     )}
-            </CategoriesFilterCont>
-            <EachFilterTitle>Precio</EachFilterTitle>
-                <MinMaxDiv>
-                    <input style={{width: '75px'}} type="number" name="min" placeholder="min" onChange={handlePrice}></input>
-                    <input style={{width: '75px'}} type="number" name="max" placeholder="max" onChange={handlePrice}></input>
-                </MinMaxDiv>
+                </CategoriesFilterCont>
+                <CategoriesFilterCont>
+                <EachFilterTitle>Precio</EachFilterTitle>
+                <EachFilterTitleRes>Precio</EachFilterTitleRes>
+                    <MinMaxDiv>
+                        <input style={{width: '75px'}} type="number" name="min" placeholder="min" onChange={handlePrice}></input>
+                        <input style={{width: '75px'}} type="number" name="max" placeholder="max" onChange={handlePrice}></input>
+                    </MinMaxDiv>
+                </CategoriesFilterCont>
                 <GradientBorder>
-                         <Input type="submit" onClick={handleSubmit}>Filtrar</Input>
+                    <Input type="submit" onClick={handleSubmit}>Filtrar</Input>
                 </GradientBorder>
-           
+            </ResponsiveFilters>
         </FilterContainer>
     )
 }

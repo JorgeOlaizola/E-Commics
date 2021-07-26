@@ -7,6 +7,7 @@ import axios from 'axios';
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import PacmanLoader from "react-spinners/PacmanLoader";
+import { Input, GradientBorder, DisableBorder, InputDisable } from '../globalStyle';
 
 const DivContainer = styled.div`
 margin:auto;
@@ -89,16 +90,6 @@ const AddProductForm = () => {
         user: user?.id
     })
     const router = useRouter()
-
-    /* useEffect(() => {
-        const start = () => {
-            dispatch(getUserData());
-            if (user?.id.length === 0 || user?.id.length === undefined) {
-                router.push("/")
-            }
-        }
-        start();
-    }, []) */
 
     function handleChange(e) {
         if (e.target.value < 0) {
@@ -183,7 +174,7 @@ const AddProductForm = () => {
         <>
             {user?.id ?
                 <DivContainer>
-                    <DivFormItem>¿Qué vas a publicar?</DivFormItem>
+                    <h2>¿Qué vas a publicar?</h2>
                     <FormContainer onSubmit={(e) => { handleSubmit(e) }} >
                         <FormFieldset>
 
@@ -270,11 +261,17 @@ const AddProductForm = () => {
                             />
                             <label htmlFor="terminos">Acepto los </label>
 
-                            <a href="https://www.soyhenry.com/terms" style={{ color: "blue" }}>Terminos y condiciones</a>
+                            <a href="https://www.soyhenry.com/terms" style={{ color: "blue" }}>Términos y condiciones</a>
                         </DivFormItem>
-                        <DivFormItem>
-                            <ButtonForm type='submit'>Publicar</ButtonForm>
-                        </DivFormItem>
+                        {!input.title || !input.description || !input.stock || !input.price || !input.image || !input.category ?
+                            <DisableBorder>
+                                <InputDisable>Publicar</InputDisable>
+                            </DisableBorder>
+                            : 
+                            <GradientBorder>
+                                <Input type="submit">Publicar</Input>
+                            </GradientBorder>
+                        }
                     </FormContainer>
                 </DivContainer>
                 :
@@ -288,3 +285,8 @@ const AddProductForm = () => {
 }
 
 export default AddProductForm;
+
+
+
+
+

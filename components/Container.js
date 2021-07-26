@@ -4,16 +4,17 @@ import Footer from './Footer.js';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { getCategories } from '../store/actions/categoriesActions.js';
-import { getUserData } from '../store/actions/normalUsersActions.js';
+import { getUserData, getLocations } from '../store/actions/normalUsersActions.js';
 import { verificationCart } from '../store/actions/cartActions.js'; 
 import { lightTheme, darkTheme, GlobalStyles, StyledApp} from './globalStyle'
 import styled, { ThemeProvider } from "styled-components";
+import  ModalAlert from './ModalAlert';
 import { useRouter } from 'next/router';
 
 const DivContainer = styled.div`
     background-color: ${(props) => props.theme.backgroundLevel1};
     ${'' /* width: 1024px; */}
-    margin: 30px auto 30px auto;
+    margin: 0px auto 30px auto;
     padding-bottom: 50px;
     min-height: 100vh;
     box-shadow: rgb(0 0 0 / 50%) 0px 0px 7px 1px;
@@ -31,6 +32,13 @@ const DivContainer = styled.div`
     }
 `;
 
+const TopDiv = styled.div`
+    height: 30px;
+    @media (max-width: 1024px) {
+        height: 0;
+    }
+`
+
 const Container = (props) => {
     const dispatch = useDispatch()
     const router = useRouter()
@@ -40,11 +48,12 @@ const Container = (props) => {
         dispatch(getUserData());
         dispatch(getCategories());
         dispatch(verificationCart());
+        dispatch(getLocations())
     }, [dispatch])
 
     useEffect(()=>{
         if(buy){
-            console.log(buy)
+            
             router.push(buy)
         }
     },[buy])
@@ -63,11 +72,15 @@ const Container = (props) => {
             </Head>
             <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
             <GlobalStyles/>
-            <StyledApp>
+            <StyledApp>                    
+            <TopDiv ></TopDiv>
                 <DivContainer>
                     <Navbar theme={theme}/>
+                    <ModalAlert/>
                     {props.children}
                 </DivContainer>
+                        
+                   
                 <Footer/>
             </StyledApp>
         </ThemeProvider>

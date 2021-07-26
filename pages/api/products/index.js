@@ -3,6 +3,7 @@ import Product from '../../../server/models/Product'
 import User from '../../../server/models/User'
 import dbConnect from '../../../utils/dbConnect'
 import nextConnect from 'next-connect'
+import { product } from '../../../store/types'
 
 export default nextConnect()
 
@@ -26,8 +27,8 @@ export default nextConnect()
         or:parseInt(orderor)
     }
     if (!page) page = 1 
-    let itemXPage = 20;
-    let limite = page * itemXPage
+    let itemXPage = 4;
+    let limite =  (page + 1)  * itemXPage
     let opts = { $and: [] }
     //filtro por user id
     if (user && user !== "") opts["$and"].push({ user: user })
@@ -74,7 +75,7 @@ export default nextConnect()
             }
         })
         let result = ProductsTotal.slice(itemXPage * (page - 1), (itemXPage * (page - 1)) + itemXPage)
-        res.json(result)
+        res.json({products: result, totalProducts: ProductsTotal.length, itemPerPage: itemXPage})
     }
     catch (error) {
         console.log(error)
@@ -87,14 +88,13 @@ export default nextConnect()
     const { title, description, image, stock, price, user ,category } = req.body
     try {
         if (!title || !description || !image || !stock || !price || !user ||!category) {
-            !title && req.flash("error_msg", "required title")
-            !description && req.flash("error_msg", "required description")
-            !image && req.flash("error_msg", "required image")
-            !stock && req.flash("error_msg", "required stock")
-            !price && req.flash("error_msg", "required price")
-            !user && req.flash("error_msg", "required user")
-            !category && req.flash("error_msg", "required category")
-            return res.send(req.flash())
+            return !title && res.send("error_msg", "required title")
+            return !description && res.send("error_msg", "required description")
+            return !image && res.send("error_msg", "required image")
+            return !stock && res.send("error_msg", "required stock")
+            return !price && res.send("error_msg", "required price")
+            return !user && res.send("error_msg", "required user")
+            return !category && res.send("error_msg", "required category")
         }
         const newProduct = await new Product({ title, description, image, stock, price, user ,category})
         await newProduct.save()

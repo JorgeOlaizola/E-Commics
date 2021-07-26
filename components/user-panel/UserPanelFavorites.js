@@ -85,22 +85,24 @@ const UserPanelFavorites = () => {
     const userData = useSelector(state => state.user.userData.user);
     const dispatch = useDispatch()
     useEffect(() => {
-        if(userData.log === false) {
-            window.location.href = "/"
-        }
+        // if(userData.log === false) {
+        //     window.location.href = "/"
+        // }
         dispatch(getFavorites(userData.id))
 }, []);
 
     return (
         <StyledContainer>
             <DataSection>
-                Favoritos
+                <h3>Favoritos</h3>
             </DataSection>
             { userData.favorites.length ? userData.favorites.map(f => 
             <ProductConteiner key={f._id}>
                 <ProfileImg src={f.image}></ProfileImg>
                 <ProductInfoConteiner>
+                {/* <Link href={'/detail/[productDetail]'} as={`/detail/${f._id}` } passHref> */}
                     <h3>{f.title} </h3>
+                {/* </Link> */}
                     <span> Precio: {f.price}$</span> 
                     <span> Categoría: {f.category.title}</span>
                     <button onClick={() => dispatch(handleFavorites(userData.id, f._id)) } >Eliminar favorito</button>

@@ -21,9 +21,8 @@ export function getUserData() {
 export function signIn(info, cart) {
     return async function(dispatch) {
         try {
-
             const userData = await axios.post(`/api/users/logIn`, info);
-            console.log(userData.data.user.id)
+            console.log(userData.data)
             if(userData.data.user.id && cart){
                 console.log('Buenas')
                const carrito = await axios.put(`/api/cart`, { user: userData.data.user.id, cart: cart })
@@ -32,7 +31,6 @@ export function signIn(info, cart) {
             }
             localStorage.setItem("sessionSaved", JSON.stringify(userData.data))
             dispatch({ type: user.GET_USER_DATA, payload: userData.data })
-            
         } catch (error) {
             console.error(error)    
         }
@@ -47,6 +45,61 @@ export function signOut() {
         localStorage.setItem("cartItems", JSON.stringify(""))
 
         dispatch({ type: user.CLEAR_USER_DATA})
+    }
+}
+
+export function resetPassword(user) {
+    const data = {
+        email: user
+    }
+    return async function() {
+        try {
+            const response = await axios.post('/api/users/resetPassword', data);
+            console.log(response)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+
+export function setNewPassword(token, password) {
+    const data = {
+        email: token,
+        password: password
+    }
+    return async function() {
+        await axios.post('/api/users/setNewPassword', data)
+        .then((r) => dispatch({ type: user.PASSWORD_RESET, payload: r.data }))
+        .catch((error) => {console.log(error)})
+    }
+}
+
+export function checkToken(arg) {
+    const data = {
+        token: arg
+    }
+    return async function() {
+        await axios.post('/api/users/checkToken', data)
+        .then((r) => dispatch({ type: user.CHECK_TOKEN, payload: r.data }))
+        .catch((error) => {console.log(error)})
+    }
+}
+
+export function confirmUser(arg) {
+    const data = {
+        token: arg
+    }
+    return async function(dispatch) {
+        axios.post('/api/users/confirm', data)
+        .then((r) => dispatch({ type: user.USER_CONFIRMATION, payload: r.data }))
+        .catch((error) => {console.log(error)})
+    }
+}
+
+export function getLocations() {
+    return async function(dispatch) {
+        const response = await axios.get('/api/locations/')
+        dispatch({ type: user.GET_LOCATIONS, payload: response.data })
     }
 }
 
@@ -73,6 +126,15 @@ export function getFavorites (userID) {
         } catch (error) {
             console.error(error)    
         }
+    }
+}
+
+//Orders
+
+export function updateOrders (orderId, status, userId) {
+    return function(dispatch) {
+        axios.put('/api/orders', {orderId, status, userId})
+        .then((r) => console.log(r.data))
     }
 }
 

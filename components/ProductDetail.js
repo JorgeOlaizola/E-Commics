@@ -1,10 +1,12 @@
+//#region Imports
 import styled from 'styled-components'
 import { useSelector, useDispatch }  from 'react-redux'
 import { useEffect, useState } from 'react'
 import { 
     getFilteredProducts,
     resetProductDetail,
-    createQuestion    
+    createQuestion,
+    productToUpDate   
 } from '../store/actions/productActions'
 import {
     handleFavorites
@@ -19,6 +21,15 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { StyledLink, Input, GradientBorder } from './globalStyle';
 import { useRouter } from 'next/router'
+import axios from 'axios'
+import { showModalAlert } from '../store/actions/modalAlertActions'
+//#endregion
+
+//#region Estilos
+
+
+
+//Styled components
 
 const Father = styled.div`
     width: 100%;
@@ -137,6 +148,11 @@ const BuyButton = styled.button`
         background-color: ${(props) => props.theme.blueColorActive};
         border: 1px solid ${(props) => props.theme.backgroundLevel1};
     }
+    &:disabled {
+        // background-color: ${(props) => props.theme.blueColor}; nc que color ponerle cuando lo desactivamos
+        background-color: gray;
+        border: 1px solid ${(props) => props.theme.backgroundLevel1};
+    }
 `
 
 const Advertise = styled.p`
@@ -245,19 +261,76 @@ const StyledImage = styled.img`
     max-height: 800px;
 `
 
+//Category 
+const DetailSelectCategories = styled.select`
+display: block;
+padding: 0 10px;
+outline: none;
+border-radius: 2px;
+width: 100%;
+`
+
+const DetailCategoryOption = styled.option`
+display: block;
+padding: 0 10px;
+outline: none;
+border-radius: 2px;
+width: 100%;
+`
+//#endregion
+
+
+
 const ProductDetail = ({productData}) => {
+
     const router = useRouter()
-    const filters = useSelector(state => state.product.filters)
-    const [question, setQuestion] = useState("");
     const dispatch = useDispatch()
-   
+    const filters = useSelector(state => state.product.filters)
     const userData = useSelector(state => state.user.userData.user);
+    const categories = useSelector(state => state.category.categories)
+    const [question, setQuestion] = useState("");
+    const [edit,setEdit] = useState(false)
+    const [productUpDate,setProductUpDate] = useState({
+        ...productData
+    })
 
     function handleChange(e) {
         setQuestion(e.target.value)
     }
 
-    function handleSubmit(event) {
+    function handleProductUpDate(e) {
+        e.preventDefault()
+        setProductUpDate({
+            ...productUpDate,
+            [e.target.name]: e.target.value
+        })
+    }
+    function handleProductUpDateCategory(e){
+        e.preventDefault()
+        setProductUpDate({
+            ...productUpDate,
+            category:{
+                ...productUpDate.category,
+                _id: e.target.value
+            }
+        })
+    }
+    function handleEdit(){
+        setEdit(!edit)
+        //se puede dejar o sacar a gusto de los compas!
+        setProductUpDate({
+            ...productData
+        })
+    }
+    async function upDateProduct(){
+        dispatch(productToUpDate(productUpDate))
+        setEdit(!edit)
+        router.back()
+    }
+
+
+   async function handleSubmit(event) {
+
         event.preventDefault();
         if(userData){
             const questionCreated = {
@@ -266,6 +339,20 @@ const ProductDetail = ({productData}) => {
                 product: productData._id,
             }
             dispatch(createQuestion(questionCreated, userData?.nickname))
+
+            try {
+                const postQuestion = await axios.post('/api/questions', questionCreated);
+                const questionData = await postQuestion.data
+                if(questionData) {
+                    dispatch(showModalAlert({show:true, message:"La pregunta se ah realizado con exito, te avisaremos cuando el vendedor responda, mientras tanto seguí disfrutando de e-commics"}))
+                    setQuestion("")
+                    document.body.style.overflow = ""
+                } //
+                
+            } catch (error) {
+                console.log(error)
+            }
+
 
         }
     }
@@ -311,14 +398,13 @@ const ProductDetail = ({productData}) => {
         console.log(filters);
         router.push(path)
     }
+
 {/* <Link style={{textDecoration: 'underline'}} href={`/productsPerUser/[id]`} as={`/productsPerUser/${productData.user._id}` } passHref></Link> */}
 
     return (
         <Father>
             <DetailContainer>
-
                 <ImageInfo>
-
                     <ImageContainer>
                         <Link passHref href="/search">
                             <StyledLink>← búsqueda</StyledLink>
@@ -328,29 +414,82 @@ const ProductDetail = ({productData}) => {
                             <StyledImage src={productData.image[0]}/>
                         </ImageView>
                     </ImageContainer>
-
                     <InfoContainer>
-                        <Title>{productData.title}</Title>
-                        <InfoText>${productData.price}</InfoText>
+                    {userData && userData?.id === productData?.user._id &&  <button onClick={()=> handleEdit()}>Editar</button>}
                         {
+                        userData && userData?.id === productData?.user._id && edit ? 
+                        <input name="title" onChange={(e)=>handleProductUpDate(e)} value={productUpDate.title}/> 
+                        : 
+                        <Title>{productData.title}</Title>
+                        }
+                        {
+                        userData && userData?.id === productData?.user._id && edit ? 
+                        <input name="price" onChange={(e)=>handleProductUpDate(e)} value={productUpDate.price}/> 
+                        :
+                        <InfoText>${productData.price}</InfoText>
+                        }                       
+                        {
+                        userData && userData?.id === productData?.user._id && edit ? 
+                        <input name="stock" onChange={(e)=>handleProductUpDate(e)} value={productUpDate.stock}/> 
+                        : 
                             productData.stock === 0 ? <Advertise>No hay unidades disponibles por el momento</Advertise> :
                             productData.stock === 1 ? <Advertise>¡Queda una sola unidad!</Advertise> :
                             <Advertise>Quedan {productData.stock} unidades</Advertise>
                         }
                         <InfoTitle>Descripción</InfoTitle>
+                        {
+                        userData && userData?.id === productData?.user._id && edit ? 
+                        <textarea name="description" cols="40" rows="8" onChange={(e)=>handleProductUpDate(e)} value={productUpDate.description}/> 
+                        : 
                         <Description>{productData.description}</Description>
+                        }
                         <Description><strong>Vendido por: </strong> 
                             <UserStyledLink>
                                 <button style={{textDecoration: 'underline'}} onClick={(e) => handleClick(e, "/search")} >
-                                  {productData.user.nickname}
+                                {productData.user.nickname}
                                 </button>
                             </UserStyledLink>
                         </Description>
 
-                        <Description><strong>Categoría:</strong> {productData.category.title}</Description>
-
+                        <Description><strong>Categoría:</strong> 
+                        {
+                             userData && userData?.id === productData?.user._id && edit ? 
+                             categories && (
+                    
+                                <DetailSelectCategories onClick={handleProductUpDateCategory}>
+                                    {categories.map(category => {
+                                    return productUpDate.category.title === category.title?
+                                    <DetailCategoryOption 
+                                    key={category._id} 
+                                    value={category._id} 
+                                    selected
+                                    defaultValue
+                                    >
+                                    {category.title}
+                                    </DetailCategoryOption>
+                                    :
+                                    <DetailCategoryOption 
+                                    key={category._id} 
+                                    value={category._id} 
+                                    >
+                                    {category.title}
+                                    </DetailCategoryOption>})}
+                                </DetailSelectCategories>  
+                           
+                            )
+                             : 
+                        productData.category.title
+                        
+                        }</Description>
+                         {
+                        userData && userData?.id === productData?.user._id ? 
+                            edit ?
+                            <BuyButton onClick={()=>upDateProduct()} >Guardar</BuyButton>
+                            :
+                            <BuyButton disabled>Es tu Producto!</BuyButton>
+                        : 
                         <BuyButton onClick={()=>buy()}>Comprar ahora</BuyButton>
-
+                         }
                         <HurryAdvertise><em>Apúrate! Este artículo se va volando</em></HurryAdvertise>
                        {/*  {
                         userData && userData.favorites ? 
@@ -361,8 +500,8 @@ const ProductDetail = ({productData}) => {
                         : <span></span>
                         }  */}
                         {
-                            userData && userData.favorites && userData.favorites.find(f => f.productId === detail._id) ? <AddingButton><a onClick={() => dispatch(handleFavorites(userData.id, productData._id))}><HeartIcon className="addFavIcon"/> Quitar de favoritos</a></AddingButton> :
-                            userData && userData.favorites && userData.favorites.find(f => f.productId === detail._id) === undefined ? <AddingButton><a onClick={() => dispatch(handleFavorites(userData.id, productData._id))}><HeartIcon className="addFavIcon"/> Agregar a favoritos</a></AddingButton> :
+                            userData && userData.favorites && userData.favorites.find(f => f.productId === productData._id) ? <AddingButton><a onClick={() => dispatch(handleFavorites(userData.id, productData._id))}><HeartIcon className="addFavIcon"/> Quitar de favoritos</a></AddingButton> :
+                            userData && userData.favorites && userData.favorites.find(f => f.productId === productData._id) === undefined ? <AddingButton><a onClick={() => dispatch(handleFavorites(userData.id, productData._id))}><HeartIcon className="addFavIcon"/> Agregar a favoritos</a></AddingButton> :
                             <span></span>
                         } 
                         {/* <AddingButton><HeartIcon className="addFavIcon"/> Agregar a favoritos</AddingButton> */}
@@ -454,6 +593,7 @@ const ProductDetail = ({productData}) => {
     )
 }
 
+
+
+
 export default ProductDetail
-
-

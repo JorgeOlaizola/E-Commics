@@ -50,6 +50,29 @@ const ProfileImg = styled.img`
     height: 150px;
 `
 
+const OrderConteiner = styled.div`
+width: 80%;
+border: 1px solid grey;
+border-radius: 1rem 1rem;
+height: auto;
+padding: 10px;
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+margin: 10px;
+`
+
+const ProductOrderConteiner = styled.div`
+width: 70%;
+border: 0.5px solid black;
+margin: 3px;
+padding: 1rem;
+display: flex;
+justify-content: center;
+flex-direction: column;
+`
+
 const UserPanelSellings = () => {
     const userData = useSelector(state => state.user.userData.user);
     const sellerOrders = useSelector(state => state.user.sellerOrders)
@@ -70,9 +93,31 @@ const UserPanelSellings = () => {
             </DataSection>
             { 
             sellerOrders && sellerOrders.length > 0 ? 
-            sellerOrders.map(order => <div key={order._id}>{order.status} - {order.seller}</div>) 
+            sellerOrders.map(order => 
+            {   let total = 0
+                return (
+                <OrderConteiner key={order._id}>
+                <h4>Orden {order._id}</h4>
+                Estado: {order.status} - ID Comprador:  {order.buyer}
+                    { order.products && order.products.length > 0 ? 
+                    order.products.map(p => {
+                        total += (p.quantity * p.unit_price)
+                        return (
+                        <ProductOrderConteiner key={p._id}>
+                            <span>Producto: <Link href={`/detail/${p._id}`} passHref >{p.title}</Link> __ Clickea el título para acceder al producto</span>
+                            <span>Cantidad: {p.quantity}</span>
+                            <span>Precio total: {p.quantity * p.unit_price}$</span>
+                        </ProductOrderConteiner>
+                        )
+                    }) 
+                    :
+                    <div>No hay ningún producto en esta orden</div>
+                    }
+                    <span>Monto total: {total}$</span>
+                    <Link href={`/orderDetail/[orderDetail]`} as={`/orderDetail/${order._id}`} passHref ><p>Detalle de la orden</p></Link>
+                </OrderConteiner>)}) 
             : 
-            <div>No tienes ventas todavía!</div>
+            <div>No tienes compras todavía!</div>
             }
         </StyledContainer>
     )

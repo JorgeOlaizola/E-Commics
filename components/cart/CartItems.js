@@ -144,7 +144,7 @@ const CartItems = () => {
 		if(userData) {
 			dispatch(getCart(userData.id))
 		}
-	}, [dispatch])
+	}, [dispatch, userData])
 	const cartItems = useSelector(state => state.cart.cartItems);
 	const cartId = useSelector(state => state.cart.cartId);
 	console.log("ya la empece a bardear", userData)
@@ -155,7 +155,6 @@ const CartItems = () => {
 			
 			{userData ? 
 				 cartItems && cartItems.length ? <div> {cartItems.map(ci => {
-					 console.log("en card",ci)
 					return ( <div key={ci._id}>
 						{ ci.products?.map(p => 
 						{ { total += (p.unit_price * p.quantity) }

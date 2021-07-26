@@ -2,9 +2,6 @@ import { user } from '../types';
 
 const initialState = {
     userData: {log: false},
-    sellingProducts: [],
-    boughtProducts: [],
-    soldProducts: [],
     buyerOrders: [],
     sellerOrders: []
 }

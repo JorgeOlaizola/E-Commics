@@ -76,6 +76,15 @@ export function getFavorites (userID) {
     }
 }
 
+//Orders
+
+export function updateOrders (orderId, status, userId) {
+    return function(dispatch) {
+        axios.put('/api/orders', {orderId, status, userId})
+        .then((r) => console.log(r.data))
+    }
+}
+
 export function getOrders (eachCase, userId) {
     return async function(dispatch) {
         try{

@@ -1,14 +1,19 @@
 import nextConnect from 'next-connect'
 import dbConnect from '../../../utils/dbConnect'
 import User from '../../../server/models/User'
-
+import Location from '../../../server/models/Location'
+import { sendConfirmationEmail } from '../../../utils/emailService'
 
 export default nextConnect()
 
 .post( async (req, res) => {
     try{
         await dbConnect()
-        const { name, surname, password, password2, nickname, email, avatar } = req.body
+        const { name, surname, password, password2, nickname, email, avatar, locationId } = req.body
+
+        // Location validation
+        // const location = await Location.findById(locationId).exec()
+        // if(!location) return res.json({ error_msg: 'Localización incorrecta' })
     
         //Validations
         if( !name || !surname || !password || !password2 || !nickname || !email || !avatar) return res.json({ error_msg: 'Hay campos sin completar' })
@@ -23,9 +28,18 @@ export default nextConnect()
         if(testNickname.length) return res.json({ error_msg: 'El nickname se encuentra en uso' })
     
         //Creating the user in the DB
-        const newUser = new User({ name, surname, password, nickname, email, avatar, role:'user', status:'inactive' })
+        const newUser = new User({ name, surname, password, nickname, email, avatar, role:'user', status:'inactive', location: locationId })
         newUser.password = await newUser.encryptPassword(password)
         await newUser.save()
+        
+        //Confirmation e-mail
+        const user = {
+            name: name,
+            email: email
+        }
+        
+        sendConfirmationEmail(user)
+        
         return res.json({ success_msg: 'Bienvenido a E-Commics! El registro se ha realizado con éxito'})
     }
     catch (error) {

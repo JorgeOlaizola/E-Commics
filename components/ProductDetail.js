@@ -23,6 +23,7 @@ import { StyledLink, Input, GradientBorder } from './globalStyle';
 import { useRouter } from 'next/router'
 import axios from 'axios'
 import { showModalAlert } from '../store/actions/modalAlertActions'
+import ImageCarousel from './ImageCarousel'
 //#endregion
 
 //#region Estilos
@@ -315,6 +316,15 @@ const ProductDetail = ({productData}) => {
             }
         })
     }
+    function removeImage(img){
+        if(productUpDate.image.length <= 1){
+            return
+        }
+        setProductUpDate({
+            ...productUpDate,
+            image: productUpDate.image.filter((image)=> img !== image)
+        })
+    }
     function handleEdit(){
         setEdit(!edit)
         //se puede dejar o sacar a gusto de los compas!
@@ -410,9 +420,24 @@ const ProductDetail = ({productData}) => {
                             <StyledLink>← búsqueda</StyledLink>
                         </Link>
                         <ResponsiveTitle>{productData.title}</ResponsiveTitle>
-                        <ImageView>
-                            <StyledImage src={productData.image[0]}/>
+                        
+                        {
+                        userData && userData?.id === productData?.user._id && edit ? 
+                        <ImageView style={{display:"flex", flexDirection:"column"}}>
+                        < ImageCarousel allImages={productUpDate.image} />
+                        <div style={{margin:"auto"}}>
+                        {productUpDate.image.map((a,index)=>{
+                            return productUpDate.image.length > 1 && <button onClick={()=> removeImage(a)} >{`Remover la imagen: ${index}`}</button>
+                        })}
+                        </div>
+                        
                         </ImageView>
+                        : 
+                        <ImageView>
+                            < ImageCarousel allImages={productData.image} />
+                        </ImageView>
+                        }
+                       
                     </ImageContainer>
                     <InfoContainer>
                     {userData && userData?.id === productData?.user._id &&  <button onClick={()=> handleEdit()}>Editar</button>}

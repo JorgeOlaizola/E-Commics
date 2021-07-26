@@ -5,7 +5,7 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
 export const sendConfirmationEmail = (user) => {
    const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET);
-   const url = `http://localhost:3000/confirmation/${token}`;
+   const url = `https://e-commics.vercel.app/confirmation/${token}`;
    const msg = {
       from:{
       email: "ecommics@gmail.com"
@@ -37,7 +37,7 @@ export const sendConfirmationEmail = (user) => {
 
 export const sendResetPassword = (email) => {
     const token = jwt.sign({ email: email }, process.env.JWT_SECRET);
-    const url = `http://localhost:3000/reset/${token}`;
+    const url = `https://e-commics.vercel.app/reset/${token}`;
     const msg = {
       from:{
         email: "ecommics@gmail.com"

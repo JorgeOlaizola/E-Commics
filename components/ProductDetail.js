@@ -21,10 +21,17 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { StyledLink, Input, GradientBorder } from './globalStyle';
 import { useRouter } from 'next/router'
+
 import { ObjectId } from 'mongoose'
 //#endregion
 
 //#region Estilos
+
+import axios from 'axios'
+import { showModalAlert } from '../store/actions/modalAlertActions'
+
+
+//Styled components
 
 const Father = styled.div`
     width: 100%;
@@ -292,6 +299,7 @@ const ProductDetail = ({productData}) => {
     function handleChange(e) {
         setQuestion(e.target.value)
     }
+
     function handleProductUpDate(e) {
         e.preventDefault()
         setProductUpDate({
@@ -322,6 +330,10 @@ const ProductDetail = ({productData}) => {
         router.back()
     }
     function handleSubmit(event) {
+
+
+   async function handleSubmit(event) {
+
         event.preventDefault();
         if(userData){
             const questionCreated = {
@@ -330,6 +342,21 @@ const ProductDetail = ({productData}) => {
                 product: productData._id,
             }
             dispatch(createQuestion(questionCreated, userData?.nickname))
+
+            try {
+                const postQuestion = await axios.post('/api/questions', questionCreated);
+                const questionData = await postQuestion.data
+                if(questionData) {
+                    dispatch(showModalAlert({show:true, message:"La pregunta se ah realizado con exito, te avisaremos cuando el vendedor responda, mientras tanto seguí disfrutando de e-commics"}))
+                    setQuestion("")
+                    document.body.style.overflow = ""
+                } //
+                
+            } catch (error) {
+                console.log(error)
+            }
+
+
         }
     }
 
@@ -476,8 +503,8 @@ const ProductDetail = ({productData}) => {
                         : <span></span>
                         }  */}
                         {
-                            userData && userData.favorites && userData.favorites.find(f => f.productId === detail._id) ? <AddingButton><a onClick={() => dispatch(handleFavorites(userData.id, productData._id))}><HeartIcon className="addFavIcon"/> Quitar de favoritos</a></AddingButton> :
-                            userData && userData.favorites && userData.favorites.find(f => f.productId === detail._id) === undefined ? <AddingButton><a onClick={() => dispatch(handleFavorites(userData.id, productData._id))}><HeartIcon className="addFavIcon"/> Agregar a favoritos</a></AddingButton> :
+                            userData && userData.favorites && userData.favorites.find(f => f.productId === productData._id) ? <AddingButton><a onClick={() => dispatch(handleFavorites(userData.id, productData._id))}><HeartIcon className="addFavIcon"/> Quitar de favoritos</a></AddingButton> :
+                            userData && userData.favorites && userData.favorites.find(f => f.productId === productData._id) === undefined ? <AddingButton><a onClick={() => dispatch(handleFavorites(userData.id, productData._id))}><HeartIcon className="addFavIcon"/> Agregar a favoritos</a></AddingButton> :
                             <span></span>
                         } 
                         {/* <AddingButton><HeartIcon className="addFavIcon"/> Agregar a favoritos</AddingButton> */}

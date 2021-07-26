@@ -1,6 +1,7 @@
 import dbConnect from '../../../utils/dbConnect'
 import nextConnect from 'next-connect'
 import Order from '../../../server/models/Order'
+import User from '../../../server/models/User'
 
 export default nextConnect()
 
@@ -10,13 +11,35 @@ export default nextConnect()
 
         const { eachCase, userId } = req.query
 
-        if(eachCase === 'buyer') {
-            const buyerOrders = await Order.find({}).where({ buyer: userId })
-            return res.json(buyerOrders)
-        }
-        if(eachCase === 'seller') {
-            const sellerOrders = await Order.find({}).where({ seller: userId })
-            return res.json(sellerOrders)
+        if(eachCase === 'seller' || eachCase === 'buyer') {
+            const Orders = await Order.find({}).where({ [eachCase]: userId })
+            if(!Orders) return res.json({ error_msg: 'No se encontró nada'})
+            await User.populate(Orders, { path: 'seller' })
+            await User.populate(Orders, { path: 'buyer' })
+        
+            const result = Orders.map(Orders => {
+            return {
+                status: Orders.status,
+                Payment: Orders.Payment,
+                _id: Orders._id,
+                MerchantOrder: Orders.MerchantOrder,
+                products: Orders.products,
+                buyer: {
+                    _id: Orders.buyer._id,
+                    nickname: Orders.buyer.nickname,
+                    avatar: Orders.buyer.avatar,
+                    name: Orders.buyer.name,
+                    surname: Orders.buyer.surname
+                },
+                seller: {
+                    _id: Orders.seller._id,
+                    nickname: Orders.seller.nickname,
+                    avatar: Orders.seller.avatar,
+                    name: Orders.seller.name,
+                    surname: Orders.seller.surname
+                }
+            }})
+            return res.json(result)
         }
         else {
             return res.json({ error_msg: 'Parámetros inválidos' })

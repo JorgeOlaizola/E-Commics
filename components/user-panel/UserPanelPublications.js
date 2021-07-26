@@ -73,7 +73,7 @@ width: 80%;
 
 const UserPanelPublications = () => {
     const userData = useSelector(state => state.user.userData.user);
-    const products = useSelector(state => state.product.ownProducts);
+    const products = useSelector(state => state.product.ownProducts.products);
     const filters = useSelector(state => state.product.filters);
     const dispatch = useDispatch();
 

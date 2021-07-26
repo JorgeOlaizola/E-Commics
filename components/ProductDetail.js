@@ -21,14 +21,12 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { StyledLink, Input, GradientBorder } from './globalStyle';
 import { useRouter } from 'next/router'
-
-import { ObjectId } from 'mongoose'
+import axios from 'axios'
+import { showModalAlert } from '../store/actions/modalAlertActions'
 //#endregion
 
 //#region Estilos
 
-import axios from 'axios'
-import { showModalAlert } from '../store/actions/modalAlertActions'
 
 
 //Styled components
@@ -329,7 +327,6 @@ const ProductDetail = ({productData}) => {
         setEdit(!edit)
         router.back()
     }
-    function handleSubmit(event) {
 
 
    async function handleSubmit(event) {
@@ -596,6 +593,7 @@ const ProductDetail = ({productData}) => {
     )
 }
 
+
+
+
 export default ProductDetail
-
-

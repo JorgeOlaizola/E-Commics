@@ -56,7 +56,6 @@ width:100%;
 height:60%;
 display:flex;
 justify-content:center;
-
 `
 //ATENCION LO PONGO EN ESPAÑOL DIV MOMENTANEO HASTA QUE SAQUE COMO DAR BLUR SOLO A LA IMAGEN DE FONDO
 const DivParaSafar = styled.div`

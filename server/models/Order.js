@@ -18,7 +18,11 @@ const orderSchema = new mongoose.Schema({
             unit_price:Number,
             title:String,
             quantity: Number,
-            image: [String]
+            image: [String],
+            review: {
+                type: String,
+                default: 'NoReview'
+            }
         }
     ],
     status:{

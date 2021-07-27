@@ -17,10 +17,6 @@ const productSchema = new mongoose.Schema({
         type: mongoose.Schema.ObjectId, 
         ref: "Question" 
     },
-    review: {
-        type: mongoose.Schema.ObjectId, 
-        ref: "Review" 
-    },
 	title: {
 		type: String,
 		required: true

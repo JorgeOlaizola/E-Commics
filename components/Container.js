@@ -8,7 +8,7 @@ import { getUserData, getLocations } from '../store/actions/normalUsersActions.j
 import { verificationCart } from '../store/actions/cartActions.js'; 
 import { lightTheme, darkTheme, GlobalStyles, StyledApp} from './globalStyle'
 import styled, { ThemeProvider } from "styled-components";
-import  ModalAlert from './ModalAlert';
+import  ModalAlert from '../components/ModalAlert';
 import { useRouter } from 'next/router';
 
 const DivContainer = styled.div`

@@ -147,7 +147,10 @@ cursor: pointer;
 }
 `
 
-//backdrop-filter: blur(5px)git pull
+const DontMove = styled.div`
+position: relative;
+`
+
 
   
 const Product = (props) => {
@@ -156,10 +159,18 @@ const Product = (props) => {
 
     const dispatch = useDispatch()
     const image= props.image[0];
-    
+
     useEffect(() => {
         userData && dispatch(getFavorites(userData.id))
-    }, []);
+      }, [])
+
+    const HandleToggleFavorite = () => {
+        dispatch(getFavorites(userData.id))
+        dispatch(handleFavorites(userData.id, props.id))
+        dispatch(getFavorites(userData.id))
+ 
+    }
+
 
     return (
         <>
@@ -179,11 +190,11 @@ const Product = (props) => {
                             <CardProductTitle> {props.title}  </CardProductTitle>
                         </div>
                     </Link>
-                        <div>
+                        <DontMove>
                             <IconContainer>
                                 { 
-                                userData && userData.favorites && userData.favorites.some(obj => obj._id === props.id) ? <HeartIconSolid className="addFavIcon"/>
-                                : userData ? <HeartIconOutline className="addFavIcon"/> 
+                                userData && userData.favorites && userData.favorites.some(obj => obj._id === props.id) ? <HeartIconSolid onClick={HandleToggleFavorite} className="addFavIcon"/>
+                                : userData ? <HeartIconOutline onClick={HandleToggleFavorite} className="addFavIcon"/> 
                                 : <></>
                                 }
                             </IconContainer>
@@ -195,7 +206,7 @@ const Product = (props) => {
                             <Link href={'/detail/[productDetail]'} as={`/detail/${props.id}` } passHref>
                                 <StyledButton onClick={() => dispatch(getProductDetail(props.id))}>ver detalle </StyledButton>
                             </Link><ArrowSpan>→</ArrowSpan>
-                        </div>
+                        </DontMove>
                     </ContainerDetail>
                 </CardContainer>
             

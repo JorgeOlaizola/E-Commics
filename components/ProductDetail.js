@@ -9,7 +9,8 @@ import {
     productToUpDate   
 } from '../store/actions/productActions'
 import {
-    handleFavorites
+    handleFavorites,
+    getFavorites
 } from '../store/actions/normalUsersActions'
 import {
     addItem,
@@ -24,6 +25,11 @@ import { useRouter } from 'next/router'
 import axios from 'axios'
 import { showModalAlert } from '../store/actions/modalAlertActions'
 import ImageCarousel from './ImageCarousel'
+import { AiFillEdit } from 'react-icons/ai';
+import { AiOutlineEdit } from 'react-icons/ai';
+import {FormProductContainer, FormInput, FormTextarea, FormProductInput} from './user-panel/UserStyles.js';
+
+
 //#endregion
 
 //#region Estilos
@@ -280,6 +286,36 @@ width: 100%;
 `
 //#endregion
 
+const EditActiveButton = styled.button`
+background: ${(props) => props.theme.backgroundLevel1};
+border: none;
+border: 1px solid ${(props) => props.theme.fontColor};
+border-bottom: 1px solid ${(props) => props.theme.backgroundLevel1};
+z-index: 10;
+position: relative;
+top: 1px;
+left: 10px;
+padding: 5px 10px;
+cursor: pointer;
+color: ${(props) => props.theme.fontColor};
+&:hover {
+    opacity: ${(props) => props.theme.backgroundSwitch};
+    transition: 0.2s;
+    text-decoration: underline;
+}
+`
+
+const EditInactiveButton = styled(EditActiveButton)`
+background: ${(props) => props.theme.colorLevel4};
+border: 1px solid ${(props) => props.theme.backgroundLevel1};
+border-bottom: 1px solid ${(props) => props.theme.fontColor};
+`
+
+const DivLine = styled.div`
+border-Bottom: 1px solid ${(props) => props.theme.colorLevel3};
+z-index: 9;
+margin-bottom: 10px;
+`
 
 
 const ProductDetail = ({productData}) => {
@@ -404,10 +440,20 @@ const ProductDetail = ({productData}) => {
         e.preventDefault();
         filters.user = productData.user._id;
         dispatch(getFilteredProducts(filters));
-        console.log(filters);
+        
         router.push(path)
     }
+    
+    useEffect(() => {
+        userData && dispatch(getFavorites(userData.id))
+    }, [])
 
+    const HandleToggleFavorite = () => {
+        dispatch(getFavorites(userData.id))
+        dispatch(handleFavorites(userData.id, productData._id))
+        dispatch(getFavorites(userData.id))
+ 
+    }
 {/* <Link style={{textDecoration: 'underline'}} href={`/productsPerUser/[id]`} as={`/productsPerUser/${productData.user._id}` } passHref></Link> */}
 
     return (
@@ -438,23 +484,26 @@ const ProductDetail = ({productData}) => {
                         }
                        
                     </ImageContainer>
-                    <InfoContainer>
-                    {userData && userData?.id === productData?.user._id &&  <button onClick={()=> handleEdit()}>Editar</button>}
+                    <InfoContainer> 
+                    {edit && userData && userData?.id === productData?.user._id &&  <EditActiveButton onClick={()=> handleEdit()}><AiFillEdit className="editIcon" /> Editar</EditActiveButton>
+                    }
+                    {!edit && userData && userData?.id === productData?.user._id &&  <EditInactiveButton onClick={()=> handleEdit()}><AiOutlineEdit className="editIcon" /> Editar</EditInactiveButton>}
+                    {<DivLine></DivLine>}
                         {
                         userData && userData?.id === productData?.user._id && edit ? 
-                        <input name="title" onChange={(e)=>handleProductUpDate(e)} value={productUpDate.title}/> 
+                        <FormProductContainer><span style={{padding: "0px", flexGrow: 1}}>Título</span><FormProductInput name="title" onChange={(e)=>handleProductUpDate(e)} value={productUpDate.title}/> </FormProductContainer>
                         : 
                         <Title>{productData.title}</Title>
                         }
                         {
                         userData && userData?.id === productData?.user._id && edit ? 
-                        <input name="price" onChange={(e)=>handleProductUpDate(e)} value={productUpDate.price}/> 
+                        <FormProductContainer><span style={{padding: "0px", flexGrow: 1}}>Precio $</span><FormProductInput name="price" onChange={(e)=>handleProductUpDate(e)} value={productUpDate.price}/> </FormProductContainer>
                         :
                         <InfoText>${productData.price}</InfoText>
                         }                       
                         {
                         userData && userData?.id === productData?.user._id && edit ? 
-                        <input name="stock" onChange={(e)=>handleProductUpDate(e)} value={productUpDate.stock}/> 
+                        <FormProductContainer><span style={{padding: "0px", flexGrow: 1}}>Cantidad</span><FormProductInput name="stock" onChange={(e)=>handleProductUpDate(e)} value={productUpDate.stock}/> </FormProductContainer>
                         : 
                             productData.stock === 0 ? <Advertise>No hay unidades disponibles por el momento</Advertise> :
                             productData.stock === 1 ? <Advertise>¡Queda una sola unidad!</Advertise> :
@@ -463,11 +512,18 @@ const ProductDetail = ({productData}) => {
                         <InfoTitle>Descripción</InfoTitle>
                         {
                         userData && userData?.id === productData?.user._id && edit ? 
-                        <textarea name="description" cols="40" rows="8" onChange={(e)=>handleProductUpDate(e)} value={productUpDate.description}/> 
+                        <FormTextarea name="description" cols="40" rows="8" onChange={(e)=>handleProductUpDate(e)} value={productUpDate.description}/> 
                         : 
                         <Description>{productData.description}</Description>
                         }
-                        <Description><strong>Vendido por: <Advertise style={{cursor: "pointer"}} onClick={(e) => handleClick(e, "/search")}>{productData.user.nickname}</Advertise></strong></Description>
+
+                        <Description><strong>Vendido por: </strong> 
+                            <UserStyledLink>
+                                <StyledLink onClick={(e) => handleClick(e, "/search")} >
+                                {productData.user.nickname}
+                                </StyledLink>
+                            </UserStyledLink>
+                        </Description>
 
                         <Description><strong>Categoría: </strong> 
                         {
@@ -504,8 +560,8 @@ const ProductDetail = ({productData}) => {
                             edit ?
                             <BuyButton onClick={()=>upDateProduct()} >Guardar</BuyButton>
                             :
-                            <BuyButton disabled>Es tu Producto!</BuyButton>
-                        :
+                            <BuyButton style={{cursor: "unset"}} disabled>Es tu Producto!</BuyButton>
+                        : 
                         productData?.stock === 0 ? <BuyButton disabled>Comprar ahora</BuyButton>
                         :
                         <BuyButton onClick={()=>buy()}>Comprar ahora</BuyButton>
@@ -522,8 +578,8 @@ const ProductDetail = ({productData}) => {
                         : <span></span>
                         }  */}
                         {
-                            userData && userData.favorites && userData.favorites.find(f => f.productId === productData._id) ? <AddingButton><a onClick={() => dispatch(handleFavorites(userData.id, productData._id))}><HeartIcon className="addFavIcon"/> Quitar de favoritos</a></AddingButton> :
-                            userData && userData.favorites && userData.favorites.find(f => f.productId === productData._id) === undefined ? <AddingButton><a onClick={() => dispatch(handleFavorites(userData.id, productData._id))}><HeartIcon className="addFavIcon"/> Agregar a favoritos</a></AddingButton> :
+                            userData && userData.favorites && userData.favorites.find(f => f._id === productData._id) ? <AddingButton><a onClick={HandleToggleFavorite}><HeartIcon className="addFavIcon"/> Quitar de favoritos</a></AddingButton> :
+                            userData && userData.favorites && userData.favorites.find(f => f._id === productData._id) === undefined ? <AddingButton><a onClick={HandleToggleFavorite}><HeartIcon className="addFavIcon"/> Agregar a favoritos</a></AddingButton> :
                             <span></span>
                         } 
                         {/* <AddingButton><HeartIcon className="addFavIcon"/> Agregar a favoritos</AddingButton> */}

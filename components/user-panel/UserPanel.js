@@ -10,6 +10,7 @@ import UserPanelPublications from './UserPanelPublications.js';
 import styled from 'styled-components';
 import { StyledLink } from '../globalStyle';
 import WelcomeMessage from './WelcomeMessage.js';
+import PacmanLoader from "react-spinners/PacmanLoader";
 
 const StyledContainer = styled.div`
     margin-top: 30px;
@@ -121,21 +122,19 @@ const UserPanel = (props) => {
           "page": 1
       }
 
-    // useEffect(() => {
-    //     if(userData.log === false) {
-    //         router.push("/");
-    //     }
+    useEffect(() => {
+        if(!userData) {
+            router.push("/");
+        }
         
-    // }, []);
+    }, [userData]);
 
     function handleClick(event) {
         setState(event.target.name)
     }
 
-    // console.log(dispatch(searchByUser(userData._id)))
-    // console.log(userData._id)
     if (!userData.user) {
-        return <StyledContainer>Cargando...</StyledContainer>
+        return  <div style={{display: "flex", alignItems: "center", justifyContent: "center", height: '500px'}}><PacmanLoader color={"#000"} size={30}/></div>
     }
 
     

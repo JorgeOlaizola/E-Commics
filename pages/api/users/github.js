@@ -13,14 +13,18 @@ export default nextConnect()
     try{
         await dbConnect()
 
-        const { userId, githubEmail } = req.body
+        const { userId, githubID } = req.body
+
+        const check = await User.findOne({}).where({ github: githubID }).exec()
+        if(check) return res.json({ error_msg: 'Ya existe una cuenta vinculada a este GitHub' })
 
         User.findById(userId, (err, user) => {
             if(err) return res.json({ error_msg: 'ID inválido'})
-            user.github = githubEmail
+            if(user.github !== "None") return res.json({ error_msg: 'Este usuario ya está vinculado a una cuenta de GitHub' })
+            user.github = githubID
             user.save((err, user) => {
                 if(err) return res.json({ error_msg: 'Algo salió mal'})
-                return res.json(user.github)
+                return res.json({ success_msg: `La cuenta se ha vinculado a GitHubID: ${user.github} con éxito`})
             })
         })
     }
@@ -34,9 +38,9 @@ export default nextConnect()
     try{
         await dbConnect()
 
-        const { githubEmail } = req.body
+        const { githubID } = req.body
 
-        const user = await User.findOne({ github: githubEmail }).exec()
+        const user = await User.findOne({ github: githubID }).exec()
         if(!user) return res.json({ error_msg: 'No hay ninguna cuenta vinculada con ese perfil de GitHub' })
         else{
             const token = jwt.sign({ id: user._id }, KEY)

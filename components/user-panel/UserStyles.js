@@ -131,6 +131,25 @@ export const FormInput = styled.input`
     width: 100%;
 `
 
+export const FormProductContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content:  space-between;
+    margin: 10px 0;
+`
+
+export const FormProductInput = styled.input`
+    margin-top: 0rem;
+    width: 70%;
+    flex-grow: 4;
+`
+export const FormTextarea = styled.textarea`
+    margin-top: 0.4rem;
+    width: 100%;
+    font-family: roboto;
+`
+
+
 export const FormInputs = styled.div`
     display: block;
     padding: 0 10px;

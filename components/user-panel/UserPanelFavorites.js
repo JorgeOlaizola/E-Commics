@@ -55,31 +55,47 @@ const StyledButton = styled.button`
 `
 
 const ProfileImg = styled.img`
-    border-radius: 50%;
+    ${'' /* border-radius: 50%; */}
     width: 150px;
     height: 150px;
+    margin: 0 20px;
 `
 
 const ProductConteiner = styled.div`
 width: 70%;
-height: 200px;
+height: 100%;
 border: 1px solid grey;
 display: flex;
 padding: 30px;
 margin: 10px;
-border-radius: 0.5rem 0.5rem;
 justify-content: start;
 align-items: center;
+flex-wrap: wrap;
+justify-content: space-around;
 `
 
 const ProductInfoConteiner = styled.div`
 display: flex;
 flex-direction: column;
 justify-content: center;
-align-items: center;
-width: 80%;
-`
+align-items: left;
+width: 250px;
 
+`
+const EraseButton = styled.button`
+background: ${(props) => props.theme.backgroundButton2};
+color: ${(props) => props.theme.colorLevel2};
+border: none;
+cursor: pointer;
+font-size: 0.75rem;
+font-family: ubuntu;
+font-weight: 300;
+padding: 4px;
+&:hover {
+        color: ${(props) => props.theme.fontColor};
+        background: ${(props) => props.theme.colorLevel4};
+    }
+`
 
 const UserPanelFavorites = () => {
     const userData = useSelector(state => state.user.userData.user);
@@ -90,6 +106,13 @@ const UserPanelFavorites = () => {
         // }
         dispatch(getFavorites(userData.id))
 }, []);
+
+const HandleToggleFavorite = (userDataId, Fid) => {
+    
+    dispatch(handleFavorites(userDataId, Fid))
+    dispatch(getFavorites(userDataId))
+
+}
 
     return (
         <StyledContainer>
@@ -103,9 +126,9 @@ const UserPanelFavorites = () => {
                 {/* <Link href={'/detail/[productDetail]'} as={`/detail/${f._id}` } passHref> */}
                     <h3>{f.title} </h3>
                 {/* </Link> */}
-                    <span> Precio: {f.price}$</span> 
-                    <span> Categoría: {f.category.title}</span>
-                    <button onClick={() => dispatch(handleFavorites(userData.id, f._id)) } >Eliminar favorito</button>
+                    <span> <strong>Precio:</strong> {f.price}$</span> 
+                    <span> <strong>Descripción:</strong> {f.description}</span>
+                    <EraseButton style={{marginTop: "10px"}} onClick={() => HandleToggleFavorite(userData.id, f._id) } >Eliminar favorito</EraseButton>
                 </ProductInfoConteiner>
             </ProductConteiner>) 
             : <div>Todavía no tienes productos en favoritos.</div>}

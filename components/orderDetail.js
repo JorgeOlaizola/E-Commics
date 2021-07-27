@@ -68,7 +68,7 @@ const OrderDetailComponent = ({ orderProps }) => {
                 let form = false
                 return (
                     <ProductOrderConteiner key={p._id}>
-                            <ProductImg src={p.image}></ProductImg>
+                            <ProductImg src={p.image[0]}></ProductImg>
                             <ProductInfo>
                                 <span>Producto: <Link href={`/detail/${p._id}`} passHref >{p.title}</Link> __ Clickea el título para acceder al producto</span>
                                 <span>Cantidad: {p.quantity}</span>
@@ -81,7 +81,7 @@ const OrderDetailComponent = ({ orderProps }) => {
                                         <textarea name="content" type="text" placeholder="Opinión" required></textarea>
                                         <input name="rating" type="number" max='5' min='0' placeholder="Puntaje" required></input>
                                         <input type="submit" value="Enviar reseña" />
-                                    </form>}
+                                    </form> }
                                 </p> 
                                 : <span></span>}
                             </ProductInfo>

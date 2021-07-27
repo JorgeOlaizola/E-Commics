@@ -17,7 +17,16 @@ export default nextConnect()
             Payment: Orders.Payment,
             _id: Orders._id,
             MerchantOrder: Orders.MerchantOrder,
-            products: Orders.products,
+            products: Orders.products.map(p => {
+                return {
+                    review: p.review,
+                    _id: p._id,
+                    unit_price: p.unit_price,
+                    title: p.title,
+                    quantity: p.quantity,
+                    image: p.image[0].includes("&&") ? p.image[0].split("&&") : [p.image]
+                }
+            }),
             buyer: {
                 _id: Orders.buyer._id,
                 nickname: Orders.buyer.nickname,

@@ -121,7 +121,7 @@ const UserPanelBuys = () => {
                         total += (p.quantity * p.unit_price)
                         return (
                         <ProductOrderConteiner key={p._id}>
-                            <ProductImg src={p.image}></ProductImg>
+                            <ProductImg src={p.image[0]}></ProductImg>
                             <ProductInfo>
                                 <span>Producto: <Link href={`/detail/${p._id}`} passHref >{p.title}</Link> __ Clickea el título para acceder al producto</span>
                                 <span>Cantidad: {p.quantity}</span>

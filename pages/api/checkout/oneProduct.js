@@ -63,7 +63,7 @@ export default nextConnect()
                     quantity,
                     image: prod.image
                 }],
-                status,
+                status : status === "approved" ? 'Pago realizado' : 'Pendiente de pago',
                 MerchantOrder: merchant_order_id,
                 Payment: payment_id
             }

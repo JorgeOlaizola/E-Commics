@@ -70,7 +70,7 @@ margin: 3px;
 padding: 1rem;
 display: flex;
 justify-content: center;
-flex-direction: column;
+flex-direction: raw;
 `
 
 const ProductImg = styled.img`

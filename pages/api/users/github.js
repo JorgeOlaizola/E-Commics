@@ -15,12 +15,16 @@ export default nextConnect()
 
         const { userId, githubEmail } = req.body
 
+        const check = await User.findOne({}).where({ github: githubEmail }).exec()
+        if(check) return res.json({ error_msg: 'Ya existe una cuenta vinculada a este GitHub' })
+
         User.findById(userId, (err, user) => {
             if(err) return res.json({ error_msg: 'ID inválido'})
+            if(user.github !== "None") return res.json({ error_msg: 'Este usuario ya está vinculado a una cuenta de GitHub' })
             user.github = githubEmail
             user.save((err, user) => {
                 if(err) return res.json({ error_msg: 'Algo salió mal'})
-                return res.json(user.github)
+                return res.json({ success_msg: `La cuenta se ha vinculado a ${user.github} con éxito`})
             })
         })
     }

@@ -1,8 +1,10 @@
 import styled from 'styled-components'
 import Link from 'next/link'
 import { useSelector, useDispatch } from 'react-redux'
+import { useEffect } from 'react'
 import { updateOrders } from '../store/actions/normalUsersActions'
 import axios from 'axios'
+import { useRouter } from 'next/router'
 
 const OrderDetailConteiner = styled.div`
 width: 80%;
@@ -40,8 +42,13 @@ padding: 5px;
 
 const OrderDetailComponent = ({ orderProps }) => {
     
-    console.log(orderProps)
+    const router = useRouter()
     const userData = useSelector(state => state.user.userData.user)
+    useEffect(() => {
+        if(!userData) {
+            router.push("/")
+        }
+    }, [])
     const dispatch = useDispatch()
     console.log(userData)
     let total = 0
@@ -73,7 +80,7 @@ const OrderDetailComponent = ({ orderProps }) => {
                                 <span>Producto: <Link href={`/detail/${p._id}`} passHref >{p.title}</Link> __ Clickea el título para acceder al producto</span>
                                 <span>Cantidad: {p.quantity}</span>
                                 <span>Precio total: {p.quantity * p.unit_price}$</span>
-                                { userData.id && userData.id === orderProps.buyer._id &&  orderProps.status === 'Recibido' ? 
+                                { userData && userData.id === orderProps.buyer._id &&  orderProps.status === 'Recibido' ? 
                                 <p>
                                     <button onClick={() => { form = !form; console.log(form) }}>Dejar review</button>
                                     
@@ -93,8 +100,8 @@ const OrderDetailComponent = ({ orderProps }) => {
             :
             'No hay productos'
             }</p>
-            { userData.id && userData.id === orderProps.seller._id &&  orderProps.status === 'approved' ? <button onClick={() => dispatch(updateOrders(orderProps._id, orderProps.status, userData.id))}>Despaché este producto</button> : null}
-            { userData.id && userData.id === orderProps.buyer._id &&  orderProps.status === 'En proceso de entrega' ? <button onClick={() => dispatch(updateOrders(orderProps._id, orderProps.status, userData.id))}>Recibí este producto</button> : null}
+            { userData && userData.id === orderProps.seller._id &&  orderProps.status === 'approved' ? <button onClick={() => dispatch(updateOrders(orderProps._id, orderProps.status, userData.id))}>Despaché este producto</button> : null}
+            { userData && userData.id === orderProps.buyer._id &&  orderProps.status === 'En proceso de entrega' ? <button onClick={() => dispatch(updateOrders(orderProps._id, orderProps.status, userData.id))}>Recibí este producto</button> : null}
         </OrderDetailConteiner>
     )
 }

@@ -89,6 +89,9 @@ const AddProductForm = () => {
         category: '',
         user: user?.id
     })
+
+    const [loading, setLoading] = useState("false");
+
     const router = useRouter()
 
     function handleChange(e) {
@@ -108,7 +111,7 @@ const AddProductForm = () => {
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("mande")
+        setLoading("true");
         const terminos = document.getElementById("terminos")
         if (terminos.checked) {
             if (imageSelected) {
@@ -128,11 +131,11 @@ const AddProductForm = () => {
                             ...input,
                             image: data.join("&&")
                         }
-
-                        dispatch(addSellingProduct(respuesta));
-                        setTimeout(() => {
-                            router.push("/search")
-                        }, 2000)
+                        dispatch(addSellingProduct(respuesta))
+                        setLoading('done')
+                        // setTimeout(() => {
+                        //     router.push("/search")
+                        // }, 2000)
                     })
 
 
@@ -141,8 +144,6 @@ const AddProductForm = () => {
         else {
             alert("Debes aceptar los terminos y condiciones")
         }
-
-
     }
     function handleSelect(e) {
         e.preventDefault();
@@ -172,7 +173,24 @@ const AddProductForm = () => {
     }
     return (
         <>
-            {user?.id ?
+            {loading === "done" ?
+                <DivContainer>
+                    <Space/>
+                    <div>
+                        <h2>Felicitaciones, tu producto ya se encuentra publicado!</h2>
+                        <p>¿Deseas publicar otro producto? <a onClick={() => {setLoading("false"), setImageSelected([]), setInput({
+                            title: '',
+                            description: '',
+                            stock: 0,
+                            price: 0,
+                            image: [],
+                            category: '',
+                            user: user?.id
+                        })}}>click aqui</a></p>
+                        <p>O puedes visitar el catálogo de productos <a onClick={() => {router.push('/search')}}>click aqui</a></p>
+                    </div>
+                </DivContainer> :
+            user?.id && loading === "false" ?
                 <DivContainer>
                     <h2>¿Qué vas a publicar?</h2>
                     <FormContainer onSubmit={(e) => { handleSubmit(e) }} >

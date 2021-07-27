@@ -55,7 +55,7 @@ const SignInForm = () => {
         loginWithGitHub()
             .then(user => {
                 if(user.user.email){
-                   return axios.post('/api/users/github', {githubEmail: user.user.email})
+                   return axios.post('/api/users/github', {githubID: user.user.uid})
                 }
                 else onCloseSession().then(r => console.log(r)).catch(err=> console.log(err))
                 })

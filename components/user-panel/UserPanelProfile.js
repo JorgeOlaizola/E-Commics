@@ -104,7 +104,7 @@ const UserPanelProfile = () => {
     const handleGitHubLink = async () => {
         loginWithGitHub()
         .then(r => { console.log(r.user)
-            return axios.put('/api/users/github', {userId: userData.user.id, githubEmail: r.user.email}).catch(err => console.log(err))
+            return axios.put('/api/users/github', {userId: userData.user.id, githubID: r.user.uid}).catch(err => console.log(err))
         })
         .then(r => {
             if(r.data.error_msg){

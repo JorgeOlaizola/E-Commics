@@ -71,15 +71,12 @@ const UserPanelProfile = () => {
                     <h3>Datos personales</h3>
                     <DataText><strong>Nombre:</strong> {userData.user.name}</DataText>
                     <DataText><strong>Apellido:</strong> {userData.user.surname}</DataText>
-                    <DataText><strong>Email:</strong> <input placeholder={userData.user.email} /></DataText>
-                    <DataText><strong>Usuario:</strong> <input placeholder={userData.user.nickname} /></DataText>
-                    <GradientBorder className="">
-                        <Input type="submit">Modificar</Input>
-                    </GradientBorder>
+                    <DataText><strong>Email:</strong> {userData.user.email}</DataText>
+                    <DataText><strong>Usuario:</strong> {userData.user.nickname}</DataText>
                     <GradientBorder>
                         <button onClick={() => handleGitHubLink()}>Vincular con GitHub</button>
                     </GradientBorder>
-                    <span>¿Hubo un  error en la carga de tu nombre o apellido? <a href="mailto:ecommics@gmail.com" style={{color: "#0096FF"}}>Escríbenos</a></span>
+                    <span>¿Hubo un  error en la carga de tu nombre o apellido? <a href="/help/contact" style={{color: "#0096FF"}}>Escríbenos</a></span>
                 </DataColumn>
             </DataSection>
         </StyledContainer>

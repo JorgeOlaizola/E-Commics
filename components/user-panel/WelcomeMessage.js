@@ -7,7 +7,7 @@ function WelcomeMessage() {
 
     return (
         <>
-            {userData.user.nickname? <h1>¡Hola  {userData.user.nickname} !</h1>: <h1>Quién eres?</h1>}
+            {userData.user.nickname? <h1>¡Hola  {userData.user.nickname}!</h1>: <h1>Quién eres?</h1>}
         </>
     )
 }

@@ -1,11 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addSellingProduct } from '../../store/actions/productActions.js';
-import { getUserData } from '../../store/actions/normalUsersActions.js';
 import styled from 'styled-components'
 import axios from 'axios';
 import { useRouter } from 'next/router'
-import Image from 'next/image'
 import PacmanLoader from "react-spinners/PacmanLoader";
 import { Input, GradientBorder, DisableBorder, InputDisable } from '../globalStyle';
 
@@ -131,11 +129,9 @@ const AddProductForm = () => {
                             ...input,
                             image: data.join("&&")
                         }
+                        console.log(respuesta)
                         dispatch(addSellingProduct(respuesta))
                         setLoading('done')
-                        // setTimeout(() => {
-                        //     router.push("/search")
-                        // }, 2000)
                     })
 
 
@@ -159,7 +155,6 @@ const AddProductForm = () => {
         
         let image = [...e.target.files]
         if(image.length > 5){
-            //avisamos el maximo de imagenes
             alert("El maximo de imagenes es de 5")
         }
         image = image.slice(0,5)

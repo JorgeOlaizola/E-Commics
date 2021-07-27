@@ -98,12 +98,6 @@ const UserPanel = (props) => {
     const userData = useSelector(state => state.user.userData);
     const products = useSelector(state => state.product.products);
     const router = useRouter();
-
-
-    useEffect(() => {
-        /* dispatch(getProductsByUser(data)) */
-    }, [])
-  
   
     const data = {
           "user" : `${userData._id}`,
@@ -127,12 +121,12 @@ const UserPanel = (props) => {
           "page": 1
       }
 
-    useEffect(() => {
-        if(userData.log === false) {
-            router.push("/");
-        }
+    // useEffect(() => {
+    //     if(userData.log === false) {
+    //         router.push("/");
+    //     }
         
-    }, []);
+    // }, []);
 
     function handleClick(event) {
         setState(event.target.name)

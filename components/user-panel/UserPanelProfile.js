@@ -146,7 +146,7 @@ const UserPanelProfile = () => {
                     <GradientBorder>
                         <button onClick={() => handleGitHubLink()}>Vincular con GitHub</button>
                     </GradientBorder>
-                    <span>¿Hubo un  error en la carga de tu nombre o apellido? <a href="/help/contact" style={{color: "#0096FF"}}>Escríbenos</a></span>
+                    <span>¿Hubo un  error en la carga de tu nombre o apellido? <Link href="/help/contact" style={{color: "#0096FF"}}>Escríbenos</Link></span>
                 </DataColumn>
             </DataSection>
         </StyledContainer>

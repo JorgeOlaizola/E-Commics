@@ -65,7 +65,7 @@ const UserPanelProfile = () => {
             <DataSection>
                 <DataColumn>
                     <h3>Imagen de perfil</h3>
-                    <ProfileImg src={userData.user.avatar || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'} />
+                    <ProfileImg src={userData.user.avatar} />
                 </DataColumn>
                 <DataColumn>
                     <h3>Datos personales</h3>

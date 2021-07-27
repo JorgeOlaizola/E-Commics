@@ -129,11 +129,11 @@ const UserPanel = (props) => {
       }
 
     useEffect(() => {
-        if(userData.log === false) {
+        if(!userData) {
             router.push("/");
         }
         
-    }, []);
+    }, [userData]);
 
     function handleClick(event) {
         setState(event.target.name)

@@ -73,6 +73,18 @@ justify-content: center;
 flex-direction: column;
 `
 
+const ProductImg = styled.img`
+width: auto;
+height: 150px;
+border: 1px solid black
+`
+
+const ProductInfo = styled.div`
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center`
+
 const UserPanelSellings = () => {
     const userData = useSelector(state => state.user.userData.user);
     const sellerOrders = useSelector(state => state.user.sellerOrders)
@@ -98,15 +110,18 @@ const UserPanelSellings = () => {
                 return (
                 <OrderConteiner key={order._id}>
                 <h4>Orden {order._id}</h4>
-                Estado: {order.status} - ID Comprador:  {order.buyer}
+                Estado: {order.status} - Comprador:  {order.buyer.nickname}
                     { order.products && order.products.length > 0 ? 
                     order.products.map(p => {
                         total += (p.quantity * p.unit_price)
                         return (
                         <ProductOrderConteiner key={p._id}>
-                            <span>Producto: <Link href={`/detail/${p._id}`} passHref >{p.title}</Link> __ Clickea el título para acceder al producto</span>
-                            <span>Cantidad: {p.quantity}</span>
-                            <span>Precio total: {p.quantity * p.unit_price}$</span>
+                            <ProductImg src={p.image}></ProductImg>
+                            <ProductInfo>
+                                <span>Producto: <Link href={`/detail/${p._id}`} passHref >{p.title}</Link> __ Clickea el título para acceder al producto</span>
+                                <span>Cantidad: {p.quantity}</span>
+                                <span>Precio total: {p.quantity * p.unit_price}$</span>
+                            </ProductInfo>
                         </ProductOrderConteiner>
                         )
                     }) 

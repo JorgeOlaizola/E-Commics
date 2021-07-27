@@ -16,7 +16,22 @@ export default nextConnect()
         if(!verification) return res.json({ error_msg: 'Unauthorized'})
         const user = await User.findById(req.query.userID)
         const userFavorites = await Product.populate(user, { path: 'favorites' })
-        return res.json(userFavorites.favorites)
+        let result =  userFavorites.favorites.map(f => {
+            let eachFavorite = {
+                status: f.status,
+                _id: f._id,
+                title: f.title,
+                description: f.description,
+                stock: f.stock,
+                price: f.price,
+                user: f.user,
+                category: f.category,
+                image: f.image.includes("&&") ? f.image.split("&&") : [f.image]
+            }
+            return eachFavorite
+        })
+        
+        return res.json(result)
     }
     catch (error) {
         console.log(error)

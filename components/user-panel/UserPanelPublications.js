@@ -73,7 +73,7 @@ width: 80%;
 
 const UserPanelPublications = () => {
     const userData = useSelector(state => state.user.userData.user);
-    const products = useSelector(state => state.product.ownProducts);
+    const products = useSelector(state => state.product.ownProducts.products);
     const filters = useSelector(state => state.product.filters);
     const dispatch = useDispatch();
 
@@ -96,7 +96,7 @@ const UserPanelPublications = () => {
             <ImageSlider />
             {products && products.length > 0 ? products.map(p => 
                 <ProductConteiner key={p._id}>
-                    <ProfileImg src={p.image}>
+                    <ProfileImg src={p.image[0]}>
                     </ProfileImg>
                     <ProductInfoConteiner>
                     <h3>{p.title} </h3>

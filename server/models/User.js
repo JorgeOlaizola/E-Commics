@@ -56,6 +56,10 @@ const userSchema = new mongoose.Schema({
 	},
 	notifications: {
 		type: [String]
+	},
+	github: {
+		type: String,
+		default: 'None'
 	}
 });
 

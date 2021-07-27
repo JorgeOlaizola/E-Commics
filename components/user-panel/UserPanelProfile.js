@@ -2,6 +2,8 @@ import Link from 'next/link';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { GradientBorder, Input  } from '../globalStyle'
+import { loginWithGitHub } from '../../firebase/client'
+import axios from 'axios'
 
 
 const StyledContainer = styled.div`
@@ -52,12 +54,18 @@ const ProfileImg = styled.img`
 const UserPanelProfile = () => {
     const userData = useSelector(state => state.user.userData);
 
+    const handleGitHubLink = async () => {
+        loginWithGitHub()
+        .then(r => axios.put('/api/users/github', {userId: userData.user.id, githubEmail: r.user.email}))
+        .then(r => console.log(r.data))
+    }
+
     return (
         <StyledContainer>
             <DataSection>
                 <DataColumn>
                     <h3>Imagen de perfil</h3>
-                    <ProfileImg src={userData.user.avatar || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'} />
+                    <ProfileImg src={userData.user.avatar} />
                 </DataColumn>
                 <DataColumn>
                     <h3>Datos personales</h3>
@@ -67,6 +75,9 @@ const UserPanelProfile = () => {
                     <DataText><strong>Usuario:</strong> <input placeholder={userData.user.nickname} /></DataText>
                     <GradientBorder className="">
                         <Input type="submit">Modificar</Input>
+                    </GradientBorder>
+                    <GradientBorder>
+                        <button onClick={() => handleGitHubLink()}>Vincular con GitHub</button>
                     </GradientBorder>
                     <span>¿Hubo un  error en la carga de tu nombre o apellido? <a href="mailto:ecommics@gmail.com" style={{color: "#0096FF"}}>Escríbenos</a></span>
                 </DataColumn>

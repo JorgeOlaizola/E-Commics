@@ -438,7 +438,6 @@ const ProductDetail = ({productData}) => {
 
     const handleClick = (e, path) => {
         e.preventDefault();
-
         filters.user = productData.user._id;
         dispatch(getFilteredProducts(filters));
         
@@ -517,6 +516,7 @@ const ProductDetail = ({productData}) => {
                         : 
                         <Description>{productData.description}</Description>
                         }
+
                         <Description><strong>Vendido por: </strong> 
                             <UserStyledLink>
                                 <StyledLink onClick={(e) => handleClick(e, "/search")} >
@@ -562,9 +562,13 @@ const ProductDetail = ({productData}) => {
                             :
                             <BuyButton style={{cursor: "unset"}} disabled>Es tu Producto!</BuyButton>
                         : 
+                        productData?.stock === 0 ? <BuyButton disabled>Comprar ahora</BuyButton>
+                        :
                         <BuyButton onClick={()=>buy()}>Comprar ahora</BuyButton>
                          }
-                        <HurryAdvertise><em>Apúrate! Este artículo se va volando</em></HurryAdvertise>
+                         {
+                            productData?.stock === 0 ? <HurryAdvertise><em>Espera a que el vendedor reponga este artículo!</em></HurryAdvertise> : <HurryAdvertise><em>Apúrate! Este artículo se va volando</em></HurryAdvertise>
+                        }
                        {/*  {
                         userData && userData.favorites ? 
                             (userData.favorites.find(f => f.productId === detail._id) ?
@@ -579,8 +583,9 @@ const ProductDetail = ({productData}) => {
                             <span></span>
                         } 
                         {/* <AddingButton><HeartIcon className="addFavIcon"/> Agregar a favoritos</AddingButton> */}
-
-                        <AddingButton onClick={() => handleCart()}><ShoppingCartIcon className="addCartIcon"/> Agregar al carrito</AddingButton>
+                        {
+                            productData?.stock === 0 ? null : <AddingButton onClick={() => handleCart()}><ShoppingCartIcon className="addCartIcon"/> Agregar al carrito</AddingButton>
+                        }
                         <Space/>
                         <InfoTitle>Medios de pago</InfoTitle>
                         <Description>

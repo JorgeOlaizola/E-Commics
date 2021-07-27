@@ -109,10 +109,10 @@ const Footer = () => {
                     </FooterColumn>
                     <FooterColumn>
                     <FooterTitle>Acerca de</FooterTitle>
-                        <StyledText href="#">ecommics</StyledText>
+                        <StyledText href="/help/contact">Contacto</StyledText>
                         <StyledText href="#">Investors</StyledText>
-                        <StyledText href="#">Política de privacidad</StyledText>
-                        <StyledText href="#">Términos de uso</StyledText>
+                        <StyledText href="/help/privacy">Política de privacidad</StyledText>
+                        <StyledText href="/help/terms-and-conditions">Términos de uso</StyledText>
                     </FooterColumn>
                     <FooterColumn>
                     <FooterTitle>Contacto</FooterTitle>

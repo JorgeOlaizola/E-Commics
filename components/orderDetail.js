@@ -65,7 +65,7 @@ const OrderDetailComponent = ({ orderProps }) => {
             <p>Pago: {orderProps.Payment}</p>
             <p>Comprador: {orderProps.buyer.name} {orderProps.buyer.surname} ({orderProps.buyer.nickname})</p>
             <p>Vendedor: {orderProps.seller.name} {orderProps.seller.surname} ({orderProps.seller.nickname})</p>
-            <p>Estado: { orderProps.status === 'approved' ? 'Pago realizado' : orderProps.stauts === 'pending' ? 'Pendiente de pago' : orderProps.status}</p>
+            <p>Estado: {orderProps.status}</p>
             <p>Productos: {orderProps.products && orderProps.products.length > 0 ?
             <span>
             {
@@ -81,8 +81,18 @@ const OrderDetailComponent = ({ orderProps }) => {
             :
             'No hay productos'
             }</p>
-            { userData && userData.id === orderProps.seller._id &&  orderProps.status === 'Pago realizado' ? <button onClick={() => dispatch(updateOrders(orderProps._id, orderProps.status, userData.id))}>Despaché este producto</button> : null}
-            { userData && userData.id === orderProps.buyer._id &&  orderProps.status === 'En proceso de entrega' ? <button onClick={() => dispatch(updateOrders(orderProps._id, orderProps.status, userData.id))}>Recibí este producto</button> : null}
+            { userData.user && userData.user.id === orderProps.seller._id &&  orderProps.status === 'Pago realizado' ? 
+            <button onClick={() => {
+                dispatch(updateOrders(orderProps._id, orderProps.status, userData.user.id))
+                alert('Estado actualizado')
+                router.push(`/orderDetail/${orderProps._id}`)
+                }}>Despaché este producto</button> : null}
+            { userData.user && userData.user.id === orderProps.buyer._id &&  orderProps.status === 'En proceso de entrega' ? 
+            <button onClick={() => {
+                dispatch(updateOrders(orderProps._id, orderProps.status, userData.user.id))
+                alert('Estado actualizado')
+                router.push(`/orderDetail/${orderProps._id}`)
+                }}>Recibí este producto</button> : null}
         </OrderDetailConteiner>
     )
 }

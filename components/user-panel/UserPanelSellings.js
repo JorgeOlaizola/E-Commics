@@ -141,7 +141,7 @@ const UserPanelSellings = () => {
                     <Link href={`/orderDetail/[orderDetail]`} as={`/orderDetail/${order._id}`} passHref ><p>Detalle de la orden</p></Link>
                 </OrderConteiner>)}) 
             : 
-            <div>No tienes compras todavía!</div>
+            <div>No tienes ventas todavía!</div>
             }
         </StyledContainer>
     )

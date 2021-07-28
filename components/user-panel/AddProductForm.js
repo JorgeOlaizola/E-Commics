@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addSellingProduct } from '../../store/actions/productActions.js';
 import styled from 'styled-components'
@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 import PacmanLoader from "react-spinners/PacmanLoader";
 import { Input, GradientBorder, DisableBorder, InputDisable } from '../globalStyle';
 
+//#region  estilos
 const DivContainer = styled.div`
 margin:auto;
 display: flex;
@@ -71,6 +72,7 @@ const StyledImage = styled.img`
 const Space = styled.div`
     height: 100px;
 `
+//#endregion
 
 const AddProductForm = () => {
     const dispatch = useDispatch();
@@ -91,6 +93,13 @@ const AddProductForm = () => {
     const [loading, setLoading] = useState("false");
 
     const router = useRouter()
+
+    useEffect(()=>{
+        setInput({
+            ...input,
+            user: user?.id
+        })
+    },[dispatch, user])
 
     function handleChange(e) {
         if (e.target.value < 0) {

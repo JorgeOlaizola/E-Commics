@@ -37,10 +37,6 @@ const productSchema = new mongoose.Schema({
 	cart_Items: {
 		type: Number,
 	},
-	price: {
-		type: Number,
-		required: true
-	},
 	created_at: {
 		type: Date
 	},
@@ -48,7 +44,33 @@ const productSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 		default: 'active'
+	},
+	realprice:{
+		type: Number,
+		required: true,
+	},
+	discount:{
+		type: Number,
+		required:true,
+		default:0
+	},
+	price: {
+		type:Number
 	}
 });
 
+productSchema.methods.applyDiscount = (realPrice, discount) => {
+    return realPrice - ((realPrice / 100) * discount)
+}
+
 module.exports = mongoose.models.Product || mongoose.model('Product', productSchema);
+
+
+/*
+price => realPrice - ((realPrice % 100 ) * discount)
+realPrice => 2500
+discunt => 0
+
+
+
+*/

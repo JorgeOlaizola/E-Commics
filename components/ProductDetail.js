@@ -318,7 +318,8 @@ margin-bottom: 10px;
 `
 
 
-const ProductDetail = ({productData, productStore }) => {
+
+const ProductDetail = ({productData}) => {
 
     const router = useRouter()
     const dispatch = useDispatch()
@@ -501,10 +502,17 @@ const ProductDetail = ({productData, productStore }) => {
                         }
                         {
                         userData && userData?.id === productData?.user._id && edit ? 
-                        <FormProductContainer><span style={{padding: "0px", flexGrow: 1}}>Precio $</span><FormProductInput name="price" onChange={(e)=>handleProductUpDate(e)} value={productUpDate.price}/> </FormProductContainer>
+                        <FormProductContainer><span style={{padding: "0px", flexGrow: 1}}>Precio $</span><FormProductInput name="realprice" onChange={(e)=>handleProductUpDate(e)} min="1"  value={productUpDate.realprice}/> </FormProductContainer>
                         :
-                        <InfoText>${productStore.price}</InfoText>
-                        }                       
+
+                        <InfoText>${productData.price}</InfoText>
+                        }       
+                        {
+                        userData && userData?.id === productData?.user._id && edit ? 
+                        <FormProductContainer><span style={{padding: "0px", flexGrow: 1}}>Descuento %</span><FormProductInput name="discount" onChange={(e)=>handleProductUpDate(e)} max="100" min="0" value={productUpDate.discount}/> </FormProductContainer>
+                        :
+                        <InfoText>{productData.discount ? "Con un %" + productData.discount + " de descuento!" : "" }</InfoText>
+                        }                  
                         {
                         userData && userData?.id === productData?.user._id && edit ? 
                         <FormProductContainer><span style={{padding: "0px", flexGrow: 1}}>Cantidad</span><FormProductInput name="stock" onChange={(e)=>handleProductUpDate(e)} value={productUpDate.stock}/> </FormProductContainer>

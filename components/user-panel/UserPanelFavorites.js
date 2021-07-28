@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { GradientBorder, Input  } from '../globalStyle'
+import { GradientBorder, Input, EraseButton  } from '../globalStyle'
 import {
     getFavorites,
     handleFavorites 
@@ -82,20 +82,20 @@ align-items: left;
 width: 250px;
 
 `
-const EraseButton = styled.button`
-background: ${(props) => props.theme.backgroundButton2};
-color: ${(props) => props.theme.colorLevel2};
-border: none;
-cursor: pointer;
-font-size: 0.75rem;
-font-family: ubuntu;
-font-weight: 300;
-padding: 4px;
-&:hover {
-        color: ${(props) => props.theme.fontColor};
-        background: ${(props) => props.theme.colorLevel4};
-    }
-`
+// const EraseButton = styled.button`
+// background: ${(props) => props.theme.backgroundButton2};
+// color: ${(props) => props.theme.colorLevel2};
+// border: none;
+// cursor: pointer;
+// font-size: 0.75rem;
+// font-family: ubuntu;
+// font-weight: 300;
+// padding: 4px;
+// &:hover {
+//         color: ${(props) => props.theme.fontColor};
+//         background: ${(props) => props.theme.colorLevel4};
+//     }
+// `
 
 const UserPanelFavorites = () => {
     const userData = useSelector(state => state.user.userData.user);

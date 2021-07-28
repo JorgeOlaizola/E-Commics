@@ -6,6 +6,7 @@ import { StyledLink } from './globalStyle';
 import { HeartIcon as HeartIconOutline, ShoppingCartIcon as CartIconOutline } from '@heroicons/react/outline';
 import { HeartIcon as HeartIconSolid, ShoppingCartIcon as  CartIconSolid } from '@heroicons/react/solid';
 import {
+	removeItem,
     addItem,
     changeCart,
     buyProduct
@@ -170,6 +171,34 @@ const Product = (props) => {
         dispatch(getFavorites(userData.id))
  
     }
+    const handleToggleSolidCart = () => {
+        // dispatch(removeItem(cartItems[index].products[0]._id, props.id))
+    }
+
+    const handleToggleOutlineCart = () => {
+
+        // if(userData) {
+        //     let orders = [
+        //             {
+        //                 _id: props.userID,// vendedor
+        //                 products:[
+        //                     {
+        //                     _id: props.id,//producto
+        //                     unit_price: props.price,
+        //                     title: props.title,
+        //                     quantity: 1,
+        //                     image: props.image,
+        //                     stock: productData.stock
+        //                     }
+        //                 ]
+        //             }
+        //         ]
+        //     return dispatch(changeCart(userData.id, orders))
+        // }
+        // else{
+        //     return dispatch(addItem(productData))
+        // }
+    }
 
 
     return (
@@ -200,8 +229,8 @@ const Product = (props) => {
                             </IconContainer>
                             <IconContainer>
                                 { userData && cartItems[0] && cartItems.some(obj => obj.products[0]._id === props.id) ?
-                                <CartIconSolid  className="addCartIcon"/> 
-                                : <CartIconOutline className="addCartIcon"/>}
+                                <CartIconSolid  onClick={handleToggleSolidCart} className="addCartIcon"/> 
+                                : <CartIconOutline onClick={handleToggleOutlineCart} className="addCartIcon"/>}
                             </IconContainer>
                             <Link href={'/detail/[productDetail]'} as={`/detail/${props.id}` } passHref>
                                 <StyledButton onClick={() => dispatch(getProductDetail(props.id))}>ver detalle </StyledButton>

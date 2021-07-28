@@ -104,7 +104,7 @@ const UserPanelProfile = () => {
     const handleGitHubLink = async () => {
         loginWithGitHub()
         .then(r => { console.log(r.user)
-            return axios.put('/api/users/github', {userId: userData.user.id, githubEmail: r.user.email}).catch(err => console.log(err))
+            return axios.put('/api/users/github', {userId: userData.user.id, githubID: r.user.uid}).catch(err => console.log(err))
         })
         .then(r => {
             if(r.data.error_msg){
@@ -141,13 +141,12 @@ const UserPanelProfile = () => {
                     <h3>Datos personales</h3>
                     <DataText><strong>Nombre:</strong> {userData.user.name}</DataText>
                     <DataText><strong>Apellido:</strong> {userData.user.surname}</DataText>
-                    <DataText><strong>Email:</strong> <input placeholder={userData.user.email} /></DataText>
-                    <DataText><strong>Usuario:</strong> <input placeholder={userData.user.nickname} /></DataText>
-                    <GradientBorder className="">
-                        <Input type="submit">Modificar</Input>
+                    <DataText><strong>Email:</strong> {userData.user.email}</DataText>
+                    <DataText><strong>Usuario:</strong> {userData.user.nickname}</DataText>
+                    <GradientBorder>
+                        <button onClick={() => handleGitHubLink()}>Vincular con GitHub</button>
                     </GradientBorder>
-                        <GithubButton onClick={() => handleGitHubLink()}>Vincular con GitHub</GithubButton>
-                    <span>¿Hubo un  error en la carga de tu nombre o apellido? <a href="mailto:ecommics@gmail.com" style={{color: "#0096FF"}}>Escríbenos</a></span>
+                    <span>¿Hubo un  error en la carga de tu nombre o apellido? <Link href="/help/contact" style={{color: "#0096FF"}}>Escríbenos</Link></span>
                 </DataColumn>
             </DataSection>
         </StyledContainer>

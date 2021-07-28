@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const mongoose = require('mongoose')
 
 const reviewSchema = new Schema({
 	user: {
@@ -19,4 +20,4 @@ const reviewSchema = new Schema({
 	created_at: Date
 });
 
-module.exports = model('Review', reviewSchema);
+module.exports = mongoose.models.Review || model('Review', reviewSchema);

@@ -140,13 +140,13 @@ export function updateOrders (orderId, status, userId) {
     }
 }
 
-export function getOrders (eachCase, userId) {
+export function getOrders (eachCase, userId, filter) {
     return async function(dispatch) {
         try{
             let type = ""
             if(eachCase === "seller") type = 'seller'
             if(eachCase === "buyer") type = 'buyer'
-            axios.get(`/api/orders?eachCase=${eachCase}&userId=${userId}`)
+            axios.get(`/api/orders?eachCase=${eachCase}&userId=${userId}&filter=${filter || ''}`)
             .then( r => dispatch({ type: type, payload: r.data }))
         }
         catch (error) {

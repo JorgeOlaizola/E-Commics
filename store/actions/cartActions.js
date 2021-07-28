@@ -16,6 +16,13 @@ export function verificationCart() {
         }
     };
 }
+export function setShippingInfo(payload){
+
+    return {
+        type: cart.SET_SHIPPING_INFO,
+        payload
+    }
+}
 
 export function addItem(product) {
     return (dispatch) => {
@@ -51,9 +58,9 @@ export function changeCart (userID, cartLE) {
     }
 }
 
-export function buyCart (cartId) {
+export function buyCart (cartId, shippingInfo) {
     return  (dispatch) => {
-        axios.post(`/api/checkout?id=${cartId}`)
+        axios.post(`/api/checkout?id=${cartId}`, {shippingInfo})
         .then((r)=>{
             console.log(r.data)
            return  dispatch({ type: cart.BUY, payload: r.data.buy })

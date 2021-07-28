@@ -3,7 +3,8 @@ import { cart } from "../types";
 const initialState = {
     cartItems: [],
     cartId: '',
-    buy: null
+    buy: null,
+    shippingInfo:null
 };
 
 export default function cartReducer(state = initialState, action) {
@@ -127,11 +128,17 @@ export default function cartReducer(state = initialState, action) {
             };
         case cart.GET_CART:
             return { ...state, cartId: action.payload._id, cartItems: action.payload.orders };
+            
         case cart.BUY:
             return {
                 ...state,
                 buy: action.payload
             };
+        case cart.SET_SHIPPING_INFO:
+            return {
+                ...state,
+                shippingInfo: action.payload
+            };    
             default:
             return state;
     }

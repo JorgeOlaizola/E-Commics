@@ -65,7 +65,8 @@ export const cart = {
     DECREASE_ITEM: 'DECREASE_ITEM',
     EMPTY_CART: 'EMPTY_CART',
     VERIFIED: 'VERIFIED',
-    BUY:'BUY'
+    BUY:'BUY',
+    SET_SHIPPING_INFO:'SET_SHIPPING_INFO'
 }
 
 //Types ADMIN

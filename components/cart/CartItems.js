@@ -10,6 +10,7 @@ import {
 	getCart,
 	buyCart
 } from '../../store/actions/cartActions'
+import ShippingForm from './ShippingForm';
 
 const CartContainer = styled.div`
 padding:1.2rem;
@@ -134,6 +135,17 @@ width: 100%;
         box-shadow: 0 3px 3px 2px rgba(0,0,0,0.3);
     }
 `
+const FormStyled = styled.form`
+width:100%;
+border-top: 1px solid black;
+border-bottom: 1px solid black;
+margin-top: 1rem;
+margin-bottom: 1rem;
+
+`
+const InputStyled = styled.input`
+height: 1rem;
+`
 
 
 const CartItems = () => {
@@ -147,6 +159,7 @@ const CartItems = () => {
 	}, [dispatch, userData])
 	const cartItems = useSelector(state => state.cart.cartItems);
 	const cartId = useSelector(state => state.cart.cartId);
+	const shippingInfo = useSelector(state => state.cart.shippingInfo)
 	let total = 0
 	return(
 		<CartContainer><h1>Shopping Cart</h1>
@@ -199,9 +212,11 @@ const CartItems = () => {
 	
 				
 				<p>Total: {total}$</p>
-				<Link href="/" passHref>
-					<BuyButtonAction onClick={()=> dispatch(buyCart(cartId))}>Comprar ahora</BuyButtonAction> 
-					</Link>
+				<ShippingForm/>
+				
+
+					<BuyButtonAction onClick={shippingInfo ? ()=> dispatch(buyCart(cartId, shippingInfo)) : null}>Comprar ahora</BuyButtonAction> 
+				
 				</div> : 'Todavía no agregaste nada al carrito'
 				:
 				cartItems && cartItems.length ? <div> {cartItems.map(ci => {

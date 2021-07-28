@@ -702,7 +702,7 @@ const ProductDetail = ({productData}) => {
                             {productData.reviews && productData.reviews.length ? 
                             productData.reviews.map(r => {
                                 let star = "⭐"
-                                return <ReviewConteiner key={r._id}>"{r.content}" <p>{star.repeat(r.rating)}</p></ReviewConteiner>
+                                return <ReviewConteiner key={r._id}>{r.content} <p>{star.repeat(r.rating)}</p></ReviewConteiner>
                                 
                         })
                             :

@@ -46,8 +46,9 @@ const OrderDetailComponent = ({ orderProps }) => {
     
     const router = useRouter()
     // const userData = useSelector(state => state.user.userData.user)
-    if (typeof window !== "undefined"){
-        var [userData, setUserData] = useState( localStorage.getItem("sessionSaved") ? JSON.parse(localStorage.getItem("sessionSaved")) : null )
+    const [userData, setUserData] = useState('')
+    if (typeof window !== "undefined" && userData === ''){
+        localStorage.getItem("sessionSaved") ? setUserData(JSON.parse(localStorage.getItem("sessionSaved"))) : null 
     }
     useEffect(() => {
         if(!userData.user) {

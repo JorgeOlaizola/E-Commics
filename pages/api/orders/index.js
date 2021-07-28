@@ -71,7 +71,7 @@ export default nextConnect()
     try{
         await dbConnect()
 
-        const { orderId, status, userId} = req.body
+        const { orderId, status, userId } = req.body
 
         const order = await Order.findById(orderId).exec()
         if(order.seller == userId && status === 'Pago realizado'){

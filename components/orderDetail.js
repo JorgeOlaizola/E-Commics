@@ -60,6 +60,7 @@ const OrderDetailComponent = ({ orderProps }) => {
 
  
     return (
+        // AAAA Info de contacto --> orderProps.buyer === userData.user.id ? <div>Info del vendedor></div> : ordersProps.seller === userData.user.id ? <div>Info del comprador</div> : null
         <OrderDetailConteiner>
             <p>Merchant Order: {orderProps.MerchantOrder}</p>
             <p>Pago: {orderProps.Payment}</p>

@@ -1,11 +1,11 @@
 import Container from '../../components/Container';
-import styled  from 'styled-components';
+import BuySuccess from '../../components/buy/BuySuccess'
 
 const Success = () => {
     return (
       <>
         <Container>
-            compra exitosa
+            <BuySuccess/>
         </Container>
       </>
     )

@@ -233,7 +233,7 @@ const Product = (props) => {
                                 : <CartIconOutline onClick={handleToggleOutlineCart} className="addCartIcon"/>}
                             </IconContainer>
                             <Link href={'/detail/[productDetail]'} as={`/detail/${props.id}` } passHref>
-                                <StyledButton onClick={() => dispatch(getProductDetail(props.id))}>ver detalle </StyledButton>
+                                <StyledButton >ver detalle </StyledButton>
                             </Link><ArrowSpan>→</ArrowSpan>
                         </DontMove>
                     </ContainerDetail>

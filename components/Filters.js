@@ -111,7 +111,6 @@ width: 100%;
 
 
 const Filters = ({userId}) => {
-    //console.log("aca en filter", userId.user)
     const dispatch = useDispatch()
     const categories = useSelector(state => state.category.categories)
     const filters = useSelector(state => state.product.filters)

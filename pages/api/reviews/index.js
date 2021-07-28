@@ -11,21 +11,32 @@ export default nextConnect()
     try{
         await dbConnect()
 
-        const { order, product, user, content, rating} = req.body
-
+        const { order, product, user, content, rating } = req.body
         if(!order) return res.json({ error_msg: 'Order required' })
         if(!product) return res.json({ error_msg: 'Product required' })
         if(!user) return res.json({ error_msg: 'User required' })
         if(!content) return res.json({ error_msg: 'Content required' })
         if(!rating) return res.json({ error_msg: 'Rating required' })
 
-        const checkOrder = await Order.findById(order).exec()
+        let checkOrder = await Order.findById(order)
+
         if(!checkOrder) return res.json({ error_msg: 'No se encontró la orden' })
 
         if(checkOrder.status !== 'Recibido') return res.json({ error_msg: 'Todavía no se puede dejar reviews en este producto ya que no se realizó la entrega' })
-        const newReview = new Review({ user, content, rating, product })
-        await newReview.save()
-        return res.json(newReview)
+        await Review.create({ user, content, rating, product })
+        checkOrder.products = checkOrder.products.map(p => {
+            if( parseInt(p._id) === parseInt(product)){
+                p.review = 'Review'
+                return p
+            }
+            return p
+        })
+        let checkStatus = checkOrder.products.filter(p => p.review !== 'Review')
+        if(!checkStatus.length){
+            checkOrder.status = 'Finalizado'
+        }
+        await checkOrder.save()
+        return res.json({ success_msg: checkOrder.status})
     }
     catch (error) {
         console.log(error)

@@ -9,10 +9,17 @@ export default nextConnect()
     try {
         await dbConnect()
 
-        const { eachCase, userId } = req.query
+        const { eachCase, userId, filter } = req.query
 
         if(eachCase === 'seller' || eachCase === 'buyer') {
-            const Orders = await Order.find({}).where({ [eachCase]: userId })
+            let Orders 
+            if(filter !== '') {
+                Orders = await Order.find({}).where({ status: filter, [eachCase]: userId }).exec()
+            }
+            else {
+                Orders = await Order.find({}).where({ [eachCase]: userId }).exec()
+            }
+
             if(!Orders) return res.json({ error_msg: 'No se encontró nada'})
             await User.populate(Orders, { path: 'seller' })
             await User.populate(Orders, { path: 'buyer' })
@@ -67,7 +74,7 @@ export default nextConnect()
         const { orderId, status, userId} = req.body
 
         const order = await Order.findById(orderId).exec()
-        if(order.seller == userId && status === 'approved'){
+        if(order.seller == userId && status === 'Pago realizado'){
             order.status = 'En proceso de entrega'
             await order.save()
             return res.json(order)

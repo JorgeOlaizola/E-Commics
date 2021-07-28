@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { GradientBorder, Input  } from '../globalStyle'
 import { getOrders } from '../../store/actions/normalUsersActions'
-
+import OrderFilters from '../OrdersFilters'
 
 
 const StyledContainer = styled.div`
@@ -108,6 +108,13 @@ const UserPanelBuys = () => {
             <DataSection>
                 <h3>Compras</h3>
             </DataSection>
+            { buyersOrders ?
+            <>
+             <OrderFilters ordersCase="buyerOrders" userId={userData.id} eachCase="buyer"/>
+             <button>Ver transacciones finalizadas</button>
+            </>
+            :
+            <span></span>}
             { 
             buyersOrders && buyersOrders.length > 0 ? 
             buyersOrders.map(order => 

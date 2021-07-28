@@ -1,6 +1,8 @@
 import Category from '../../../server/models/Category'
 import Product from '../../../server/models/Product'
 import User from '../../../server/models/User'
+import Review from '../../../server/models/Review'
+import Location from '../../../server/models/Location'
 import Question from '../../../server/models/Question'
 import dbConnect from '../../../utils/dbConnect'
 import nextConnect from 'next-connect'
@@ -17,6 +19,8 @@ export default nextConnect()
             const productANDcategoryANDuser = await User.populate(productANDcategory, { path: "user" })
             const questions = await Question.find().where({ product: id })
             const questionsANDuser = await User.populate(questions, { path: "user" })
+            const reviews = await Review.find({}).where({ product: id }).exec()
+            const location = await Location.findById(productANDcategoryANDuser.user.location)
             let quest = questionsANDuser.map(q => {
                 return {
                     _id: q._id,
@@ -33,6 +37,8 @@ export default nextConnect()
                 image: productANDcategoryANDuser.image.includes("&&") ? product.image.split("&&") : [product.image],
                 stock: productANDcategoryANDuser.stock,
                 price: productANDcategoryANDuser.price,
+                realprice: productANDcategoryANDuser.realprice,
+                discount: productANDcategoryANDuser.discount,
                 user: {
                     _id: productANDcategoryANDuser.user._id,
                     email: productANDcategoryANDuser.user.email,
@@ -40,11 +46,13 @@ export default nextConnect()
                     surname: productANDcategoryANDuser.user.surname,
                     nickname: productANDcategoryANDuser.user.nickname,
                     avatar: productANDcategoryANDuser.user.avatar,
+                    location: location.location
                 },
                 category: {
                     _id: productANDcategoryANDuser.category._id,
                     title: productANDcategoryANDuser.category.title
                 },
+                reviews,
                 questions: quest
             }
             res.json(result)
@@ -68,7 +76,9 @@ export default nextConnect()
             if (product.description) productDB.description = product.description
             if (product.image && Array.isArray(product.image)) productDB.image = product.image.join('&&')
             if (product.stock) productDB.stock = product.stock
-            if (product.price) productDB.price = product.price
+            if (product.realprice) productDB.realprice = product.realprice
+            if(product.discount) productDB.discount = product.discount
+            productDB.price = productDB.applyDiscount(productDB.realprice, productDB.discount)
             await productDB.save()
             return res.send(productDB)
         }

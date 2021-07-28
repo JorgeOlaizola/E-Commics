@@ -17,6 +17,7 @@ import { SearchIcon, ShoppingCartIcon } from '@heroicons/react/outline';
 import Image from 'next/image';
 import { AiOutlineNotification }  from 'react-icons/ai';
 import { AiFillNotification }  from 'react-icons/ai';
+import { useRouter } from 'next/router';
 
 const SuperCart = styled(ShoppingCartIcon)`
     width: 20px;
@@ -66,6 +67,8 @@ const UserMenu = () => {
   const dropdownRef = useRef(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
   const onClick = () => setIsActive(!isActive);
+  const router = useRouter()
+
 
   const dropdownNot = useRef(null);
   const [isNotif, setIsNotif] = useDetectOutsideClick(dropdownNot, false);
@@ -164,14 +167,14 @@ const UserMenu = () => {
               :
               <>
                 <MenuLi>
-                <Link href={'/addproduct'} passHref >
-                  <MenuButton>Nueva publicación</MenuButton>
-                </Link>
+                  <MenuButton onClick={()=> router.push('/addproduct')}>Nueva publicación</MenuButton>
+                {/* <Link href={'/addproduct'} passHref >
+                </Link> */}
                 </MenuLi>
                 <MenuLi>
-                <Link href={'/user/[user]'} as={`/user/${userData.user.nickname}`} passHref >
-                  <MenuButton>Panel de usuario</MenuButton>
-                </Link>
+                  <MenuButton onClick={()=> router.push(`/user/${userData.user.nickname}`)} >Panel de usuario</MenuButton>
+                {/* <Link href={'/user/[user]'} as={`/user/${userData.user.nickname}`} passHref >
+                </Link> */}
                 </MenuLi>
                 <MenuLi>
                 <Link href="/" passHref >

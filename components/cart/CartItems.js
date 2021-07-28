@@ -133,7 +133,6 @@ const CartItems = () => {
 	}, [dispatch, userData])
 	const cartItems = useSelector(state => state.cart.cartItems);
 	const cartId = useSelector(state => state.cart.cartId);
-	console.log("ya la empece a bardear", userData)
 	let total = 0
 	return(
 		<CartContainer><h1>Shopping Cart</h1>

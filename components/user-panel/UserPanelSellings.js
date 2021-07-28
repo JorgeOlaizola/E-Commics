@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getOrders } from '../../store/actions/normalUsersActions'
 import styled from 'styled-components';
 import { GradientBorder, Input  } from '../globalStyle'
+import OrdersFilters from '../OrdersFilters';
 
 const StyledContainer = styled.div`
     margin-top: 30px;
@@ -100,6 +101,15 @@ const UserPanelSellings = () => {
 
     return (
         <StyledContainer>
+
+            { sellerOrders ? 
+            <>
+            <OrdersFilters ordersCase="sellerOrders" userId={userData.id} eachCase="seller"/>
+            <button>Ver transacciones finalizadas</button>
+            </>
+            :
+            <span></span>}
+
             { 
             sellerOrders && sellerOrders.length > 0 ? 
             sellerOrders.map(order => 
@@ -107,7 +117,9 @@ const UserPanelSellings = () => {
                 return (
                 <OrderConteiner key={order._id}>
                 <Advertise>N° de orden: {order._id}</Advertise>
-                <Advertise>Estado: {order.status === "approved" ? "Aprobado" : order.status === "pending" ? "Pendiente" : "Rechazado"} - Comprador:  {order.buyer.nickname}</Advertise>
+
+                <Advertise>Estado: {order.status} - Comprador:  {order.buyer.nickname}</Advertise>
+
                     { order.products && order.products.length > 0 ? 
                     order.products.map(p => {
                         total += (p.quantity * p.unit_price)
@@ -125,8 +137,8 @@ const UserPanelSellings = () => {
                     :
                     <div>No hay ningún producto en esta orden</div>
                     }
-                    {/* <span>Monto total: {total}$</span>
-                    <Link href={`/orderDetail/[orderDetail]`} as={`/orderDetail/${order._id}`} passHref ><p>Detalle de la orden</p></Link> */}
+                    <span>Monto total: {total}$</span>
+                    <Link href={`/orderDetail/[orderDetail]`} as={`/orderDetail/${order._id}`} passHref ><p>Detalle de la orden</p></Link>
                 </OrderConteiner>)}) 
             : 
             <div>No tienes compras todavía!</div>

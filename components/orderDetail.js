@@ -45,7 +45,7 @@ const OrderDetailComponent = ({ orderProps }) => {
             orderProps.products.map(p => {                
                 total += (p.quantity * p.unit_price)
                 return (
-                    <OrderDetailProduct p={p} orderProps={orderProps}/>
+                    <OrderDetailProduct key={p._id} p={p} orderProps={orderProps}/>
 
                 )
             })}

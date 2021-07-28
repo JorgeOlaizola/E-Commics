@@ -111,6 +111,51 @@ export const InputDisable = styled.button`
   cursor: not-allowed;
 `
 
+export const EraseButton = styled.button`
+background: ${(props) => props.theme.backgroundButton2};
+color: ${(props) => props.theme.colorLevel2};
+border: none;
+cursor: pointer;
+font-size: 0.75rem;
+font-family: ubuntu;
+font-weight: 300;
+padding: 4px;
+&:hover {
+        color: ${(props) => props.theme.fontColor};
+        background: ${(props) => props.theme.colorLevel4};
+    }
+`
+
+export const BuyButton = styled.button`
+    width: 100%;
+    height: 45px;
+    margin: 10px 0;
+    background-color: ${(props) => props.theme.blueColor};
+    border: 1px solid ${(props) => props.theme.backgroundLevel1};
+    border-style: hidden;
+    color: #FFF;
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    &:hover {
+        background-color: #123AC9;
+        border: 1px solid ${(props) => props.theme.backgroundLevel1};
+        transition: 0.3s;
+    }
+    &:active {
+        background-color: ${(props) => props.theme.blueColorActive};
+        border: 1px solid ${(props) => props.theme.backgroundLevel1};
+    }
+    &:disabled {
+        // background-color: ${(props) => props.theme.blueColor}; nc que color ponerle cuando lo desactivamos
+        background-color: gray;
+        border: 1px solid ${(props) => props.theme.backgroundLevel1};
+    }
+`
+
+
 export const GradientBorder = styled.div`
   margin: 20px 0;
   background: linear-gradient(45deg, rgba(255,0,0,1) 0%, rgba(0,192,255,1) 100%);

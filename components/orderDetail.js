@@ -78,7 +78,7 @@ const OrderDetailComponent = ({ orderProps }) => {
             :
             'No hay productos'
             }</p>
-            { userData && userData.id === orderProps.seller._id &&  orderProps.status === 'approved' ? <button onClick={() => dispatch(updateOrders(orderProps._id, orderProps.status, userData.id))}>Despaché este producto</button> : null}
+            { userData && userData.id === orderProps.seller._id &&  orderProps.status === 'Pago realizado' ? <button onClick={() => dispatch(updateOrders(orderProps._id, orderProps.status, userData.id))}>Despaché este producto</button> : null}
             { userData && userData.id === orderProps.buyer._id &&  orderProps.status === 'En proceso de entrega' ? <button onClick={() => dispatch(updateOrders(orderProps._id, orderProps.status, userData.id))}>Recibí este producto</button> : null}
         </OrderDetailConteiner>
     )

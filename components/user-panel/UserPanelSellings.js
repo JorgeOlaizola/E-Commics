@@ -137,8 +137,8 @@ const UserPanelSellings = () => {
                     :
                     <div>No hay ningún producto en esta orden</div>
                     }
-                    {/* <span>Monto total: {total}$</span>
-                    <Link href={`/orderDetail/[orderDetail]`} as={`/orderDetail/${order._id}`} passHref ><p>Detalle de la orden</p></Link> */}
+                    <span>Monto total: {total}$</span>
+                    <Link href={`/orderDetail/[orderDetail]`} as={`/orderDetail/${order._id}`} passHref ><p>Detalle de la orden</p></Link>
                 </OrderConteiner>)}) 
             : 
             <div>No tienes compras todavía!</div>

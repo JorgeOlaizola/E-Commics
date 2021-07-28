@@ -53,8 +53,8 @@ const Products = (props) => {
     const filters = useSelector(state => state.product.filters);
     const userData = useSelector(state => state.user.userData.user);
     const {productsOfOneUser} = props;
-
-
+    
+    // console.log(products)
     useEffect(() => {
         dispatch(getFilteredProducts(filters));
         return () => {
@@ -72,7 +72,7 @@ const Products = (props) => {
     
     if(products === undefined) return (
         <LoaderContainer>
-            <PacmanLoader color={"#000"} size={40}/>
+            <PacmanLoader color={"#FFE100"} css={{border: "1px solid black"}} size={40}/>
         </LoaderContainer>
     )
 
@@ -83,9 +83,9 @@ const Products = (props) => {
             <CardsContainer>   
                 
                 {productsOfOneUser ? 
-                productsOfOneUser.map(p => <Product key={p._id} id = {p._id} user={p.user.nickname} category={p.category.title} image={p.image} title={p.title} price={p.price} />) 
+                productsOfOneUser.map(p => <Product key={p._id} id = {p._id} userID={p.user._id} user={p.user.nickname} category={p.category.title} image={p.image} title={p.title} price={p.price} />) 
                 :
-                products.length !== 0 ? products.map(p => <Product key={p._id} id = {p._id} user={p.user.nickname} category={p.category.title} image={p.image} title={p.title} price={p.price} />)
+                products.length !== 0 ? products.map(p => <Product key={p._id} id ={p._id} userID={p.user._id} user={p.user.nickname} category={p.category.title} image={p.image} title={p.title} price={p.price} />)
                 :
                 <h2 >Lo siento nadie ha publicado lo que buscas</h2>    
                       

@@ -27,7 +27,7 @@ export default nextConnect()
         or:parseInt(orderor)
     }
     if (!page) page = 1 
-    let itemXPage = 4;
+    let itemXPage = 6;
     let limite =  (page + 1)  * itemXPage
     let opts = { $and: [] }
     //filtro por user id

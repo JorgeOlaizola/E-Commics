@@ -15,6 +15,7 @@ import { LigthDarkThemeDiv } from '../globalStyle';
 import styled from 'styled-components'
 import { SearchIcon, ShoppingCartIcon } from '@heroicons/react/outline';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 
 const SuperCart = styled(ShoppingCartIcon)`
@@ -48,6 +49,8 @@ const UserMenu = () => {
   const dropdownRef = useRef(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
   const onClick = () => setIsActive(!isActive);
+  const router = useRouter()
+
 
   const dispatch = useDispatch()
 
@@ -141,14 +144,14 @@ const UserMenu = () => {
               :
               <>
                 <MenuLi>
-                <Link href={'/addproduct'} passHref >
-                  <MenuButton>Nueva publicación</MenuButton>
-                </Link>
+                  <MenuButton onClick={()=> router.push('/addproduct')}>Nueva publicación</MenuButton>
+                {/* <Link href={'/addproduct'} passHref >
+                </Link> */}
                 </MenuLi>
                 <MenuLi>
-                <Link href={'/user/[user]'} as={`/user/${userData.user.nickname}`} passHref >
-                  <MenuButton>Panel de usuario</MenuButton>
-                </Link>
+                  <MenuButton onClick={()=> router.push(`/user/${userData.user.nickname}`)} >Panel de usuario</MenuButton>
+                {/* <Link href={'/user/[user]'} as={`/user/${userData.user.nickname}`} passHref >
+                </Link> */}
                 </MenuLi>
                 <MenuLi>
                 <Link href="/" passHref >

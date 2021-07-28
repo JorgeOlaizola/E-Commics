@@ -3,6 +3,8 @@ import Cart from '../../../server/models/Cart';
 import dbConnect from '../../../utils/dbConnect'
 import Order from '../../../server/models/Order'
 import Product from '../../../server/models/Product'
+import User from '../../../server/models/User'
+import { sendFailureEmail, sendBuyConfirmation } from '../../../utils/emailService'
 
 const mercadopago = require ('mercadopago');
 
@@ -59,27 +61,41 @@ export default nextConnect()
         
         const { id, payment_id, status, merchant_order_id } = req.query 
 
-        if(status === "failure") return res.redirect('/buy/failure');
-
         const cart = await Cart.findById(id).exec()
         if(!cart)  return res.json({ error_msg:"No existe un carrito con el id proporcionado" })
+
+        await User.populate(cart, {path: "user"})
+
+        let data = {
+            orders: []
+        }
+
+        if(status === "failure") {
+            sendFailureEmail(cart.user.email)
+            return res.redirect('/buy/failure');
+        }
+
         cart.orders.forEach(async (order) => {
             order.products.forEach( async(p) => {
                 await Product.findByIdAndUpdate(p._id, { stock: (p.stock - p.quantity) })
             })
             const obj = {
-                buyer: cart.user,
+                buyer: cart.user._id,
                 seller: order._id,
                 products: order.products,
                 status: status === "approved" ? 'Pago realizado' : 'Pendiente de pago',
                 MerchantOrder: merchant_order_id,
                 Payment: payment_id
             }
-            await Order.create(obj)
+            data.orders.push(obj);
+            await Order.create(obj);
         })
 
+        data.buyer = cart.user;
 
-        await Cart.findByIdAndDelete(id)
+        sendBuyConfirmation(data);
+
+        await Cart.findByIdAndDelete(id);
     
         if(status === "approved") return res.redirect('/buy/success');
         if(status === "pending") return res.redirect('/buy/pending');

@@ -44,11 +44,25 @@ export function productToUpDate(product){
     }
 }
 
-
+export function getTitles (text) {
+    return(dispatch) => {
+        axios.get(`/api/products/search?search=${text}`)
+        .then(r => dispatch({ type: product.GET_TITLES, payload: r.data }))
+        .catch(e =>{
+            console.log(e)
+        })
+    }
+}
 export function getProductDetail (id) {
-    return (dispatch) => {
-    axios.get(`/api/products/detail?id=${id}`)
-    .then(r => dispatch({ type: product.GET_PRODUCT_DETAIL, payload: r.data }))
+    return  async (dispatch) => {
+        try {
+            const productCall = await axios.get(`/api/products/detail?id=${id}`)
+            return dispatch({ type: product.GET_PRODUCT_DETAIL, payload: productCall.data })
+            
+        } catch (error) {
+            console.error(error)
+        }
+    //.then(r => dispatch({ type: product.GET_PRODUCT_DETAIL, payload: r.data }))
     }
 }
 
@@ -89,6 +103,7 @@ export function searchByName (search) {
         return dispatch({ type: filter.SEARCH_BY_NAME, payload: string})
     }
 }
+
 
 export function searchByCategory (category) {
     return(dispatch) => {

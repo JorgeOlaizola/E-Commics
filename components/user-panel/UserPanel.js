@@ -99,12 +99,6 @@ const UserPanel = (props) => {
     const userData = useSelector(state => state.user.userData);
     const products = useSelector(state => state.product.products);
     const router = useRouter();
-
-
-    useEffect(() => {
-        /* dispatch(getProductsByUser(data)) */
-    }, [])
-  
   
     const data = {
           "user" : `${userData._id}`,

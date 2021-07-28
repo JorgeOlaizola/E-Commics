@@ -101,6 +101,7 @@ const UserPanelSellings = () => {
 
     return (
         <StyledContainer>
+
             { sellerOrders ? 
             <>
             <OrdersFilters ordersCase="sellerOrders" userId={userData.id} eachCase="seller"/>
@@ -108,6 +109,7 @@ const UserPanelSellings = () => {
             </>
             :
             <span></span>}
+
             { 
             sellerOrders && sellerOrders.length > 0 ? 
             sellerOrders.map(order => 
@@ -115,7 +117,9 @@ const UserPanelSellings = () => {
                 return (
                 <OrderConteiner key={order._id}>
                 <Advertise>N° de orden: {order._id}</Advertise>
+
                 <Advertise>Estado: {order.status} - Comprador:  {order.buyer.nickname}</Advertise>
+
                     { order.products && order.products.length > 0 ? 
                     order.products.map(p => {
                         total += (p.quantity * p.unit_price)

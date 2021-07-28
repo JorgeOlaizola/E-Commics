@@ -18,6 +18,30 @@ justify-content: center;
 align-items:center;
 `
 
+
+const ProductOrderConteiner = styled.div`
+width: 70%;
+border: 0.5px solid black;
+padding: 1rem;
+display: flex;
+justify-content: center;
+flex-direction: raw;
+`
+
+const ProductImg = styled.img`
+width: auto;
+height: 150px;
+border: 1px solid black
+`
+
+const ProductInfo = styled.div`
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding: 5px;
+`
+
 const OrderDetailComponent = ({ orderProps }) => {
     
     const router = useRouter()

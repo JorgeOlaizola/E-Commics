@@ -1,14 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addSellingProduct } from '../../store/actions/productActions.js';
-import { getUserData } from '../../store/actions/normalUsersActions.js';
 import styled from 'styled-components'
 import axios from 'axios';
 import { useRouter } from 'next/router'
-import Image from 'next/image'
 import PacmanLoader from "react-spinners/PacmanLoader";
 import { Input, GradientBorder, DisableBorder, InputDisable } from '../globalStyle';
 
+//#region  estilos
 const DivContainer = styled.div`
 margin:auto;
 display: flex;
@@ -73,6 +72,7 @@ const StyledImage = styled.img`
 const Space = styled.div`
     height: 100px;
 `
+//#endregion
 
 const AddProductForm = () => {
     const dispatch = useDispatch();
@@ -93,6 +93,13 @@ const AddProductForm = () => {
     const [loading, setLoading] = useState("false");
 
     const router = useRouter()
+
+    useEffect(()=>{
+        setInput({
+            ...input,
+            user: user?.id
+        })
+    },[dispatch, user])
 
     function handleChange(e) {
         if (e.target.value < 0) {
@@ -131,11 +138,9 @@ const AddProductForm = () => {
                             ...input,
                             image: data.join("&&")
                         }
+                        console.log(respuesta)
                         dispatch(addSellingProduct(respuesta))
                         setLoading('done')
-                        // setTimeout(() => {
-                        //     router.push("/search")
-                        // }, 2000)
                     })
 
 
@@ -159,7 +164,6 @@ const AddProductForm = () => {
         
         let image = [...e.target.files]
         if(image.length > 5){
-            //avisamos el maximo de imagenes
             alert("El maximo de imagenes es de 5")
         }
         image = image.slice(0,5)

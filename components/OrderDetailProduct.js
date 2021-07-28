@@ -35,6 +35,7 @@ const OrderDetailProduct = ({ p, orderProps }) => {
     const [review, setReview] = useState(true)
     const userData = useSelector(state => state.user.userData.user)
     const router = useRouter()
+    const [stars, setStars] = useState(0)
 
     const createReview = (e, product) => {
         e.preventDefault()
@@ -44,6 +45,9 @@ const OrderDetailProduct = ({ p, orderProps }) => {
         
 
     }
+
+    let star = "⭐"
+
     return(
             <ProductOrderConteiner key={p._id}>
                       <ProductImg src={p.image[0]}></ProductImg>
@@ -58,7 +62,8 @@ const OrderDetailProduct = ({ p, orderProps }) => {
                                     
                              { review ? '': <form onSubmit={(e) => createReview(e, p._id)}>
                                  <textarea name="content" type="text" placeholder="Opinión" required></textarea>
-                                 <input name="rating" type="number" max='5' min='0' placeholder="Puntaje" required></input>
+                                 <input name="rating"  type="number" onChange={(e) => setStars(e.target.value)} max='5' min='0' placeholder="Puntaje" required></input>
+                                 <p>{star.repeat(stars)}</p>
                                 <input type="submit" value="Enviar reseña" />
                              </form> }
                             </p> 

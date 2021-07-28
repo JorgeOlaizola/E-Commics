@@ -4,7 +4,7 @@ import dbConnect from '../../../utils/dbConnect'
 import Order from '../../../server/models/Order'
 import Product from '../../../server/models/Product'
 import User from '../../../server/models/User'
-import { sendFailureEmail, sendBuyConfirmation } from '../../../utils/emailService'
+import { sendFailureEmail, sendBuyConfirmation, sendBuyPending } from '../../../utils/emailService'
 
 const mercadopago = require ('mercadopago');
 
@@ -94,7 +94,11 @@ export default nextConnect()
 
         data.buyer = cart.user;
 
-        sendBuyConfirmation(data);
+        if(data.orders[0].status === 'Pago realizado') {
+            sendBuyConfirmation(data);
+        } else {
+            sendBuyPending(data);
+        }
 
         await Cart.findByIdAndDelete(id);
     

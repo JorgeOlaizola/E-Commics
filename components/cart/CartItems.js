@@ -9,8 +9,13 @@ import {
 	changeCart,
 	getCart,
 	buyCart
+
 } from '../../store/actions/cartActions'
 import ShippingForm from './ShippingForm';
+
+} from '../../store/actions/cartActions';
+import { EraseButton, BuyButton  } from '../globalStyle'
+
 
 const CartContainer = styled.div`
 padding:1.2rem;
@@ -119,6 +124,7 @@ border: 1px solid grey;
 }
 
 `;
+
 const BuyButtonAction = styled.button`
 width: 100%;
     height: 45px;
@@ -146,6 +152,7 @@ margin-bottom: 1rem;
 const InputStyled = styled.input`
 height: 1rem;
 `
+
 
 
 const CartItems = () => {
@@ -181,7 +188,7 @@ const CartItems = () => {
 									</ProductTitleContainer>
 									
 									<Options>
-										<button onClick={() => dispatch(changeCart(userData.id, [{...ci, products: [{...p, quantity: -p.quantity}]}]))}>Remove</button>
+										<EraseButton onClick={() => dispatch(changeCart(userData.id, [{...ci, products: [{...p, quantity: -p.quantity}]}]))}>Eliminar producto</EraseButton>
 									</Options>
 
 									
@@ -211,12 +218,14 @@ const CartItems = () => {
 				})}
 	
 				
+
 				<p>Total: {total}$</p>
 				<ShippingForm/>
 				
 
 					<BuyButtonAction onClick={shippingInfo ? ()=> dispatch(buyCart(cartId, shippingInfo)) : null}>Comprar ahora</BuyButtonAction> 
 				
+
 				</div> : 'Todavía no agregaste nada al carrito'
 				:
 				cartItems && cartItems.length ? <div> {cartItems.map(ci => {
@@ -232,7 +241,7 @@ const CartItems = () => {
 												<h3>{p.title}</h3>
 											</ProductTitleContainer>
 											<Options>
-												<button onClick={() => dispatch(removeItem(ci._id, p._id))}>Remove</button>
+												<EraseButton onClick={() => dispatch(removeItem(ci._id, p._id))}>Eliminar producto</EraseButton>
 
 											</Options>
 
@@ -256,8 +265,8 @@ const CartItems = () => {
 				})}
 	
 				
-				<p>Total: {total}$</p>
-				<Link href="/" passHref>Comprar ahora</Link>
+				<h3>Total: ${total}</h3>
+				<h4>Para adquirir productos por favor puedes hacer click en <strong>Crear cuenta</strong> o <strong>Ingresar</strong> desde el panel de usuario</h4>
 				</div> : 'Todavía no agregaste nada al carrito'
 				}
 			{/* Si el usuario es invitado */}	

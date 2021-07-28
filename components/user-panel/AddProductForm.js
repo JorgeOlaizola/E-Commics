@@ -209,6 +209,7 @@ const AddProductForm = () => {
                                     id="inputNombre"
                                     type='text'
                                     name='title'
+                                    maxLength="50"
                                     value={input.title}
                                     onChange={(e) => { handleChange(e) }}
                                 />
@@ -220,6 +221,7 @@ const AddProductForm = () => {
                                     onKeyDown={keyEnter}
                                     id="inputDescription"
                                     name="description"
+                                    maxLength="400"
                                     value={input.description}
                                     onChange={(e) => { handleChange(e) }}
                                 />

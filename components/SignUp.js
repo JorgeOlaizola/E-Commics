@@ -166,7 +166,7 @@ const SignUp = ({onClose}) => {
     return (
         <FormContainer >
             {
-            loading ? <div style={{display: "flex", alignItems: "center", justifyContent: "center", height: '500px'}}><PacmanLoader color={"#000"} size={30}/></div> :
+            loading ? <div style={{display: "flex", alignItems: "center", justifyContent: "center", height: '500px'}}><PacmanLoader color={"#FFE100"} size={30}/></div> :
             thanks  ? <div style={{height: '400px'}}><h2 style={{paddingLeft: '10px'}}>Super! Ya eres miembro de la comunidad de ecommics 🦸 🦹‍♀️ 🦸‍♂️ 🦹‍♂️</h2><br/><h3>Por favor verifica tu cuenta a través del link que enviamos a tu correo electrónico para empezar a disfrutar de E-commics</h3>{/*<SignInForm/>*/}</div> : 
             <>
                 <h2 style={{paddingLeft: '10px'}}>Únete hoy a ecommics!</h2>

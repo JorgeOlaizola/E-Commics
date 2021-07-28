@@ -22,8 +22,14 @@ const StyledContainer = styled.div`
 `
 
 const UserStyledLink = styled(StyledLink)`
-  padding: 0.2rem;
-  margin: 0.2rem;
+    padding: 0.2rem;
+    margin: 0.2rem;
+    @media (max-width: 375px){
+    font-size: 0.8rem;
+    }
+    @media (max-width: 350px){
+    font-size: 0.6rem;
+    }
 `;
 
 const DataSection = styled.div`
@@ -134,7 +140,7 @@ const UserPanel = (props) => {
     }
 
     if (!userData.user) {
-        return  <div style={{display: "flex", alignItems: "center", justifyContent: "center", height: '500px'}}><PacmanLoader color={"#000"} size={30}/></div>
+        return  <div style={{display: "flex", alignItems: "center", justifyContent: "center", height: '500px'}}><PacmanLoader color={"#FFE100"} size={30}/></div>
     }
 
     

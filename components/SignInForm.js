@@ -65,14 +65,9 @@ const SignInForm = () => {
                     onCloseSession().then(r => console.log(r)).catch(err=> console.log(err))
                     return alert(r.data.error_msg);
                 } 
-                    
-                    
-                //const cart = JSON.parse(localStorage.getItem('cartItems'))
-                
-                 dispatch(signIn(r.data, null)) 
-                
-
-                console.log(r.data)
+                const cart = JSON.parse(localStorage.getItem('cartItems'))
+                if(cart?.length) dispatch(signIn(r.data, cart)) 
+                else dispatch(signIn(r.data, null)) 
 
                 document.body.style.overflow = "";
                 dispatch(showHideModal(false))

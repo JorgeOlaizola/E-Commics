@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import Link from 'next/link'
 import { useSelector, useDispatch } from 'react-redux'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { updateOrders } from '../store/actions/normalUsersActions'
 import axios from 'axios'
 import { useRouter } from 'next/router'
@@ -45,24 +45,28 @@ padding: 5px;
 const OrderDetailComponent = ({ orderProps }) => {
     
     const router = useRouter()
-    const userData = useSelector(state => state.user.userData.user)
+    // const userData = useSelector(state => state.user.userData.user)
+    const [userData, setUserData] = useState('')
+    if (typeof window !== "undefined" && userData === ''){
+        localStorage.getItem("sessionSaved") ? setUserData(JSON.parse(localStorage.getItem("sessionSaved"))) : null 
+    }
     useEffect(() => {
-        if(!userData) {
+        if(!userData.user) {
             router.push("/")
         }
-    }, [])
+    }, [userData])
     const dispatch = useDispatch()
-    console.log(userData)
     let total = 0
 
  
     return (
+        // AAAA Info de contacto --> orderProps.buyer === userData.user.id ? <div>Info del vendedor></div> : ordersProps.seller === userData.user.id ? <div>Info del comprador</div> : null
         <OrderDetailConteiner>
             <p>Merchant Order: {orderProps.MerchantOrder}</p>
             <p>Pago: {orderProps.Payment}</p>
             <p>Comprador: {orderProps.buyer.name} {orderProps.buyer.surname} ({orderProps.buyer.nickname})</p>
             <p>Vendedor: {orderProps.seller.name} {orderProps.seller.surname} ({orderProps.seller.nickname})</p>
-            <p>Estado: { orderProps.status === 'approved' ? 'Pago realizado' : orderProps.stauts === 'pending' ? 'Pendiente de pago' : orderProps.status}</p>
+            <p>Estado: {orderProps.status}</p>
             <p>Productos: {orderProps.products && orderProps.products.length > 0 ?
             <span>
             {
@@ -78,8 +82,18 @@ const OrderDetailComponent = ({ orderProps }) => {
             :
             'No hay productos'
             }</p>
-            { userData && userData.id === orderProps.seller._id &&  orderProps.status === 'Pago realizado' ? <button onClick={() => dispatch(updateOrders(orderProps._id, orderProps.status, userData.id))}>Despaché este producto</button> : null}
-            { userData && userData.id === orderProps.buyer._id &&  orderProps.status === 'En proceso de entrega' ? <button onClick={() => dispatch(updateOrders(orderProps._id, orderProps.status, userData.id))}>Recibí este producto</button> : null}
+            { userData.user && userData.user.id === orderProps.seller._id &&  orderProps.status === 'Pago realizado' ? 
+            <button onClick={() => {
+                dispatch(updateOrders(orderProps._id, orderProps.status, userData.user.id))
+                alert('Estado actualizado')
+                router.push(`/orderDetail/${orderProps._id}`)
+                }}>Despaché este producto</button> : null}
+            { userData.user && userData.user.id === orderProps.buyer._id &&  orderProps.status === 'En proceso de entrega' ? 
+            <button onClick={() => {
+                dispatch(updateOrders(orderProps._id, orderProps.status, userData.user.id))
+                alert('Estado actualizado')
+                router.push(`/orderDetail/${orderProps._id}`)
+                }}>Recibí este producto</button> : null}
         </OrderDetailConteiner>
     )
 }

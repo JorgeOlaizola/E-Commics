@@ -50,7 +50,7 @@ position: absolute;
 top: 40px;
 right: 0px;
 width: 170px;
-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
+box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
 opacity: 0;
 visibility: hidden;
 transform: translateY(-20px);

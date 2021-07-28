@@ -1,11 +1,11 @@
 import Container from '../../components/Container';
-import styled  from 'styled-components';
+import BuyFailure from '../../components/buy/BuyFailure'
 
 const Failure = () => {
     return (
       <>
         <Container>
-            compra fracasada como yo
+            <BuyFailure/>
         </Container>
       </>
     )

@@ -8,6 +8,7 @@ import {
 } from '../../store/actions/productActions'
 import styled from 'styled-components';
 import { GradientBorder, Input  } from '../globalStyle'
+import { useRouter } from 'next/router'
 
 const StyledContainer = styled.div`
     margin-top: 30px;
@@ -78,6 +79,7 @@ const UserPanelPublications = () => {
     const products = useSelector(state => state.product.ownProducts.products);
     const filters = useSelector(state => state.product.filters);
     const dispatch = useDispatch();
+    const router = useRouter()
 
     useEffect(() => {
         dispatch(getOwnProducts(userData.id))
@@ -95,7 +97,7 @@ const UserPanelPublications = () => {
                     <p><strong>{p.title}</strong></p>
                     <Advertise> Precio: ${p.price}</Advertise> 
                     <Advertise> Categoría: {p.category.title}</Advertise>
-                    <span><button>Eliminar</button><button>Modificar</button></span>
+                    <button onClick={() => router.push(`/detail/${p._id}`)}>Modificar</button>
                     </ProductInfoConteiner>
                 </ProductConteiner>
             ) : <div>Todavía no tienes ningún producto</div> }

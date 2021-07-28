@@ -69,7 +69,6 @@ export const sendResetPassword = (email) => {
 }
 
 export const sendBuyConfirmation = async(data) => {
-   console.log(data.orders[0].products);
    let priceTotal = 0;
    let values = []
    for(let i = 0; i < data.orders.length; i++){
@@ -121,6 +120,148 @@ export const sendBuyConfirmation = async(data) => {
      })
 }
 
+export const oneProductConfirmation = async(data) => {
+   let actualDate = new Date()
+   actualDate = actualDate.toLocaleDateString()
+   const city = await Location.findById(data.buyer.location)
+   let priceTotal = data.product.products[0].unit_price * data.product.products[0].quantity;
+   let values = [{title: data.product.products[0].title, quantity: data.product.products[0].quantity, image: data.product.products[0].image, unit_price: data.product.products[0].unit_price}]
+   const msg = {
+     from:{
+       email: "ecommics@gmail.com"
+     },
+     personalizations:[
+        {
+           to:[
+              {
+                 email: `${data.buyer.email}`
+              }
+           ],
+           dynamic_template_data:{
+               orderNumber:  data.product.MerchantOrder,
+               date: actualDate,
+               subtotal: priceTotal,
+               total: priceTotal,
+               discount: "0",
+               buyerName: data.buyer.nickname,
+               buyerAdress: "Dorrego 1689",
+               buyerCity: city.location,
+               user: {
+                  orderHistory: values
+               }
+           },
+        }
+     ],
+     subject: "Resumen de tu compra",
+     template_id:"d-92c5a634cb4e406e9c760ab9c90e4bf8"
+  }
+   sgMail
+     .send(msg)
+     .then(() => {
+       console.log('Correo enviado')
+     })
+     .catch((error) => {
+       console.error(error)
+     })
+}
+
+export const sendBuyPending = async(data) => {
+   let priceTotal = 0;
+   let values = []
+   for(let i = 0; i < data.orders.length; i++){
+      for(let j = 0; j < data.orders[i].products.length; j++){
+         priceTotal = priceTotal + (data.orders[i].products[j].unit_price * data.orders[i].products[j].quantity);
+         data.orders[i].products[j].image = data.orders[i].products[j].image[0];
+         values.push(data.orders[i].products[j])
+      }
+   }
+   let actualDate = new Date()
+   actualDate = actualDate.toLocaleDateString()
+   const city = await Location.findById(data.buyer.location)
+   const msg = {
+     from:{
+       email: "ecommics@gmail.com"
+     },
+     personalizations:[
+        {
+           to:[
+              {
+                 email: `${data.buyer.email}`
+              }
+           ],
+           dynamic_template_data:{
+               orderNumber: data.orders[0]?.MerchantOrder,
+               date: actualDate,
+               subtotal: priceTotal,
+               total: priceTotal,
+               discount: "0",
+               buyerName: data.buyer.nickname,
+               buyerAdress: "Dorrego 1689",
+               buyerCity: city.location,
+               user: {
+                  orderHistory: values
+               }
+           },
+        }
+     ],
+     subject: "Compra pendiente de pago",
+     template_id:"d-8e15912bb3f243ad81a26dcf21a50ebf"
+  }
+   sgMail
+     .send(msg)
+     .then(() => {
+       console.log('Correo enviado')
+     })
+     .catch((error) => {
+       console.error(error)
+     })
+}
+
+export const oneProductPending = async(data) => {
+   let actualDate = new Date()
+   actualDate = actualDate.toLocaleDateString()
+   const city = await Location.findById(data.buyer.location)
+   let priceTotal = data.product.products[0].unit_price * data.product.products[0].quantity;
+   let values = [{title: data.product.products[0].title, quantity: data.product.products[0].quantity, image: data.product.products[0].image, unit_price: data.product.products[0].unit_price}]
+   const msg = {
+     from:{
+       email: "ecommics@gmail.com"
+     },
+     personalizations:[
+        {
+           to:[
+              {
+                 email: `${data.buyer.email}`
+              }
+           ],
+           dynamic_template_data:{
+               orderNumber:  data.product.MerchantOrder,
+               date: actualDate,
+               subtotal: priceTotal,
+               total: priceTotal,
+               discount: "0",
+               buyerName: data.buyer.nickname,
+               buyerAdress: "Dorrego 1689",
+               buyerCity: city.location,
+               user: {
+                  orderHistory: values
+               }
+           },
+        }
+     ],
+     subject: "Resumen de tu compra",
+     template_id:"d-8e15912bb3f243ad81a26dcf21a50ebf"
+  }
+   sgMail
+     .send(msg)
+     .then(() => {
+       console.log('Correo enviado')
+     })
+     .catch((error) => {
+       console.error(error)
+     })
+}
+
 export const sendFailureEmail = (arg) => {
    const msg = {
       from:{
@@ -137,7 +278,7 @@ export const sendFailureEmail = (arg) => {
             }
          }
       ],
-      template_id:"d-8a9f8241454248cc8a6ffd0f85e81687"
+      template_id:"d-2901b4c024854c02af09b5317942f512"
    }
    sgMail
      .send(msg)

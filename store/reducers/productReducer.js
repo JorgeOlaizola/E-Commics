@@ -5,6 +5,7 @@ const initialState = {
     totalProducts: null,
     itemPerPage: null,
     ownProducts: [],
+    search:[],
     productDetail: {},
     filters: {
         user : "",
@@ -38,6 +39,8 @@ export default function productReducer(state = initialState, action) {
         return {...state, products: action.payload.products, totalProducts: action.payload.totalProducts, itemPerPage: action.payload.itemPerPage}
         case product.GET_PRODUCT_DETAIL:
         return {...state, productDetail: action.payload}
+        case product.GET_TITLES:
+            return {...state, search:action.payload}
         //Reset product detial
         case product.RESET_PRODUCT_DETAIL:
         return {...state, productDetail: {}}

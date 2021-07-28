@@ -317,6 +317,16 @@ z-index: 9;
 margin-bottom: 10px;
 `
 
+const ReviewConteiner = styled.div`
+display: flex;
+justify-content: center;
+align-items: center;
+border: 1px solid black;
+padding: 1rem;
+margin: 1rem;
+flex-direction: column;
+`
+
 
 
 const ProductDetail = ({productData}) => {
@@ -372,7 +382,8 @@ const ProductDetail = ({productData}) => {
     async function upDateProduct(){
         dispatch(productToUpDate(productUpDate))
         setEdit(!edit)
-        router.back()
+        alert('Producto modificado con éxito!')
+        return router.push(`/detail/${productData._id}`)
     }
 
 
@@ -399,7 +410,7 @@ const ProductDetail = ({productData}) => {
             } catch (error) {
                 console.log(error)
             } */
-
+            return router.push(`/detail/${productData._id}`)
 
         }
     }
@@ -615,17 +626,35 @@ const ProductDetail = ({productData}) => {
                         {
                         productData && productData?.questions?.length ? 
                             productData.questions.map(q => { 
-                                return <div key={q.created_at} style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+                                return <div key={q._id} style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
                                     <Question>
                                         {q.content}
                                         <span style={{marginTop: "10px", fontSize: "1rem", color: "${(props) => props.theme.blueColor}"}}>{q.avatar} {q.userNickname} ({q.created_at.slice(0, 10)}) {q.answer ? <span>(respondido)</span> : <span>(pendiente de respuesta)</span>}</span>
                                     </Question>
                                     {
-                                        q.answer &&
+                                        q.answer ?
                                         <Answer>
                                             {q.answer}
                                             <span style={{marginTop: "10px", fontSize: "1rem"}}>{productData.user.nickname}</span>
                                         </Answer>
+                                        :
+                                        userData && userData?.id === productData?.user._id && 
+                                        <form onSubmit={(e) => {
+                                            e.preventDefault()
+                                            axios.put(`/api/questions?id=${q._id}&answer=${e.target.answer.value}`)
+                                            .then(r => {
+                                                if(r.data.success_msg){
+                                                    alert(r.data.success_msg)
+                                                    return router.push(`/detail/${productData._id}`)
+                                                }
+                                                else{
+                                                    return alert(r.data.error_msg)
+                                                }})
+                                            .catch(err => console.log(err))
+                                        }}>
+                                            <input type="text" name="answer"></input>
+                                            <input type="submit" value="Responder"></input>
+                                        </form>
                                     }
                                     <Space/>
                                 </div>        
@@ -670,7 +699,15 @@ const ProductDetail = ({productData}) => {
                         <Space/>
                         <Title>Reseñas</Title>
                         <div style={{display: "flex", justifyContent: "center"}}>
+                            {productData.reviews && productData.reviews.length ? 
+                            productData.reviews.map(r => {
+                                let star = "⭐"
+                                return <ReviewConteiner key={r._id}>"{r.content}" <p>{star.repeat(r.rating)}</p></ReviewConteiner>
+                                
+                        })
+                            :
                             <Advertise style={{textAlign: "center"}}>Aún no hay reseñas para este artículo</Advertise>
+                            }
                         </div>
                     </QuestionsContainer>
                 </QuestionsDiv>

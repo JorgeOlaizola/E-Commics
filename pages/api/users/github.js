@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken'
 import Token from '../../../server/models/Token'
 import { validateToken } from '../../../utils/auth'
 
-const KEY = 'top_secret'
+const KEY = process.env.SECRET
 
 export default nextConnect()
 
@@ -63,7 +63,8 @@ export default nextConnect()
                     name: user.name,
                     surname: user.surname,
                     id: user._id,
-                    favorites: []
+                    favorites: [],
+                    github: user.github || 'None'
                 },
                 token: token
             })

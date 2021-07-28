@@ -31,10 +31,12 @@ export default nextConnect()
             }
             return p
         })
-        await checkOrder.save((err, order) => {
-            if(err) return res.json({ error_msg: 'Algo salió mal'})
-            return res.json({ success_msg: `Review creada con éxito`})
-        })
+        let checkStatus = checkOrder.products.filter(p => p.review !== 'Review')
+        if(!checkStatus.length){
+            checkOrder.status = 'Finalizado'
+        }
+        await checkOrder.save()
+        return res.json({ success_msg: checkOrder.status})
     }
     catch (error) {
         console.log(error)

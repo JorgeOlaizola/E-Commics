@@ -2,7 +2,9 @@ import nextConnect from 'next-connect'
 import dbConnect from '../../../utils/dbConnect'
 import Order from '../../../server/models/Order'
 import Product from '../../../server/models/Product'
+import User from '../../../server/models/User'
 import  { ObjectId } from 'mongodb'
+import { sendFailureEmail, oneProductConfirmation, oneProductPending } from '../../../utils/emailService'
 
 const mercadopago = require ('mercadopago');
 
@@ -49,8 +51,18 @@ export default nextConnect()
 .get(async (req, res) => {
     try{
         await dbConnect()
-        const { buyer, seller, quantity,stock, productId, payment_id, status, merchant_order_id } = req.query 
-        if(status === "failure") return res.redirect('/buy/failure');
+        const { buyer, seller, quantity,stock, productId, payment_id, status, merchant_order_id } = req.query
+
+        const buyerData = await User.findById(buyer);
+
+        let data = {
+            buyer: buyerData
+        }
+
+        if(status === "failure") {
+            sendFailureEmail(data.buyer.email)
+            return res.redirect('/buy/failure');
+        }
         const prod = await Product.findByIdAndUpdate(productId, { stock: (parseInt(stock) - quantity) })
         console.log(prod)
             const obj = {
@@ -67,7 +79,13 @@ export default nextConnect()
                 MerchantOrder: merchant_order_id,
                 Payment: payment_id
             }
-            await Order.create(obj)
+            data.product = obj;
+            await Order.create(obj);
+            if(obj.status === 'Pago realizado') {
+                oneProductConfirmation(data);
+            } else {
+                oneProductPending(data);
+            }
         if(status === "approved") return res.redirect('/buy/success');
         if(status === "pending") return res.redirect('/buy/pending');
     }

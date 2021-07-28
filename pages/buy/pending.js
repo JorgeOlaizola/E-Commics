@@ -1,11 +1,11 @@
 import Container from '../../components/Container';
-import styled  from 'styled-components';
+import BuyPending from '../../components/buy/BuyPending'
 
 const Pending = () => {
     return (
       <>
         <Container>
-            compra pendiente como mis ganas de vivir
+            <BuyPending/>
         </Container>
       </>
     )

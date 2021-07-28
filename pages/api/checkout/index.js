@@ -17,6 +17,7 @@ export default nextConnect()
 
 .post(async (req, res) => {
     const { id } = req.query;
+    
     try{
         await dbConnect()
         let items =[];

@@ -62,7 +62,7 @@ const BuyFailure = () => {
         <StyledContainer>
             <StyledTextBox>
                 <RedBox>
-                    <h2>¡Ups, algo saló mal!</h2>
+                    <h2>¡Ups, algo salió mal!</h2>
                 </RedBox>
                 <WhiteBox>
                     <p>

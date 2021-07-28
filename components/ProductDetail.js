@@ -15,12 +15,14 @@ import {
 import {
     addItem,
     changeCart,
-    buyProduct
+    buyProduct,
+    getCart,
+	decreaseItem,
+	increaseItem,
 } from '../store/actions/cartActions'
-import { HeartIcon, ShoppingCartIcon } from '@heroicons/react/outline'
 import Link from 'next/link';
 import Image from 'next/image';
-import { StyledLink, Input, GradientBorder } from './globalStyle';
+import { StyledLink, Input, GradientBorder, BuyButton, EraseButton } from './globalStyle';
 import { useRouter } from 'next/router'
 import axios from 'axios'
 import { showModalAlert } from '../store/actions/modalAlertActions'
@@ -28,7 +30,8 @@ import ImageCarousel from './ImageCarousel'
 import { AiFillEdit } from 'react-icons/ai';
 import { AiOutlineEdit } from 'react-icons/ai';
 import {FormProductContainer, FormInput, FormTextarea, FormProductInput} from './user-panel/UserStyles.js';
-
+import { HeartIcon as HeartIconOutline, ShoppingCartIcon as CartIconOutline } from '@heroicons/react/outline';
+import { HeartIcon as HeartIconSolid, ShoppingCartIcon as  CartIconSolid } from '@heroicons/react/solid';
 
 //#endregion
 
@@ -133,35 +136,6 @@ const UserStyledLink = styled(StyledLink)`
 `
 
 
-const BuyButton = styled.button`
-    width: 100%;
-    height: 45px;
-    margin: 10px 0;
-    background-color: ${(props) => props.theme.blueColor};
-    border: 1px solid ${(props) => props.theme.backgroundLevel1};
-    border-style: hidden;
-    color: #FFF;
-    font-size: 1.2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    &:hover {
-        background-color: #123AC9;
-        border: 1px solid ${(props) => props.theme.backgroundLevel1};
-        transition: 0.3s;
-    }
-    &:active {
-        background-color: ${(props) => props.theme.blueColorActive};
-        border: 1px solid ${(props) => props.theme.backgroundLevel1};
-    }
-    &:disabled {
-        // background-color: ${(props) => props.theme.blueColor}; nc que color ponerle cuando lo desactivamos
-        background-color: gray;
-        border: 1px solid ${(props) => props.theme.backgroundLevel1};
-    }
-`
-
 const Advertise = styled.p`
     color: ${(props) => props.theme.blueColor};
     margin-bottom: 20px;
@@ -188,6 +162,22 @@ const AddingButton = styled.div`
     color: ${(props) => props.theme.blueColor};
     font-size: 1.2rem;
     margin-bottom: 10px;
+
+    &:hover {
+        cursor: pointer;
+        color: ${(props) => props.theme.blueColorHover};
+    }
+    &:active {
+        cursor: pointer;
+        color: ${(props) => props.theme.blueColor};
+    }
+`
+
+const CartAddingButton = styled.div`
+    color: ${(props) => props.theme.blueColor};
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    display: inline;
 
     &:hover {
         cursor: pointer;
@@ -341,6 +331,7 @@ const ProductDetail = ({productData}) => {
     const [productUpDate,setProductUpDate] = useState({
         ...productData
     })
+	const cartItems = useSelector(state => state.cart.cartItems);
 
     function handleChange(e) {
         setQuestion(e.target.value)
@@ -423,6 +414,15 @@ const ProductDetail = ({productData}) => {
             alert("Debes iniciar sesion para comprar!")
         }
     }
+    useEffect(() => {
+		if(userData) {
+			dispatch(getCart(userData.id))
+		}
+	}, [dispatch, userData])
+    
+    // console.log(cartItems[0].products[0]._id)
+    // console.log(userData)
+    // console.log(productData._id)
 
     const handleCart = async () => {
         if(userData) {
@@ -597,14 +597,24 @@ const ProductDetail = ({productData}) => {
                         : <span></span>
                         }  */}
                         {
-                            userData && userData.favorites && userData.favorites.find(f => f._id === productData._id) ? <AddingButton><a onClick={HandleToggleFavorite}><HeartIcon className="addFavIcon"/> Quitar de favoritos</a></AddingButton> :
-                            userData && userData.favorites && userData.favorites.find(f => f._id === productData._id) === undefined ? <AddingButton><a onClick={HandleToggleFavorite}><HeartIcon className="addFavIcon"/> Agregar a favoritos</a></AddingButton> :
+                            userData && userData.favorites && userData.favorites.find(f => f._id === productData._id) ? <AddingButton><a onClick={HandleToggleFavorite}><HeartIconSolid className="addFavIcon"/> Quitar de favoritos</a></AddingButton> :
+                            userData && userData.favorites && userData.favorites.find(f => f._id === productData._id) === undefined ? <AddingButton><a onClick={HandleToggleFavorite}><HeartIconOutline className="addFavIcon"/> Agregar a favoritos</a></AddingButton> :
                             <span></span>
                         } 
                         {/* <AddingButton><HeartIcon className="addFavIcon"/> Agregar a favoritos</AddingButton> */}
+                        {cartItems.find(p => p.products[0]._id === productData._id) ? 
+                        <>
+                       { cartItems.find(p => p.products[0]._id === productData._id).products[0].quantity}
+                        </> : <></>}
                         {
-                            productData?.stock === 0 ? null : <AddingButton onClick={() => handleCart()}><ShoppingCartIcon className="addCartIcon"/> Agregar al carrito</AddingButton>
+                            productData?.stock === 0 ? null : <CartAddingButton onClick={() => handleCart()}><CartIconOutline className="addCartIcon"/> Agregar al carrito</CartAddingButton>
                         }
+                        
+                        {/* <div>
+                            <button onClick={() => dispatch(decreaseItem(cartItems.find(p => p.products[0]._id === productData._id)._id, productData._id))}>-</button> Cantidad <button onClick={() => dispatch(increaseItem(cartItems.find(p => p.products[0]._id === productData._id)._id, productData._id, 1000))}>+</button>
+						</div> */}
+
+
                         <Space/>
                         <InfoTitle>Medios de pago</InfoTitle>
                         <Description>

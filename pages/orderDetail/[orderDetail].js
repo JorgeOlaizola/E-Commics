@@ -11,7 +11,6 @@ margin-top: 40px;
 `
 
 const OrderDetail = (props) => {
-   
     return (
       <>
         <Container>

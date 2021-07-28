@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import Link from 'next/link'
 import { useSelector, useDispatch } from 'react-redux'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { updateOrders } from '../store/actions/normalUsersActions'
 import axios from 'axios'
 import { useRouter } from 'next/router'
@@ -45,14 +45,16 @@ padding: 5px;
 const OrderDetailComponent = ({ orderProps }) => {
     
     const router = useRouter()
-    const userData = useSelector(state => state.user.userData.user)
+    // const userData = useSelector(state => state.user.userData.user)
+    if (typeof window !== "undefined"){
+        var [userData, setUserData] = useState( localStorage.getItem("sessionSaved") ? JSON.parse(localStorage.getItem("sessionSaved")) : null )
+    }
     useEffect(() => {
-        if(!userData) {
+        if(!userData.user) {
             router.push("/")
         }
-    }, [])
+    }, [userData])
     const dispatch = useDispatch()
-    console.log(userData)
     let total = 0
 
  

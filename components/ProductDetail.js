@@ -329,12 +329,8 @@ const ProductDetail = ({productData}) => {
     const [question, setQuestion] = useState("");
     const [edit,setEdit] = useState(false)
     const [productUpDate,setProductUpDate] = useState({
-        ...productStore
+        ...productData
     })
-
-    console.log("aca el context", productData)
-
-    console.log("store", productStore)
 
     function handleChange(e) {
         setQuestion(e.target.value)
@@ -370,7 +366,7 @@ const ProductDetail = ({productData}) => {
         setEdit(!edit)
         //se puede dejar o sacar a gusto de los compas!
         setProductUpDate({
-            ...productStore
+            ...productData
         })
     }
     async function upDateProduct(){
@@ -387,7 +383,7 @@ const ProductDetail = ({productData}) => {
             const questionCreated = {
                 content: question,
                 user: userData?.id,
-                product: productStore._id,
+                product: productData._id,
             }
             dispatch(createQuestion(questionCreated, userData?.nickname))
 
@@ -410,7 +406,7 @@ const ProductDetail = ({productData}) => {
 
     const buy = ()=>{
         if(userData && userData.id){
-            dispatch(buyProduct({user: userData.id, quantity: 1, product:productStore  }))
+            dispatch(buyProduct({user: userData.id, quantity: 1, product:productData  }))
         }
         else{
             alert("Debes iniciar sesion para comprar!")
@@ -421,15 +417,15 @@ const ProductDetail = ({productData}) => {
         if(userData) {
             let orders = [
                     {
-                        _id: productStore.user._id,// vendedor
+                        _id: productData.user._id,// vendedor
                         products:[
                             {
-                            _id: productStore._id,//producto
-                            unit_price: productStore.price,
-                            title: productStore.title,
+                            _id: productData._id,//producto
+                            unit_price: productData.price,
+                            title: productData.title,
                             quantity: 1,
-                            image: productStore.image,
-                            stock: productStore.stock
+                            image: productData.image,
+                            stock: productData.stock
                             }
                         ]
                     }
@@ -437,13 +433,13 @@ const ProductDetail = ({productData}) => {
             return dispatch(changeCart(userData.id, orders))
         }
         else{
-            return dispatch(addItem(productStore))
+            return dispatch(addItem(productData))
         }
     }
 
     const handleClick = (e, path) => {
         e.preventDefault();
-        filters.user = productStore.user._id;
+        filters.user = productData.user._id;
         dispatch(getFilteredProducts(filters));
         
         router.push(path)
@@ -455,7 +451,7 @@ const ProductDetail = ({productData}) => {
 
     const HandleToggleFavorite = () => {
         dispatch(getFavorites(userData.id))
-        dispatch(handleFavorites(userData.id, productStore._id))
+        dispatch(handleFavorites(userData.id, productData._id))
         dispatch(getFavorites(userData.id))
  
     }
@@ -469,7 +465,7 @@ const ProductDetail = ({productData}) => {
                         <Link passHref href="/search">
                             <StyledLink>← búsqueda</StyledLink>
                         </Link>
-                        <ResponsiveTitle>{productStore.title}</ResponsiveTitle>
+                        <ResponsiveTitle>{productData.title}</ResponsiveTitle>
                         
                         {
                         userData && userData?.id === productData?.user._id && edit ? 
@@ -498,7 +494,7 @@ const ProductDetail = ({productData}) => {
                         userData && userData?.id === productData?.user._id && edit ? 
                         <FormProductContainer><span style={{padding: "0px", flexGrow: 1}}>Título</span><FormProductInput name="title" onChange={(e)=>handleProductUpDate(e)} value={productUpDate.title}/> </FormProductContainer>
                         : 
-                        <Title>{productStore.title}</Title>
+                        <Title>{productData.title}</Title>
                         }
                         {
                         userData && userData?.id === productData?.user._id && edit ? 
@@ -517,9 +513,9 @@ const ProductDetail = ({productData}) => {
                         userData && userData?.id === productData?.user._id && edit ? 
                         <FormProductContainer><span style={{padding: "0px", flexGrow: 1}}>Cantidad</span><FormProductInput name="stock" onChange={(e)=>handleProductUpDate(e)} value={productUpDate.stock}/> </FormProductContainer>
                         : 
-                            productStore.stock === 0 ? <Advertise>No hay unidades disponibles por el momento</Advertise> :
-                            productStore.stock === 1 ? <Advertise>¡Queda una sola unidad!</Advertise> :
-                            <Advertise>Quedan {productStore.stock} unidades</Advertise>
+                            productData.stock === 0 ? <Advertise>No hay unidades disponibles por el momento</Advertise> :
+                            productData.stock === 1 ? <Advertise>¡Queda una sola unidad!</Advertise> :
+                            <Advertise>Quedan {productData.stock} unidades</Advertise>
                         }
                         <InfoTitle>Descripción</InfoTitle>
                         {
@@ -574,12 +570,12 @@ const ProductDetail = ({productData}) => {
                             :
                             <BuyButton style={{cursor: "unset"}} disabled>Es tu Producto!</BuyButton>
                         : 
-                        productStore?.stock === 0 ? <BuyButton disabled>Comprar ahora</BuyButton>
+                        productData?.stock === 0 ? <BuyButton disabled>Comprar ahora</BuyButton>
                         :
                         <BuyButton onClick={()=>buy()}>Comprar ahora</BuyButton>
                          }
                          {
-                            productStore?.stock === 0 ? <HurryAdvertise><em>Espera a que el vendedor reponga este artículo!</em></HurryAdvertise> : <HurryAdvertise><em>Apúrate! Este artículo se va volando</em></HurryAdvertise>
+                            productData?.stock === 0 ? <HurryAdvertise><em>Espera a que el vendedor reponga este artículo!</em></HurryAdvertise> : <HurryAdvertise><em>Apúrate! Este artículo se va volando</em></HurryAdvertise>
                         }
                        {/*  {
                         userData && userData.favorites ? 
@@ -590,13 +586,13 @@ const ProductDetail = ({productData}) => {
                         : <span></span>
                         }  */}
                         {
-                            userData && userData.favorites && userData.favorites.find(f => f._id === productStore._id) ? <AddingButton><a onClick={HandleToggleFavorite}><HeartIcon className="addFavIcon"/> Quitar de favoritos</a></AddingButton> :
-                            userData && userData.favorites && userData.favorites.find(f => f._id === productStore._id) === undefined ? <AddingButton><a onClick={HandleToggleFavorite}><HeartIcon className="addFavIcon"/> Agregar a favoritos</a></AddingButton> :
+                            userData && userData.favorites && userData.favorites.find(f => f._id === productData._id) ? <AddingButton><a onClick={HandleToggleFavorite}><HeartIcon className="addFavIcon"/> Quitar de favoritos</a></AddingButton> :
+                            userData && userData.favorites && userData.favorites.find(f => f._id === productData._id) === undefined ? <AddingButton><a onClick={HandleToggleFavorite}><HeartIcon className="addFavIcon"/> Agregar a favoritos</a></AddingButton> :
                             <span></span>
                         } 
                         {/* <AddingButton><HeartIcon className="addFavIcon"/> Agregar a favoritos</AddingButton> */}
                         {
-                            productStore?.stock === 0 ? null : <AddingButton onClick={() => handleCart()}><ShoppingCartIcon className="addCartIcon"/> Agregar al carrito</AddingButton>
+                            productData?.stock === 0 ? null : <AddingButton onClick={() => handleCart()}><ShoppingCartIcon className="addCartIcon"/> Agregar al carrito</AddingButton>
                         }
                         <Space/>
                         <InfoTitle>Medios de pago</InfoTitle>
@@ -617,8 +613,8 @@ const ProductDetail = ({productData}) => {
                     <QuestionsContainer>
                         <Title>Preguntas</Title>
                         {
-                        productStore && productStore?.questions?.length ? 
-                            productStore.questions.map(q => { 
+                        productData && productData?.questions?.length ? 
+                            productData.questions.map(q => { 
                                 return <div key={q.created_at} style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
                                     <Question>
                                         {q.content}
@@ -628,7 +624,7 @@ const ProductDetail = ({productData}) => {
                                         q.answer &&
                                         <Answer>
                                             {q.answer}
-                                            <span style={{marginTop: "10px", fontSize: "1rem"}}>{productStore.user.nickname}</span>
+                                            <span style={{marginTop: "10px", fontSize: "1rem"}}>{productData.user.nickname}</span>
                                         </Answer>
                                     }
                                     <Space/>
@@ -644,7 +640,7 @@ const ProductDetail = ({productData}) => {
                             userData && userData.log !== false ?
                                 <>
                                     <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-                                    {productStore?.questions?.length ? <QuestionAdvertise>¿Quieres saber más?</QuestionAdvertise> : <></>}
+                                    {productData?.questions?.length ? <QuestionAdvertise>¿Quieres saber más?</QuestionAdvertise> : <></>}
                                         <QuestionAdvertise>Pregúntale al vendedor</QuestionAdvertise>
                                     </div>
                                     <form

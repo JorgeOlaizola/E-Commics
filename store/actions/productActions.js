@@ -46,9 +46,15 @@ export function productToUpDate(product){
 
 
 export function getProductDetail (id) {
-    return (dispatch) => {
-    axios.get(`/api/products/detail?id=${id}`)
-    .then(r => dispatch({ type: product.GET_PRODUCT_DETAIL, payload: r.data }))
+    return  async (dispatch) => {
+        try {
+            const productCall = await axios.get(`/api/products/detail?id=${id}`)
+            return dispatch({ type: product.GET_PRODUCT_DETAIL, payload: productCall.data })
+            
+        } catch (error) {
+            console.error(error)
+        }
+    //.then(r => dispatch({ type: product.GET_PRODUCT_DETAIL, payload: r.data }))
     }
 }
 

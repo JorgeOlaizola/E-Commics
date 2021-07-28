@@ -1,16 +1,27 @@
+import { useEffect } from 'react';
 import Container from '../../components/Container';
 import Productdetail from '../../components/ProductDetail'
 import axios from 'axios';
+import {getProductDetail} from '../../store/actions/productActions'
+import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 
 
 const ProductDetail = (props) => {
+  const router = useRouter()
+  const dispatch = useDispatch()
   
+   useEffect(()=>{
+     dispatch(getProductDetail(router.query.productDetail))
+   },[dispatch])
   
-   
+  const storeProductDetail = useSelector(state => state.product.productDetail)
+  console.log("en el front", storeProductDetail)
+ 
     return (
       <>
         <Container>
-         <Productdetail productData={props.productData}/>
+         <Productdetail productData={props.productData} productStore = {storeProductDetail}/>
         </Container>
       </>
     )

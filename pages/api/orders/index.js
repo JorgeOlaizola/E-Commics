@@ -74,7 +74,7 @@ export default nextConnect()
         const { orderId, status, userId} = req.body
 
         const order = await Order.findById(orderId).exec()
-        if(order.seller == userId && status === 'approved'){
+        if(order.seller == userId && status === 'Pago realizado'){
             order.status = 'En proceso de entrega'
             await order.save()
             return res.json(order)

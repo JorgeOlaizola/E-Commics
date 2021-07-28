@@ -13,7 +13,6 @@ import {
 } from '../../store/actions/cartActions'
 import ShippingForm from './ShippingForm';
 
-from '../../store/actions/cartActions';
 import { EraseButton, BuyButton  } from '../globalStyle'
 
 

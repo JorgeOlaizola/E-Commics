@@ -42,8 +42,6 @@ const OrderDetailProduct = ({ p, orderProps }) => {
         axios.post('/api/reviews', { user: userData.id, product, content: e.target.content.value, rating: e.target.rating.value, order: orderProps._id})
         .then(r => router.push(`/detail/${product}`))
         .catch(err => console.log(err))
-        
-
     }
 
     let star = "⭐"

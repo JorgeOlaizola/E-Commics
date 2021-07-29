@@ -45,6 +45,12 @@ const cartSchema = new mongoose.Schema({
     Payment: {
         type:String,
         default:""
+    },
+    shipping:{
+        street:String,
+		location: String,
+		number: String,
+		info:String
     }
 });
 

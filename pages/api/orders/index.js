@@ -21,10 +21,11 @@ export default nextConnect()
             }
 
             if(!Orders) return res.json({ error_msg: 'No se encontró nada'})
+
             await User.populate(Orders, { path: 'seller' })
             await User.populate(Orders, { path: 'buyer' })
         
-            const result = Orders.map(Orders => {
+            let result = Orders.map(Orders => {
             return {
                 status: Orders.status,
                 Payment: Orders.Payment,
@@ -55,7 +56,15 @@ export default nextConnect()
                     surname: Orders.seller.surname
                 }
             }})
-            return res.json(result)
+            if(filter === 'Finalizado'){
+                return res.json(result)
+            }
+            else {
+                result = result.filter(r => {
+                    return r.status !== 'Finalizado'
+                })
+                return res.json(result)
+            }
         }
         else {
             return res.json({ error_msg: 'Parámetros inválidos' })
@@ -77,11 +86,47 @@ export default nextConnect()
         if(order.seller == userId && status === 'Pago realizado'){
             order.status = 'En proceso de entrega'
             await order.save()
+
+            //---BUYER NOTIFICATION
+            const buyer = await User.findById(order.buyer).exec()
+            const seller = await User.findById(order.seller).exec()
+            if(buyer){
+                const notification = {
+                    img: 'https://res.cloudinary.com/jorgeleandroolaizola/image/upload/v1627517096/Notifications%20eccomics/despachar_poyzma.png',
+                    content: `${seller.nickname} despachó tu pedido. No te olvides de avisar una vez que lo recibas!`,
+                    link: `/orderDetail/${order._id}`
+                }
+                buyer.notifications.unshift(notification)
+                if(buyer.notifications.length > 5){
+                    buyer.notifications.pop()
+                }
+
+                await buyer.save()
+            }
+            //--RESPONSE
             return res.json(order)
         }
         if(order.buyer == userId && status === 'En proceso de entrega'){
             order.status = 'Recibido'
             await order.save()
+
+            //--SELLER NOTIFICATION
+            const buyer = await User.findById(order.buyer).exec()
+            const seller = await User.findById(order.seller).exec()
+            if(seller){
+                const notification = {
+                    img: 'https://res.cloudinary.com/jorgeleandroolaizola/image/upload/v1627517096/Notifications%20eccomics/recibir_producto_ulqiop.png',
+                    content: `${buyer.nickname} recibió tu pedido. Gracias por confiar en E-Commics.`,
+                    link: `/orderDetail/${order._id}`
+                }
+                seller.notifications.unshift(notification)
+                if(seller.notifications.length > 5){
+                    seller.notifications.pop()
+                }
+
+                await seller.save()
+            }
+            //--RESPONSE
             return res.json(order)
         }
         return res.json({ error_msg: 'Algo salió mal' })

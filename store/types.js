@@ -82,3 +82,11 @@ export const modalAlert = {
     CLOSE_MODAL_ALERT : "CLOSE_MODAL_ALERT"
 
 }
+
+//Newsletters Types
+
+export const newsletter = {
+    GET_NEWSLETTERS: "GET_NEWSLETTERS",
+    UPDATE_NEWSLETTERS: "UPDATE_NEWSLETTERS",
+    GET_NEWSLETTER_DETAIL: 'GET_NEWSLETTER_DETAIL'
+}

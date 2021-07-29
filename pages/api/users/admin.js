@@ -47,7 +47,7 @@ export default nextConnect()
     try {
         await dbConnect()
         const userRole = await User.findByIdAndUpdate(req.query.id, { role: req.query.role }).exec()
-        console.log(userRole)
+        
         if(userRole){
             return res.json({ success_msg: `El usuario se ha actualizado con exito a ${req.query.role}`})
         }

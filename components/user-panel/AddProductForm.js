@@ -146,7 +146,7 @@ const AddProductForm = () => {
                             ...input,
                             image: data.join("&&")
                         }
-                        console.log(respuesta)
+                        
                         dispatch(addSellingProduct(respuesta))
                         setLoading('done')
                     })

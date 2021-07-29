@@ -64,7 +64,7 @@ export default nextConnect()
             return res.redirect('/buy/failure');
         }
         const prod = await Product.findByIdAndUpdate(productId, { stock: (parseInt(stock) - quantity) })
-        console.log(prod)
+        
             const obj = {
                 buyer:buyer,
                 seller:seller,

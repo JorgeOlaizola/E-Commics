@@ -29,7 +29,7 @@ const Users = () => {
     , [])
     
     const changeRole = async (role, id) => {
-        console.log(role, id)
+        
         const msg = await axios.put(`/api/users/admin?role=${role}&id=${id}`)
         if(msg.data.success_msg){
             getUsers()

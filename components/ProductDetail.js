@@ -308,6 +308,16 @@ z-index: 9;
 margin-bottom: 10px;
 `
 
+const ReviewConteiner = styled.div`
+display: flex;
+justify-content: center;
+align-items: center;
+border: 1px solid black;
+padding: 1rem;
+margin: 1rem;
+flex-direction: column;
+`
+
 
 const ProductDetail = ({productData}) => {
 
@@ -673,7 +683,15 @@ const ProductDetail = ({productData}) => {
                         <Space/>
                         <Title>Reseñas</Title>
                         <div style={{display: "flex", justifyContent: "center"}}>
+                            {productData.reviews && productData.reviews.length ? 
+                            productData.reviews.map(r => {
+                                let star = "⭐"
+                                return <ReviewConteiner key={r._id}>"{r.content}" <p>{star.repeat(r.rating)}</p></ReviewConteiner>
+                                
+                        })
+                            :
                             <Advertise style={{textAlign: "center"}}>Aún no hay reseñas para este artículo</Advertise>
+                            }
                         </div>
                     </QuestionsContainer>
                 </QuestionsDiv>

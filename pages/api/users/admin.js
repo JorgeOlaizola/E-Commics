@@ -15,7 +15,8 @@ export default nextConnect()
                         id: u._id,
                         nickname: u.nickname,
                         email: u.email,
-                        role: u.role
+                        role: u.role,
+                        status: u.status
                 }})
                 return res.json(nickInfo)
             }
@@ -30,7 +31,8 @@ export default nextConnect()
                     id: u._id,
                     nickname: u.nickname,
                     email: u.email,
-                    role: u.role
+                    role: u.role,
+                    status: u.status
             }})
             return res.json(usersInfo)
         }

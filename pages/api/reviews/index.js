@@ -51,7 +51,7 @@ export default nextConnect()
 
         //---SELLER NOTIFICATION
         const buyer = await User.findById(user).exec()
-        const seller = await User.findById(order.seller).exec()
+        const seller = await User.findById(checkOrder.seller).exec()
         if(seller){
             const notification = {
                 img: 'https://res.cloudinary.com/jorgeleandroolaizola/image/upload/v1627517096/Notifications%20eccomics/review_e1ps4b.png',

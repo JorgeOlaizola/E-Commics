@@ -125,7 +125,7 @@ border: 1px solid grey;
 `;
 
 const BuyButtonAction = styled.button`
-width: 100%;
+	width: 100%;
     height: 45px;
     margin: 10px 0;
     background-color: #161D2F;
@@ -166,6 +166,7 @@ const CartItems = () => {
 	const cartItems = useSelector(state => state.cart.cartItems);
 	const cartId = useSelector(state => state.cart.cartId);
 	const shippingInfo = useSelector(state => state.cart.shippingInfo)
+	
 	let total = 0
 	return(
 		<CartContainer><h1>Shopping Cart</h1>
@@ -220,9 +221,12 @@ const CartItems = () => {
 
 				<p>Total: {total}$</p>
 				<ShippingForm/>
+				{
+					shippingInfo && <BuyButtonAction  onClick={shippingInfo ? ()=> dispatch(buyCart(cartId, shippingInfo)) : null}>Comprar ahora</BuyButtonAction>
+				}
 				
 
-					<BuyButtonAction onClick={shippingInfo ? ()=> dispatch(buyCart(cartId, shippingInfo)) : null}>Comprar ahora</BuyButtonAction> 
+					{/* <BuyButtonAction display={!!shippingInfo ? 'none' : 'flex'} onClick={shippingInfo ? ()=> dispatch(buyCart(cartId, shippingInfo)) : null}>Comprar ahora</BuyButtonAction>  */}
 				
 
 				</div> : 'Todavía no agregaste nada al carrito'

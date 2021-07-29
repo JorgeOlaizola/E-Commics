@@ -3,7 +3,7 @@ import Link from 'next/link';
 import styled from 'styled-components';
 import { Button  } from './globalStyle';
 import { SearchIcon } from '@heroicons/react/outline';
-import { searchByName, getFilteredProducts, getTitles } from '../store/actions/productActions.js';
+import { searchByName, getFilteredProducts, getTitles, resetFilters } from '../store/actions/productActions.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router'
 import { IoIosBrowsers } from 'react-icons/fa';
@@ -52,10 +52,13 @@ cursor: pointer;
 &:active{
   background: #0096FF;
 }
-${'' /* @media (max-width: 480px) {
-  background: none;
-  color: ${(props) => props.theme.fontColor};
-} */}
+`
+
+const ResFindButton = styled.button`
+border: none; 
+height: 25px;
+cursor: pointer;
+margin-right: 15px;
 `
 
 const FindDivResp = styled.div`
@@ -98,13 +101,18 @@ const Find = ({ResNavFalse, ToogleResFind, resFind}) => {
     const filters = useSelector(state => state.product.filters)
     const options = useSelector(state => state.product.search)
     const router = useRouter()
+    const [findInput, setfindInput] = useState("")
+
     function handleSubmit(event) {
         event.preventDefault();
         dispatch(getFilteredProducts(filters))
         router.push('/search')
+        setfindInput("")
+        dispatch(resetFilters())
     }
 
     function handleChange(event) {
+        setfindInput(event.target.value)
         dispatch(searchByName(event.target.value))
         dispatch(getTitles(event.target.value))
       }
@@ -120,6 +128,7 @@ const Find = ({ResNavFalse, ToogleResFind, resFind}) => {
             type="text"
             list="dataInputList"
             autoComplete="off"
+            value={findInput}
             placeholder="Buscar producto"
             onChange={(e) => handleChange(e)}
           />
@@ -143,6 +152,7 @@ const Find = ({ResNavFalse, ToogleResFind, resFind}) => {
             list="dataInputListResponsive"
             autoComplete="off"
             placeholder="Buscar en ecommics"
+            value={findInput}
             onChange={(e) => handleChange(e)}
           />
           <datalist id="dataInputListResponsive">
@@ -152,6 +162,10 @@ const Find = ({ResNavFalse, ToogleResFind, resFind}) => {
               })
             }
           </datalist>
+          <ResFindButton type="submit" >
+              <FaSearch className="findIcon"/>
+              {/* <i class="fa fa-trash-o" aria-hidden="true"></i> */}
+          </ResFindButton>
           <CancelButton onClick={()=> ResNavFalse()} >
               <GiCancel/>
           </CancelButton>

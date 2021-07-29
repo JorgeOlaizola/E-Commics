@@ -129,6 +129,7 @@ export const FormLabel = styled.label`
 export const FormInput = styled.input`
     margin-top: 0.4rem;
     width: 100%;
+    font-size: 0.8rem;
 `
 
 export const FormProductContainer = styled.div`
@@ -156,6 +157,23 @@ export const FormInputs = styled.div`
     outline: none;
     border-radius: 2px;
     width: 100%;
+`
+
+export const OptionInput  = styled.label`
+background: none;
+display: inline;
+color: ${(props) => props.theme.fontColor};
+border: 1px solid ${(props) => props.theme.blueColorHover};
+cursor: pointer;
+font-size: 0.75rem;
+font-family: roboto;
+font-weight: 500;
+padding: 6px;
+margin: 5px;
+&:hover {
+        color: ${(props) => props.theme.body};
+        background: ${(props) => props.theme.blueColorHover};
+    }
 `
 
 export const FormSpan = {

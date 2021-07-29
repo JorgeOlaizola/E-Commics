@@ -46,7 +46,13 @@ export function getCart (userID) {
     return  (dispatch) => {
         axios.get(`/api/cart?user=${userID}`)
         .then(r => {
-            return dispatch({ type: cart.GET_CART, payload: r.data[0]})})
+            if(r.data.error_msg){
+                
+            }
+            else{
+                return dispatch({ type: cart.GET_CART, payload: r.data[0]})}
+            }
+            )
     }
 }
 

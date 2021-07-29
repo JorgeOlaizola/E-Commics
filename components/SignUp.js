@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import styled from 'styled-components';
 import { Input, GradientBorder, DisableBorder, InputDisable } from './globalStyle';
-import {FormContainer, LogInForm, FormLabel, FormInputs, FormInput, FormSpan, Eye} from './user-panel/UserStyles.js';
+import {FormContainer, LogInForm, FormLabel, FormInputs, FormInput, FormSpan, Eye, OptionInput} from './user-panel/UserStyles.js';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import PacmanLoader from "react-spinners/PacmanLoader";
 
@@ -169,7 +169,7 @@ const SignUp = ({onClose}) => {
             loading ? <div style={{display: "flex", alignItems: "center", justifyContent: "center", height: '500px'}}><PacmanLoader color={"#FFE100"} size={30}/></div> :
             thanks  ? <div style={{height: '400px'}}><h2 style={{paddingLeft: '10px'}}>Super! Ya eres miembro de la comunidad de ecommics 🦸 🦹‍♀️ 🦸‍♂️ 🦹‍♂️</h2><br/><h3>Por favor verifica tu cuenta a través del link que enviamos a tu correo electrónico para empezar a disfrutar de E-commics</h3>{/*<SignInForm/>*/}</div> : 
             <>
-                <h2 style={{paddingLeft: '10px'}}>Únete hoy a ecommics!</h2>
+                <h3 >Únete hoy a ecommics!</h3>
                     <LogInForm onSubmit={(e) => handleSubmit(e)}>
                                 <FormInputs>
                                 <FormLabel>Nombre *</FormLabel>
@@ -200,29 +200,33 @@ const SignUp = ({onClose}) => {
                                         }
                                     </select>
                                 </FormInputs>
-                                <FormInputs>
+                                <FormInputs style={{marginTop: "12px"}}>
                                     <FormLabel>Avatar</FormLabel>
-                                    <FormInput type="file" onChange={handleImage}/>
-                                    {/* <button className="" >Subir!</button> */}
+                                    <OptionInput htmlFor="filePicker">
+                                    {imageSelected ? "cambiar" : "Elegir archivo" }
+                                    </OptionInput>
+                                    {imageSelected ?<span style={{color: "#00A0FF"}}>Imagen cargada</span> : null }
+                                    <input id="filePicker" style={{visibility:"hidden"}} type={"file"} onChange={handleImage}></input>
+
                                     </FormInputs>
                                 <FormInputs>
-                                    <FormLabel>Contraseña *</FormLabel>
+                                    <FormLabel style={{marginTop: "-10px"}}>Contraseña *</FormLabel>
                                     <FormInput name="password" type={passwordShown ? "text" : "password"} value={newUser.password} placeholder="" onChange={(e)=> validatePassword(e.target.value)}/>
                                     <ProcessedFaEye onClick={togglePasswordVisiblity}>{!passwordShown ? <FaEye/> : <FaEyeSlash/>}</ProcessedFaEye>
                                     {!errorPassword ? null : <span style={FormSpan}>{errorPassword}</span>}
                                 </FormInputs>
                                 <FormInputs>
-                                    <FormLabel>Confirmar contraseña *</FormLabel>
+                                    <FormLabel style={{marginTop: "-10px"}}>Confirmar contraseña *</FormLabel>
                                     <FormInput name="confirm" type={passwordShown ? "text" : "password"} value={newUser.confirm} placeholder="" onChange={(e)=> validateConfirm(e.target.value)}/>
                                     {!errorConfirm ? null : <span style={FormSpan}>{errorConfirm}</span>}
                                 </FormInputs>
                                 <span>(*) campos obligatorios</span>
                                 {!isEnabled || errorName || errorS || errorNickname || errorEmail || errorPassword || errorConfirm ?
-                                <DisableBorder>
+                                <DisableBorder style={{width: "95%"}}>
                                     <InputDisable type="submit" disabled={!isEnabled || errorName || errorS || errorNickname || errorEmail || errorPassword || errorConfirm}>Registrarse</InputDisable>
                                 </DisableBorder>
                                 : 
-                                <GradientBorder>
+                                <GradientBorder style={{width: "95%"}}>
                                     <Input type="submit" disabled={!isEnabled || errorName || errorS || errorNickname || errorEmail || errorPassword || errorConfirm} >Registrarse</Input>
                                 </GradientBorder>
                                 }

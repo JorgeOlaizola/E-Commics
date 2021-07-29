@@ -42,6 +42,7 @@ export default function OfferGame({handleView , view}) {
     if (typeof window !== "undefined" && userData === ''){
         localStorage.getItem("sessionSaved") ? setUserData(JSON.parse(localStorage.getItem("sessionSaved"))) : null 
     }
+   /**
     useEffect( ()=>{
             axios.get(`/api/users/discount?userID=${userData.user.id}`)
             .then((r)=>{    console.log(r.data)
@@ -51,6 +52,7 @@ export default function OfferGame({handleView , view}) {
                 console.log(e)
             })
     },[userData])
+   */ 
     const obj ={
         1:"superman"
     }

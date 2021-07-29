@@ -29,10 +29,10 @@ export function getNewsletterDetail(id) {
     };
 }
 
-export function updateNewsletter(id, newsletter) {
+export function updateNewsletter(id, news) {
     return (dispatch) => {
-        axios.put(`/api/newsletter?id=${id}`, newsletter).then((response) => {
-            return dispatch({
+        axios.put(`/api/newsletter?id=${id}`, news).then((response) => {
+            dispatch({
                 type: newsletter.UPDATE_NEWSLETTERS,
                 payload: response.data,
             });

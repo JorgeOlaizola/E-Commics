@@ -15,6 +15,7 @@ import {
   getNewsletter,
   updateNewsletter,
   deleteNewsletter,
+  getNewsletterDetail
 } from "../../store/actions/newsletterActions.js";
 
 const DivContainer = styled.div`
@@ -74,16 +75,30 @@ const Space = styled.div`
 const Newsletters = () => {
   const dispatch = useDispatch();
   const [imageSelected, setImageSelected] = useState("");
+  const [loading, setLoading] = useState(false); 
   const [input, setInput] = useState({
     title: "",
     content: "",
     author: "",
-    img: "",
-  });
+    img : ""
+  })
 
-  const [loading, setLoading] = useState(false);
-
+  const newsletters = useSelector(state => state.newsletter.newsletters)
+  const news = useSelector(state => state.newsletter.newsletter)
+  
+  const [update, setUpdate] = useState({
+    title: '',
+    content: '',
+    author: '',
+  })
+  
+  
   const router = useRouter();
+
+  useEffect(
+    () => {
+        dispatch(getNewsletter())
+    }, [])
 
   function handleChange(e) {
     if (e.target.value < 0) {
@@ -119,7 +134,17 @@ const Newsletters = () => {
         .then(function (response) {
           response.data.error_msg && alert(response.data.error_msg);
           response.data;
+          alert('NewsLetter created succesfully')
+          setImageSelected('')
+          setInput({
+            title: "",
+            content: "",
+            author: "",
+            img: "",
+          })
+          dispatch(getNewsletter())
           setLoading(false);
+
         })
         .catch((error) => console.error(error));
     }
@@ -134,9 +159,37 @@ const Newsletters = () => {
     return objectURL;
   };
 
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    await dispatch(updateNewsletter(news._id, update))
+    setUpdate({
+      title: "",
+      content: "",
+      author: "",
+    })
+    setTimeout(() => dispatch(getNewsletter()),1000)
+    news.title = undefined
+    setLoading(false)
+  }
+  
+  const handleChangeUpdate = (e) => {
+      setUpdate({
+        ...update,
+        [e.target.name]: e.target.value,
+      });
+    
+  }
+
+  const newDelete =  async (id) => {
+    await dispatch(deleteNewsletter(id))
+    await dispatch(getNewsletter())
+  }  
+
   return (
     <>
-      {!loading ? (
+      {
+       !news.title ? !loading ? (
         <DivContainer>
           <h2>¿Qué vas a publicar?</h2>
           <FormContainer
@@ -200,7 +253,9 @@ const Newsletters = () => {
                   type="file"
                   id="file-upload"
                   accept="image/png,image/jpeg,image/png"
-                  onChange={GuardarImage}
+                  onChange={(e) => {
+                    GuardarImage(e)
+                  }}
                 />
               </DivFormItem>
             </FormFieldset>
@@ -220,7 +275,86 @@ const Newsletters = () => {
           <Space />
           <PacmanLoader color={"#000"} size={30} />
         </DivContainer>
+      ): (
+        <DivContainer>
+          <h2>¿Qué vas a publicar?</h2>
+          <FormContainer
+            onSubmit={(e) => {
+              handleUpdate(e)
+            }}
+          >
+            <FormFieldset>
+              Título
+              <DivFormItem>
+                <label htmlFor="inputTitle">Título</label>
+                <br />
+                <FormInput
+                  onKeyDown={keyEnter}
+                  id="inputTitle"
+                  type="text"
+                  name="title"
+                  maxLength="50"
+                  value={update.title}
+                  onChange={(e) => {
+                    handleChangeUpdate(e);
+                  }}
+                />
+              </DivFormItem>
+              <DivFormItem>
+                <label htmlFor="inputContent">Contenido</label>
+                <br />
+                <FormInput
+                  onKeyDown={keyEnter}
+                  id="inputContent"
+                  name="content"
+                  maxLength="400"
+                  value={update.content}
+                  onChange={(e) => {
+                    handleChangeUpdate(e);
+                  }}
+                />
+              </DivFormItem>
+              <DivFormItem>
+                <label htmlFor="inputAuthor">Autor</label>
+                <br />
+                <FormInput
+                  onKeyDown={keyEnter}
+                  id="inputAuthor"
+                  type="text"
+                  name="author"
+                  value={update.author}
+                  onChange={(e) => {
+                    handleChangeUpdate(e);
+                  }}
+                />
+              </DivFormItem>
+              <DivFormItem>
+                {imageSelected && (
+                  <StyledImage key={mostrar()} src={mostrar()} />
+                )}
+              </DivFormItem>
+              
+            </FormFieldset>
+            {
+              <GradientBorder>
+                <Input type="submit">Guardar Cambios</Input>
+              </GradientBorder>
+            }
+          </FormContainer>
+        </DivContainer>
       )}
+     {
+     newsletters?.length > 0 ? newsletters.map(c =>{ 
+            return  <p key={c._id}>Título: {c.title} --- Id: {c._id} 
+            <button onClick={() => {
+               newDelete(c._id)
+              }
+               }>Delete</button> - 
+            <button onClick={() => {
+                dispatch(getNewsletterDetail(c._id))
+                }  }>Update</button></p>}) 
+            : <span>No hay categorias</span>
+    } 
     </>
   );
 };

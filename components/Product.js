@@ -163,7 +163,7 @@ const Product = (props) => {
 
     useEffect(() => {
         userData && dispatch(getFavorites(userData.id))
-      }, [])
+      }, [dispatch,userData])
 
     const HandleToggleFavorite = () => {
         dispatch(getFavorites(userData.id))
@@ -222,7 +222,7 @@ const Product = (props) => {
                         <DontMove>
                             <IconContainer>
                                 { 
-                                userData && userData.favorites && userData.favorites.some(obj => obj._id === props.id) ? <HeartIconSolid onClick={HandleToggleFavorite} className="addFavIcon"/>
+                                userData && userData.favorites.length && userData.favorites.some(obj => obj._id === props.id) ? <HeartIconSolid onClick={HandleToggleFavorite} className="addFavIcon"/>
                                 : userData ? <HeartIconOutline onClick={HandleToggleFavorite} className="addFavIcon"/> 
                                 : <></>
                                 }

@@ -33,6 +33,9 @@ export default nextConnect()
         //Valid credentials
         else {
             //Verify if user is confirmed
+            if(user.status === 'banned'){
+                return res.json({ error_msg: 'Esta cuenta ha sido baneada. Envía un email a e-commics@gmail.com para mas información.' })
+            }
             if(user.status !== 'active') {
                 return res.json({
                     error_msg: 'El usuario aún no se encuentra activo'

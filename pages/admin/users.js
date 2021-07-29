@@ -25,11 +25,11 @@ const Users = () => {
 
     useEffect(() => {
         getUsers()
+        console.log(users)
     }
     , [])
     
     const changeRole = async (role, id) => {
-        console.log(role, id)
         const msg = await axios.put(`/api/users/admin?role=${role}&id=${id}`)
         if(msg.data.success_msg){
             getUsers()
@@ -40,6 +40,12 @@ const Users = () => {
         }
     }
 
+    const BanOrUnBanUser = async (userId, status) => {
+        axios.put(`/api/users/banuser`, { userId, status })
+        .then(r => alert(r.data))
+        .catch(err => alert(err))
+    }
+
     return (
         <div>
             <h1>Users</h1>
@@ -48,12 +54,14 @@ const Users = () => {
                 <p key={u.id}>Nickname: {u.nickname} - 
                 Email: {u.email} - 
                 Role: {u.role} - 
-                ID: {u.id}
+                ID: {u.id} -
+                Status: {u.status}
 
                 {u.role !== 'user' && <button onClick={() => changeRole('user', u.id)}>Role: user</button>}
                 {u.role !== 'officialstore' && <button onClick={() => changeRole('officialstore', u.id)}>Role: officialstore</button>}
                 {u.role !== 'admin' && <button onClick={() => changeRole('admin', u.id)}>Role: admin</button>}
-                {u.role !== 'admin' && <button>Ban user</button>}
+                {u.role !== 'admin' && u.status !== 'banned' && <button onClick={() => BanOrUnBanUser(u.id, 'banned')}>Ban user</button>}
+                {u.role !== 'admin' && u.status === 'banned' && <button onClick={() => BanOrUnBanUser(u.id, 'active')}>UnBan user</button>}
                 <button>Editar usuario</button>
                 </p>) 
                 : <p>No hay usuarios</p>}

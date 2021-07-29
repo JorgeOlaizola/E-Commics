@@ -107,8 +107,39 @@ export default nextConnect()
                     }
                 }
                 data.orders.push(obj);
-                const algo = await new Order(obj);
-                await algo.save()
+                const EachOrder = await new Order(obj);
+                await EachOrder.save()
+
+                //--- SEND NOTIFICATION BUYER
+                const buyerNotif = await User.findById(cart.user._id).exec()
+                const sellerNotif = await User.findById(order._id).exec()
+                if(buyerNotif){
+                    const notification = {
+                        img: 'https://res.cloudinary.com/jorgeleandroolaizola/image/upload/v1627517096/Notifications%20eccomics/Buy_product_ml086z.png',
+                        content: `Se generó una orden por tu compra a ${sellerNotif.nickname}. Clickea aquí para ver detalles`,
+                        link: `/orderDetail/${EachOrder._id}`
+                    }
+                    buyerNotif.notifications.unshift(notification)
+                    if(buyerNotif.notifications.length > 5){
+                        buyerNotif.notifications.pop()
+                    }
+                    await buyerNotif.save()
+                }
+
+                //--- SEND NOTIFICATION SELLER
+                
+                if(sellerNotif){
+                    const notification = {
+                        img: 'https://res.cloudinary.com/jorgeleandroolaizola/image/upload/v1627517096/Notifications%20eccomics/Sell_product_ucqcyd.png',
+                        content: `Le has vendido a ${buyerNotif.nickname}. Clickea aquí para ver detalles`,
+                        link: `/orderDetail/${EachOrder._id}`
+                    }
+                    sellerNotif.notifications.unshift(notification)
+                    if(sellerNotif.notifications.length > 5){
+                        sellerNotif.notifications.pop()
+                    }
+                    await sellerNotif.save()
+                }
             })
             data.buyer = cart.user;
 

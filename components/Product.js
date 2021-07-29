@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { StyledLink } from './globalStyle';
 import { HeartIcon as HeartIconOutline, ShoppingCartIcon as CartIconOutline } from '@heroicons/react/outline';
 import { HeartIcon as HeartIconSolid, ShoppingCartIcon as  CartIconSolid } from '@heroicons/react/solid';
+import { MdRemoveShoppingCart } from 'react-icons/md';
 import {
 	removeItem,
     addItem,
@@ -147,7 +148,17 @@ cursor: pointer;
     opacity: 1;
 }
 `
-
+const IconContainerNot = styled.div`
+position: relative;
+top: 2px;
+background: ${(props) => props.theme.colorFont};
+padding: 3px;
+margin-right: 10px;
+display: inline;
+opacity: 0.5;
+border-radius: 50%;
+cursor: not-allowed;
+`
 const DontMove = styled.div`
 position: relative;
 `
@@ -163,7 +174,9 @@ const Product = (props) => {
 
     useEffect(() => {
         userData && dispatch(getFavorites(userData.id))
-      }, [dispatch, userData])
+
+      }, [])
+
 
     const HandleToggleFavorite = () => {
         dispatch(getFavorites(userData.id))
@@ -172,32 +185,64 @@ const Product = (props) => {
  
     }
     const handleToggleSolidCart = () => {
+        if(userData) {
+            let orders = [
+                    {
+                        _id: props.userID,// vendedor
+                        products:[
+                            {
+                            _id: props.id,//producto
+                            unit_price: props.price,
+                            title: props.title,
+                            quantity: -1,
+                            image: props.image,
+                            stock: props.stock
+                            }
+                        ]
+                    }
+                ]
+            return dispatch(changeCart(userData.id, orders))
+        }
+        else{
+            return dispatch(removeItem(props.userID, props.id))
+        }
         // dispatch(removeItem(cartItems[index].products[0]._id, props.id))
     }
 
     const handleToggleOutlineCart = () => {
 
-        // if(userData) {
-        //     let orders = [
-        //             {
-        //                 _id: props.userID,// vendedor
-        //                 products:[
-        //                     {
-        //                     _id: props.id,//producto
-        //                     unit_price: props.price,
-        //                     title: props.title,
-        //                     quantity: 1,
-        //                     image: props.image,
-        //                     stock: productData.stock
-        //                     }
-        //                 ]
-        //             }
-        //         ]
-        //     return dispatch(changeCart(userData.id, orders))
-        // }
-        // else{
-        //     return dispatch(addItem(productData))
-        // }
+        if(userData) {
+            let orders = [
+                    {
+                        _id: props.userID,// vendedor
+                        products:[
+                            {
+                            _id: props.id,//producto
+                            unit_price: props.price,
+                            title: props.title,
+                            quantity: 1,
+                            image: props.image,
+                            stock: props.stock
+                            }
+                        ]
+                    }
+                ]
+            return dispatch(changeCart(userData.id, orders))
+        }
+        else{
+         
+            let productOrder = {
+                user:{
+                    _id:props.userID
+                },
+                _id: props.id,//producto
+                price: props.price,
+                title: props.title,
+                image: props.image,
+                stock: props.stock
+            }
+            return dispatch(addItem(productOrder))
+        }
     }
 
 
@@ -227,11 +272,17 @@ const Product = (props) => {
                                 : <></>
                                 }
                             </IconContainer>
+                            {props.stock ?
                             <IconContainer>
-                                { userData && cartItems[0] && cartItems.some(obj => obj.products[0]._id === props.id) ?
+                                {cartItems[0] && cartItems.some(obj => obj.products[0]._id === props.id ) ?
                                 <CartIconSolid  onClick={handleToggleSolidCart} className="addCartIcon"/> 
                                 : <CartIconOutline onClick={handleToggleOutlineCart} className="addCartIcon"/>}
                             </IconContainer>
+                            :
+                            <IconContainerNot>
+                                <MdRemoveShoppingCart/>
+                            </IconContainerNot>
+                            }
                             <Link href={'/detail/[productDetail]'} as={`/detail/${props.id}` } passHref>
                                 <StyledButton >ver detalle </StyledButton>
                             </Link><ArrowSpan>→</ArrowSpan>

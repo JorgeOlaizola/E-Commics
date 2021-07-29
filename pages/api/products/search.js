@@ -9,7 +9,7 @@ export default nextConnect()
             await dbConnect()
             const { search } = req.query
             if (!search) return res.json({ error_msg: "Es necesario enviar un texto atravez del search" })
-            const product = await Product.find({ title: { $regex: '.*' + search + '.*', $options: 'i' } }).limit(5)
+            const product = await Product.find({ title: { $regex: '.*' + search + '.*', $options: 'i' } , status: "active" }).limit(5)
             if (product.length) {
                 const result = product.map((p) => {
                     return p.title

@@ -8,7 +8,7 @@ import { sendFailureEmail, sendBuyConfirmation, sendBuyPending } from '../../../
 
 const mercadopago = require ('mercadopago');
 
-let cartId;
+const ABSOLUTE_URL = process.env.ABSOLUTE_URL
 
 mercadopago.configure({
     access_token: 'APP_USR-2393330903375761-071320-cef66732946fab7378373774538693b7-790658216'
@@ -30,9 +30,9 @@ export default nextConnect()
         let preference = {
             items,
             back_urls: {
-                "success": `http://localhost:3000/api/checkout?id=${id}`,
-                "failure": `http://localhost:3000/api/checkout?id=${id}`,
-                "pending": `http://localhost:3000/api/checkout?id=${id}`
+                "success": `${ABSOLUTE_URL}/api/checkout?id=${id}`,
+                "failure": `${ABSOLUTE_URL}/api/checkout?id=${id}`,
+                "pending": `${ABSOLUTE_URL}/api/checkout?id=${id}`
             },
             auto_return: 'approved',
             additional_info : id

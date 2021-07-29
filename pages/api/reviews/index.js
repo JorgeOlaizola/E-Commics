@@ -49,6 +49,23 @@ export default nextConnect()
         
         await Product.findByIdAndUpdate(product, { rating: productRating.rating})
 
+        //---SELLER NOTIFICATION
+        const buyer = await User.findById(user).exec()
+        const seller = await User.findById(order.seller).exec()
+        if(seller){
+            const notification = {
+                img: 'https://res.cloudinary.com/jorgeleandroolaizola/image/upload/v1627517096/Notifications%20eccomics/review_e1ps4b.png',
+                content: `${buyer.nickname} dejó una reseña en tu producto ${productRating.title} `,
+                link: `/detail/${product}`
+            }
+            seller.notifications.unshift(notification)
+            if(seller.notifications.length > 5){
+                 seller.notifications.pop()
+            }
+        
+            await seller.save()
+        }
+
         
         //---CHANGING ORDER STATUS IF NECESSARY
         let checkStatus = checkOrder.products.filter(p => p.review !== 'Review')

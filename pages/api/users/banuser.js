@@ -20,20 +20,20 @@ export default nextConnect()
             //User interactions Handler
             //----------------------------------------------------
             //-----DELETING QUESTIONS 
-            // let userQuestions = await Question.find({}).where({ user: userId }).exec()
-            // userQuestions && userQuestions.length > 0 && userQuestions.map(async (q) => {
-            //     return(
-            //         await Question.findByIdAndDelete(q._id)
-            //     )
-            // })
+            let userQuestions = await Question.find({}).where({ user: userId }).exec()
+            userQuestions && userQuestions.length > 0 && userQuestions.map(async (q) => {
+                return(
+                    await Question.findByIdAndDelete(q._id)
+                )
+            })
 
             //-----UPDATING PRODUCT STATUS
-            // let userProducts = await Product.find({}).where({ user: userId }).exec()
-            // userProducts && userProducts.length > 0 && userProducts.map(async (p) => {
-            //     return(
-            //         await Product.findByIdAndUpdate(p._id, { status: 'inactive' })
-            //     )
-            // })
+            let userProducts = await Product.find({}).where({ user: userId }).exec()
+            userProducts && userProducts.length > 0 && userProducts.map(async (p) => {
+                return(
+                    await Product.findByIdAndUpdate(p._id, { status: 'inactive' })
+                )
+            })
 
             //-----BUYS AND SELL NOTIFICATION HANDLER
             let userBuys = await Order.find({}).where({ buyer: userId }).exec()
@@ -52,12 +52,12 @@ export default nextConnect()
             //User interactions Handler
             //----------------------------------------------------
             //---UPDATING PRODUCT STATUS
-            // let userProducts = await Product.find({}).where({ user: userId }).exec()
-            // userProducts && userProducts.length > 0 && userProducts.map(async (p) => {
-            //     return(
-            //         await Product.findByIdAndUpdate(p._id, { status: 'active' })
-            //     )
-            // })
+            let userProducts = await Product.find({}).where({ user: userId }).exec()
+            userProducts && userProducts.length > 0 && userProducts.map(async (p) => {
+                return(
+                    await Product.findByIdAndUpdate(p._id, { status: 'active' })
+                )
+            })
 
             //-----BUYS AND SELL NOTIFICATION HANDLER
             let userBuys = await Order.find({}).where({ buyer: userId }).exec()

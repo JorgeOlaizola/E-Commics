@@ -36,7 +36,6 @@ export default nextConnect()
         
         mercadopago.preferences.create(preference)
         .then(function(response){
-            console.log("estoy mandando la url")
             res.json({ buy: response.body.init_point })
         })
         .catch(function(error){

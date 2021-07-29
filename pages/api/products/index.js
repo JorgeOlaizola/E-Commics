@@ -44,9 +44,12 @@ export default nextConnect()
     }
     //filtro por texto ejemplo productos que en el "title" contengan "Ecommics"
     if (search && search.text) opts["$and"].push({ [search.in]: { $regex: '.*' + search.text + '.*', $options: 'i' } })
+    //filtro solo activos
+    opts["$and"].push({ status: "active" })
     //si no hay ningun filtro eliminamos la propiedad $and
     if (opts["$and"].length === 0) delete opts["$and"]
     if (!order || !order.in || !order.or) { order = { in: "title", or: 1 } }
+
     try {
         let productonly = await Product.find(opts).limit(limite).sort({ [order.in]: order.or })
         //cargamos el resto de la data 

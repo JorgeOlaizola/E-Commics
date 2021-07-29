@@ -163,7 +163,7 @@ const Product = (props) => {
 
     useEffect(() => {
         userData && dispatch(getFavorites(userData.id))
-      }, [dispatch,userData])
+      }, [dispatch, userData])
 
     const HandleToggleFavorite = () => {
         dispatch(getFavorites(userData.id))

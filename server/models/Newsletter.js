@@ -9,10 +9,6 @@ const newsletterSchema = new mongoose.Schema({
         type: String, 
         required: true
     },
-    author: {
-        type: String,
-        required: true
-    },
     img: {
         type: String,
         required: true

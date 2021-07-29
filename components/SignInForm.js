@@ -13,10 +13,12 @@ import {
 } from '../store/actions/cartActions'
 import { showHideModal } from '../store/actions/stylesActions.js';
 import {FormContainer, LogInForm, FormLabel, FormInputs, FormInput, FormSpan, Eye} from './user-panel/UserStyles.js';
-import { Input, GradientBorder, DisableBorder, InputDisable } from './globalStyle'
+import { Input, GradientBorder, DisableBorder, InputDisable, BuyButton, OptionButton, StyledLink } from './globalStyle'
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import styled from 'styled-components';
 import {loginWithGitHub, onCloseSession} from '../firebase/client.js'
+import Image from 'next/image';
+
 
 export const ProcessedFaEye = styled.div`
     position: relative;
@@ -120,7 +122,7 @@ const SignInForm = () => {
             {
                 passwordReset === false ?
                     <LogInForm onSubmit={handleSubmit}>
-                        <h2>Iniciar sesión</h2>
+                        <h3>Iniciar sesión</h3>
                         <FormInputs>
                             <FormLabel>Email</FormLabel>
                             <FormInput type="email" id='email' name="email" onChange={e => handleInputChange(e)} required></FormInput>
@@ -130,37 +132,44 @@ const SignInForm = () => {
                             <FormInput type={passwordShown ? "text" : "password"} id='password' name="password" onChange={e => handleInputChange(e)} required></FormInput>
                             <ProcessedFaEye onClick={togglePasswordVisiblity}>{!passwordShown ? <FaEye/> : <FaEyeSlash/>}</ProcessedFaEye>
                         </FormInputs>
-                        <span onClick={() => {setPasswordReset(true)}}>Olvidé mi contraseña</span>
+                        <StyledLink onClick={() => {setPasswordReset(true)}}>Olvidé mi contraseña</StyledLink>
                         {!input ?
-                                    <DisableBorder className="">
-                                        <InputDisable type="submit" >Iniciar sesión</InputDisable>
+                                    <DisableBorder style={{width: "95%"}} className="">
+                                        <InputDisable  type="submit" disabled>Iniciar sesión</InputDisable>
                                     </DisableBorder>
                                     : 
-                                    <GradientBorder className="">
+                                    <GradientBorder style={{width: "95%"}}>
                                         <Input type="submit">Iniciar sesión</Input>
                                     </GradientBorder>
                         }
                     </LogInForm>
                 :
                     <LogInForm onSubmit={(e) => {handleReset(e)}}>
-                        <h2>Recuperar contraseña</h2>
+                        <h3>Recuperar contraseña</h3>
                         <FormInputs>
                             <FormLabel>Email</FormLabel>
                             <FormInput type="email" id='email' name="email" onChange={e => handleInputChange(e)} required></FormInput>
                         </FormInputs>
-                        <span onClick={() => {setPasswordReset(false)}}>Atrás</span>
+                        <StyledLink style={{marginTop: "5px"}} onClick={() => {setPasswordReset(false)}}>← Volver a Iniciar sesión</StyledLink>
                         {!input ?
-                                    <DisableBorder className="">
-                                        <InputDisable type="submit" >Iniciar sesión</InputDisable>
+                                    <DisableBorder style={{width: "95%"}}>
+                                        <InputDisable type="submit" >Enviar correo</InputDisable>
                                     </DisableBorder>
                                     : 
-                                    <GradientBorder className="">
+                                    <GradientBorder style={{width: "95%"}}>
                                         <Input type="submit">Enviar correo</Input>
                                     </GradientBorder>
                         }
                     </LogInForm>
             }
-            <GithHubButton onClick={handleGithub}>iniciar con Git</GithHubButton>
+            <GithubButton onClick={handleGithub}>Iniciar con Github 
+            <Image
+            width={"30px"}
+            height={"30px"}
+            alt={"Github logo"}
+            src={'/github.svg'}
+            />
+            </GithubButton>
             
         </>
     )
@@ -169,3 +178,30 @@ const SignInForm = () => {
 export default SignInForm;
 
 
+const GithubButton = styled.button`
+    width: 95%;
+    height: 35px;
+    margin: 0 auto;
+    background: #000;
+    border: 1px solid ${(props) => props.theme.fontColor};
+    color: #FFF;
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    &:hover {
+        background-color: #123AC9;
+        border: 1px solid ${(props) => props.theme.fontColor};
+        transition: 0.3s;
+    }
+    &:active {
+        background-color: ${(props) => props.theme.blueColorActive};
+        border: 1px solid ${(props) => props.theme.backgroundLevel1};
+    }
+    &:disabled {
+        // background-color: ${(props) => props.theme.blueColor}; nc que color ponerle cuando lo desactivamos
+        background-color: gray;
+        border: 1px solid ${(props) => props.theme.backgroundLevel1};
+    }
+`

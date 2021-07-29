@@ -10,6 +10,7 @@ import UserPanelPublications from './UserPanelPublications.js';
 import styled from 'styled-components';
 import { StyledLink } from '../globalStyle';
 import WelcomeMessage from './WelcomeMessage.js';
+import PacmanLoader from "react-spinners/PacmanLoader";
 
 const StyledContainer = styled.div`
     margin-top: 30px;
@@ -21,8 +22,14 @@ const StyledContainer = styled.div`
 `
 
 const UserStyledLink = styled(StyledLink)`
-  padding: 0.2rem;
-  margin: 0.2rem;
+    padding: 0.2rem;
+    margin: 0.2rem;
+    @media (max-width: 375px){
+    font-size: 0.8rem;
+    }
+    @media (max-width: 350px){
+    font-size: 0.6rem;
+    }
 `;
 
 const DataSection = styled.div`
@@ -98,12 +105,6 @@ const UserPanel = (props) => {
     const userData = useSelector(state => state.user.userData);
     const products = useSelector(state => state.product.products);
     const router = useRouter();
-
-
-    useEffect(() => {
-        /* dispatch(getProductsByUser(data)) */
-    }, [])
-  
   
     const data = {
           "user" : `${userData._id}`,
@@ -128,20 +129,18 @@ const UserPanel = (props) => {
       }
 
     useEffect(() => {
-        if(userData.log === false) {
+        if(!userData) {
             router.push("/");
         }
         
-    }, []);
+    }, [userData]);
 
     function handleClick(event) {
         setState(event.target.name)
     }
 
-    // console.log(dispatch(searchByUser(userData._id)))
-    // console.log(userData._id)
     if (!userData.user) {
-        return <StyledContainer>Cargando...</StyledContainer>
+        return  <div style={{display: "flex", alignItems: "center", justifyContent: "center", height: '500px'}}><PacmanLoader color={"#FFE100"} size={30}/></div>
     }
 
     

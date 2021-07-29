@@ -1,5 +1,6 @@
 import {user} from '../types';
 import axios from 'axios';
+import {loginWithGitHub, onCloseSession} from '../../firebase/client'
 
 
 // Session 
@@ -18,24 +19,25 @@ export function getUserData() {
     }
 }
 
-export function signIn(info, cart) {
+export function signIn(userData, cart) {
     return async function(dispatch) {
         try {
-            const userData = await axios.post(`/api/users/logIn`, info);
-            console.log(userData.data)
-            if(userData.data.user.id && cart){
-                console.log('Buenas')
-               const carrito = await axios.put(`/api/cart`, { user: userData.data.user.id, cart: cart })
-               console.log(carrito)
+            //const userData = await axios.post(`/api/users/logIn`, info);
+            
+            if(userData.user.id && cart){
+               
+               const carrito = await axios.put(`/api/cart`, { user: userData.user.id, cart: cart })
+               
                localStorage.setItem("cartItems", JSON.stringify([]));
             }
-            localStorage.setItem("sessionSaved", JSON.stringify(userData.data))
-            dispatch({ type: user.GET_USER_DATA, payload: userData.data })
+            localStorage.setItem("sessionSaved", JSON.stringify(userData))
+            dispatch({ type: user.GET_USER_DATA, payload: userData })
         } catch (error) {
             console.error(error)    
         }
     }
 }
+
 
 export function signOut() {
     return async function(dispatch) {
@@ -43,7 +45,7 @@ export function signOut() {
         const logOut = await axios.delete(`/api/users/logOut?token=${localData.token}`);
         localStorage.setItem("sessionSaved", JSON.stringify("no session"))
         localStorage.setItem("cartItems", JSON.stringify(""))
-
+        onCloseSession().then(r => console.log(r)).catch(err=> console.log(err))
         dispatch({ type: user.CLEAR_USER_DATA})
     }
 }
@@ -138,13 +140,13 @@ export function updateOrders (orderId, status, userId) {
     }
 }
 
-export function getOrders (eachCase, userId) {
+export function getOrders (eachCase, userId, filter) {
     return async function(dispatch) {
         try{
             let type = ""
             if(eachCase === "seller") type = 'seller'
             if(eachCase === "buyer") type = 'buyer'
-            axios.get(`/api/orders?eachCase=${eachCase}&userId=${userId}`)
+            axios.get(`/api/orders?eachCase=${eachCase}&userId=${userId}&filter=${filter || ''}`)
             .then( r => dispatch({ type: type, payload: r.data }))
         }
         catch (error) {

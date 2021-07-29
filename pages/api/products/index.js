@@ -27,7 +27,7 @@ export default nextConnect()
         or:parseInt(orderor)
     }
     if (!page) page = 1 
-    let itemXPage = 4;
+    let itemXPage = 6;
     let limite =  (page + 1)  * itemXPage
     let opts = { $and: [] }
     //filtro por user id
@@ -64,6 +64,8 @@ export default nextConnect()
                 description: products.description,
                 image: products.image.includes("&&") ? products.image.split("&&") : [products.image],
                 price: products.price,
+                realprice: products.realprice,
+                discount: products.discount,
                 user: {
                     _id: products.user._id,
                     nickname: products.user.nickname
@@ -96,7 +98,8 @@ export default nextConnect()
             return !user && res.send("error_msg", "required user")
             return !category && res.send("error_msg", "required category")
         }
-        const newProduct = await new Product({ title, description, image, stock, price, user ,category})
+        const newProduct = await new Product({ title, description, image, stock, user ,category, realprice: price})
+        newProduct.price = newProduct.applyDiscount(price, 0)
         await newProduct.save()
         return res.send("The product was added successfully");
     } 

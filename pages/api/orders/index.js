@@ -9,10 +9,17 @@ export default nextConnect()
     try {
         await dbConnect()
 
-        const { eachCase, userId } = req.query
+        const { eachCase, userId, filter } = req.query
 
         if(eachCase === 'seller' || eachCase === 'buyer') {
-            const Orders = await Order.find({}).where({ [eachCase]: userId })
+            let Orders 
+            if(filter !== '') {
+                Orders = await Order.find({}).where({ status: filter, [eachCase]: userId }).exec()
+            }
+            else {
+                Orders = await Order.find({}).where({ [eachCase]: userId }).exec()
+            }
+
             if(!Orders) return res.json({ error_msg: 'No se encontró nada'})
             await User.populate(Orders, { path: 'seller' })
             await User.populate(Orders, { path: 'buyer' })
@@ -23,7 +30,16 @@ export default nextConnect()
                 Payment: Orders.Payment,
                 _id: Orders._id,
                 MerchantOrder: Orders.MerchantOrder,
-                products: Orders.products,
+                products: Orders.products.map(p => {
+                    return {
+                        review: p.review,
+                        _id: p._id,
+                        unit_price: p.unit_price,
+                        title: p.title,
+                        quantity: p.quantity,
+                        image: p.image[0].includes("&&") ? p.image[0].split("&&") : [p.image]
+                    }
+                }),
                 buyer: {
                     _id: Orders.buyer._id,
                     nickname: Orders.buyer.nickname,
@@ -55,11 +71,10 @@ export default nextConnect()
     try{
         await dbConnect()
 
-        const { orderId, status, userId} = req.body
+        const { orderId, status, userId } = req.body
 
         const order = await Order.findById(orderId).exec()
-        console.log(userId, order.buyer)
-        if(order.seller == userId && status === 'approved'){
+        if(order.seller == userId && status === 'Pago realizado'){
             order.status = 'En proceso de entrega'
             await order.save()
             return res.json(order)

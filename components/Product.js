@@ -6,6 +6,7 @@ import { StyledLink } from './globalStyle';
 import { HeartIcon as HeartIconOutline, ShoppingCartIcon as CartIconOutline } from '@heroicons/react/outline';
 import { HeartIcon as HeartIconSolid, ShoppingCartIcon as  CartIconSolid } from '@heroicons/react/solid';
 import {
+	removeItem,
     addItem,
     changeCart,
     buyProduct
@@ -56,7 +57,6 @@ width:100%;
 height:60%;
 display:flex;
 justify-content:center;
-
 `
 //ATENCION LO PONGO EN ESPAÑOL DIV MOMENTANEO HASTA QUE SAQUE COMO DAR BLUR SOLO A LA IMAGEN DE FONDO
 const DivParaSafar = styled.div`
@@ -148,7 +148,10 @@ cursor: pointer;
 }
 `
 
-//backdrop-filter: blur(5px)git pull
+const DontMove = styled.div`
+position: relative;
+`
+
 
   
 const Product = (props) => {
@@ -157,10 +160,46 @@ const Product = (props) => {
 
     const dispatch = useDispatch()
     const image= props.image[0];
-    
+
     useEffect(() => {
         userData && dispatch(getFavorites(userData.id))
-    }, []);
+      }, [])
+
+    const HandleToggleFavorite = () => {
+        dispatch(getFavorites(userData.id))
+        dispatch(handleFavorites(userData.id, props.id))
+        dispatch(getFavorites(userData.id))
+ 
+    }
+    const handleToggleSolidCart = () => {
+        // dispatch(removeItem(cartItems[index].products[0]._id, props.id))
+    }
+
+    const handleToggleOutlineCart = () => {
+
+        // if(userData) {
+        //     let orders = [
+        //             {
+        //                 _id: props.userID,// vendedor
+        //                 products:[
+        //                     {
+        //                     _id: props.id,//producto
+        //                     unit_price: props.price,
+        //                     title: props.title,
+        //                     quantity: 1,
+        //                     image: props.image,
+        //                     stock: productData.stock
+        //                     }
+        //                 ]
+        //             }
+        //         ]
+        //     return dispatch(changeCart(userData.id, orders))
+        // }
+        // else{
+        //     return dispatch(addItem(productData))
+        // }
+    }
+
 
     return (
         <>
@@ -180,23 +219,23 @@ const Product = (props) => {
                             <CardProductTitle> {props.title}  </CardProductTitle>
                         </div>
                     </Link>
-                        <div>
+                        <DontMove>
                             <IconContainer>
                                 { 
-                                userData && userData.favorites && userData.favorites.some(obj => obj._id === props.id) ? <HeartIconSolid className="addFavIcon"/>
-                                : userData ? <HeartIconOutline className="addFavIcon"/> 
+                                userData && userData.favorites && userData.favorites.some(obj => obj._id === props.id) ? <HeartIconSolid onClick={HandleToggleFavorite} className="addFavIcon"/>
+                                : userData ? <HeartIconOutline onClick={HandleToggleFavorite} className="addFavIcon"/> 
                                 : <></>
                                 }
                             </IconContainer>
                             <IconContainer>
                                 { userData && cartItems[0] && cartItems.some(obj => obj.products[0]._id === props.id) ?
-                                <CartIconSolid  className="addCartIcon"/> 
-                                : <CartIconOutline className="addCartIcon"/>}
+                                <CartIconSolid  onClick={handleToggleSolidCart} className="addCartIcon"/> 
+                                : <CartIconOutline onClick={handleToggleOutlineCart} className="addCartIcon"/>}
                             </IconContainer>
                             <Link href={'/detail/[productDetail]'} as={`/detail/${props.id}` } passHref>
                                 <StyledButton onClick={() => dispatch(getProductDetail(props.id))}>ver detalle </StyledButton>
                             </Link><ArrowSpan>→</ArrowSpan>
-                        </div>
+                        </DontMove>
                     </ContainerDetail>
                 </CardContainer>
             

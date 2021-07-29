@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { GradientBorder, Input  } from '../globalStyle'
 import { getOrders } from '../../store/actions/normalUsersActions'
-
+import OrderFilters from '../OrdersFilters'
 
 
 const StyledContainer = styled.div`
@@ -58,9 +58,8 @@ const ProfileImg = styled.img`
 `
 
 const OrderConteiner = styled.div`
-width: 80%;
-border: 1px solid grey;
-border-radius: 1rem 1rem;
+width: 50%;
+border: 0.5px solid black;
 height: auto;
 padding: 10px;
 display: flex;
@@ -72,24 +71,31 @@ margin: 10px;
 
 const ProductOrderConteiner = styled.div`
 width: 70%;
-border: 0.5px solid black;
 margin: 3px;
 padding: 1rem;
 display: flex;
+flex-direction: column;
 justify-content: center;
-flex-direction: raw;
+align-items: center;
 `
+
 const ProductImg = styled.img`
-width: auto;
-height: 150px;
-border: 1px solid black
+width: 150px;
+border: 1px solid black;
+margin-bottom: 10px;
 `
 
 const ProductInfo = styled.div`
 display: flex;
 flex-direction: column;
 justify-content: center;
-align-items: center
+align-items: center;
+`
+
+const Advertise = styled.p`
+    color: ${(props) => props.theme.blueColor};
+    display: flex;
+    align-items: center;
 `
 
 const UserPanelBuys = () => {
@@ -108,24 +114,56 @@ const UserPanelBuys = () => {
             <DataSection>
                 <h3>Compras</h3>
             </DataSection>
+            { buyersOrders ?
+            <>
+             <OrderFilters ordersCase="buyerOrders" userId={userData.id} eachCase="buyer"/>
+             <button>Ver transacciones finalizadas</button>
+            </>
+            :
+            <span></span>}
             { 
             buyersOrders && buyersOrders.length > 0 ? 
             buyersOrders.map(order => 
             {   let total = 0
                 return (
+                // <OrderConteiner key={order._id}>
+                // <h4>Orden {order._id}</h4>
+                // Estado: {order.status} - Vendedor:  {order.seller.nickname}
+                //     { order.products && order.products.length > 0 ? 
+                //     order.products.map(p => {
+                //         total += (p.quantity * p.unit_price)
+                //         return (
+                //         <ProductOrderConteiner key={p._id}>
+                //             <ProductImg src={p.image[0]}></ProductImg>
+                //             <ProductInfo>
+                //                 <span>Producto: <Link href={`/detail/${p._id}`} passHref >{p.title}</Link> __ Clickea el título para acceder al producto</span>
+                //                 <span>Cantidad: {p.quantity}</span>
+                //                 <span>Precio total: {p.quantity * p.unit_price}$</span>
+                //             </ProductInfo>
+                //         </ProductOrderConteiner>
+                //         )
+                //     }) 
+                //     :
+                //     <div>No hay ningún producto en esta orden</div>
+                //     }
+                //     <span>Monto total: {total}$</span>
+                //     <Link href={`/orderDetail/[orderDetail]`} as={`/orderDetail/${order._id}`} passHref ><p>Detalle de la orden</p></Link>
+                // </OrderConteiner>
                 <OrderConteiner key={order._id}>
-                <h4>Orden {order._id}</h4>
-                Estado: {order.status} - Vendedor:  {order.seller.nickname}
+                <Advertise>N° de orden: {order._id}</Advertise>
+
+                <Advertise>Estado: {order.status} - Vendedor:  {order.seller.nickname}</Advertise>
+
                     { order.products && order.products.length > 0 ? 
                     order.products.map(p => {
                         total += (p.quantity * p.unit_price)
                         return (
                         <ProductOrderConteiner key={p._id}>
-                            <ProductImg src={p.image}></ProductImg>
+                            <ProductImg src={p.image[0]}></ProductImg>
                             <ProductInfo>
-                                <span>Producto: <Link href={`/detail/${p._id}`} passHref >{p.title}</Link> __ Clickea el título para acceder al producto</span>
-                                <span>Cantidad: {p.quantity}</span>
-                                <span>Precio total: {p.quantity * p.unit_price}$</span>
+                                <p>Producto: <Link href={`/detail/${p._id}`} passHref >{p.title}</Link></p>
+                                <p>Cantidad: {p.quantity}</p>
+                                <p>Precio total: ${p.quantity * p.unit_price}</p>
                             </ProductInfo>
                         </ProductOrderConteiner>
                         )
@@ -135,7 +173,7 @@ const UserPanelBuys = () => {
                     }
                     <span>Monto total: {total}$</span>
                     <Link href={`/orderDetail/[orderDetail]`} as={`/orderDetail/${order._id}`} passHref ><p>Detalle de la orden</p></Link>
-                </OrderConteiner>)}) 
+                </OrderConteiner>)})
             : 
             <div>No tienes compras todavía!</div>
             }

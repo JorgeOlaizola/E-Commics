@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import styled from 'styled-components';
 import { Input, GradientBorder, DisableBorder, InputDisable } from './globalStyle';
-import SignInForm from './SignInForm';
 import {FormContainer, LogInForm, FormLabel, FormInputs, FormInput, FormSpan, Eye} from './user-panel/UserStyles.js';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import PacmanLoader from "react-spinners/PacmanLoader";
@@ -31,26 +30,20 @@ const SignUp = ({onClose}) => {
         password2: "",
         locationId: `${process.env.DEFAULT_LOCATION}`
     })
-
     const [thanks, setThanks] = useState(false)
     const [passwordShown, setPasswordShown] = useState(false);
-    const [imageSelected, setImageSelected] = useState([]);
-
+    const [imageSelected, setImageSelected] = useState("");
     const togglePasswordVisiblity = () => {
         setPasswordShown(passwordShown ? false : true);
     };
-    
     const [errorName, setErrorName] = useState("");
     const [errorS, setErrorS] = useState("");
     const [errorNickname, setErrorNickname] = useState("");
     const [errorEmail, setErrorEmail] = useState(""); 
     const [errorPassword, setErrorPassword] = useState(""); 
     const [errorConfirm, setErrorConfirm] = useState("");
-    
     const [loading, setLoading] = useState(false);
-
     const locations = useSelector(state => state.user.locations)
-
     function validateUserName(value) {
         if(!value){
             setErrorName('↑ El nombre es requerido');
@@ -63,7 +56,6 @@ const SignUp = ({onClose}) => {
         setNewUser(prevState =>
             ({...prevState, name: value}));
     }
-
     function validateUserS(value) {
         if(!value){
             setErrorS('↑ El apellido es requerido');
@@ -75,7 +67,6 @@ const SignUp = ({onClose}) => {
         setNewUser(prevState =>
             ({...prevState, surname: value}));
     }
-
     function validateUserNickname(value) {  
         if(value.length < 6) {
             setErrorNickname('↑ El usuario debe contener al menos 6 caracteres');
@@ -83,15 +74,9 @@ const SignUp = ({onClose}) => {
         else {
             setErrorNickname('');
         }
-        // if(!/^[-a-zA-Z +]*$/gi.test(value)) {
-        //     setErrorNickname('↑ El sobrenombre tiene que ser alfabético');
-        // } else {
-        //     setErrorNickname('');
-        // }
         setNewUser(prevState =>
             ({...prevState, nickname: value}));
     }
-
     function validateEmail(value) {
         const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if(!value){
@@ -104,12 +89,10 @@ const SignUp = ({onClose}) => {
         setNewUser(prevState =>
             ({...prevState, email: value}));
     }
-
     function validateLocation(value) {
         setNewUser(prevState =>
             ({...prevState, locationId: value}));
     }
-
     function validatePassword(value) {
         if(!value){
             setErrorPassword('↑ La constraseña es requerida');
@@ -126,7 +109,6 @@ const SignUp = ({onClose}) => {
         setNewUser(prevState =>
             ({...prevState, password: value}));
     }
-  
     function validateConfirm(value) {
         
         if (value !== newUser.password){
@@ -137,11 +119,9 @@ const SignUp = ({onClose}) => {
         setNewUser(prevState =>
                 ({...prevState, password2: value}));
     }
-
     function handleImage(e) {
         e.preventDefault();
         setImageSelected(e.target.files[0])
-        console.log(process.env.CLOUDINARY_PRESET)
     }
     const mostrar = (i) => {
         const objectURL = URL.createObjectURL(imageSelected[i])
@@ -149,10 +129,8 @@ const SignUp = ({onClose}) => {
     }
     function handleSubmit(e) {
         e.preventDefault();
-        
         setLoading(true);
-
-        if(!imageSelected.length){
+        if(!imageSelected){
             let respuesta = {
                 ...newUser,
                 avatar: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
@@ -160,11 +138,9 @@ const SignUp = ({onClose}) => {
             axios.post('/api/users/signUp', respuesta)
             .then(function(response) {
                 response.data.error_msg && alert(response.data.error_msg)
-                    response.data.success_msg /* && setThanks(true) */;
-                //console.log(response);
+                response.data.success_msg
                 }).catch(error => console.error(error))
         }
-
         if (imageSelected) {
             const fromData = new FormData()
             fromData.append("file", imageSelected)
@@ -179,25 +155,18 @@ const SignUp = ({onClose}) => {
             })
             .then(function(response) {
                 response.data.error_msg && alert(response.data.error_msg)
-                    response.data.success_msg /* && setThanks(true) */;
-                  //console.log(response);
-                }).catch(error => console.error(error))
+                response.data.success_msg
+            }).catch(error => console.error(error))
         }
-        // console.log(thanks)
-        //    history.push('/thanks');
-        // onClose();
         document.body.style.overflow = ""
-
         setThanks(true)
         setLoading(false);
     }
-
     const isEnabled = newUser.name.length > 0 && newUser.surname.length > 0 && newUser.nickname.length >= 6 && newUser.email.length > 0 && newUser.password.length > 0;
-
     return (
         <FormContainer >
             {
-            loading ? <div style={{display: "flex", alignItems: "center", justifyContent: "center", height: '500px'}}><PacmanLoader color={"#000"} size={30}/></div> :
+            loading ? <div style={{display: "flex", alignItems: "center", justifyContent: "center", height: '500px'}}><PacmanLoader color={"#FFE100"} size={30}/></div> :
             thanks  ? <div style={{height: '400px'}}><h2 style={{paddingLeft: '10px'}}>Super! Ya eres miembro de la comunidad de ecommics 🦸 🦹‍♀️ 🦸‍♂️ 🦹‍♂️</h2><br/><h3>Por favor verifica tu cuenta a través del link que enviamos a tu correo electrónico para empezar a disfrutar de E-commics</h3>{/*<SignInForm/>*/}</div> : 
             <>
                 <h2 style={{paddingLeft: '10px'}}>Únete hoy a ecommics!</h2>
@@ -264,11 +233,3 @@ const SignUp = ({onClose}) => {
 }
 
 export default SignUp;
-
-
-//   export default connect(
-//     null,
-//     {action, action }
-//   )(SignUp);
-
-

@@ -1,14 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addSellingProduct } from '../../store/actions/productActions.js';
-import { getUserData } from '../../store/actions/normalUsersActions.js';
 import styled from 'styled-components'
 import axios from 'axios';
 import { useRouter } from 'next/router'
-import Image from 'next/image'
 import PacmanLoader from "react-spinners/PacmanLoader";
 import { Input, GradientBorder, DisableBorder, InputDisable } from '../globalStyle';
 
+//#region  estilos
 const DivContainer = styled.div`
 margin:auto;
 display: flex;
@@ -73,6 +72,7 @@ const StyledImage = styled.img`
 const Space = styled.div`
     height: 100px;
 `
+//#endregion
 
 const AddProductForm = () => {
     const dispatch = useDispatch();
@@ -89,7 +89,17 @@ const AddProductForm = () => {
         category: '',
         user: user?.id
     })
+
+    const [loading, setLoading] = useState("false");
+
     const router = useRouter()
+
+    useEffect(()=>{
+        setInput({
+            ...input,
+            user: user?.id
+        })
+    },[dispatch, user])
 
     function handleChange(e) {
         if (e.target.value < 0) {
@@ -108,7 +118,7 @@ const AddProductForm = () => {
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("mande")
+        setLoading("true");
         const terminos = document.getElementById("terminos")
         if (terminos.checked) {
             if (imageSelected) {
@@ -128,11 +138,9 @@ const AddProductForm = () => {
                             ...input,
                             image: data.join("&&")
                         }
-
-                        dispatch(addSellingProduct(respuesta));
-                        setTimeout(() => {
-                            router.push("/search")
-                        }, 2000)
+                        console.log(respuesta)
+                        dispatch(addSellingProduct(respuesta))
+                        setLoading('done')
                     })
 
 
@@ -141,8 +149,6 @@ const AddProductForm = () => {
         else {
             alert("Debes aceptar los terminos y condiciones")
         }
-
-
     }
     function handleSelect(e) {
         e.preventDefault();
@@ -158,7 +164,6 @@ const AddProductForm = () => {
         
         let image = [...e.target.files]
         if(image.length > 5){
-            //avisamos el maximo de imagenes
             alert("El maximo de imagenes es de 5")
         }
         image = image.slice(0,5)
@@ -172,7 +177,24 @@ const AddProductForm = () => {
     }
     return (
         <>
-            {user?.id ?
+            {loading === "done" ?
+                <DivContainer>
+                    <Space/>
+                    <div>
+                        <h2>Felicitaciones, tu producto ya se encuentra publicado!</h2>
+                        <p>¿Deseas publicar otro producto? <a onClick={() => {setLoading("false"), setImageSelected([]), setInput({
+                            title: '',
+                            description: '',
+                            stock: 0,
+                            price: 0,
+                            image: [],
+                            category: '',
+                            user: user?.id
+                        })}}>click aqui</a></p>
+                        <p>O puedes visitar el catálogo de productos <a onClick={() => {router.push('/search')}}>click aqui</a></p>
+                    </div>
+                </DivContainer> :
+            user?.id && loading === "false" ?
                 <DivContainer>
                     <h2>¿Qué vas a publicar?</h2>
                     <FormContainer onSubmit={(e) => { handleSubmit(e) }} >
@@ -187,6 +209,7 @@ const AddProductForm = () => {
                                     id="inputNombre"
                                     type='text'
                                     name='title'
+                                    maxLength="50"
                                     value={input.title}
                                     onChange={(e) => { handleChange(e) }}
                                 />
@@ -198,6 +221,7 @@ const AddProductForm = () => {
                                     onKeyDown={keyEnter}
                                     id="inputDescription"
                                     name="description"
+                                    maxLength="400"
                                     value={input.description}
                                     onChange={(e) => { handleChange(e) }}
                                 />

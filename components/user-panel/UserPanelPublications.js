@@ -8,12 +8,11 @@ import {
 } from '../../store/actions/productActions'
 import styled from 'styled-components';
 import { GradientBorder, Input  } from '../globalStyle'
-import ImageSlider from '../ImageSlider.js';
+import { useRouter } from 'next/router'
 
 const StyledContainer = styled.div`
     margin-top: 30px;
     width: 100%;
-    height: 1024px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -43,7 +42,6 @@ const StyledButton = styled.button`
 `
 
 const ProfileImg = styled.img`
-    border-radius: 50%;
     width: 150px;
     height: 150px;
 `
@@ -57,7 +55,6 @@ border: 1px solid grey;
 display: flex;
 padding: 30px;
 margin: 10px;
-border-radius: 0.5rem 0.5rem;
 justify-content: start;
 align-items: center;
 `
@@ -71,20 +68,20 @@ align-items: center;
 width: 80%;
 `
 
+const Advertise = styled.p`
+    color: ${(props) => props.theme.blueColor};
+    display: flex;
+    align-items: center;
+`
+
 const UserPanelPublications = () => {
     const userData = useSelector(state => state.user.userData.user);
     const products = useSelector(state => state.product.ownProducts.products);
     const filters = useSelector(state => state.product.filters);
     const dispatch = useDispatch();
-
-    // const userProducts= products.forEach(p => console.log(p.user._id))
-
-
+    const router = useRouter()
 
     useEffect(() => {
-        // if(userData.log === false) {
-        //     window.location.href = "/"
-        // }
         dispatch(getOwnProducts(userData.id))
         return () => {
             dispatch(resetFilters())
@@ -92,17 +89,15 @@ const UserPanelPublications = () => {
 }, []);
     return (
         <StyledContainer>
-            <DataSection><h3>Publicaciones</h3></DataSection>
-            <ImageSlider />
             {products && products.length > 0 ? products.map(p => 
                 <ProductConteiner key={p._id}>
-                    <ProfileImg src={p.image}>
+                    <ProfileImg src={p.image[0]}>
                     </ProfileImg>
                     <ProductInfoConteiner>
-                    <h3>{p.title} </h3>
-                    <span> Precio: {p.price}$</span> 
-                    <span> Categoría: {p.category.title}</span>
-                    <span><button>Eliminar</button><button>Modificar</button></span>
+                    <p><strong>{p.title}</strong></p>
+                    <Advertise> Precio: ${p.price}</Advertise> 
+                    <Advertise> Categoría: {p.category.title}</Advertise>
+                    <button onClick={() => router.push(`/detail/${p._id}`)}>Modificar</button>
                     </ProductInfoConteiner>
                 </ProductConteiner>
             ) : <div>Todavía no tienes ningún producto</div> }

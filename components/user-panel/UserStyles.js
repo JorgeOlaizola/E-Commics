@@ -50,7 +50,7 @@ position: absolute;
 top: 40px;
 right: 0px;
 width: 170px;
-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
+box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
 opacity: 0;
 visibility: hidden;
 transform: translateY(-20px);
@@ -130,6 +130,25 @@ export const FormInput = styled.input`
     margin-top: 0.4rem;
     width: 100%;
 `
+
+export const FormProductContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content:  space-between;
+    margin: 10px 0;
+`
+
+export const FormProductInput = styled.input`
+    margin-top: 0rem;
+    width: 70%;
+    flex-grow: 4;
+`
+export const FormTextarea = styled.textarea`
+    margin-top: 0.4rem;
+    width: 100%;
+    font-family: roboto;
+`
+
 
 export const FormInputs = styled.div`
     display: block;

@@ -9,21 +9,30 @@ import {
     productToUpDate   
 } from '../store/actions/productActions'
 import {
-    handleFavorites
+    handleFavorites,
+    getFavorites
 } from '../store/actions/normalUsersActions'
 import {
     addItem,
     changeCart,
-    buyProduct
+    buyProduct,
+    getCart,
+	decreaseItem,
+	increaseItem,
 } from '../store/actions/cartActions'
-import { HeartIcon, ShoppingCartIcon } from '@heroicons/react/outline'
 import Link from 'next/link';
 import Image from 'next/image';
-import { StyledLink, Input, GradientBorder } from './globalStyle';
+import { StyledLink, Input, GradientBorder, BuyButton, EraseButton } from './globalStyle';
 import { useRouter } from 'next/router'
 import axios from 'axios'
 import { showModalAlert } from '../store/actions/modalAlertActions'
 import ImageCarousel from './ImageCarousel'
+import { AiFillEdit } from 'react-icons/ai';
+import { AiOutlineEdit } from 'react-icons/ai';
+import {FormProductContainer, FormInput, FormTextarea, FormProductInput} from './user-panel/UserStyles.js';
+import { HeartIcon as HeartIconOutline, ShoppingCartIcon as CartIconOutline } from '@heroicons/react/outline';
+import { HeartIcon as HeartIconSolid, ShoppingCartIcon as  CartIconSolid } from '@heroicons/react/solid';
+
 //#endregion
 
 //#region Estilos
@@ -127,35 +136,6 @@ const UserStyledLink = styled(StyledLink)`
 `
 
 
-const BuyButton = styled.button`
-    width: 100%;
-    height: 45px;
-    margin: 10px 0;
-    background-color: ${(props) => props.theme.blueColor};
-    border: 1px solid ${(props) => props.theme.backgroundLevel1};
-    border-style: hidden;
-    color: #FFF;
-    font-size: 1.2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    &:hover {
-        background-color: #123AC9;
-        border: 1px solid ${(props) => props.theme.backgroundLevel1};
-        transition: 0.3s;
-    }
-    &:active {
-        background-color: ${(props) => props.theme.blueColorActive};
-        border: 1px solid ${(props) => props.theme.backgroundLevel1};
-    }
-    &:disabled {
-        // background-color: ${(props) => props.theme.blueColor}; nc que color ponerle cuando lo desactivamos
-        background-color: gray;
-        border: 1px solid ${(props) => props.theme.backgroundLevel1};
-    }
-`
-
 const Advertise = styled.p`
     color: ${(props) => props.theme.blueColor};
     margin-bottom: 20px;
@@ -182,6 +162,22 @@ const AddingButton = styled.div`
     color: ${(props) => props.theme.blueColor};
     font-size: 1.2rem;
     margin-bottom: 10px;
+
+    &:hover {
+        cursor: pointer;
+        color: ${(props) => props.theme.blueColorHover};
+    }
+    &:active {
+        cursor: pointer;
+        color: ${(props) => props.theme.blueColor};
+    }
+`
+
+const CartAddingButton = styled.div`
+    color: ${(props) => props.theme.blueColor};
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    display: inline;
 
     &:hover {
         cursor: pointer;
@@ -280,6 +276,47 @@ width: 100%;
 `
 //#endregion
 
+const EditActiveButton = styled.button`
+background: ${(props) => props.theme.backgroundLevel1};
+border: none;
+border: 1px solid ${(props) => props.theme.fontColor};
+border-bottom: 1px solid ${(props) => props.theme.backgroundLevel1};
+z-index: 10;
+position: relative;
+top: 1px;
+left: 10px;
+padding: 5px 10px;
+cursor: pointer;
+color: ${(props) => props.theme.fontColor};
+&:hover {
+    opacity: ${(props) => props.theme.backgroundSwitch};
+    transition: 0.2s;
+    text-decoration: underline;
+}
+`
+
+const EditInactiveButton = styled(EditActiveButton)`
+background: ${(props) => props.theme.colorLevel4};
+border: 1px solid ${(props) => props.theme.backgroundLevel1};
+border-bottom: 1px solid ${(props) => props.theme.fontColor};
+`
+
+const DivLine = styled.div`
+border-Bottom: 1px solid ${(props) => props.theme.colorLevel3};
+z-index: 9;
+margin-bottom: 10px;
+`
+
+const ReviewConteiner = styled.div`
+display: flex;
+justify-content: center;
+align-items: center;
+border: 1px solid black;
+padding: 1rem;
+margin: 1rem;
+flex-direction: column;
+`
+
 
 
 const ProductDetail = ({productData}) => {
@@ -294,6 +331,7 @@ const ProductDetail = ({productData}) => {
     const [productUpDate,setProductUpDate] = useState({
         ...productData
     })
+	const cartItems = useSelector(state => state.cart.cartItems);
 
     function handleChange(e) {
         setQuestion(e.target.value)
@@ -335,7 +373,8 @@ const ProductDetail = ({productData}) => {
     async function upDateProduct(){
         dispatch(productToUpDate(productUpDate))
         setEdit(!edit)
-        router.back()
+        alert('Producto modificado con éxito!')
+        return router.push(`/detail/${productData._id}`)
     }
 
 
@@ -350,7 +389,7 @@ const ProductDetail = ({productData}) => {
             }
             dispatch(createQuestion(questionCreated, userData?.nickname))
 
-            try {
+            /* try {
                 const postQuestion = await axios.post('/api/questions', questionCreated);
                 const questionData = await postQuestion.data
                 if(questionData) {
@@ -361,8 +400,8 @@ const ProductDetail = ({productData}) => {
                 
             } catch (error) {
                 console.log(error)
-            }
-
+            } */
+            return router.push(`/detail/${productData._id}`)
 
         }
     }
@@ -375,6 +414,15 @@ const ProductDetail = ({productData}) => {
             alert("Debes iniciar sesion para comprar!")
         }
     }
+    useEffect(() => {
+		if(userData) {
+			dispatch(getCart(userData.id))
+		}
+	}, [dispatch, userData])
+    
+    // console.log(cartItems[0].products[0]._id)
+    // console.log(userData)
+    // console.log(productData._id)
 
     const handleCart = async () => {
         if(userData) {
@@ -402,13 +450,22 @@ const ProductDetail = ({productData}) => {
 
     const handleClick = (e, path) => {
         e.preventDefault();
-
         filters.user = productData.user._id;
         dispatch(getFilteredProducts(filters));
-        console.log(filters);
+        
         router.push(path)
     }
+    
+    useEffect(() => {
+        userData && dispatch(getFavorites(userData.id))
+    }, [userData, dispatch])
 
+    const HandleToggleFavorite = () => {
+        dispatch(getFavorites(userData.id))
+        dispatch(handleFavorites(userData.id, productData._id))
+        dispatch(getFavorites(userData.id))
+ 
+    }
 {/* <Link style={{textDecoration: 'underline'}} href={`/productsPerUser/[id]`} as={`/productsPerUser/${productData.user._id}` } passHref></Link> */}
 
     return (
@@ -439,23 +496,33 @@ const ProductDetail = ({productData}) => {
                         }
                        
                     </ImageContainer>
-                    <InfoContainer>
-                    {userData && userData?.id === productData?.user._id &&  <button onClick={()=> handleEdit()}>Editar</button>}
+                    <InfoContainer> 
+                    {edit && userData && userData?.id === productData?.user._id &&  <EditActiveButton onClick={()=> handleEdit()}><AiFillEdit className="editIcon" /> Editar</EditActiveButton>
+                    }
+                    {!edit && userData && userData?.id === productData?.user._id &&  <EditInactiveButton onClick={()=> handleEdit()}><AiOutlineEdit className="editIcon" /> Editar</EditInactiveButton>}
+                    {<DivLine></DivLine>}
                         {
                         userData && userData?.id === productData?.user._id && edit ? 
-                        <input name="title" onChange={(e)=>handleProductUpDate(e)} value={productUpDate.title}/> 
+                        <FormProductContainer><span style={{padding: "0px", flexGrow: 1}}>Título</span><FormProductInput name="title" onChange={(e)=>handleProductUpDate(e)} value={productUpDate.title}/> </FormProductContainer>
                         : 
                         <Title>{productData.title}</Title>
                         }
                         {
                         userData && userData?.id === productData?.user._id && edit ? 
-                        <input name="price" onChange={(e)=>handleProductUpDate(e)} value={productUpDate.price}/> 
+                        <FormProductContainer><span style={{padding: "0px", flexGrow: 1}}>Precio $</span><FormProductInput name="realprice" onChange={(e)=>handleProductUpDate(e)} min="1"  value={productUpDate.realprice}/> </FormProductContainer>
                         :
+
                         <InfoText>${productData.price}</InfoText>
-                        }                       
+                        }       
                         {
                         userData && userData?.id === productData?.user._id && edit ? 
-                        <input name="stock" onChange={(e)=>handleProductUpDate(e)} value={productUpDate.stock}/> 
+                        <FormProductContainer><span style={{padding: "0px", flexGrow: 1}}>Descuento %</span><FormProductInput name="discount" onChange={(e)=>handleProductUpDate(e)} max="100" min="0" value={productUpDate.discount}/> </FormProductContainer>
+                        :
+                        <InfoText>{productData.discount ? "Con un %" + productData.discount + " de descuento!" : "" }</InfoText>
+                        }                  
+                        {
+                        userData && userData?.id === productData?.user._id && edit ? 
+                        <FormProductContainer><span style={{padding: "0px", flexGrow: 1}}>Cantidad</span><FormProductInput name="stock" onChange={(e)=>handleProductUpDate(e)} value={productUpDate.stock}/> </FormProductContainer>
                         : 
                             productData.stock === 0 ? <Advertise>No hay unidades disponibles por el momento</Advertise> :
                             productData.stock === 1 ? <Advertise>¡Queda una sola unidad!</Advertise> :
@@ -464,19 +531,20 @@ const ProductDetail = ({productData}) => {
                         <InfoTitle>Descripción</InfoTitle>
                         {
                         userData && userData?.id === productData?.user._id && edit ? 
-                        <textarea name="description" cols="40" rows="8" onChange={(e)=>handleProductUpDate(e)} value={productUpDate.description}/> 
+                        <FormTextarea name="description" cols="40" rows="8" onChange={(e)=>handleProductUpDate(e)} value={productUpDate.description}/> 
                         : 
                         <Description>{productData.description}</Description>
                         }
+
                         <Description><strong>Vendido por: </strong> 
                             <UserStyledLink>
-                                <button style={{textDecoration: 'underline'}} onClick={(e) => handleClick(e, "/search")} >
+                                <StyledLink onClick={(e) => handleClick(e, "/search")} >
                                 {productData.user.nickname}
-                                </button>
+                                </StyledLink>
                             </UserStyledLink>
                         </Description>
 
-                        <Description><strong>Categoría:</strong> 
+                        <Description><strong>Categoría: </strong> 
                         {
                              userData && userData?.id === productData?.user._id && edit ? 
                              categories && (
@@ -511,11 +579,15 @@ const ProductDetail = ({productData}) => {
                             edit ?
                             <BuyButton onClick={()=>upDateProduct()} >Guardar</BuyButton>
                             :
-                            <BuyButton disabled>Es tu Producto!</BuyButton>
+                            <BuyButton style={{cursor: "unset"}} disabled>Es tu Producto!</BuyButton>
                         : 
+                        productData?.stock === 0 ? <BuyButton disabled>Comprar ahora</BuyButton>
+                        :
                         <BuyButton onClick={()=>buy()}>Comprar ahora</BuyButton>
                          }
-                        <HurryAdvertise><em>Apúrate! Este artículo se va volando</em></HurryAdvertise>
+                         {
+                            productData?.stock === 0 ? <HurryAdvertise><em>Espera a que el vendedor reponga este artículo!</em></HurryAdvertise> : <HurryAdvertise><em>Apúrate! Este artículo se va volando</em></HurryAdvertise>
+                        }
                        {/*  {
                         userData && userData.favorites ? 
                             (userData.favorites.find(f => f.productId === detail._id) ?
@@ -525,13 +597,24 @@ const ProductDetail = ({productData}) => {
                         : <span></span>
                         }  */}
                         {
-                            userData && userData.favorites && userData.favorites.find(f => f.productId === productData._id) ? <AddingButton><a onClick={() => dispatch(handleFavorites(userData.id, productData._id))}><HeartIcon className="addFavIcon"/> Quitar de favoritos</a></AddingButton> :
-                            userData && userData.favorites && userData.favorites.find(f => f.productId === productData._id) === undefined ? <AddingButton><a onClick={() => dispatch(handleFavorites(userData.id, productData._id))}><HeartIcon className="addFavIcon"/> Agregar a favoritos</a></AddingButton> :
+                            userData && userData.favorites && userData.favorites.find(f => f._id === productData._id) ? <AddingButton><a onClick={HandleToggleFavorite}><HeartIconSolid className="addFavIcon"/> Quitar de favoritos</a></AddingButton> :
+                            userData && userData.favorites && userData.favorites.find(f => f._id === productData._id) === undefined ? <AddingButton><a onClick={HandleToggleFavorite}><HeartIconOutline className="addFavIcon"/> Agregar a favoritos</a></AddingButton> :
                             <span></span>
                         } 
                         {/* <AddingButton><HeartIcon className="addFavIcon"/> Agregar a favoritos</AddingButton> */}
+                        {cartItems.find(p => p.products[0]._id === productData._id) ? 
+                        <>
+                       { cartItems.find(p => p.products[0]._id === productData._id).products[0].quantity}
+                        </> : <></>}
+                        {
+                            productData?.stock === 0 ? null : <CartAddingButton onClick={() => handleCart()}><CartIconOutline className="addCartIcon"/> Agregar al carrito</CartAddingButton>
+                        }
+                        
+                        {/* <div>
+                            <button onClick={() => dispatch(decreaseItem(cartItems.find(p => p.products[0]._id === productData._id)._id, productData._id))}>-</button> Cantidad <button onClick={() => dispatch(increaseItem(cartItems.find(p => p.products[0]._id === productData._id)._id, productData._id, 1000))}>+</button>
+						</div> */}
 
-                        <AddingButton onClick={() => handleCart()}><ShoppingCartIcon className="addCartIcon"/> Agregar al carrito</AddingButton>
+
                         <Space/>
                         <InfoTitle>Medios de pago</InfoTitle>
                         <Description>
@@ -551,19 +634,37 @@ const ProductDetail = ({productData}) => {
                     <QuestionsContainer>
                         <Title>Preguntas</Title>
                         {
-                        productData.questions.length ? 
+                        productData && productData?.questions?.length ? 
                             productData.questions.map(q => { 
-                                return <div key={q.created_at} style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+                                return <div key={q._id} style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
                                     <Question>
                                         {q.content}
                                         <span style={{marginTop: "10px", fontSize: "1rem", color: "${(props) => props.theme.blueColor}"}}>{q.avatar} {q.userNickname} ({q.created_at.slice(0, 10)}) {q.answer ? <span>(respondido)</span> : <span>(pendiente de respuesta)</span>}</span>
                                     </Question>
                                     {
-                                        q.answer &&
+                                        q.answer ?
                                         <Answer>
                                             {q.answer}
                                             <span style={{marginTop: "10px", fontSize: "1rem"}}>{productData.user.nickname}</span>
                                         </Answer>
+                                        :
+                                        userData && userData?.id === productData?.user._id && 
+                                        <form onSubmit={(e) => {
+                                            e.preventDefault()
+                                            axios.put(`/api/questions?id=${q._id}&answer=${e.target.answer.value}`)
+                                            .then(r => {
+                                                if(r.data.success_msg){
+                                                    alert(r.data.success_msg)
+                                                    return router.push(`/detail/${productData._id}`)
+                                                }
+                                                else{
+                                                    return alert(r.data.error_msg)
+                                                }})
+                                            .catch(err => console.log(err))
+                                        }}>
+                                            <input type="text" name="answer"></input>
+                                            <input type="submit" value="Responder"></input>
+                                        </form>
                                     }
                                     <Space/>
                                 </div>        
@@ -578,7 +679,7 @@ const ProductDetail = ({productData}) => {
                             userData && userData.log !== false ?
                                 <>
                                     <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-                                    {productData.questions.length ? <QuestionAdvertise>¿Quieres saber más?</QuestionAdvertise> : <></>}
+                                    {productData?.questions?.length ? <QuestionAdvertise>¿Quieres saber más?</QuestionAdvertise> : <></>}
                                         <QuestionAdvertise>Pregúntale al vendedor</QuestionAdvertise>
                                     </div>
                                     <form
@@ -608,7 +709,15 @@ const ProductDetail = ({productData}) => {
                         <Space/>
                         <Title>Reseñas</Title>
                         <div style={{display: "flex", justifyContent: "center"}}>
+                            {productData.reviews && productData.reviews.length ? 
+                            productData.reviews.map(r => {
+                                let star = "⭐"
+                                return <ReviewConteiner key={r._id}>{r.content} <p>{star.repeat(r.rating)}</p></ReviewConteiner>
+                                
+                        })
+                            :
                             <Advertise style={{textAlign: "center"}}>Aún no hay reseñas para este artículo</Advertise>
+                            }
                         </div>
                     </QuestionsContainer>
                 </QuestionsDiv>

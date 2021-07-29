@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import axios from "axios";
 import { 
     resetPassword,
-    signIn, 
+    signIn,
+    signInWithGithub 
 } from "../store/actions/normalUsersActions";
 import {
     emptyCart, 
@@ -14,6 +16,7 @@ import {FormContainer, LogInForm, FormLabel, FormInputs, FormInput, FormSpan, Ey
 import { Input, GradientBorder, DisableBorder, InputDisable } from './globalStyle'
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import styled from 'styled-components';
+import {loginWithGitHub, onCloseSession} from '../firebase/client.js'
 
 export const ProcessedFaEye = styled.div`
     position: relative;
@@ -26,6 +29,10 @@ export const ProcessedFaEye = styled.div`
     cursor: pointer;
   }
 ` 
+const GithHubButton = styled.button`
+    width: 5rem
+`
+
 
 const SignInForm = () => {
 
@@ -44,21 +51,64 @@ const SignInForm = () => {
             [e.target.name] : e.target.value
         })
     }
+    const  handleGithub = async () =>{
+        loginWithGitHub()
+            .then(user => {
+                if(user.user.email){
+                   return axios.post('/api/users/github', {githubID: user.user.uid})
+                }
+                else onCloseSession().then(r => console.log(r)).catch(err=> console.log(err))
+                })
+            .then(r=> {
+                if(!r) return
+                if(r.data.error_msg){
+                    onCloseSession().then(r => console.log(r)).catch(err=> console.log(err))
+                    return alert(r.data.error_msg);
+                } 
+                const cart = JSON.parse(localStorage.getItem('cartItems'))
+                if(cart?.length) dispatch(signIn(r.data, cart)) 
+                else dispatch(signIn(r.data, null)) 
+
+                document.body.style.overflow = "";
+                dispatch(showHideModal(false))
+            })
+            .catch(err => console.log(err))
+    }
 
     const handleSubmit = async (e) => {      
         e.preventDefault();
         const cart = JSON.parse(localStorage.getItem('cartItems'))
         if(cart?.length) {
-            dispatch(signIn(input, cart));
+            axios.post(`/api/users/logIn`, input)
+            .then(r =>{
+                if(r.data.error_msg) return alert(r.data.error_msg)
+
+                dispatch(signIn(r.data, cart));
+                document.body.style.overflow = "";
+                dispatch(showHideModal(false))
+            }
+
+            )
+            
             // dispatch(changeCart('60ecf7b0ef20060e68fbebf2', cart))            
         }
         else{
-            dispatch(signIn(input, null));
+            axios.post(`/api/users/logIn`, input)
+            .then(r =>{
+                if(r.data.error_msg) return alert(r.data.error_msg)
+
+                dispatch(signIn(r.data, null));
+                document.body.style.overflow = "";
+                dispatch(showHideModal(false))
+            }
+
+            )
+        }
+            
+
+            /* dispatch(signIn(input, null)); */
             // dispatch(getCart('60ecf7b0ef20060e68fbebf2'))
         }
-        document.body.style.overflow = "";
-        dispatch(showHideModal(false))
-    }
 
     const handleReset = (e) => {
         e.preventDefault();
@@ -110,6 +160,7 @@ const SignInForm = () => {
                         }
                     </LogInForm>
             }
+            <GithHubButton onClick={handleGithub}>iniciar con Git</GithHubButton>
             
         </>
     )

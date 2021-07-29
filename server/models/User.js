@@ -19,6 +19,16 @@ const userSchema = new mongoose.Schema({
 		type: String,
 		required: true
 	},
+	discount:{
+		percentage:{
+			type:Number,
+			default:0
+		},
+		date:{
+			type: Date,
+			default: new Date()
+		}
+	},
 	surname: {
 		type: String,
 		required: true
@@ -54,9 +64,21 @@ const userSchema = new mongoose.Schema({
 		type: String,
 		required: true
 	},
-	notifications: {
-		type: [String]
-	}
+	github: {
+		type: String,
+		default: 'None'
+	},
+	shipping:[{
+		street:String,
+		location: String,
+		number: String,
+		info:String
+	}],
+	notifications:[{
+		content:String, 
+		img:String, 
+		link:String
+	}]
 });
 
 userSchema.methods.encryptPassword = async password => {

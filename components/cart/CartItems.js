@@ -9,7 +9,12 @@ import {
 	changeCart,
 	getCart,
 	buyCart
+
 } from '../../store/actions/cartActions'
+import ShippingForm from './ShippingForm';
+
+import { EraseButton, BuyButton  } from '../globalStyle'
+
 
 const CartContainer = styled.div`
 padding:1.2rem;
@@ -118,6 +123,7 @@ border: 1px solid grey;
 }
 
 `;
+
 const BuyButtonAction = styled.button`
 width: 100%;
     height: 45px;
@@ -134,6 +140,18 @@ width: 100%;
         box-shadow: 0 3px 3px 2px rgba(0,0,0,0.3);
     }
 `
+const FormStyled = styled.form`
+width:100%;
+border-top: 1px solid black;
+border-bottom: 1px solid black;
+margin-top: 1rem;
+margin-bottom: 1rem;
+
+`
+const InputStyled = styled.input`
+height: 1rem;
+`
+
 
 
 const CartItems = () => {
@@ -147,7 +165,7 @@ const CartItems = () => {
 	}, [dispatch, userData])
 	const cartItems = useSelector(state => state.cart.cartItems);
 	const cartId = useSelector(state => state.cart.cartId);
-	console.log("ya la empece a bardear", userData)
+	const shippingInfo = useSelector(state => state.cart.shippingInfo)
 	let total = 0
 	return(
 		<CartContainer><h1>Shopping Cart</h1>
@@ -169,7 +187,7 @@ const CartItems = () => {
 									</ProductTitleContainer>
 									
 									<Options>
-										<button onClick={() => dispatch(changeCart(userData.id, [{...ci, products: [{...p, quantity: -p.quantity}]}]))}>Remove</button>
+										<EraseButton onClick={() => dispatch(changeCart(userData.id, [{...ci, products: [{...p, quantity: -p.quantity}]}]))}>Eliminar producto</EraseButton>
 									</Options>
 
 									
@@ -199,10 +217,14 @@ const CartItems = () => {
 				})}
 	
 				
+
 				<p>Total: {total}$</p>
-				<Link href="/" passHref>
-					<BuyButtonAction onClick={()=> dispatch(buyCart(cartId))}>Comprar ahora</BuyButtonAction> 
-					</Link>
+				<ShippingForm/>
+				
+
+					<BuyButtonAction onClick={shippingInfo ? ()=> dispatch(buyCart(cartId, shippingInfo)) : null}>Comprar ahora</BuyButtonAction> 
+				
+
 				</div> : 'Todavía no agregaste nada al carrito'
 				:
 				cartItems && cartItems.length ? <div> {cartItems.map(ci => {
@@ -218,7 +240,7 @@ const CartItems = () => {
 												<h3>{p.title}</h3>
 											</ProductTitleContainer>
 											<Options>
-												<button onClick={() => dispatch(removeItem(ci._id, p._id))}>Remove</button>
+												<EraseButton onClick={() => dispatch(removeItem(ci._id, p._id))}>Eliminar producto</EraseButton>
 
 											</Options>
 
@@ -242,8 +264,8 @@ const CartItems = () => {
 				})}
 	
 				
-				<p>Total: {total}$</p>
-				<Link href="/" passHref>Comprar ahora</Link>
+				<h3>Total: ${total}</h3>
+				<h4>Para adquirir productos por favor puedes hacer click en <strong>Crear cuenta</strong> o <strong>Ingresar</strong> desde el panel de usuario</h4>
 				</div> : 'Todavía no agregaste nada al carrito'
 				}
 			{/* Si el usuario es invitado */}	

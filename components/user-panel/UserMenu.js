@@ -8,7 +8,7 @@ import { showHideModal } from '../../store/actions/stylesActions.js';
 import Modal from './Modal.js';
 import React, {useState} from 'react';
 import { 
-  emptyCart 
+  emptyCart  
 } from '../../store/actions/cartActions'
 import {MenuContainer, MenuTrigger, MenuTriggerSpan, MenuTriggerImg, Menu, MenuUl, MenuLi, MenuButton, MenuButtonSwitch} from './UserStyles';
 import { LigthDarkThemeDiv } from '../globalStyle';

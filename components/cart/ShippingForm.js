@@ -3,7 +3,7 @@ import { useState } from "react";
 import {setShippingInfo} from '../../store/actions/cartActions'
 import { useDispatch } from "react-redux";
 import {BuyButton} from '../globalStyle'
-
+ 
 const FormStyled = styled.form`
 width:50%;
 margin:2rem;

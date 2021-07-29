@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from 'next/link'; 
 import { useSelector, useDispatch }  from 'react-redux';
 import { getProductDetail } from '../store/actions/productActions';
 import styled from 'styled-components';

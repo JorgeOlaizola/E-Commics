@@ -12,7 +12,7 @@ import {
 
 } from '../../store/actions/cartActions'
 import ShippingForm from './ShippingForm';
-
+ 
 import { EraseButton, BuyButton  } from '../globalStyle'
 
 

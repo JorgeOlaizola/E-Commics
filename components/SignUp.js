@@ -6,7 +6,7 @@ import { Input, GradientBorder, DisableBorder, InputDisable } from './globalStyl
 import {FormContainer, LogInForm, FormLabel, FormInputs, FormInput, FormSpan, Eye, OptionInput} from './user-panel/UserStyles.js';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import PacmanLoader from "react-spinners/PacmanLoader";
-
+ 
 export const ProcessedFaEye = styled.div`
     position: relative;
     left: 248px;

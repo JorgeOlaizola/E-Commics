@@ -107,7 +107,7 @@ width: 100%;
 @media (max-width: 900px) {
     display: inline;
     ${'' /* width: 90%; */}
-}
+} 
 `
 
 

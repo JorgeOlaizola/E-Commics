@@ -15,7 +15,8 @@ export default nextConnect()
                         id: u._id,
                         nickname: u.nickname,
                         email: u.email,
-                        role: u.role
+                        role: u.role,
+                        status: u.status
                 }})
                 return res.json(nickInfo)
             }
@@ -30,7 +31,8 @@ export default nextConnect()
                     id: u._id,
                     nickname: u.nickname,
                     email: u.email,
-                    role: u.role
+                    role: u.role,
+                    status: u.status
             }})
             return res.json(usersInfo)
         }
@@ -45,7 +47,7 @@ export default nextConnect()
     try {
         await dbConnect()
         const userRole = await User.findByIdAndUpdate(req.query.id, { role: req.query.role }).exec()
-        console.log(userRole)
+        
         if(userRole){
             return res.json({ success_msg: `El usuario se ha actualizado con exito a ${req.query.role}`})
         }

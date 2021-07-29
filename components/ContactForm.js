@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Input, GradientBorder } from "./globalStyle";
 import styled from "styled-components";
 import emailjs from 'emailjs-com';
 
@@ -18,6 +19,10 @@ text-align: justify;
 const StyledForm = styled.form`
 display: flex;
 flex-direction: column;
+`
+
+const StyledLabel = styled.label`
+margin: 10px 0;
 `
 
 const Contact = () => {
@@ -79,41 +84,50 @@ const Contact = () => {
             :
             <StyledContainer>
                 <h2>Contáctanos!</h2>
+                <p>Déjanos tu mensaje, alguien de Ecommics se contactrá cuanto antes</p>
                 <StyledTextBox>
                     <StyledForm onSubmit={(e) => sendEmail(e)}>
-                    <label>Nombre</label>
+                    <StyledLabel>Nombre*</StyledLabel>
                     <input
                         type="text"
                         name="name"
                         id="name"
                         value={input.name}
                         onChange={(e) => {handleChange(e)}}
+                        required
                     />
-                    <label>Apellido</label>
+                    <StyledLabel>Apellido*</StyledLabel>
                     <input
                         type="text"
                         name="surname"
                         id="surname"
                         value={input.surname}
                         onChange={(e) => {handleChange(e)}}
+                        required
                     />
-                    <label>Correo electrónico</label>
+                    <StyledLabel>Correo electrónico*</StyledLabel>
                     <input
                         type="text"
                         name="email"
                         id="email"
                         value={input.email}
                         onChange={(e) => {handleChange(e)}}
+                        required
                     />
-                    <label>Mensaje</label>
+                    <StyledLabel>Mensaje*</StyledLabel>
                     <input
+                        style={{height:"150px"}}
                         type="text"
                         name="message"
                         id="message"
                         value={input.message}
                         onChange={(e) => {handleChange(e)}}
+                        required
                     />
-                    <button type="submit">Enviar</button>
+                    <span style={{textAlign:"center",marginTop:"10px"}}>* campos obligatorios</span>
+                    <GradientBorder>
+                            <Input type="submit">Enviar</Input>
+                    </GradientBorder>
                     </StyledForm>
                 </StyledTextBox>
             </StyledContainer>

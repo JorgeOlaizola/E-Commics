@@ -174,8 +174,8 @@ export function deleteNotification (userId, notificationId) {
     return async function(dispatch){
         try{
             //Le enviamos un ID de notificación de la base de datos y devuelve el arreglo sin esa notificación
-            axios.put(`/api/users/notifications?userId=${userId}&notificationId=${notificationId}`)
-            .then(r => console.log(r.data))
+            await axios.put(`/api/users/notifications?userId=${userId}&notificationId=${notificationId}`)
+            .then(r => dispatch({type:user.DELETE_NOTIFICATION, payload:r.data}))
         }
         catch (error) {
             console.error(error)  

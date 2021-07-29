@@ -24,7 +24,7 @@ export default nextConnect()
 
 .post(async (req,res )=>{
     const {user, orden} = req.body
-    console.log(user)
+    
     await dbConnect()
     try{
         const carrito = await new Cart({

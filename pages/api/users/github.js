@@ -54,10 +54,20 @@ export default nextConnect()
         const user = await User.findOne({ github: githubID }).exec()
         if(!user) return res.json({ error_msg: 'No hay ninguna cuenta vinculada con ese perfil de GitHub' })
         else{
+
+            if(user.status === 'banned'){
+                return res.json({ error_msg: 'Esta cuenta ha sido baneada. Envía un email a e-commics@gmail.com para mas información.' })
+            }
+            if(user.status !== 'active') {
+                return res.json({
+                    error_msg: 'El usuario aún no se encuentra activo'
+                })
+            }
+            
             const token = jwt.sign({ id: user._id }, KEY)
             //Verify if this user already have a token
             const verifyToken = await Token.find({}).where({ user: user._id })
-            console.log(verifyToken)
+            
             if(verifyToken.length) {
                 await Token.findOneAndUpdate({ user: user._id }, { token: token })
             }

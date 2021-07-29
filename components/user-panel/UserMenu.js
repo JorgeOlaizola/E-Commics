@@ -10,14 +10,16 @@ import React, {useState} from 'react';
 import { 
   emptyCart  
 } from '../../store/actions/cartActions'
-import {MenuContainer, MenuTrigger, MenuTriggerSpan, MenuTriggerImg, Menu, MenuUl, MenuLi, MenuButton, MenuButtonSwitch} from './UserStyles';
-import { LigthDarkThemeDiv } from '../globalStyle';
+import {MenuContainer, MenuTrigger, MenuTriggerSpan, MenuTriggerImg, Menu, MenuUl, MenuLi, MenuButton, MenuButtonSwitch, ButtonOnClose} from './UserStyles';
+import { LigthDarkThemeDiv, OptionButton, StyledLink } from '../globalStyle';
 import styled from 'styled-components'
 import { SearchIcon, ShoppingCartIcon } from '@heroicons/react/outline';
 import Image from 'next/image';
 import { AiOutlineNotification }  from 'react-icons/ai';
 import { AiFillNotification }  from 'react-icons/ai';
 import { useRouter } from 'next/router';
+import {deleteNotification} from '../../store/actions/normalUsersActions'
+
 
 const SuperCart = styled(ShoppingCartIcon)`
     width: 20px;
@@ -61,8 +63,18 @@ const CartCounter = styled.span`
 `
 
 const ImgNotif = styled.img`
-width: 30%;
+width: 40px;
 height: auto;
+
+`
+const NotifContainer = styled.div`
+width:100%;
+height: 100%;
+margin-top:1rem;
+margin-bottom:1rem;
+display:flex;
+flex-direction: column;
+align-items:center;
 `
 
 const UserMenu = () => {
@@ -109,6 +121,11 @@ const UserMenu = () => {
   function handleToggle(){
     dispatch(themeToggle())
   }
+  function handleOnCloseNotifications(userid, notid){
+    dispatch(deleteNotification(userid, notid))
+  }
+
+
 
 // function functiontoggle{
 //   theme === "light" ? "dark" : "light"
@@ -249,9 +266,16 @@ const UserMenu = () => {
               userData.user.notifications.map(n => {
                 return (
                   <MenuLi key={n._id}>
-                    <ImgNotif src={n.img}/>
-                    <MenuButton onClick={()=> router.push(`${n.link}`)}>{n.content}</MenuButton>
-                    <button>X</button>
+                    <NotifContainer>
+                      <ButtonOnClose 
+                       onClick={()=> handleOnCloseNotifications(userData.user.id, n._id)}
+                      >
+                        <span style={{fontSize:'1rem'}}>x</span>
+                      </ButtonOnClose>
+                      <MenuButton onClick={()=> router.push(`${n.link}`)}>{n.content}</MenuButton>
+                      <ImgNotif src={n.img}/>
+                    </NotifContainer>
+
                   </MenuLi>
                 )
               })

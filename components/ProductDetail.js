@@ -99,7 +99,7 @@ const Title = styled.h1`
     ${'' /* font-weight: bold; */}
     margin-bottom: 30px;
     @media (max-width: 914px) {
-        display: none;
+        ${'' /* display: none; */}
     }
 `
 
@@ -194,15 +194,39 @@ const Space = styled.div`
 `
 
 const QuestionsDiv = styled.div`
-    max-width: 800px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
 `
 
 const QuestionsContainer = styled.div`
-    width: 90%;
+    width: 60%;
     min-width: 280px; 
     height: auto;
     padding: 10px;
     margin-top: 10px;
+    @media (max-width: 777px) {
+        width: 100%;
+    }
+`
+
+const ReviewsContainer = styled.div`
+    width: 36%;
+    max-width: 400px;
+    min-width: 280px; 
+    height: auto;
+    padding: 10px;
+    margin-top: 10px;
+    border-left: 1px solid ${(props) => props.theme.blueColor};
+    padding-left: 40px;
+    @media (max-width: 777px) {
+        width: 100%;
+        max-width: 100%;
+        border-left: none;
+        padding-left: 0px;
+
+    }
 `
 
 const Question = styled.div`
@@ -210,39 +234,33 @@ const Question = styled.div`
     ${'' /* background-color: #fff; */}
 	padding: 15px 20px;
 	font-size: 1.2rem;
-    border: 1px solid ${(props) => props.theme.blueColor};
-	border-radius: 8px 0px 8px 0;
-    ${'' /* box-shadow:	0 5px 5px rgba(0, 0, 0, .3), 0 3px 2px rgba(0, 0, 0, .2); */}
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    border: 1px solid ${(props) => props.theme.blueColorActive};
+	border-radius: 5px 0px 0px 0;
+    margin-top: 20px;
+
 `
 
 const Answer = styled.div`
-    margin-top: 10px;
-    width: 80%;
-    background-color: ${(props) => props.theme.blueColor};
+    width: 100%;
+    background-color: ${(props) => props.theme.backgroundQA};
     ${'' /* color: #FFF; */}
 	padding: 15px 20px;
 	font-size: 1.2rem;
-    border: 1px solid #000;
-	border-radius: 15px 0 15px 15px;
-    box-shadow:	0 5px 5px rgba(0, 0, 0, .3), 0 3px 2px rgba(0, 0, 0, .2);
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+	border-radius: 0px 0 5px 0px;
+
 `
 
 const StyledInput = styled.input`
-    margin-top: 20px;
+    margin-right: 4px;
     width: 100%;
     ${'' /* background-color: #fff; */}
 	padding: 5px 10px;
 	font-size: 1rem;
     border: 1px solid ${(props) => props.theme.colorLevel3};
-	border-radius: 8px 0px 8px 0;
     ${'' /* border-style: hidden; */}
     ${'' /* box-shadow:	0 5px 5px rgba(0, 0, 0, .3), 0 3px 2px rgba(0, 0, 0, .2); */}
+    background: ${(props) => props.theme.backgroundLevel1};
+    color: ${(props) => props.theme.fontColor};
 `
 
 const Separator = styled.div`
@@ -311,7 +329,7 @@ const ReviewConteiner = styled.div`
 display: flex;
 justify-content: center;
 align-items: center;
-border: 1px solid black;
+border-bottom: 1px solid ${(props) => props.theme.colorLevel2};
 padding: 1rem;
 margin: 1rem;
 flex-direction: column;
@@ -420,9 +438,6 @@ const ProductDetail = ({productData}) => {
 		}
 	}, [dispatch, userData])
     
-    // console.log(cartItems[0].products[0]._id)
-    // console.log(userData)
-    // console.log(productData._id)
 
     const handleCart = async () => {
         if(userData) {
@@ -597,8 +612,8 @@ const ProductDetail = ({productData}) => {
                         : <span></span>
                         }  */}
                         {
-                            userData && userData.favorites && userData.favorites.find(f => f._id === productData._id) ? <AddingButton><a onClick={HandleToggleFavorite}><HeartIconSolid className="addFavIcon"/> Quitar de favoritos</a></AddingButton> :
-                            userData && userData.favorites && userData.favorites.find(f => f._id === productData._id) === undefined ? <AddingButton><a onClick={HandleToggleFavorite}><HeartIconOutline className="addFavIcon"/> Agregar a favoritos</a></AddingButton> :
+                            userData && userData?.favorites.length && userData.favorites.find(f => f._id === productData._id) ? <AddingButton><a onClick={HandleToggleFavorite}><HeartIconSolid className="addFavIcon"/> Quitar de favoritos</a></AddingButton> :
+                            userData && userData?.favorites.length && userData.favorites.find(f => f._id === productData._id) === undefined ? <AddingButton><a onClick={HandleToggleFavorite}><HeartIconOutline className="addFavIcon"/> Agregar a favoritos</a></AddingButton> :
                             <span></span>
                         } 
                         {/* <AddingButton><HeartIcon className="addFavIcon"/> Agregar a favoritos</AddingButton> */}
@@ -630,22 +645,21 @@ const ProductDetail = ({productData}) => {
                 
                 <QuestionsDiv>
                     
-                    <Space/>
                     <QuestionsContainer>
                         <Title>Preguntas</Title>
                         {
                         productData && productData?.questions?.length ? 
                             productData.questions.map(q => { 
-                                return <div key={q._id} style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+                                return <div key={q._id}>
                                     <Question>
-                                        {q.content}
-                                        <span style={{marginTop: "10px", fontSize: "1rem", color: "${(props) => props.theme.blueColor}"}}>{q.avatar} {q.userNickname} ({q.created_at.slice(0, 10)}) {q.answer ? <span>(respondido)</span> : <span>(pendiente de respuesta)</span>}</span>
+                                        {q.content}<br />
+                                        <span style={{marginTop: "10px"}}> → {q.avatar} {q.userNickname} ({q.created_at.slice(0, 10)}) {q.answer ? <span>(respondido)</span> : <span>(pendiente de respuesta)</span>}</span>
                                     </Question>
                                     {
                                         q.answer ?
                                         <Answer>
-                                            {q.answer}
-                                            <span style={{marginTop: "10px", fontSize: "1rem"}}>{productData.user.nickname}</span>
+                                            {q.answer}<br />
+                                            <span style={{marginTop: "10px"}}> → {productData.user.nickname}</span>
                                         </Answer>
                                         :
                                         userData && userData?.id === productData?.user._id && 
@@ -662,11 +676,14 @@ const ProductDetail = ({productData}) => {
                                                 }})
                                             .catch(err => console.log(err))
                                         }}>
-                                            <input type="text" name="answer"></input>
-                                            <input type="submit" value="Responder"></input>
+                                            <div style={{display: "flex", alignItems: "center"}}>
+                                                <StyledInput type="text" name="answer"></StyledInput>
+                                                <GradientBorder>
+                                                    <Input type="submit">Responder</Input>
+                                                </GradientBorder>
+                                            </div>
                                         </form>
                                     }
-                                    <Space/>
                                 </div>        
                             })
                         : 
@@ -705,10 +722,10 @@ const ProductDetail = ({productData}) => {
                                 </>
                         }
                     </QuestionsContainer>
-                    <QuestionsContainer>
-                        <Space/>
+                    <ReviewsContainer>
+                        
                         <Title>Reseñas</Title>
-                        <div style={{display: "flex", justifyContent: "center"}}>
+                        <div >
                             {productData.reviews && productData.reviews.length ? 
                             productData.reviews.map(r => {
                                 let star = "⭐"
@@ -719,7 +736,7 @@ const ProductDetail = ({productData}) => {
                             <Advertise style={{textAlign: "center"}}>Aún no hay reseñas para este artículo</Advertise>
                             }
                         </div>
-                    </QuestionsContainer>
+                    </ReviewsContainer>
                 </QuestionsDiv>
 
             </DetailContainer>

@@ -11,9 +11,10 @@ import { ObjectID }  from 'mongodb'
 export default nextConnect()
 
     .get(async (req, res) => {
-        await dbConnect();
+        
         const { id } = req.query
         try {
+            await dbConnect();
             const product = await Product.findById(id)
             const productANDcategory = await Category.populate(product, { path: 'category' })
             const productANDcategoryANDuser = await User.populate(productANDcategory, { path: "user" })
@@ -37,6 +38,7 @@ export default nextConnect()
                 image: productANDcategoryANDuser.image.includes("&&") ? product.image.split("&&") : [product.image],
                 stock: productANDcategoryANDuser.stock,
                 price: productANDcategoryANDuser.price,
+                rating: productANDcategoryANDuser.rating || 0,
                 realprice: productANDcategoryANDuser.realprice,
                 discount: productANDcategoryANDuser.discount,
                 user: {

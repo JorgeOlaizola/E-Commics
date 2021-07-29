@@ -37,7 +37,8 @@ export default nextConnect()
                 surname: user.surname,
                 avatar: user.avatar,
                 nickname: user.nickname,
-                role: user.role
+                role: user.role,
+                notifications: user.notifications
             })
         }
         else{

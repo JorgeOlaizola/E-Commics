@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { useState } from "react";
 import {setShippingInfo} from '../../store/actions/cartActions'
 import { useDispatch } from "react-redux";
-import {BuyButton} from '../globalStyle'
- 
+import {BuyButton, Input, GradientBorder, DisableBorder, InputDisable } from '../globalStyle'
+
 const FormStyled = styled.form`
 width:50%;
 margin:2rem;
@@ -71,7 +71,7 @@ const ShippingForm =()=> {
         
     return (
         <MainContainer>
-                <p>Datos de envío</p>
+                <h2 >Datos de envío</h2>
             <FormContainer>
                     <FormStyled onSubmit={(e)=>handleSubmit(e)}>
                         <label>localidad *</label>
@@ -134,7 +134,9 @@ const ShippingForm =()=> {
                         value={input.info}
                         onChange={(e) => {handleChange(e)}}
                         ></input>
-                        <BuyButton type="submit" >Continuar compra</BuyButton>
+                        <GradientBorder>
+                            <Input type="submit">Continuar compra</Input>
+                        </GradientBorder>
                 </FormStyled>
 
 

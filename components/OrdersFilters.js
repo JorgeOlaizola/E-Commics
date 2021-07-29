@@ -10,12 +10,12 @@ const OrdersFilters = ({ ordersCase, userId, eachCase }) => {
     }
     return(
         <Select onChange={handleChange}>
-            <Option value="" selected>Todas</Option>
-            <Option value="Rechazado">Rechazado</Option>
+            <Option value="" selected>Activas</Option>
             <Option value="Pendiente de pago">Pendiente de pago</Option>
             <Option value="Pago realizado">Pago realizado</Option>
             <Option value="En proceso de entrega">En proceso de entrega</Option>
             <Option value="Recibido">Recibido</Option>
+            <Option value="Finalizado">Finalizado</Option>
         </Select>
     )
 }

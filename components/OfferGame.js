@@ -57,7 +57,7 @@ export default function OfferGame({handleView , view}) {
     function selectCard (e){
         e.preventDefault()
         //anima la carta
-        console.log(obj[e.target.id])
+        
         axios.put(`/api/users/discount?userID=${userData.user.id}&discount=${obj[e.target.id]}`)
         .then((r)=>{
             console.log(r.data)

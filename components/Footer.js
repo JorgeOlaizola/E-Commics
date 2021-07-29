@@ -102,6 +102,7 @@ const Footer = () => {
                                 src={'/ecommics-logo-white.svg'}
                                 width={'150px'}
                                 height={'50px'}
+                                alt={'ecommics logo'}
                                 />
                             </StyledImage>
                         </FooterTitle>

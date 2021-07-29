@@ -87,7 +87,7 @@ export default nextConnect()
 
 .post(async (req, res) => {
     await dbConnect();
-    const { title, description, image, stock, price, user ,category } = req.body
+    const { title, description, image, stock, price, user, category } = req.body
     try {
         if (!title || !description || !image || !stock || !price || !user ||!category) {
             return !title && res.send("error_msg", "required title")
@@ -101,6 +101,19 @@ export default nextConnect()
         const newProduct = await new Product({ title, description, image, stock, user ,category, realprice: price})
         newProduct.price = newProduct.applyDiscount(price, 0)
         await newProduct.save()
+        const userNotif = await User.findById(user).exec()
+        if(userNotif){
+            const notification = {
+                img: 'https://res.cloudinary.com/jorgeleandroolaizola/image/upload/v1627517096/Notifications%20eccomics/Add_product_r3nciu.png',
+                content: `Tu producto ${newProduct.title} se ha agregado con éxito!`,
+                link: `/detail/${newProduct._id}`
+            }
+            userNotif.notifications.unshift(notification)
+            if(userNotif.notifications.length > 5){
+                userNotif.notifications.pop()
+            }
+            await userNotif.save()
+        }
         return res.send("The product was added successfully");
     } 
     catch (error) {

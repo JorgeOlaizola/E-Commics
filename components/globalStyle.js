@@ -125,6 +125,21 @@ padding: 4px;
         background: ${(props) => props.theme.colorLevel4};
     }
 `
+export const OptionButton = styled.button`
+background: none;
+color: ${(props) => props.theme.fontColor};
+border: 1px solid ${(props) => props.theme.blueColorHover};
+cursor: pointer;
+font-size: 0.75rem;
+font-family: ubuntu;
+font-weight: 300;
+padding: 6px;
+margin: 20px 5px 0px 5px;
+&:hover {
+        color: ${(props) => props.theme.body};
+        background: ${(props) => props.theme.blueColorHover};
+    }
+`
 
 export const BuyButton = styled.button`
     width: 100%;

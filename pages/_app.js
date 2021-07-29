@@ -10,9 +10,14 @@ class MyApp extends App {
     render() {
         const { Component, pageProps } = this.props;
         return(
-            <Provider store={store}>
-                    <Component {...pageProps}></Component>
-            </Provider>
+            <>
+            <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+            </head>
+                <Provider store={store}>
+                        <Component {...pageProps}></Component>
+                </Provider>
+            </>
         )
     }
 }

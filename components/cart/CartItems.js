@@ -9,8 +9,12 @@ import {
 	changeCart,
 	getCart,
 	buyCart
-} from '../../store/actions/cartActions';
+
+} from '../../store/actions/cartActions'
+import ShippingForm from './ShippingForm';
+
 import { EraseButton, BuyButton  } from '../globalStyle'
+
 
 const CartContainer = styled.div`
 padding:1.2rem;
@@ -120,6 +124,34 @@ border: 1px solid grey;
 
 `;
 
+const BuyButtonAction = styled.button`
+	width: 100%;
+    height: 45px;
+    margin: 10px 0;
+    background-color: #161D2F;
+    border-style: hidden;
+    color: #FFF;
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+        box-shadow: 0 3px 3px 2px rgba(0,0,0,0.3);
+    }
+`
+const FormStyled = styled.form`
+width:100%;
+border-top: 1px solid black;
+border-bottom: 1px solid black;
+margin-top: 1rem;
+margin-bottom: 1rem;
+
+`
+const InputStyled = styled.input`
+height: 1rem;
+`
+
 
 
 const CartItems = () => {
@@ -133,6 +165,8 @@ const CartItems = () => {
 	}, [dispatch, userData])
 	const cartItems = useSelector(state => state.cart.cartItems);
 	const cartId = useSelector(state => state.cart.cartId);
+	const shippingInfo = useSelector(state => state.cart.shippingInfo)
+	
 	let total = 0
 	return(
 		<CartContainer><h1>Shopping Cart</h1>
@@ -184,10 +218,17 @@ const CartItems = () => {
 				})}
 	
 				
-				<h3>Total: $ {total}</h3>
-				<Link href="/" passHref>
-					<BuyButton onClick={()=> dispatch(buyCart(cartId))}>Comprar ahora</BuyButton> 
-					</Link>
+
+				<p>Total: {total}$</p>
+				<ShippingForm/>
+				{
+					shippingInfo && <BuyButtonAction  onClick={shippingInfo ? ()=> dispatch(buyCart(cartId, shippingInfo)) : null}>Comprar ahora</BuyButtonAction>
+				}
+				
+
+					{/* <BuyButtonAction display={!!shippingInfo ? 'none' : 'flex'} onClick={shippingInfo ? ()=> dispatch(buyCart(cartId, shippingInfo)) : null}>Comprar ahora</BuyButtonAction>  */}
+				
+
 				</div> : 'Todavía no agregaste nada al carrito'
 				:
 				cartItems && cartItems.length ? <div> {cartItems.map(ci => {

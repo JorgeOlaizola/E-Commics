@@ -61,6 +61,7 @@ export default nextConnect()
                     surname: user.surname,
                     id: user._id,
                     favorites: [],
+                    notifications: user.notifications,
                     github: user.github || 'None'
                 },
                 token: token

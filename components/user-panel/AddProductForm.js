@@ -293,7 +293,7 @@ const AddProductForm = () => {
                             />
                             <label htmlFor="terminos">Acepto los </label>
 
-                            <StyledLink href="https://www.soyhenry.com/terms" >Términos y condiciones</StyledLink>
+                            <StyledLink href="/help/terms-and-conditions" >Términos y condiciones</StyledLink>
                         </DivFormItem>
                         {!input.title || !input.description || !input.stock || !input.price || !input.image || !input.category ?
                             <DisableBorder>

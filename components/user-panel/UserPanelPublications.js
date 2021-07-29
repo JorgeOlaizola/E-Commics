@@ -97,7 +97,11 @@ const UserPanelPublications = () => {
                     <p><strong>{p.title}</strong></p>
                     <Advertise> Precio: ${p.price}</Advertise> 
                     <Advertise> Categoría: {p.category.title}</Advertise>
-                    <button onClick={() => router.push(`/detail/${p._id}`)}>Modificar</button>
+                    <span><br/>Puedes editar tus publicaciones ingresando a las mismas</span>
+                    <GradientBorder>
+                        <Input onClick={() => router.push(`/detail/${p._id}`)}>Ir al producto</Input>
+                    </GradientBorder>
+                    {/* <button onClick={() => router.push(`/detail/${p._id}`)}>Modificar</button> */}
                     </ProductInfoConteiner>
                 </ProductConteiner>
             ) : <div>Todavía no tienes ningún producto</div> }

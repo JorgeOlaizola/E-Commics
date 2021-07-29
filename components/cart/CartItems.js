@@ -61,7 +61,7 @@ max-width:100%;
 const TitleAndOption =styled.div`
 width:60%;
 height:100%;
-diplay:flex;
+display:flex;
 flex-direction:columns;
 justify-content: space-around;
 padding-left:1rem;
@@ -222,7 +222,7 @@ const CartItems = () => {
 				<p>Total: {total}$</p>
 				<ShippingForm/>
 				{
-					shippingInfo && <BuyButtonAction  onClick={shippingInfo ? ()=> dispatch(buyCart(cartId, shippingInfo)) : null}>Comprar ahora</BuyButtonAction>
+					shippingInfo && <BuyButtonAction  onClick={shippingInfo ? ()=> dispatch(buyCart(cartId, shippingInfo)) : null}>Pagar ahora</BuyButtonAction>
 				}
 				
 

@@ -102,6 +102,37 @@ export const Input = styled.button`
   }
 `
 
+export const Select = styled.select`
+color: ${(props) => props.theme.fontColor};
+  text-decoration:none;
+  background-color: ${(props) => props.theme.backgroundButton};
+  width: 40%;
+  max-width:30rem;
+  padding: 5px 10px;
+  border: 1px solid black;
+  cursor:pointer;
+  &:active {
+	background-color: transparent;
+	color: white;
+	${'' /* transition: 0.5s; */}
+  }
+`
+export const Option = styled.option`
+color: ${(props) => props.theme.fontColor};
+  text-decoration:none;
+  background-color: ${(props) => props.theme.backgroundButton};
+  width: 40%;
+  max-width:30rem;
+  padding: 5px 10px;
+  border: 1px solid black;
+  cursor:pointer;
+  &:active {
+	background-color: transparent;
+	color: white;
+	${'' /* transition: 0.5s; */}
+  }
+`
+
 export const InputDisable = styled.button`
   color: grey;
   background-color: ${(props) => props.theme.backgroundButton};

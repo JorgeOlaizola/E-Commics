@@ -6,26 +6,50 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 
 const ProductOrderConteiner = styled.div`
-width: 70%;
-border: 0.5px solid black;
-padding: 1rem;
+width: 600px;
 display: flex;
-justify-content: center;
-flex-direction: raw;
+align-items: center;
+margin: 10px 0;
+padding: 5px;
+border: 1px solid #000
 `
 
 const ProductImg = styled.img`
 width: auto;
-height: 150px;
-border: 1px solid black
+height: 100px;
+margin-right: 10px;
 `
 
 const ProductInfo = styled.div`
 display: flex;
 flex-direction: column;
 justify-content: center;
-align-items: center
+align-items: flex-start;
+text-align: left;
 padding: 5px;
+`
+
+const StyledButton = styled.button`
+border: 1px solid #000;
+font-size: 14px;
+background-color: transparent;
+padding: 3px;
+cursor: pointer;
+&:hover{
+    box-shadow: 2px 1px 1px rgb(0,0,0,0.5);
+}
+`
+
+const StyledForm = styled.form`
+width: 400px;
+margin-top: 10px;
+font-size: 14px;
+display: flex;
+justify-content: space-between;
+`
+
+const Space = styled.div`
+height: 10px;
 `
 
 
@@ -50,23 +74,26 @@ const OrderDetailProduct = ({ p, orderProps }) => {
             <ProductOrderConteiner key={p._id}>
                       <ProductImg src={p.image[0]}></ProductImg>
                       <ProductInfo>
-                            <span>Producto: <Link href={`/detail/${p._id}`} passHref >{p.title}</Link> __ Clickea el título para acceder al producto</span>
-                            <span>Cantidad: {p.quantity}</span>
-                            <span>Precio total: {p.quantity * p.unit_price}$</span>
+                            <h3><Link href={`/detail/${p._id}`} passHref >{p.title}</Link></h3>
+                            <p>Unidades: {p.quantity}</p>
+                            <p>Subtotal: ${p.quantity * p.unit_price}</p>
                             { userData && userData.id === orderProps.buyer._id &&  orderProps.status === 'Recibido' ? 
                             ( p.review === 'NoReview' ?
                             <p>
-                             <button onClick={() => { setReview(!review) }}>Dejar review</button>
+                             <StyledButton onClick={() => { setReview(!review) }}>Escribir reseña</StyledButton>
                                     
-                             { review ? '': <form onSubmit={(e) => createReview(e, p._id)}>
-                                 <textarea name="content" type="text" placeholder="Opinión" required></textarea>
-                                 <input name="rating"  type="number" onChange={(e) => setStars(e.target.value)} max='5' min='0' placeholder="Puntaje" required></input>
+                             { review ? '': <StyledForm onSubmit={(e) => createReview(e, p._id)}>
+                                 <textarea name="content" type="text" placeholder="Opinión" required style={{border:"1px solid #000"}}></textarea>
+                                 <div style={{display:"flex",flexDirection:"column", alignItems:"center"}}>
+                                 <input name="rating"  type="number" onChange={(e) => setStars(e.target.value)} max='5' min='1' placeholder="Puntaje" required style={{width:"50px", border:"1px solid #000"}}>
+                                 </input>
                                  <p>{star.repeat(stars)}</p>
-                                <input type="submit" value="Enviar reseña" />
-                             </form> }
+                                 </div>
+                                <StyledButton type="submit" value="Enviar reseña">Enviar</StyledButton>
+                             </StyledForm> }
                             </p> 
                             :
-                            <span>Ya dejaste una reseña de este producto</span>
+                            <p>Ya escribiste tu reseña sobre este artículo</p>
                             )
                         : <span></span>}
                     </ProductInfo>

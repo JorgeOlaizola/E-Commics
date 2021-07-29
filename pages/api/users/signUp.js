@@ -30,6 +30,14 @@ export default nextConnect()
         //Creating the user in the DB
         const newUser = new User({ name, surname, password, nickname, email, avatar, role:'user', status:'inactive', location: locationId })
         newUser.password = await newUser.encryptPassword(password)
+        if(newUser){
+            const notification = {
+                img: 'https://res.cloudinary.com/jorgeleandroolaizola/image/upload/v1627517096/Notifications%20eccomics/Bienvenida_a84eek.png',
+                content: `Bienvenido a Ecommics! Échale un vistazo a nuestros productos.`,
+                link: `/search`
+            }
+            newUser.notifications.unshift(notification)
+        }
         await newUser.save()
         
         //Confirmation e-mail

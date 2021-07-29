@@ -2,6 +2,7 @@ import dbConnect from '../../../utils/dbConnect'
 import nextConnect from 'next-connect'
 import Question from '../../../server/models/Question'
 import User from '../../../server/models/User'
+import Product from '../../../server/models/Product'
 
 
 export default nextConnect()
@@ -23,6 +24,21 @@ export default nextConnect()
         }
         const newQuestion = await new Question({ content, user, product, answer: '' })
         await newQuestion.save()
+
+        const productSeller = await Product.findById(product).exec()
+        const userNotif = await User.findById(productSeller.user).exec()
+        if(userNotif){
+            const notification = {
+                img: 'https://res.cloudinary.com/jorgeleandroolaizola/image/upload/v1627517096/Notifications%20eccomics/pregunta_dfsbde.png',
+                content: `Te han realizado una pregunta en ${productSeller.title}`,
+                link: `/detail/${productSeller._id}`
+            }
+            userNotif.notifications.unshift(notification)
+            if(userNotif.notifications.length > 5){
+                userNotif.notifications.pop()
+            }
+            await userNotif.save()
+        }
         return res.json(newQuestion)
         }
     catch (error) {
@@ -37,7 +53,23 @@ export default nextConnect()
         await dbConnect()
         if(!req.query.id || !req.query.answer) return res.json({ error_msg: 'Campos incompletos' })
         const tryUpdate = await Question.findByIdAndUpdate(req.query.id, { answer: req.query.answer }).exec()
-        if(tryUpdate) return res.json({ success_msg: 'Se agregó la respuesta a la pregunta' })
+        if(tryUpdate) {
+            const userNotif = await User.findById(tryUpdate.user).exec()
+            const productSeller = await Product.findById(tryUpdate.product).exec()
+            if(userNotif){
+                const notification = {
+                    img: 'https://res.cloudinary.com/jorgeleandroolaizola/image/upload/v1627517096/Notifications%20eccomics/respuesta_keaxxt.png',
+                    content: `Respondieron tu pregunta en ${productSeller.title}`,
+                    link: `/detail/${productSeller._id}`
+                }
+                userNotif.notifications.unshift(notification)
+                if(userNotif.notifications.length > 5){
+                    userNotif.notifications.pop()
+                }
+                await userNotif.save()
+            }
+            return res.json({ success_msg: 'Se agregó la respuesta a la pregunta' })
+        }
         else {
             return res.json({ error_msg: 'La pregunta que estás buscando actualizar no existe' })
         }

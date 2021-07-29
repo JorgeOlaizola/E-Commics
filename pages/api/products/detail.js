@@ -37,6 +37,7 @@ export default nextConnect()
                 image: productANDcategoryANDuser.image.includes("&&") ? product.image.split("&&") : [product.image],
                 stock: productANDcategoryANDuser.stock,
                 price: productANDcategoryANDuser.price,
+                rating: productANDcategoryANDuser.rating || 0,
                 realprice: productANDcategoryANDuser.realprice,
                 discount: productANDcategoryANDuser.discount,
                 user: {

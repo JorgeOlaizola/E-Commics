@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { GradientBorder, Input  } from '../globalStyle'
 import OrdersFilters from '../OrdersFilters';
 
-const StyledContainer = styled.div`
+const StyledContainer = styled.div` 
     margin-top: 30px;
     width: 100%;
     height: 100%;

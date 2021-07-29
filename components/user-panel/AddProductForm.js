@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useRouter } from 'next/router'
 import PacmanLoader from "react-spinners/PacmanLoader";
 import { Input, GradientBorder, DisableBorder, InputDisable, EraseButton, BuyButton, OptionButton, StyledLink } from '../globalStyle';
-
+ 
 //#region  estilos
 const DivContainer = styled.div`
 margin:auto;

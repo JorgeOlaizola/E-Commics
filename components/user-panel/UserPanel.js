@@ -11,7 +11,7 @@ import styled from 'styled-components';
 import { StyledLink } from '../globalStyle';
 import WelcomeMessage from './WelcomeMessage.js';
 import PacmanLoader from "react-spinners/PacmanLoader";
-
+ 
 const StyledContainer = styled.div`
     margin-top: 30px;
     width: 100%;

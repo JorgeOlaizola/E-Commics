@@ -7,7 +7,7 @@ display: flex;
 justify-content: center;
 align-items: center;
 `
-
+ 
 export const MenuTrigger = styled.button`
 /* border-radius: 90px; */
 cursor: pointer;

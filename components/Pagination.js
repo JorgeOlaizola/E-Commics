@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components' 
 import { useSelector, useDispatch }  from 'react-redux'
 import { useEffect, useState } from 'react'
 import { getFilteredProducts } from '../store/actions/productActions'

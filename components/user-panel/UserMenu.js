@@ -60,6 +60,11 @@ const CartCounter = styled.span`
     }
 `
 
+const ImgNotif = styled.img`
+width: 30%;
+height: auto;
+`
+
 const UserMenu = () => {
   const [showModal, setShowModal] = useState(false);
   const [signType, setSignType] = useState("signIn");
@@ -240,15 +245,28 @@ const UserMenu = () => {
             
             <MenuUl>
             <MenuSignNotif></MenuSignNotif>
-                  <MenuLi>
-                    <MenuButton>Notificación 01</MenuButton>
+            { userData && userData.user.notifications ?
+              userData.user.notifications.map(n => {
+                return (
+                  <MenuLi key={n._id}>
+                    <ImgNotif src={n.img}/>
+                    <MenuButton onClick={()=> router.push(`${n.link}`)}>{n.content}</MenuButton>
+                    <button>X</button>
                   </MenuLi>
-                  <MenuLi>
+                )
+              })
+            :
+            <MenuLi>
+                    <MenuButton>No tienes notificaciones</MenuButton>
+            </MenuLi>
+            }
+                  
+                  {/* <MenuLi>
                     <MenuButton>Notificación 02</MenuButton>
                   </MenuLi>
                   <MenuLi>
                     <MenuButton>Notificación 03</MenuButton>
-                  </MenuLi>
+                  </MenuLi> */}
               
             </MenuUl>
             </Menu>

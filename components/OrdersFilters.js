@@ -1,6 +1,5 @@
 import { useDispatch } from "react-redux" 
 import { getOrders } from '../store/actions/normalUsersActions'
-import {Input, Select, Option} from './globalStyle'
 
 const OrdersFilters = ({ ordersCase, userId, eachCase }) => {
     
@@ -9,14 +8,14 @@ const OrdersFilters = ({ ordersCase, userId, eachCase }) => {
         dispatch(getOrders(eachCase, userId, e.target.value))
     }
     return(
-        <Select onChange={handleChange}>
-            <Option value="" selected>Todas</Option>
-            <Option value="Rechazado">Rechazado</Option>
-            <Option value="Pendiente de pago">Pendiente de pago</Option>
-            <Option value="Pago realizado">Pago realizado</Option>
-            <Option value="En proceso de entrega">En proceso de entrega</Option>
-            <Option value="Recibido">Recibido</Option>
-        </Select>
+        <select onChange={handleChange}>
+            <option value="" selected>Todas</option>
+            <option value="Rechazado">Rechazado</option>
+            <option value="Pendiente de pago">Pendiente de pago</option>
+            <option value="Pago realizado">Pago realizado</option>
+            <option value="En proceso de entrega">En proceso de entrega</option>
+            <option value="Recibido">Recibido</option>
+        </select>
     )
 }
 

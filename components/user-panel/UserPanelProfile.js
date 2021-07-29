@@ -143,7 +143,7 @@ const UserPanelProfile = () => {
                     <DataText><strong>Apellido:</strong> {userData.user.surname}</DataText>
                     <DataText><strong>Email:</strong> {userData.user.email}</DataText>
                     <DataText><strong>Usuario:</strong> {userData.user.nickname}</DataText>
-                        { userData.github === 'None' ? <GithubButton onClick={() => handleGitHubLink()}>Vincular con GitHub</GithubButton> : <span>Ya estás vinculado a una cuenta de GitHub<hr/></span>}
+                        { userData.user.github === 'None' ? <GithubButton onClick={() => handleGitHubLink()}>Vincular con GitHub</GithubButton> : <span>Ya estás vinculado a una cuenta de GitHub<hr/></span>}
                     <span>¿Hubo un  error en la carga de tu nombre o apellido? <Link href="/help/contact" style={{color: "#0096FF"}}>Escríbenos</Link></span>
                 </DataColumn>
             </DataSection>

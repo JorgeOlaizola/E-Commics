@@ -27,7 +27,7 @@ const OrderDetail = (props) => {
   export async function getServerSideProps(context){
     const { params } = context;
     const ABSOLUTE_URL = process.env.ABSOLUTE_URL
-    const orderProps = await axios.get(`http://localhost:3000/api/orders/orderDetail?orderId=${params.orderDetail}`)
+    const orderProps = await axios.get(`${ABSOLUTE_URL}/api/orders/orderDetail?orderId=${params.orderDetail}`)
     
     return {
       props: { orderProps: orderProps.data}

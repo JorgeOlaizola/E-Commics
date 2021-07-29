@@ -155,8 +155,31 @@ export function getOrders (eachCase, userId, filter) {
     }
 }
 
-// ADMIN users actions
+// Notifications
 
-export function findUser(nickname) {
-    
+export function getNotifications (userId) {
+    return async function(dispatch) {
+        try{
+            //Trae las notificaciones de la base de datos actualizadas, hay que actualizar userData
+            axios.get(`/api/users/notifications?userId=${userId}`)
+            .then(r => console.log(r.data))
+        }
+        catch (error) {
+            console.error(error)  
+        }
+    }
 }
+
+export function deleteNotification (userId, notificationId) {
+    return async function(dispatch){
+        try{
+            //Le enviamos un ID de notificación de la base de datos y devuelve el arreglo sin esa notificación
+            axios.put(`/api/users/notifications?userId=${userId}&notificationId=${notificationId}`)
+            .then(r => console.log(r.data))
+        }
+        catch (error) {
+            console.error(error)  
+        }
+    }
+}
+

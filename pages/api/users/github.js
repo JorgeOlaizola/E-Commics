@@ -22,6 +22,17 @@ export default nextConnect()
             if(err) return res.json({ error_msg: 'ID inválido'})
             if(user.github !== "None") return res.json({ error_msg: 'Este usuario ya está vinculado a una cuenta de GitHub' })
             user.github = githubID
+            if(user){
+                const notification = {
+                    img: 'https://res.cloudinary.com/jorgeleandroolaizola/image/upload/v1627517096/Notifications%20eccomics/vincular_con_github_dxg6hz.png',
+                    content: `Has vinculado tu cuenta de E-commics con GitHub`,
+                    link: `/`
+                }
+                user.notifications.unshift(notification)
+                if(user.notifications.length > 5){
+                    user.notifications.pop()
+                }
+            }
             user.save((err, user) => {
                 if(err) return res.json({ error_msg: 'Algo salió mal'})
                 return res.json({ success_msg: `La cuenta se ha vinculado a GitHubID: ${user.github} con éxito`})
@@ -64,6 +75,7 @@ export default nextConnect()
                     surname: user.surname,
                     id: user._id,
                     favorites: [],
+                    notifications: user.notifications,
                     github: user.github || 'None'
                 },
                 token: token

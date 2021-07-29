@@ -222,7 +222,7 @@ const CartItems = () => {
 				<p>Total: {total}$</p>
 				<ShippingForm/>
 				{
-					shippingInfo && <BuyButtonAction  onClick={shippingInfo ? ()=> dispatch(buyCart(cartId, shippingInfo)) : null}>Pagar ahora</BuyButtonAction>
+					shippingInfo && <BuyButtonAction  onClick={shippingInfo ? ()=> dispatch(buyCart(cartId, shippingInfo)) : null}>Comprar ahora</BuyButtonAction>
 				}
 				
 

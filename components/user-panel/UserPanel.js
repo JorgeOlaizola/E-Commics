@@ -128,7 +128,12 @@ const UserPanel = (props) => {
           "page": 1
       }
 
-    
+    useEffect(() => {
+        if(!userData) {
+            router.push("/");
+        }
+        
+    }, [userData]);
 
     function handleClick(event) {
         setState(event.target.name)

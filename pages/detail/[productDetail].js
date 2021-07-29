@@ -33,8 +33,8 @@ const ProductDetail = (props) => {
     const {productDetail } = params
     const ABSOLUTE_URL = process.env.ABSOLUTE_URL
     
-    // const callProductData = await axios.get(`https://e-commics.vercel.app/api/products/detail?id=${productDetail}`)
-    const callProductData = await axios.get(`${ABSOLUTE_URL}/products/detail?id=${productDetail}`)
+    const callProductData = await axios.get(`${ABSOLUTE_URL}/api/products/detail?id=${productDetail}`)
+    //const callProductData = await axios.get(`${ABSOLUTE_URL}/products/detail?id=${productDetail}`)
     const productData = callProductData.data
     
     

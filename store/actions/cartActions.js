@@ -44,15 +44,18 @@ export function addItem(product) {
 
 export function getCart (userID) {
     return  (dispatch) => {
-        axios.get(`/api/cart?user=${userID}`)
-        .then(r => {
-            if(r.data.error_msg){
-                
-            }
-            else{
-                return dispatch({ type: cart.GET_CART, payload: r.data[0]})}
-            }
-            )
+        if(userID){
+            axios.get(`/api/cart?user=${userID}`)
+            .then(r => {
+                if(r.data.error_msg){
+                    
+                }
+                else{
+                    return dispatch({ type: cart.GET_CART, payload: r.data[0]})}
+                }
+                )
+        }
+      
     }
 }
 

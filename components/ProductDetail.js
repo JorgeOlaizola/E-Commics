@@ -597,8 +597,8 @@ const ProductDetail = ({productData}) => {
                         : <span></span>
                         }  */}
                         {
-                            userData && userData.favorites && userData.favorites.find(f => f._id === productData._id) ? <AddingButton><a onClick={HandleToggleFavorite}><HeartIconSolid className="addFavIcon"/> Quitar de favoritos</a></AddingButton> :
-                            userData && userData.favorites && userData.favorites.find(f => f._id === productData._id) === undefined ? <AddingButton><a onClick={HandleToggleFavorite}><HeartIconOutline className="addFavIcon"/> Agregar a favoritos</a></AddingButton> :
+                            userData && userData?.favorites.length && userData.favorites.find(f => f._id === productData._id) ? <AddingButton><a onClick={HandleToggleFavorite}><HeartIconSolid className="addFavIcon"/> Quitar de favoritos</a></AddingButton> :
+                            userData && userData?.favorites.length && userData.favorites.find(f => f._id === productData._id) === undefined ? <AddingButton><a onClick={HandleToggleFavorite}><HeartIconOutline className="addFavIcon"/> Agregar a favoritos</a></AddingButton> :
                             <span></span>
                         } 
                         {/* <AddingButton><HeartIcon className="addFavIcon"/> Agregar a favoritos</AddingButton> */}

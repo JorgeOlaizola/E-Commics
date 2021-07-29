@@ -134,7 +134,7 @@ const ShippingForm =()=> {
                         value={input.info}
                         onChange={(e) => {handleChange(e)}}
                         ></input>
-                        <BuyButton type="submit" >Enviar</BuyButton>
+                        <BuyButton type="submit" >Continuar compra</BuyButton>
                 </FormStyled>
 
 

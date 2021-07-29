@@ -190,7 +190,7 @@ const AddProductForm = () => {
                     <Space/>
                     <div>
                         <h2>Felicitaciones, tu producto ya se encuentra publicado!</h2>
-                        <p>¿Deseas publicar otro producto? <a onClick={() => {setLoading("false"), setImageSelected([]), setInput({
+                        <p>¿Deseas publicar otro producto? <StyledLink onClick={() => {setLoading("false"), setImageSelected([]), setInput({
                             title: '',
                             description: '',
                             stock: 0,
@@ -198,8 +198,8 @@ const AddProductForm = () => {
                             image: [],
                             category: '',
                             user: user?.id
-                        })}}>click aqui</a></p>
-                        <p>O puedes visitar el catálogo de productos <a onClick={() => {router.push('/search')}}>click aqui</a></p>
+                        })}}>click aqui</StyledLink></p>
+                        <p>O puedes visitar el catálogo de productos <StyledLink onClick={() => {router.push('/search')}}>click aqui</StyledLink></p>
                     </div>
                 </DivContainer> :
             user?.id && loading === "false" ?

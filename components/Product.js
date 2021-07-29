@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { StyledLink } from './globalStyle';
 import { HeartIcon as HeartIconOutline, ShoppingCartIcon as CartIconOutline } from '@heroicons/react/outline';
 import { HeartIcon as HeartIconSolid, ShoppingCartIcon as  CartIconSolid } from '@heroicons/react/solid';
+import { MdRemoveShoppingCart } from 'react-icons/md';
 import {
 	removeItem,
     addItem,
@@ -147,7 +148,17 @@ cursor: pointer;
     opacity: 1;
 }
 `
-
+const IconContainerNot = styled.div`
+position: relative;
+top: 2px;
+background: ${(props) => props.theme.colorFont};
+padding: 3px;
+margin-right: 10px;
+display: inline;
+opacity: 0.5;
+border-radius: 50%;
+cursor: not-allowed;
+`
 const DontMove = styled.div`
 position: relative;
 `
@@ -266,9 +277,9 @@ const Product = (props) => {
                                 : <CartIconOutline onClick={handleToggleOutlineCart} className="addCartIcon"/>}
                             </IconContainer>
                             :
-                            <IconContainer>
-                                
-                            </IconContainer>
+                            <IconContainerNot>
+                                <MdRemoveShoppingCart/>
+                            </IconContainerNot>
                             }
                             <Link href={'/detail/[productDetail]'} as={`/detail/${props.id}` } passHref>
                                 <StyledButton >ver detalle </StyledButton>

@@ -174,7 +174,9 @@ const Product = (props) => {
 
     useEffect(() => {
         userData && dispatch(getFavorites(userData.id))
+
       }, [])
+
 
     const HandleToggleFavorite = () => {
         dispatch(getFavorites(userData.id))

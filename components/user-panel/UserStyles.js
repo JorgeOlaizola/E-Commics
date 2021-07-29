@@ -71,6 +71,7 @@ export const MenuLi = styled.li`
     border-bottom: 1px solid ${(props) => props.theme.colorLevel3};
     margin-left: 10px;
     margin-right: 10px;
+    position: relative;
     &:last-child {
         border: none;
     }
@@ -87,6 +88,22 @@ export const MenuButton = styled(StyledLink)`
     &:active{
     color: #202020;
     }
+`
+//On close button Notifications
+export const ButtonOnClose = styled.button`
+    border:none;
+    background-color: transparent;
+    color: ${(props) => props.theme.colorLevel3};
+    align-self:flex-end;
+    &:hover{
+    color: black;
+    }
+    &:active{
+    color: #202020;
+    }
+
+
+
 `
 
 export const MenuButtonSwitch = styled(MenuButton)`

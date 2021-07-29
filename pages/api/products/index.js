@@ -8,7 +8,7 @@ import { product } from '../../../store/types'
 export default nextConnect()
 
 .get(async (req, res) => {
-    await dbConnect();
+  
     let { user,category,scorestart,scoreend,pricestart,priceend,searchin,searchtext,orderin,orderor,page, officialstore } = req.query
     let score={
         start:parseInt(scorestart),
@@ -51,6 +51,7 @@ export default nextConnect()
     if (!order || !order.in || !order.or) { order = { in: "title", or: 1 } }
 
     try {
+        await dbConnect();
         let productonly = await Product.find(opts).limit(limite).sort({ [order.in]: order.or })
         //cargamos el resto de la data 
         let productandCategories = await Category.populate(productonly, { path: 'category' })
@@ -90,9 +91,10 @@ export default nextConnect()
 })
 
 .post(async (req, res) => {
-    await dbConnect();
+  
     const { title, description, image, stock, price, user, category } = req.body
     try {
+        await dbConnect();
         if (!title || !description || !image || !stock || !price || !user ||!category) {
             return !title && res.send("error_msg", "required title")
             return !description && res.send("error_msg", "required description")

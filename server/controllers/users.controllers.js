@@ -8,7 +8,7 @@ const users = {}
 
 users.registerController = async (req, res) => {
     const { email, password, password2, name, surname, nickname, avatar } = req.body
-    console.log(req.body)
+    
     if(!email || !password || !name || !surname || !nickname) {
         return res.json({ error_msg: 'Debe rellenar todos los campos obligatorios' })
     }
@@ -57,13 +57,13 @@ users.logOut = async (req, res) => {
 }
 
 users.userInfo = async (req, res) => {
-    console.log("revisando req de userInfo", req)
+    
     const {_id, email, nickname, name, surname, favorites } = req.user
     res.json({_id, email, nickname, name, surname, favorites})
 }
 
 users.favorites = async (req, res) => {
-    console.log(req.body)
+   s
     const { productId, productImg, productTitle, productPrice, userId } = req.body
     User.findById(userId, (err, user) => {
         if(err) return err

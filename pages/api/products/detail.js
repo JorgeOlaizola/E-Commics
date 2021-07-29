@@ -11,9 +11,10 @@ import { ObjectID }  from 'mongodb'
 export default nextConnect()
 
     .get(async (req, res) => {
-        await dbConnect();
+        
         const { id } = req.query
         try {
+            await dbConnect();
             const product = await Product.findById(id)
             const productANDcategory = await Category.populate(product, { path: 'category' })
             const productANDcategoryANDuser = await User.populate(productANDcategory, { path: "user" })

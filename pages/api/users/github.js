@@ -67,7 +67,7 @@ export default nextConnect()
             const token = jwt.sign({ id: user._id }, KEY)
             //Verify if this user already have a token
             const verifyToken = await Token.find({}).where({ user: user._id })
-            console.log(verifyToken)
+            
             if(verifyToken.length) {
                 await Token.findOneAndUpdate({ user: user._id }, { token: token })
             }

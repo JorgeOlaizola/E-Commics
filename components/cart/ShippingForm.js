@@ -135,7 +135,7 @@ const ShippingForm =()=> {
                         onChange={(e) => {handleChange(e)}}
                         ></input>
                         <GradientBorder>
-                            <Input type="submit" >Continuar compra</Input>
+                            <Input type="submit">Continuar compra</Input>
                         </GradientBorder>
                 </FormStyled>
 

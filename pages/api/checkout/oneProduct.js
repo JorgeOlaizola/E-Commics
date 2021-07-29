@@ -64,7 +64,6 @@ export default nextConnect()
             return res.redirect('/buy/failure');
         }
         const prod = await Product.findByIdAndUpdate(productId, { stock: (parseInt(stock) - quantity) })
-        
             const obj = {
                 buyer:buyer,
                 seller:seller,
@@ -80,7 +79,43 @@ export default nextConnect()
                 Payment: payment_id
             }
             data.product = obj;
-            await Order.create(obj);
+            let EachOrder = await new Order(obj);
+            await EachOrder.save()
+
+            const buyerNotif = await User.findById(buyer).exec()
+            const sellerNotif = await User.findById(seller).exec()
+            
+            //--- SEND BUYER NOTIFICATION
+
+                if(buyerNotif){
+                    const notification = {
+                        img: 'https://res.cloudinary.com/jorgeleandroolaizola/image/upload/v1627517096/Notifications%20eccomics/Buy_product_ml086z.png',
+                        content: `Se generó una orden por tu compra a ${sellerNotif.nickname}. Clickea aquí para ver detalles`,
+                        link: `/orderDetail/${EachOrder._id}`
+                    }
+                    buyerNotif.notifications.unshift(notification)
+                    if(buyerNotif.notifications.length > 5){
+                        buyerNotif.notifications.pop()
+                    }
+                    await buyerNotif.save()
+                }
+
+                //--- SEND NOTIFICATION SELLER
+                
+                if(sellerNotif){
+                    const notification = {
+                        img: 'https://res.cloudinary.com/jorgeleandroolaizola/image/upload/v1627517096/Notifications%20eccomics/Sell_product_ucqcyd.png',
+                        content: `Le has vendido a ${buyerNotif.nickname}. Clickea aquí para ver detalles`,
+                        link: `/orderDetail/${EachOrder._id}`
+                    }
+                    sellerNotif.notifications.unshift(notification)
+                    if(sellerNotif.notifications.length > 5){
+                        sellerNotif.notifications.pop()
+                    }
+                    await sellerNotif.save()
+                }
+
+            //--- EMAIL
             if(obj.status === 'Pago realizado') {
                 oneProductConfirmation(data);
             } else {

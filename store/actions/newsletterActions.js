@@ -10,7 +10,6 @@ export function addNewsletter(newsletter) {
 export function getNewsletter() {
     return (dispatch) => {
         axios.get('/api/newsletter').then((response) => {
-            console.log(response)
             return dispatch({
                 type: newsletter.GET_NEWSLETTERS,
                 payload: response.data,

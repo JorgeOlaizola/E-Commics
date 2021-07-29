@@ -4,6 +4,11 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 import { StyledLink } from "../globalStyle";
 import PacmanLoader from "react-spinners/PacmanLoader";
+import Categories from './Categories.js';
+import Users from './Users.js';
+import Newsletters from './Newsletters.js';
+import Ofertas from './Ofertas.js';
+import AdminProfile from './AdminProfile.js';
 
 const StyledContainer = styled.div`
     margin-top: 30px;
@@ -180,14 +185,14 @@ const AdminPanel = (props) => {
                 </Navbar>
 
                 {state === "newsletters"
-                    ? "NEWSLETTERS"
+                    ? <Newsletters/>
                     : state === "ofertas"
-                    ? "OFERTAS"
+                    ? <Ofertas/>
                     : state === "usuarios"
-                    ? "USUARIOS"
+                    ? <Users/>
                     : state === "categorias"
-                    ? "CATEGORÍAS"
-                    : "ADMIN PERFIL"}
+                    ? <Categories/>
+                    : <AdminProfile/>}
             </StyledContainer>
         </div>
     );

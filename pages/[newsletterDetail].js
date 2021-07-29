@@ -21,7 +21,7 @@ export async function getServerSideProps(context) {
 
   const callProductData = await axios.get(
     /*`https://e-commics.vercel.app/api/newsletter?id=${newsletterDetail}`*/
-    `https://localhost:3000/api/newsletter?id=${newsletterDetail}`
+    `${process.env.ABSOLUTE_URL}/api/newsletter?id=${newsletterDetail}`
   );
   const newsletterData = callProductData.data;
 

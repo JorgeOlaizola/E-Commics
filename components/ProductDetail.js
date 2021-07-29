@@ -1,4 +1,4 @@
-//#region Imports 
+//#region Imports
 import styled from 'styled-components'
 import { useSelector, useDispatch }  from 'react-redux'
 import { useEffect, useState } from 'react'
@@ -194,11 +194,11 @@ const Space = styled.div`
 `
 
 const QuestionsDiv = styled.div`
-    max-width: 960px;
+    max-width: 800px;
 `
 
 const QuestionsContainer = styled.div`
-    width: 100%;
+    width: 90%;
     min-width: 280px; 
     height: auto;
     padding: 10px;
@@ -220,15 +220,14 @@ const Question = styled.div`
 
 const Answer = styled.div`
     margin-top: 10px;
-    width: 100%;
-    color: ${(props) => props.theme.body};
+    width: 80%;
     background-color: ${(props) => props.theme.blueColor};
     ${'' /* color: #FFF; */}
 	padding: 15px 20px;
 	font-size: 1.2rem;
-    ${'' /* border: 1px solid #000; */}
-	border-radius: 0px 15px 0px 15px;
-    ${'' /* box-shadow:	0 5px 5px rgba(0, 0, 0, .3), 0 3px 2px rgba(0, 0, 0, .2); */}
+    border: 1px solid #000;
+	border-radius: 15px 0 15px 15px;
+    box-shadow:	0 5px 5px rgba(0, 0, 0, .3), 0 3px 2px rgba(0, 0, 0, .2);
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -319,6 +318,7 @@ flex-direction: column;
 `
 
 
+
 const ProductDetail = ({productData}) => {
 
     const router = useRouter()
@@ -373,7 +373,8 @@ const ProductDetail = ({productData}) => {
     async function upDateProduct(){
         dispatch(productToUpDate(productUpDate))
         setEdit(!edit)
-        router.back()
+        alert('Producto modificado con éxito!')
+        return router.push(`/detail/${productData._id}`)
     }
 
 
@@ -388,7 +389,7 @@ const ProductDetail = ({productData}) => {
             }
             dispatch(createQuestion(questionCreated, userData?.nickname))
 
-            try {
+            /* try {
                 const postQuestion = await axios.post('/api/questions', questionCreated);
                 const questionData = await postQuestion.data
                 if(questionData) {
@@ -399,8 +400,8 @@ const ProductDetail = ({productData}) => {
                 
             } catch (error) {
                 console.log(error)
-            }
-
+            } */
+            return router.push(`/detail/${productData._id}`)
 
         }
     }
@@ -457,7 +458,7 @@ const ProductDetail = ({productData}) => {
     
     useEffect(() => {
         userData && dispatch(getFavorites(userData.id))
-    }, [])
+    }, [userData, dispatch])
 
     const HandleToggleFavorite = () => {
         dispatch(getFavorites(userData.id))
@@ -508,10 +509,17 @@ const ProductDetail = ({productData}) => {
                         }
                         {
                         userData && userData?.id === productData?.user._id && edit ? 
-                        <FormProductContainer><span style={{padding: "0px", flexGrow: 1}}>Precio $</span><FormProductInput name="price" onChange={(e)=>handleProductUpDate(e)} value={productUpDate.price}/> </FormProductContainer>
+                        <FormProductContainer><span style={{padding: "0px", flexGrow: 1}}>Precio $</span><FormProductInput name="realprice" onChange={(e)=>handleProductUpDate(e)} min="1"  value={productUpDate.realprice}/> </FormProductContainer>
                         :
+
                         <InfoText>${productData.price}</InfoText>
-                        }                       
+                        }       
+                        {
+                        userData && userData?.id === productData?.user._id && edit ? 
+                        <FormProductContainer><span style={{padding: "0px", flexGrow: 1}}>Descuento %</span><FormProductInput name="discount" onChange={(e)=>handleProductUpDate(e)} max="100" min="0" value={productUpDate.discount}/> </FormProductContainer>
+                        :
+                        <InfoText>{productData.discount ? "Con un %" + productData.discount + " de descuento!" : "" }</InfoText>
+                        }                  
                         {
                         userData && userData?.id === productData?.user._id && edit ? 
                         <FormProductContainer><span style={{padding: "0px", flexGrow: 1}}>Cantidad</span><FormProductInput name="stock" onChange={(e)=>handleProductUpDate(e)} value={productUpDate.stock}/> </FormProductContainer>
@@ -626,19 +634,37 @@ const ProductDetail = ({productData}) => {
                     <QuestionsContainer>
                         <Title>Preguntas</Title>
                         {
-                        productData.questions.length ? 
+                        productData && productData?.questions?.length ? 
                             productData.questions.map(q => { 
-                                return <div key={q.created_at} style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+                                return <div key={q._id} style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
                                     <Question>
                                         {q.content}
                                         <span style={{marginTop: "10px", fontSize: "1rem", color: "${(props) => props.theme.blueColor}"}}>{q.avatar} {q.userNickname} ({q.created_at.slice(0, 10)}) {q.answer ? <span>(respondido)</span> : <span>(pendiente de respuesta)</span>}</span>
                                     </Question>
                                     {
-                                        q.answer &&
+                                        q.answer ?
                                         <Answer>
                                             {q.answer}
                                             <span style={{marginTop: "10px", fontSize: "1rem"}}>{productData.user.nickname}</span>
                                         </Answer>
+                                        :
+                                        userData && userData?.id === productData?.user._id && 
+                                        <form onSubmit={(e) => {
+                                            e.preventDefault()
+                                            axios.put(`/api/questions?id=${q._id}&answer=${e.target.answer.value}`)
+                                            .then(r => {
+                                                if(r.data.success_msg){
+                                                    alert(r.data.success_msg)
+                                                    return router.push(`/detail/${productData._id}`)
+                                                }
+                                                else{
+                                                    return alert(r.data.error_msg)
+                                                }})
+                                            .catch(err => console.log(err))
+                                        }}>
+                                            <input type="text" name="answer"></input>
+                                            <input type="submit" value="Responder"></input>
+                                        </form>
                                     }
                                     <Space/>
                                 </div>        
@@ -653,7 +679,7 @@ const ProductDetail = ({productData}) => {
                             userData && userData.log !== false ?
                                 <>
                                     <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-                                    {productData.questions.length ? <QuestionAdvertise>¿Quieres saber más?</QuestionAdvertise> : <></>}
+                                    {productData?.questions?.length ? <QuestionAdvertise>¿Quieres saber más?</QuestionAdvertise> : <></>}
                                         <QuestionAdvertise>Pregúntale al vendedor</QuestionAdvertise>
                                     </div>
                                     <form

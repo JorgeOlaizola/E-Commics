@@ -194,11 +194,11 @@ const Space = styled.div`
 `
 
 const QuestionsDiv = styled.div`
-    max-width: 800px;
+    max-width: 960px;
 `
 
 const QuestionsContainer = styled.div`
-    width: 90%;
+    width: 100%;
     min-width: 280px; 
     height: auto;
     padding: 10px;
@@ -220,14 +220,15 @@ const Question = styled.div`
 
 const Answer = styled.div`
     margin-top: 10px;
-    width: 80%;
+    width: 100%;
+    color: ${(props) => props.theme.body};
     background-color: ${(props) => props.theme.blueColor};
     ${'' /* color: #FFF; */}
 	padding: 15px 20px;
 	font-size: 1.2rem;
-    border: 1px solid #000;
-	border-radius: 15px 0 15px 15px;
-    box-shadow:	0 5px 5px rgba(0, 0, 0, .3), 0 3px 2px rgba(0, 0, 0, .2);
+    ${'' /* border: 1px solid #000; */}
+	border-radius: 0px 15px 0px 15px;
+    ${'' /* box-shadow:	0 5px 5px rgba(0, 0, 0, .3), 0 3px 2px rgba(0, 0, 0, .2); */}
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -307,17 +308,6 @@ z-index: 9;
 margin-bottom: 10px;
 `
 
-const ReviewConteiner = styled.div`
-display: flex;
-justify-content: center;
-align-items: center;
-border: 1px solid black;
-padding: 1rem;
-margin: 1rem;
-flex-direction: column;
-`
-
-
 
 const ProductDetail = ({productData}) => {
 
@@ -373,8 +363,7 @@ const ProductDetail = ({productData}) => {
     async function upDateProduct(){
         dispatch(productToUpDate(productUpDate))
         setEdit(!edit)
-        alert('Producto modificado con éxito!')
-        return router.push(`/detail/${productData._id}`)
+        router.back()
     }
 
 
@@ -389,7 +378,7 @@ const ProductDetail = ({productData}) => {
             }
             dispatch(createQuestion(questionCreated, userData?.nickname))
 
-            /* try {
+            try {
                 const postQuestion = await axios.post('/api/questions', questionCreated);
                 const questionData = await postQuestion.data
                 if(questionData) {
@@ -400,8 +389,8 @@ const ProductDetail = ({productData}) => {
                 
             } catch (error) {
                 console.log(error)
-            } */
-            return router.push(`/detail/${productData._id}`)
+            }
+
 
         }
     }
@@ -458,7 +447,7 @@ const ProductDetail = ({productData}) => {
     
     useEffect(() => {
         userData && dispatch(getFavorites(userData.id))
-    }, [userData, dispatch])
+    }, [])
 
     const HandleToggleFavorite = () => {
         dispatch(getFavorites(userData.id))
@@ -509,17 +498,10 @@ const ProductDetail = ({productData}) => {
                         }
                         {
                         userData && userData?.id === productData?.user._id && edit ? 
-                        <FormProductContainer><span style={{padding: "0px", flexGrow: 1}}>Precio $</span><FormProductInput name="realprice" onChange={(e)=>handleProductUpDate(e)} min="1"  value={productUpDate.realprice}/> </FormProductContainer>
+                        <FormProductContainer><span style={{padding: "0px", flexGrow: 1}}>Precio $</span><FormProductInput name="price" onChange={(e)=>handleProductUpDate(e)} value={productUpDate.price}/> </FormProductContainer>
                         :
-
                         <InfoText>${productData.price}</InfoText>
-                        }       
-                        {
-                        userData && userData?.id === productData?.user._id && edit ? 
-                        <FormProductContainer><span style={{padding: "0px", flexGrow: 1}}>Descuento %</span><FormProductInput name="discount" onChange={(e)=>handleProductUpDate(e)} max="100" min="0" value={productUpDate.discount}/> </FormProductContainer>
-                        :
-                        <InfoText>{productData.discount ? "Con un %" + productData.discount + " de descuento!" : "" }</InfoText>
-                        }                  
+                        }                       
                         {
                         userData && userData?.id === productData?.user._id && edit ? 
                         <FormProductContainer><span style={{padding: "0px", flexGrow: 1}}>Cantidad</span><FormProductInput name="stock" onChange={(e)=>handleProductUpDate(e)} value={productUpDate.stock}/> </FormProductContainer>
@@ -634,37 +616,19 @@ const ProductDetail = ({productData}) => {
                     <QuestionsContainer>
                         <Title>Preguntas</Title>
                         {
-                        productData && productData?.questions?.length ? 
+                        productData.questions.length ? 
                             productData.questions.map(q => { 
-                                return <div key={q._id} style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+                                return <div key={q.created_at} style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
                                     <Question>
                                         {q.content}
                                         <span style={{marginTop: "10px", fontSize: "1rem", color: "${(props) => props.theme.blueColor}"}}>{q.avatar} {q.userNickname} ({q.created_at.slice(0, 10)}) {q.answer ? <span>(respondido)</span> : <span>(pendiente de respuesta)</span>}</span>
                                     </Question>
                                     {
-                                        q.answer ?
+                                        q.answer &&
                                         <Answer>
                                             {q.answer}
                                             <span style={{marginTop: "10px", fontSize: "1rem"}}>{productData.user.nickname}</span>
                                         </Answer>
-                                        :
-                                        userData && userData?.id === productData?.user._id && 
-                                        <form onSubmit={(e) => {
-                                            e.preventDefault()
-                                            axios.put(`/api/questions?id=${q._id}&answer=${e.target.answer.value}`)
-                                            .then(r => {
-                                                if(r.data.success_msg){
-                                                    alert(r.data.success_msg)
-                                                    return router.push(`/detail/${productData._id}`)
-                                                }
-                                                else{
-                                                    return alert(r.data.error_msg)
-                                                }})
-                                            .catch(err => console.log(err))
-                                        }}>
-                                            <input type="text" name="answer"></input>
-                                            <input type="submit" value="Responder"></input>
-                                        </form>
                                     }
                                     <Space/>
                                 </div>        
@@ -679,7 +643,7 @@ const ProductDetail = ({productData}) => {
                             userData && userData.log !== false ?
                                 <>
                                     <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-                                    {productData?.questions?.length ? <QuestionAdvertise>¿Quieres saber más?</QuestionAdvertise> : <></>}
+                                    {productData.questions.length ? <QuestionAdvertise>¿Quieres saber más?</QuestionAdvertise> : <></>}
                                         <QuestionAdvertise>Pregúntale al vendedor</QuestionAdvertise>
                                     </div>
                                     <form
@@ -709,15 +673,7 @@ const ProductDetail = ({productData}) => {
                         <Space/>
                         <Title>Reseñas</Title>
                         <div style={{display: "flex", justifyContent: "center"}}>
-                            {productData.reviews && productData.reviews.length ? 
-                            productData.reviews.map(r => {
-                                let star = "⭐"
-                                return <ReviewConteiner key={r._id}>{r.content} <p>{star.repeat(r.rating)}</p></ReviewConteiner>
-                                
-                        })
-                            :
                             <Advertise style={{textAlign: "center"}}>Aún no hay reseñas para este artículo</Advertise>
-                            }
                         </div>
                     </QuestionsContainer>
                 </QuestionsDiv>

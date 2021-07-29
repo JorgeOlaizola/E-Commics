@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import axios from 'axios';
 import { useRouter } from 'next/router'
 import PacmanLoader from "react-spinners/PacmanLoader";
-import { Input, GradientBorder, DisableBorder, InputDisable } from '../globalStyle';
+import { Input, GradientBorder, DisableBorder, InputDisable, EraseButton, BuyButton, OptionButton, StyledLink } from '../globalStyle';
 
 //#region  estilos
 const DivContainer = styled.div`
@@ -41,6 +41,14 @@ padding:1rem;
 `
 const FormInput = styled.input`
 width:100%;
+border : none;
+border-bottom: 1px solid #80808059;
+font-size:1rem;
+margin-top: 0.2rem;
+`
+const FormTextArea = styled.textarea`
+width:100%;
+height: 4rem;
 border : none;
 border-bottom: 1px solid #80808059;
 font-size:1rem;
@@ -182,7 +190,7 @@ const AddProductForm = () => {
                     <Space/>
                     <div>
                         <h2>Felicitaciones, tu producto ya se encuentra publicado!</h2>
-                        <p>¿Deseas publicar otro producto? <a onClick={() => {setLoading("false"), setImageSelected([]), setInput({
+                        <p>¿Deseas publicar otro producto? <StyledLink onClick={() => {setLoading("false"), setImageSelected([]), setInput({
                             title: '',
                             description: '',
                             stock: 0,
@@ -190,8 +198,8 @@ const AddProductForm = () => {
                             image: [],
                             category: '',
                             user: user?.id
-                        })}}>click aqui</a></p>
-                        <p>O puedes visitar el catálogo de productos <a onClick={() => {router.push('/search')}}>click aqui</a></p>
+                        })}}>click aqui</StyledLink></p>
+                        <p>O puedes visitar el catálogo de productos <StyledLink onClick={() => {router.push('/search')}}>click aqui</StyledLink></p>
                     </div>
                 </DivContainer> :
             user?.id && loading === "false" ?
@@ -217,7 +225,7 @@ const AddProductForm = () => {
                             <DivFormItem>
                                 <label htmlFor="inputDescription">Descripción</label>
                                 <br />
-                                <FormInput
+                                <FormTextArea
                                     onKeyDown={keyEnter}
                                     id="inputDescription"
                                     name="description"
@@ -251,11 +259,11 @@ const AddProductForm = () => {
                                 />
                             </DivFormItem>
                             <DivFormItem>
-                                <label> Categorias</label>
+                                <label> Categorías</label>
                                 <br /><br />
                                 <details id="details">
                                     <summary>Opciones</summary>
-                                    {categories && categories.map(c => <button key={c._id} onClick={handleSelect} value={c.title} id={c._id}>{c.title}</button>)}
+                                    {categories && categories.map(c => <OptionButton  key={c._id} onClick={handleSelect} value={c.title} id={c._id}>{c.title}</OptionButton>)}
                                 </details>
                                 <br />
                                 <label>{categorieSelect}</label>
@@ -285,11 +293,11 @@ const AddProductForm = () => {
                             />
                             <label htmlFor="terminos">Acepto los </label>
 
-                            <a href="https://www.soyhenry.com/terms" style={{ color: "blue" }}>Términos y condiciones</a>
+                            <StyledLink href="https://www.soyhenry.com/terms" >Términos y condiciones</StyledLink>
                         </DivFormItem>
                         {!input.title || !input.description || !input.stock || !input.price || !input.image || !input.category ?
                             <DisableBorder>
-                                <InputDisable>Publicar</InputDisable>
+                                <InputDisable disabled>Publicar</InputDisable>
                             </DisableBorder>
                             : 
                             <GradientBorder>

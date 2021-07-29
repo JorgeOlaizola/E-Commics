@@ -62,6 +62,7 @@ const Pagination = () => {
         }
         setNum(num+1)
         dispatch(getFilteredProducts(pageFilters))
+        window.scroll({top: 0, left: 0, behavior: 'smooth' })
     }
 
     useEffect(() => {
@@ -102,6 +103,7 @@ const Pagination = () => {
             pageFilters.page = num-1;
             setNum(num-1)
             dispatch(getFilteredProducts(pageFilters))
+            window.scroll({top: 0, left: 0, behavior: 'smooth' })
         } 
 
     }

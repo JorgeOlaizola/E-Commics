@@ -177,9 +177,8 @@ const UserMenu = () => {
                 </Link> */}
                 </MenuLi>
                 <MenuLi>
-                <Link href="/" passHref >
                   <MenuButton onClick={() => {handleSignOut(); setShowModal(false)}}>Salir</MenuButton>
-                </Link>
+               
                 </MenuLi>
               </>
             }

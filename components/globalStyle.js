@@ -101,6 +101,38 @@ export const Input = styled.button`
 	${'' /* transition: 0.5s; */}
   }
 `
+export const Select = styled.select`
+color: ${(props) => props.theme.fontColor};
+  text-decoration:none;
+  background-color: ${(props) => props.theme.backgroundButton};
+  width: 40%;
+  max-width:30rem;
+  padding: 5px 10px;
+  border: 1px solid black;
+  cursor:pointer;
+  &:active {
+	background-color: transparent;
+	color: white;
+	${'' /* transition: 0.5s; */}
+  }
+
+`
+export const Option = styled.option`
+color: ${(props) => props.theme.fontColor};
+  text-decoration:none;
+  background-color: ${(props) => props.theme.backgroundButton};
+  width: 40%;
+  max-width:30rem;
+  padding: 5px 10px;
+  border: 1px solid black;
+  cursor:pointer;
+  &:active {
+	background-color: transparent;
+	color: white;
+	${'' /* transition: 0.5s; */}
+  }
+
+`
 
 export const InputDisable = styled.button`
   color: grey;
@@ -123,6 +155,21 @@ padding: 4px;
 &:hover {
         color: ${(props) => props.theme.fontColor};
         background: ${(props) => props.theme.colorLevel4};
+    }
+`
+export const OptionButton = styled.button`
+background: none;
+color: ${(props) => props.theme.fontColor};
+border: 1px solid ${(props) => props.theme.blueColorHover};
+cursor: pointer;
+font-size: 0.75rem;
+font-family: ubuntu;
+font-weight: 300;
+padding: 6px;
+margin: 20px 5px 0px 5px;
+&:hover {
+        color: ${(props) => props.theme.body};
+        background: ${(props) => props.theme.blueColorHover};
     }
 `
 

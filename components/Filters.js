@@ -6,6 +6,7 @@ import {
     searchByCategory, 
     searchByPriceMin,
     searchByPriceMax,
+    resetFilters,
     getFilteredProducts } from '../store/actions/productActions'
 import { useEffect } from "react";
 
@@ -146,6 +147,12 @@ const Filters = ({userId}) => {
         }
         dispatch(getFilteredProducts(newFilters))
     }
+
+    const handleAll = () => {
+        dispatch(resetFilters())
+        dispatch(getFilteredProducts(filters))
+    }
+
     return (
         <FilterContainer> 
             <FiltersTitle>Filtros</FiltersTitle>
@@ -166,12 +173,15 @@ const Filters = ({userId}) => {
                 <EachFilterTitle>Precio</EachFilterTitle>
                 <EachFilterTitleRes>Precio</EachFilterTitleRes>
                     <MinMaxDiv>
-                        <input style={{width: '75px'}} type="number" name="min" placeholder="min" onChange={handlePrice}></input>
-                        <input style={{width: '75px'}} type="number" name="max" placeholder="max" onChange={handlePrice}></input>
+                        <input style={{width: '75px', fontSize: "0.8rem"}} type="number" name="min" placeholder="min" onChange={handlePrice}></input>
+                        <input style={{width: '75px', fontSize: "0.8rem"}} type="number" name="max" placeholder="max" onChange={handlePrice}></input>
                     </MinMaxDiv>
                 </CategoriesFilterCont>
                 <GradientBorder>
                     <Input type="submit" onClick={handleSubmit}>Filtrar</Input>
+                </GradientBorder>
+                <GradientBorder>
+                    <Input onClick={handleAll}>Ver todos los productos</Input>
                 </GradientBorder>
             </ResponsiveFilters>
         </FilterContainer>

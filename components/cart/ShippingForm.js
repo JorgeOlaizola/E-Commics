@@ -2,12 +2,18 @@ import styled from "styled-components";
 import { useState } from "react";
 import {setShippingInfo} from '../../store/actions/cartActions'
 import { useDispatch } from "react-redux";
+import {BuyButton} from '../globalStyle'
 
 const FormStyled = styled.form`
 width:50%;
 margin:2rem;
 display: flex;
 flex-direction: column;
+margin:auto;
+@media (max-width: 500px){
+    width: 100%;
+    margin:0;
+}
 
 `
 const FormContainer = styled.div`
@@ -68,29 +74,32 @@ const ShippingForm =()=> {
                 <p>Datos de envío</p>
             <FormContainer>
                     <FormStyled onSubmit={(e)=>handleSubmit(e)}>
-                        <label>localidad</label>
+                        <label>localidad *</label>
                         <input
                         type="text"
                         name="localidad"
                         id="localidad"
                         value={input.localidad}
                         onChange={(e) => {handleChange(e)}}
+                        required="required"
                         ></input>
-                        <label>calle</label>
+                        <label>calle </label>
                         <input
                         type="text"
                         name="calle"
                         id="calle"
                         value={input.calle}
                         onChange={(e) => {handleChange(e)}}
+                        required="required"
                         ></input>
-                        <label>número</label>
+                        <label>número *</label>
                         <input
                         type="text"
                         name="numero"
                         id="numero"
                         value={input.numero}
                         onChange={(e) => {handleChange(e)}}
+                        required="required"
                         ></input>
                         <label>piso</label>
                         <input
@@ -108,13 +117,14 @@ const ShippingForm =()=> {
                         value={input.depto}
                         onChange={(e) => {handleChange(e)}}
                         ></input>
-                        <label>código postal</label>
+                        <label>código postal *</label>
                         <input
                         type="text"
                         name="cp"
                         id="cp"
                         value={input.cp}
                         onChange={(e) => {handleChange(e)}}
+                        required="required"
                         ></input>
                         <label>información adicional</label>
                          <input
@@ -124,7 +134,7 @@ const ShippingForm =()=> {
                         value={input.info}
                         onChange={(e) => {handleChange(e)}}
                         ></input>
-                        <button type="submit" >Enviar</button>
+                        <BuyButton type="submit" >Continuar compra</BuyButton>
                 </FormStyled>
 
 

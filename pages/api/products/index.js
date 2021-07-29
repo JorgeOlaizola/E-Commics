@@ -66,6 +66,7 @@ export default nextConnect()
                 price: products.price,
                 realprice: products.realprice,
                 discount: products.discount,
+                stock: products.stock,
                 user: {
                     _id: products.user._id,
                     nickname: products.user.nickname

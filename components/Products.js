@@ -85,7 +85,7 @@ const Products = (props) => {
                 {productsOfOneUser ? 
                 productsOfOneUser.map(p => <Product key={p._id} id = {p._id} userID={p.user._id} user={p.user.nickname} category={p.category.title} image={p.image} title={p.title} price={p.price} />) 
                 :
-                products.length !== 0 ? products.map(p => <Product key={p._id} id ={p._id} userID={p.user._id} user={p.user.nickname} category={p.category.title} image={p.image} title={p.title} price={p.price} />)
+                products.length !== 0 ? products.map(p => <Product key={p._id} stock={p.stock} id ={p._id} userID={p.user._id} user={p.user.nickname} category={p.category.title} image={p.image} title={p.title} price={p.price} />)
                 :
                 <h2 >Lo siento nadie ha publicado lo que buscas</h2>    
                       

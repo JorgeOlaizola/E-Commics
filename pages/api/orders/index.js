@@ -21,10 +21,11 @@ export default nextConnect()
             }
 
             if(!Orders) return res.json({ error_msg: 'No se encontró nada'})
+
             await User.populate(Orders, { path: 'seller' })
             await User.populate(Orders, { path: 'buyer' })
         
-            const result = Orders.map(Orders => {
+            let result = Orders.map(Orders => {
             return {
                 status: Orders.status,
                 Payment: Orders.Payment,
@@ -55,7 +56,15 @@ export default nextConnect()
                     surname: Orders.seller.surname
                 }
             }})
-            return res.json(result)
+            if(filter === 'Finalizado'){
+                return res.json(result)
+            }
+            else {
+                result = result.filter(r => {
+                    return r.status !== 'Finalizado'
+                })
+                return res.json(result)
+            }
         }
         else {
             return res.json({ error_msg: 'Parámetros inválidos' })

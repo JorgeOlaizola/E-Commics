@@ -420,9 +420,6 @@ const ProductDetail = ({productData}) => {
 		}
 	}, [dispatch, userData])
     
-    // console.log(cartItems[0].products[0]._id)
-    // console.log(userData)
-    // console.log(productData._id)
 
     const handleCart = async () => {
         if(userData) {

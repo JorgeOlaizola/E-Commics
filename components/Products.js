@@ -54,7 +54,6 @@ const Products = (props) => {
     const userData = useSelector(state => state.user.userData.user);
     const {productsOfOneUser} = props;
     
-    // console.log(products)
     useEffect(() => {
         dispatch(getFilteredProducts(filters));
         return () => {

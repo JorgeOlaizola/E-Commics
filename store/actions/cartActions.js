@@ -71,7 +71,7 @@ export function buyCart (cartId, shippingInfo) {
     return  (dispatch) => {
         axios.post(`/api/checkout?id=${cartId}`, {shippingInfo})
         .then((r)=>{
-            console.log(r.data)
+            
            return  dispatch({ type: cart.BUY, payload: r.data.buy })
 
         })

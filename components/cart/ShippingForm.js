@@ -33,6 +33,10 @@ margin-top: 1rem;
 margin-bottom: 1rem;
 `
 
+const StyledLabel = styled.label`
+margin: 10px 0;
+`
+
 const ShippingForm =()=> {
     const dispatch = useDispatch()
     const [input, setInput] = useState({
@@ -74,7 +78,7 @@ const ShippingForm =()=> {
                 <h2 >Datos de envío</h2>
             <FormContainer>
                     <FormStyled onSubmit={(e)=>handleSubmit(e)}>
-                        <label>localidad *</label>
+                        <StyledLabel>Localidad *</StyledLabel>
                         <input
                         type="text"
                         name="localidad"
@@ -83,7 +87,7 @@ const ShippingForm =()=> {
                         onChange={(e) => {handleChange(e)}}
                         required="required"
                         ></input>
-                        <label>calle </label>
+                        <StyledLabel>Calle *</StyledLabel>
                         <input
                         type="text"
                         name="calle"
@@ -92,7 +96,7 @@ const ShippingForm =()=> {
                         onChange={(e) => {handleChange(e)}}
                         required="required"
                         ></input>
-                        <label>número *</label>
+                        <StyledLabel>Número *</StyledLabel>
                         <input
                         type="text"
                         name="numero"
@@ -101,7 +105,7 @@ const ShippingForm =()=> {
                         onChange={(e) => {handleChange(e)}}
                         required="required"
                         ></input>
-                        <label>piso</label>
+                        <StyledLabel>Piso</StyledLabel>
                         <input
                         type="text"
                         name="piso"
@@ -109,7 +113,7 @@ const ShippingForm =()=> {
                         value={input.piso}
                         onChange={(e) => {handleChange(e)}}
                         ></input>
-                        <label>depto</label>
+                        <StyledLabel>Departamento</StyledLabel>
                         <input
                         type="text"
                         name="depto"
@@ -117,7 +121,7 @@ const ShippingForm =()=> {
                         value={input.depto}
                         onChange={(e) => {handleChange(e)}}
                         ></input>
-                        <label>código postal *</label>
+                        <StyledLabel>Código postal *</StyledLabel>
                         <input
                         type="text"
                         name="cp"
@@ -126,7 +130,7 @@ const ShippingForm =()=> {
                         onChange={(e) => {handleChange(e)}}
                         required="required"
                         ></input>
-                        <label>información adicional</label>
+                        <StyledLabel>Información adicional</StyledLabel>
                          <input
                         type="text"
                         name="info"

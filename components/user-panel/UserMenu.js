@@ -130,7 +130,7 @@ const UserMenu = () => {
 //   theme === "light" ? "dark" : "light"
 //   themeToggle(payloadtheme)
 // }
-
+  
   return (
     <div>
       <Modal signType={signType}
@@ -159,12 +159,20 @@ const UserMenu = () => {
                   height={'25px'}
                 />
                   :
-                  <Image 
-                  src="https://ecommics.s3.sa-east-1.amazonaws.com/images/superuser.png"
-                  alt="User avatar"
-                  width={'25px'}
-                  height={'25px'}
-                />
+                  <div>
+                    <Image 
+                    className="avatar" 
+                    src={userData.user.avatar}
+                    alt="User avatar"
+                    width={'25px'}
+                    height={'25px'}
+                    />
+                    <style jsx global>{`
+                      .avatar {
+                        border-radius: 50%;
+                      }
+                    `}</style>
+                  </div>
                 }
 
             </MenuTrigger>

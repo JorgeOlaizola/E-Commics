@@ -14,6 +14,6 @@ module.exports = {
     SECRET: "top_secret",
   },
   images: {
-    domains: ['ecommics.s3.sa-east-1.amazonaws.com'],
+    domains: ['ecommics.s3.sa-east-1.amazonaws.com', 'res.cloudinary.com'],
   }
 }

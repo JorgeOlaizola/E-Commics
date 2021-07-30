@@ -56,8 +56,8 @@ const StyledButton = styled.button`
 
 const ProfileImg = styled.img`
     ${'' /* border-radius: 50%; */}
-    width: 150px;
-    height: 150px;
+    max-width: 150px;
+    max-height: auto;
     margin: 0 20px;
 `
 
@@ -72,6 +72,9 @@ justify-content: start;
 align-items: center;
 flex-wrap: wrap;
 justify-content: space-around;
+@media (max-width: 768px) {
+    width: 90%;
+    }
 `
 
 const ProductInfoConteiner = styled.div`
@@ -105,7 +108,7 @@ const UserPanelFavorites = () => {
         //     window.location.href = "/"
         // }
         dispatch(getFavorites(userData.id))
-}, []);
+}, [dispatch]);
 
 const HandleToggleFavorite = (userDataId, Fid) => {
     
@@ -116,17 +119,14 @@ const HandleToggleFavorite = (userDataId, Fid) => {
 
     return (
         <StyledContainer>
-            <DataSection>
-                <h3>Favoritos</h3>
-            </DataSection>
-            { userData.favorites.length ? userData.favorites.map(f => 
+            { userData && userData.favorites[0].title ? userData.favorites.map(f => 
             <ProductConteiner key={f._id}>
                 <ProfileImg src={f.image[0]}></ProfileImg>
                 <ProductInfoConteiner>
                 {/* <Link href={'/detail/[productDetail]'} as={`/detail/${f._id}` } passHref> */}
                     <h3>{f.title} </h3>
                 {/* </Link> */}
-                    <span> <strong>Precio:</strong> {f.price}$</span> 
+                    <span> <strong>Precio:</strong> ${f.price}</span> 
                     <span> <strong>Descripción:</strong> {f.description}</span>
                     <EraseButton style={{marginTop: "10px"}} onClick={() => HandleToggleFavorite(userData.id, f._id) } >Eliminar favorito</EraseButton>
                 </ProductInfoConteiner>

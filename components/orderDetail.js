@@ -25,10 +25,9 @@ flex-direction: column;
 align-items: center;
 justify-content: center;
 text-align: center;
-background-color: #c0f0ff;
-border-top: 1px solid #000;
-border-right: 1px solid #000;
-border-left: 1px solid #000;
+background-color: ${(props) => props.theme.backgroundQA};
+border: 1px solid ${(props) => props.theme.colorLevel1};
+border-bottom: none;
 `
 
 const StyledWhiteBox = styled.div`
@@ -37,10 +36,14 @@ display: flex;
 flex-direction: column;
 align-items:center;
 justify-content: center;
-padding: 20px 0;
-border-right: 1px solid #000;
-border-left: 1px solid #000;
-border-bottom: 1px solid #000;
+padding: 20px 10px;
+border: 1px solid ${(props) => props.theme.colorLevel1};
+border-top: none;
+${'' /* @media (max-width: 435px){
+    align-items:left;
+    justify-content: left; */}
+
+}
 `
 
 const ProductOrderConteiner = styled.div`
@@ -50,12 +53,15 @@ padding: 1rem;
 display: flex;
 justify-content: center;
 flex-direction: raw;
+@media (max-width: 768px) {
+    width: 90%;
+}
 `
 
 const ProductImg = styled.img`
 width: auto;
 height: 150px;
-border: 1px solid black
+border: 1px solid ${(props) => props.theme.colorLevel1};
 `
 
 const ProductInfo = styled.div`
@@ -67,7 +73,7 @@ padding: 5px;
 `
 
 const StyledButton = styled.button`
-border: 2px solid #000;
+border: 1px solid ${(props) => props.theme.colorLevel1};
 font-size: 18px;
 background-color: transparent;
 padding: 5px;
@@ -119,12 +125,12 @@ const OrderDetailComponent = ({ orderProps }) => {
         <OrderDetailConteiner>
             <StyledTop>
                 <h1>¡Hola {userRole === "buyer" ? buyerDisplay.name : sellerDisplay.name}!</h1>
-                <h2>{userRole === "buyer" ? buyerDisplay.mainTitle : sellerDisplay.mainTitle}</h2>
+                <h4>{userRole === "buyer" ? buyerDisplay.mainTitle : sellerDisplay.mainTitle}</h4>
             </StyledTop>
             <StyledWhiteBox>
-                <p><strong>Número de orden de Mercado Pago:</strong> {orderProps.MerchantOrder}</p>
-                <p><strong>Número de pago:</strong> {orderProps.Payment}</p>
-                <p><strong>Estado de la {userRole === "buyer" ? buyerDisplay.type : sellerDisplay.type}:</strong> {orderProps.status}</p>
+                <p style={{textAlign: "center"}}><strong>Número de orden de Mercado Pago:</strong> {orderProps.MerchantOrder}</p>
+                <p style={{textAlign: "center"}}><strong>Número de pago:</strong> {orderProps.Payment}</p>
+                <p style={{textAlign: "center"}}><strong>Estado de la {userRole === "buyer" ? buyerDisplay.type : sellerDisplay.type}:</strong> {orderProps.status}</p>
                 <br/><br/>
                 <h3><strong>Artículos</strong></h3>
                 <br/>

@@ -32,13 +32,16 @@ export default nextConnect()
         const user = await User.findById(userID)
         if(user){
             return res.json({
-                _id: user._id,
-                name: user.name,
-                surname: user.surname,
                 avatar: user.avatar,
+                email: user.email,
+                favorites: user.favorites,
+                github: user.github,
+                id: user._id,
+                name: user.name,
                 nickname: user.nickname,
+                notifications: user.notifications,
+                surname: user.surname,
                 role: user.role,
-                notifications: user.notifications
             })
         }
         else{

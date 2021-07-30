@@ -86,7 +86,8 @@ export default nextConnect()
                     id: user._id,
                     favorites: [],
                     notifications: user.notifications,
-                    github: user.github || 'None'
+                    github: user.github || 'None',
+                    role: user.role
                 },
                 token: token
             })

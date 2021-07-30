@@ -119,7 +119,7 @@ const HandleToggleFavorite = (userDataId, Fid) => {
 
     return (
         <StyledContainer>
-            { userData && userData.favorites[0].title ? userData.favorites.map(f => 
+            { userData && userData.favorites.length > 0 && userData.favorites[0].title ? userData.favorites.map(f => 
             <ProductConteiner key={f._id}>
                 <ProfileImg src={f.image[0]}></ProfileImg>
                 <ProductInfoConteiner>

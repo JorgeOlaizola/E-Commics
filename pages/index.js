@@ -5,6 +5,7 @@ import Container from '../components/Container'
 import SignInForm from '../components/SignInForm'
 import styled from 'styled-components';
 import LastPostedProducts from '../components/home/LastPostedProducts'
+import FeaturedProducts from '../components/home/FeaturedProducts'
 import axios from 'axios'
 
 const HomeImageDiv = styled.div`
@@ -13,7 +14,7 @@ const HomeImageDiv = styled.div`
   max-width: 960px;
 `
 
-const Home = ({lastProducts}) => {
+const Home = ({lastProducts, ratingProducts}) => {
   
 
   return (
@@ -27,6 +28,7 @@ const Home = ({lastProducts}) => {
         Home */}
         <HomeImageDiv >
           <LastPostedProducts lastProducts={lastProducts}></LastPostedProducts>
+          <FeaturedProducts ratingProducts={ratingProducts}></FeaturedProducts>
           {/* <Image src={'/ecommics-homecoming-500x600.jpg'} 
           alt="ecommics home coming soon!"
           layout="responsive"
@@ -44,8 +46,12 @@ export default Home;
 export async function getServerSideProps(context){
   const ABSOLUTE_URL = process.env.ABSOLUTE_URL
   const LastPostedProductscall = await axios.get(`${ABSOLUTE_URL}/api/products/home`)
+  const ratingProducts = await axios.get(`${ABSOLUTE_URL}/api/products/home?rating=rating`)
   
   return {
-    props: { lastProducts: LastPostedProductscall.data}
+    props: { 
+      lastProducts: LastPostedProductscall.data,
+      ratingProducts: ratingProducts.data
+    }
   }
 }

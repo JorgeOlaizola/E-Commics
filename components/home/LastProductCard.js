@@ -21,7 +21,7 @@ border:1px solid ${(props) => props.theme.colorLevel4};
 `
 const ImgContainer= styled.div`
 width:100%;
-height: 140px;
+height: 180px;
 border-bottom: 1px solid ${(props) => props.theme.colorLevel4};
 display:flex;
 justify-content:center;
@@ -29,46 +29,24 @@ justify-content:center;
 
 const ImageStyled = styled.img`
 max-width: 100%;
-max-height: 140px;
+max-height: 180px;
 `
 const PriceTitle = styled.h3`
 font-size:1.4rem;
-margin-bottom:25px;
-margin-top:20px;
+
+
 
 `
 const InfoLinkContainer = styled.div`
 width:80%;
-height:140px;
+
 margin:auto;
 display:flex;
 flex-direction: column;
 justify-content: space-around;
 `
-const StyledButton = styled(StyledLink)`
-margin-bottom: 5px;
-color: #FF0000;
-display: inline;
-padding-right: 2px;
-transition: 0.2s;
 
-&:hover {
-    color: #E10000;
-    padding-right: 7px;
-    transition: 0.2s;
-}
-`
 
-const ArrowSpan = styled.span`
-display: inline;
-padding-left: 2px;
-transition: 0.2s;
-color: #FF0000;
-&:hover {
-    padding-left: 7px;
-    transition: 0.2s;
-}
-`
 
 const LastPostedProductCard = ({product})=>{
     const router = useRouter()
@@ -80,18 +58,18 @@ const LastPostedProductCard = ({product})=>{
             </ImgContainer>
             <InfoLinkContainer>
                 <PriceTitle>$ {product.price}</PriceTitle>
-                    <span>
-                            {product.title}
-                    </span>
-                
+                   
               
                        
-                <div style={{marginTop:'5px'}}>
+                
 
                 <Link  href={'/detail/[productDetail]'} as={`/detail/${product._id}` } passHref>
-                                <StyledButton >ver detalle </StyledButton>
-                            </Link><ArrowSpan>→</ArrowSpan>
-                </div>
+                <StyledLink>
+                            {product.title}
+                    </StyledLink>
+                   
+                </Link>
+               
             </InfoLinkContainer>
 
         </MainContainer>

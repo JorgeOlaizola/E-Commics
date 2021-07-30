@@ -60,13 +60,13 @@ const CategoryCards =()=>{
         <h2> Categorías </h2>
         <StyledContainer>
             <Link href="/search" passHref><CardContainer id="60f0afc73bce402a68c46885" onClick={(e)=>{handleClick(e)}} src="/categories/comic0.png"/></Link>
-            <CardContainer id="60ec582df1b40a2644b17afe" onClick={(e)=>{handleClick(e)}} src="/categories/series0.png"/>
-            <CardContainer id="60f0afcd3bce402a68c46889" onClick={(e)=>{handleClick(e)}} src="/categories/movies0.png"/>
-            <CardContainer id="60f0afc33bce402a68c46883" onClick={(e)=>{handleClick(e)}} src="/categories/anime0.png"/>
-            <CardContainer id="60f0afca3bce402a68c46887" onClick={(e)=>{handleClick(e)}} src="/categories/manga0.png"/>
-            <CardContainer id="60ec583af1b40a2644b17b02" onClick={(e)=>{handleClick(e)}} src="/categories/rol0.png"/>
-            <CardContainer id="60ec5832f1b40a2644b17b00" onClick={(e)=>{handleClick(e)}} src="/categories/games0.png"/>
-            <CardContainer id="" onClick={(e)=>{handleClick(e)}} src="/categories/todo0.png"/>
+            <Link href="/search" passHref><CardContainer id="60ec582df1b40a2644b17afe" onClick={(e)=>{handleClick(e)}} src="/categories/series0.png"/></Link>
+            <Link href="/search" passHref><CardContainer id="60f0afcd3bce402a68c46889" onClick={(e)=>{handleClick(e)}} src="/categories/movies0.png"/></Link>
+            <Link href="/search" passHref><CardContainer id="60f0afc33bce402a68c46883" onClick={(e)=>{handleClick(e)}} src="/categories/anime0.png"/></Link>
+            <Link href="/search" passHref><CardContainer id="60f0afca3bce402a68c46887" onClick={(e)=>{handleClick(e)}} src="/categories/manga0.png"/></Link>
+            <Link href="/search" passHref><CardContainer id="60ec583af1b40a2644b17b02" onClick={(e)=>{handleClick(e)}} src="/categories/rol0.png"/></Link>
+            <Link href="/search" passHref><CardContainer id="60ec5832f1b40a2644b17b00" onClick={(e)=>{handleClick(e)}} src="/categories/games0.png"/></Link>
+            <Link href="/search" passHref><CardContainer id="" onClick={(e)=>{handleClick(e)}} src="/categories/todo0.png"/></Link>
         </StyledContainer>
         </>
     )

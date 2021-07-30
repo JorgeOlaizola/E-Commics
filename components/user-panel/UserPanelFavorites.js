@@ -56,8 +56,8 @@ const StyledButton = styled.button`
 
 const ProfileImg = styled.img`
     ${'' /* border-radius: 50%; */}
-    width: 150px;
-    height: 150px;
+    max-width: 150px;
+    max-height: auto;
     margin: 0 20px;
 `
 
@@ -72,6 +72,9 @@ justify-content: start;
 align-items: center;
 flex-wrap: wrap;
 justify-content: space-around;
+@media (max-width: 768px) {
+    width: 90%;
+    }
 `
 
 const ProductInfoConteiner = styled.div`
@@ -116,9 +119,6 @@ const HandleToggleFavorite = (userDataId, Fid) => {
 
     return (
         <StyledContainer>
-            <DataSection>
-                <h3>Favoritos</h3>
-            </DataSection>
             { userData.favorites.length ? userData.favorites.map(f => 
             <ProductConteiner key={f._id}>
                 <ProfileImg src={f.image[0]}></ProfileImg>

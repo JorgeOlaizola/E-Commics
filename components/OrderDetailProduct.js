@@ -6,12 +6,12 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 
 const ProductOrderConteiner = styled.div`
-width: 600px;
+max-width: 600px;
 display: flex;
 align-items: center;
 margin: 10px 0;
 padding: 5px;
-border: 1px solid #000
+border: 1px solid ${(props) => props.theme.colorLevel1};
 `
 
 const ProductImg = styled.img`
@@ -30,7 +30,7 @@ padding: 5px;
 `
 
 const StyledButton = styled.button`
-border: 1px solid #000;
+border: 1px solid ${(props) => props.theme.colorLevel1};
 font-size: 14px;
 background-color: transparent;
 padding: 3px;

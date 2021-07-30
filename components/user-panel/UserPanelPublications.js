@@ -13,6 +13,7 @@ import { useRouter } from 'next/router'
 const StyledContainer = styled.div`
     margin-top: 30px;
     width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -42,21 +43,28 @@ const StyledButton = styled.button`
 `
 
 const ProfileImg = styled.img`
-    width: 150px;
-    height: 150px;
+    ${'' /* border-radius: 50%; */}
+    max-width: 150px;
+    max-height: auto;
+    margin: 0 20px;
 `
 
 //Products styles
 
 const ProductConteiner = styled.div`
 width: 70%;
-height: 200px;
+height: 100%;
 border: 1px solid grey;
 display: flex;
 padding: 30px;
 margin: 10px;
 justify-content: start;
 align-items: center;
+flex-wrap: wrap;
+justify-content: space-around;
+@media (max-width: 768px) {
+    width: 90%;
+    }
 `
 
 //Product conteiner for the info
@@ -64,8 +72,11 @@ const ProductInfoConteiner = styled.div`
 display: flex;
 flex-direction: column;
 justify-content: center;
-align-items: center;
-width: 80%;
+align-items: left;
+width: 250px;
+@media (max-width: 557px) {
+    margin-top: 16px;
+}
 `
 
 const Advertise = styled.p`

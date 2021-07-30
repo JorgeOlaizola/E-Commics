@@ -57,9 +57,10 @@ const LastPostedProducts =({lastProducts})=>{
         <div style={{
             display:'flex',
             flexDirection:'column',
-            justifyContent:"center"
+            justifyContent:"center",
+            marginBottom: '30px'
         }}>
-                 <h2> Úlitimas publicaciones </h2>
+                 <h2> Novedades </h2>
                  <Slider {...settings}  >
                   {lastProducts && lastProducts.map(p=> (
                      <LastPostedProductCard key={p._id} product={p}></LastPostedProductCard>

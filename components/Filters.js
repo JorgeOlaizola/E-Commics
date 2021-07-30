@@ -6,6 +6,8 @@ import {
     searchByCategory, 
     searchByPriceMin,
     searchByPriceMax,
+    searchByScoreMin,
+    searchByScoreMax,
     resetFilters,
     getFilteredProducts } from '../store/actions/productActions'
 import { useEffect } from "react";
@@ -129,6 +131,10 @@ const Filters = ({userId}) => {
     const handlePrice = (e) => {
         if(e.target.value >= 0) e.target.name === 'min' ? dispatch(searchByPriceMin(e.target.value)) : dispatch(searchByPriceMax(e.target.value))
     }
+    
+    const handleRating = (e) => {
+        if(e.target.value >= 0) e.target.name === 'min' ? dispatch(searchByScoreMin(e.target.value)) : dispatch(searchByScoreMax(e.target.value))
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -175,6 +181,14 @@ const Filters = ({userId}) => {
                     <MinMaxDiv>
                         <input style={{width: '75px', fontSize: "0.8rem"}} type="number" name="min" placeholder="min" onChange={handlePrice}></input>
                         <input style={{width: '75px', fontSize: "0.8rem"}} type="number" name="max" placeholder="max" onChange={handlePrice}></input>
+                    </MinMaxDiv>
+                </CategoriesFilterCont>
+                <CategoriesFilterCont>
+                <EachFilterTitle>Rating</EachFilterTitle>
+                <EachFilterTitleRes>Rating</EachFilterTitleRes>
+                    <MinMaxDiv>
+                        <input style={{width: '75px', fontSize: "0.8rem"}} type="number" name="min" placeholder="min" onChange={handleRating}></input>
+                        <input style={{width: '75px', fontSize: "0.8rem"}} type="number" name="max" placeholder="max" onChange={handleRating}></input>
                     </MinMaxDiv>
                 </CategoriesFilterCont>
                 <GradientBorder>

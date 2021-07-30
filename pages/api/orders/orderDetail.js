@@ -27,7 +27,7 @@ export default nextConnect()
                     unit_price: p.unit_price,
                     title: p.title,
                     quantity: p.quantity,
-                    image: p.image[0].includes("&&") ? p.image[0].split("&&") : [p.image]
+                    image: p.image
                 }
             }),
             buyer: {

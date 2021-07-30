@@ -62,6 +62,21 @@ const CartCounter = styled.span`
     }
 `
 
+const NotifCounter = styled.span`
+  position: absolute;
+  font-family: ubuntu;
+  top: -8px;
+  left:-3px;
+  background: #E10000;
+  padding: 1px 4px;
+  border-radius: 50%;
+  color: #fff;
+  cursor: pointer;
+  &:hover{
+    background: #FF0000;
+    }
+`
+
 const ImgNotif = styled.img`
 width: 40px;
 height: 40px;
@@ -268,6 +283,7 @@ const UserMenu = () => {
                 <div>
             <MenuTrigger onClick={onClickNotif}>
               { userData.user.notifications.length > 0 ? <SuperNotificationFull /> : <SuperNotification />}
+              <div style={{position: "relative"}}>{userData.user.notifications.length ? <NotifCounter> {userData.user.notifications.length} </NotifCounter> : <></>}</div>
             </MenuTrigger>
             <NotifMenu
             style={{zIndex: '10'}}

@@ -5,11 +5,9 @@ import Container from '../components/Container'
 import SignInForm from '../components/SignInForm'
 import styled from 'styled-components';
 import LastPostedProducts from '../components/home/LastPostedProducts'
-
 import FeaturedProducts from '../components/home/FeaturedProducts'
-
 import HomeBanner from '../components/home/HomeBanner'
-
+import CategoryCards from '../components/home/CategoryCards'
 import axios from 'axios'
 
 const HomeImageDiv = styled.div`
@@ -34,6 +32,7 @@ const Home = ({lastProducts, ratingProducts}) => {
           <HomeBanner />
           <LastPostedProducts lastProducts={lastProducts}></LastPostedProducts>
           <FeaturedProducts ratingProducts={ratingProducts}></FeaturedProducts>
+          <CategoryCards></CategoryCards>
           {/* <Image src={'/ecommics-homecoming-500x600.jpg'} 
           alt="ecommics home coming soon!"
           layout="responsive"

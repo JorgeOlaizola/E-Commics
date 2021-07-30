@@ -76,7 +76,7 @@ margin: 10px;
 &:hover{
     box-shadow: 0 0 20px rgba(33,33,33,.2)
 }
-@media (max-width:500px){
+@media (max-width:700px){
     width:100%;
 }
 `
@@ -101,17 +101,17 @@ const ProductInfo = styled.div`
 display: flex;
 flex-direction: column;
 justify-content: center;
-align-items: flex-end;
+align-items: flex-start;
 flex-wrap: wrap;
-@media (max-width:500px){
+@media (max-width:418px){
     align-items: center;
 }
 `
 
 const Advertise = styled.p`
     color: ${(props) => props.theme.blueColor};
-    display: flex;
-    align-self: flex-end;
+    text-align: center;
+}
 `
 
 const UserPanelSellings = () => {
@@ -124,9 +124,7 @@ const UserPanelSellings = () => {
 
     return (
         <StyledContainer>
-             <DataSection>
-                <h3>Tus ventas</h3>
-            </DataSection>
+
 
             { sellerOrders ? 
             <>
@@ -170,7 +168,7 @@ const UserPanelSellings = () => {
                         :
                         <div>No hay ningún producto en esta orden</div>
                         }
-                        <h3 style={{alignSelf:'flex-end'}}>Monto total: {total}$</h3>
+                        <h3 style={{alignSelf:'center'}}>Monto total: {total}$</h3>
                         <Link href={`/orderDetail/[orderDetail]`} as={`/orderDetail/${order._id}`} passHref >
                             <p>
                                 <StyledLink>

@@ -126,7 +126,7 @@ const HandleToggleFavorite = (userDataId, Fid) => {
                 {/* <Link href={'/detail/[productDetail]'} as={`/detail/${f._id}` } passHref> */}
                     <h3>{f.title} </h3>
                 {/* </Link> */}
-                    <span> <strong>Precio:</strong> {f.price}$</span> 
+                    <span> <strong>Precio:</strong> ${f.price}</span> 
                     <span> <strong>Descripción:</strong> {f.description}</span>
                     <EraseButton style={{marginTop: "10px"}} onClick={() => HandleToggleFavorite(userData.id, f._id) } >Eliminar favorito</EraseButton>
                 </ProductInfoConteiner>

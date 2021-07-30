@@ -170,7 +170,7 @@ const UserPanelSellings = () => {
                         :
                         <div>No hay ningún producto en esta orden</div>
                         }
-                        <h3 style={{alignSelf:'flex-end'}}>Monto total: {total}$</h3>
+                        <h3 style={{alignSelf:'flex-end'}}>Monto total: ${total}</h3>
                         <Link href={`/orderDetail/[orderDetail]`} as={`/orderDetail/${order._id}`} passHref >
                             <p>
                                 <StyledLink>

@@ -69,17 +69,17 @@ export default function userReducer(state = initialState, action) {
                 ...state,
                 sellerOrders: action.payload
             }
-            case user.DELETE_NOTIFICATION:
-                return {
-                    ...state,
-                    userData: {
-                        ...state.userData,
-                        user: {
-                            ...state.userData.user,
-                            notifications: action.payload
-                        }
+        case user.DELETE_NOTIFICATION:
+            return {
+                ...state,
+                userData: {
+                    ...state.userData,
+                    user: {
+                        ...state.userData.user,
+                        notifications: action.payload
                     }
                 }
+            }
 
         default:
             return state;

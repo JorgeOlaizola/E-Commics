@@ -146,7 +146,7 @@ const UserPanelPublications = () => {
                     {/* <button onClick={() => router.push(`/detail/${p._id}`)}>Modificar</button> */}
                     </ProductInfoConteiner>
                 </ProductConteiner>
-            ) : <div>Todavía no tienes ningún producto</div> }
+            ) : <p>Todavía no tienes ningún producto</p> }
             <Link href="/addproduct" passHref >
                 <GradientBorder>
                     <Input>Crear publicacion</Input>

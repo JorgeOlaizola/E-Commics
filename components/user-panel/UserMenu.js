@@ -125,12 +125,20 @@ const UserMenu = () => {
     dispatch(deleteNotification(userid, notid))
   }
 
+  function countProductsCart(){
+    let product= 0;
+    if(cartItems.length){
+      cartItems.forEach((e)=>{
+        product += e.products.length
+      })
+      return product
+    }
+  }
 
 // function functiontoggle{
 //   theme === "light" ? "dark" : "light"
 //   themeToggle(payloadtheme)
 // }
-
   return (
     <div>
       <Modal signType={signType}
@@ -239,7 +247,7 @@ const UserMenu = () => {
         <Link href="/cart" passHref  >
           <div>
             <SuperCart />
-            <div style={{position: "relative"}}>{cartItems.length ? <CartCounter> {cartItems.length} </CartCounter> : <></>}</div>
+            <div style={{position: "relative"}}>{cartItems.length ? <CartCounter> {countProductsCart()} </CartCounter> : <></>}</div>
           </div>
         </Link>
         

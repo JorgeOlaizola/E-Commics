@@ -80,7 +80,6 @@ const PasswordReset = () => {
       ...input,
       [e.target.name]: e.target.value
     });
-    console.log(input)
     if(input.pass1 !== input.pass2) {
       setError("Las contraseñas no coinciden")
     } else {

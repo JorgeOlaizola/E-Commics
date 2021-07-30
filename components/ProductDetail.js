@@ -335,6 +335,14 @@ margin: 1rem;
 flex-direction: column;
 `
 
+const PriceDiscount = styled.del`
+color: gray;
+font-size: 1rem;
+`
+
+const DiscountSpan = styled.span`
+color: #3DCE65;
+`
 
 
 const ProductDetail = ({productData}) => {
@@ -419,11 +427,10 @@ const ProductDetail = ({productData}) => {
             } catch (error) {
                 console.log(error)
             } */
-            return router.push(`/detail/${productData._id}`)
+            setQuestion('')
 
         }
     }
-
     const buy = ()=>{
         if(userData && userData.id){
             dispatch(buyProduct({user: userData.id, quantity: 1, product:productData  }))
@@ -473,7 +480,7 @@ const ProductDetail = ({productData}) => {
     
     useEffect(() => {
         userData && dispatch(getFavorites(userData.id))
-    }, [userData, dispatch])
+    }, [dispatch])
 
     const HandleToggleFavorite = () => {
         dispatch(getFavorites(userData.id))
@@ -481,6 +488,8 @@ const ProductDetail = ({productData}) => {
         dispatch(getFavorites(userData.id))
  
     }
+
+    let star = "⭐"
 {/* <Link style={{textDecoration: 'underline'}} href={`/productsPerUser/[id]`} as={`/productsPerUser/${productData.user._id}` } passHref></Link> */}
 
     return (
@@ -522,19 +531,21 @@ const ProductDetail = ({productData}) => {
                         : 
                         <Title>{productData.title}</Title>
                         }
+                                                {
+                        userData && userData?.id === productData?.user._id && edit ? 
+                        <FormProductContainer><span style={{padding: "0px", flexGrow: 1}}>Descuento %</span><FormProductInput name="discount" onChange={(e)=>handleProductUpDate(e)} max="100" min="0" value={productUpDate.discount}/> </FormProductContainer>
+                        :
+                        <DiscountSpan>{productData.discount ? "Con un " + productData.discount + "% de descuento!" : "" }</DiscountSpan>
+                        }                  
                         {
                         userData && userData?.id === productData?.user._id && edit ? 
                         <FormProductContainer><span style={{padding: "0px", flexGrow: 1}}>Precio $</span><FormProductInput name="realprice" onChange={(e)=>handleProductUpDate(e)} min="1"  value={productUpDate.realprice}/> </FormProductContainer>
                         :
-
-                        <InfoText>${productData.price}</InfoText>
+                        (productData && productData.discount > 0 ? <InfoText><PriceDiscount>${productData.realprice}</PriceDiscount> <br/> ${productData.price}</InfoText> 
+                            : 
+                            <InfoText>${productData.price}</InfoText>) 
                         }       
-                        {
-                        userData && userData?.id === productData?.user._id && edit ? 
-                        <FormProductContainer><span style={{padding: "0px", flexGrow: 1}}>Descuento %</span><FormProductInput name="discount" onChange={(e)=>handleProductUpDate(e)} max="100" min="0" value={productUpDate.discount}/> </FormProductContainer>
-                        :
-                        <InfoText>{productData.discount ? "Con un " + productData.discount + "% de descuento!" : "" }</InfoText>
-                        }                  
+
                         {
                         userData && userData?.id === productData?.user._id && edit ? 
                         <FormProductContainer><span style={{padding: "0px", flexGrow: 1}}>Cantidad</span><FormProductInput name="stock" onChange={(e)=>handleProductUpDate(e)} value={productUpDate.stock}/> </FormProductContainer>
@@ -557,6 +568,9 @@ const ProductDetail = ({productData}) => {
                                 {productData.user.nickname}
                                 </StyledLink>
                             </UserStyledLink>
+                        </Description>
+
+                        <Description> <strong>Ubicación: </strong> {productData.user.location}
                         </Description>
 
                         <Description><strong>Categoría: </strong> 
@@ -588,7 +602,12 @@ const ProductDetail = ({productData}) => {
                              : 
                         productData.category.title
                         
-                        }</Description>
+                        }
+                        
+                        </Description>
+                        <Description> <strong>Rating: {star.repeat(Math.round(productData.rating))} </strong> ({productData.rating})
+                        </Description>
+
                          {
                         userData && userData?.id === productData?.user._id ? 
                             edit ?
@@ -704,7 +723,7 @@ const ProductDetail = ({productData}) => {
                                             </div>  
                                             <form
                                                 style={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center"}}
-                                                onSubmit={(e) => {handleSubmit(e); return router.push(`/detail/${productData._id}`)}}
+                                                onSubmit={(e) => {handleSubmit(e); alert('Realizaste la pregunta con éxito'); return router.push(`/detail/${productData._id}`)}}
                                             >
                                             <StyledInput 
                                                 rows="3"
@@ -735,7 +754,6 @@ const ProductDetail = ({productData}) => {
                         <div >
                             {productData.reviews && productData.reviews.length ? 
                             productData.reviews.map(r => {
-                                let star = "⭐"
                                 return <ReviewConteiner key={r._id}>{r.content} <p>{star.repeat(r.rating)}</p></ReviewConteiner>
                                 
                         })

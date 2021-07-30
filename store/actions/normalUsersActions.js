@@ -10,14 +10,35 @@ export function getUserData() {
         try {
             const localData = JSON.parse(localStorage.getItem("sessionSaved"));
             const loginVerification = await axios.get(`/api/users?token=${localData.token}`);
+            // GET NEW USER DATA
             if(loginVerification.data.login){
-                dispatch({ type: user.GET_USER_DATA, payload: localData})
+                axios.post('/api/users', { userID: localData.user.id})
+                .then(r => {
+                    localData.user = r.data
+                    localStorage.setItem("sessionSaved", JSON.stringify(localData));
+                    return dispatch({ type: user.GET_USER_DATA, payload: localData})
+                })
             }    
         } catch (error) {
             console.error(error)    
         }
     }
 }
+
+// export function getUserData() {
+//     return async function(dispatch) {
+//         try {
+//             const localData = JSON.parse(localStorage.getItem("sessionSaved"));
+//             const loginVerification = await axios.get(`/api/users?token=${localData.token}`);
+//             if(loginVerification.data.login){
+//                 dispatch({ type: user.GET_USER_DATA, payload: localData})
+//             }    
+//         } catch (error) {
+//             console.error(error)    
+//         }
+//     }
+// }
+
 
 export function signIn(userData, cart) {
     return async function(dispatch) {
@@ -124,6 +145,7 @@ export function getFavorites (userID) {
             const localData = JSON.parse(localStorage.getItem("sessionSaved"));
             axios.get(`/api/users/favorites?token=${localData.token}&userID=${userID}`)
             .then((r) => dispatch({ type: user.GET_FAVORITES, payload: r.data }))
+            .catch((err) => console.error(err))
 
         } catch (error) {
             console.error(error)    

@@ -11,8 +11,8 @@ const CardsContainer = styled.main`
     flex-direction: row;
     flex-wrap: wrap;
     margin-left: 16px;
+    justify-content: center;
     @media (max-width: 900px) {
-        justify-content: center;
         margin-left: 0px;
     }
 `;
@@ -21,6 +21,19 @@ const LoaderContainer = styled.div`
     display: flex;
     justify-content: center;
     margin-top: 50px;
+`;
+
+const Title = styled.h1`
+    ${"" /* font-size: 2rem; */}
+    ${"" /* font-weight: bold; */}
+    margin: 20px 0;
+    @media (max-width: 914px) {
+        ${"" /* display: none; */}
+    }
+`;
+
+const DivTitle = styled.div`
+    text-align: center;
 `;
 
 const NewslettersView = () => {
@@ -34,13 +47,14 @@ const NewslettersView = () => {
     if (newsletters === undefined) {
         return (
             <LoaderContainer>
-                <PacmanLoader color={"#000"} size={40} />
+                <PacmanLoader color={"#FFE100"} css={{border: "1px solid black"}} size={40}/>
             </LoaderContainer>
         )
     }
 
     return (
         <div>
+            <DivTitle><Title>Noticias E-Commics</Title></DivTitle>
             <CardsContainer>
                 {newsletters.length > 0 ? (
                     newsletters.map((news) => (

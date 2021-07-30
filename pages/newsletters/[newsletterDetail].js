@@ -19,11 +19,10 @@ export async function getServerSideProps(context) {
   const { newsletterDetail } = params;
   const ABSOLUTE_URL = process.env.ABSOLUTE_URL;
 
-  const callProductData = await axios.get(
-    `${process.env.ABSOLUTE_URL}/api/newsletter?id=${newsletterDetail}`
+  const callNewsletterData = await axios.get(
+    `${ABSOLUTE_URL}/api/newsletter?id=${newsletterDetail}`
   );
-  const newsletterData = callProductData.data;
-
+  const newsletterData = callNewsletterData.data;
   return {
     props: { newsletterData },
   };

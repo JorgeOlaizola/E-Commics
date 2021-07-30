@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { useDispatch } from "react-redux";
-import { getNewsletterDetail } from "../store/actions/newsletterActions";
 import styled from "styled-components";
 import { StyledLink } from "./globalStyle";
 
@@ -59,6 +58,11 @@ const CardNewsletterTitle = styled.h4`
     cursor: pointer;
 `;
 
+const CardNewsletterSubTitle = styled.h6`
+    ${"" /* font-size:1.2rem; */}
+    margin-top: 0px;
+`;
+
 const StyledButton = styled(StyledLink)`
     margin-bottom: 5px;
     color: #ff0000;
@@ -113,19 +117,19 @@ const Newsletter = ({ id, title, content, author, img }) => {
                             <CardNewsletterTitle> {title} </CardNewsletterTitle>
                         </div>
                     </Link>
+                    <div>
+                        <CardNewsletterSubTitle>
+                            {" "}
+                            Autor: {author}{" "}
+                        </CardNewsletterSubTitle>
+                    </div>
                     <DontMove>
                         <Link
                             href={"/newsletters/[newsletterDetail]"}
                             as={`/newsletters/${id}`}
                             passHref
                         >
-                            <StyledButton
-                                onClick={() =>
-                                    dispatch(getNewsletterDetail(id))
-                                }
-                            >
-                                Leer completa{" "}
-                            </StyledButton>
+                            <StyledButton>Leer completa</StyledButton>
                         </Link>
                         <ArrowSpan>→</ArrowSpan>
                     </DontMove>

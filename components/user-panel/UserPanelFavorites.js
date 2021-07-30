@@ -105,7 +105,7 @@ const UserPanelFavorites = () => {
         //     window.location.href = "/"
         // }
         dispatch(getFavorites(userData.id))
-}, []);
+}, [dispatch]);
 
 const HandleToggleFavorite = (userDataId, Fid) => {
     

@@ -268,7 +268,7 @@ const Product = (props) => {
                             <IconContainer>
                                 { 
                                 userData && userData.favorites.length && userData.favorites.some(obj => obj._id === props.id) ? <HeartIconSolid onClick={HandleToggleFavorite} className="addFavIcon"/>
-                                : userData ? <HeartIconOutline onClick={HandleToggleFavorite} className="addFavIcon"/> 
+                                : userData ? <HeartIconOutline onClick={(e)=>HandleToggleFavorite()} className="addFavIcon"/> 
                                 : <></>
                                 }
                             </IconContainer>

@@ -47,7 +47,7 @@ const FeaturedProducts =({ratingProducts})=>{
             flexDirection:'column',
             justifyContent:"center"
         }}>
-                 <h2> Úlitimas publicaciones </h2>
+                 <h2> Mas valorados </h2>
                  <Slider {...settings}  >
                      {ratingProducts && ratingProducts.map(p=>(
                          <FeaturedProductCard key={p._id} product={p}></FeaturedProductCard>

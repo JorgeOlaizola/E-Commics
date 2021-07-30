@@ -2,6 +2,7 @@ import dbConnect from '../../../utils/dbConnect'
 import nextConnect from 'next-connect'
 import Order from '../../../server/models/Order'
 import User from '../../../server/models/User'
+import { buyDispatch, buyDoneSeller, buyDoneBuyer } from '../../../utils/emailService'
 
 export default nextConnect()
 
@@ -103,6 +104,15 @@ export default nextConnect()
 
                 await buyer.save()
             }
+
+            //--EMAIL
+            const data = {
+                buyer: buyer,
+                seller: seller.nickname,
+                order: `${process.env.ABSOLUTE_URL}/orderDetail/${order._id}`
+            }
+            buyDispatch(data)
+
             //--RESPONSE
             return res.json(order)
         }
@@ -126,6 +136,16 @@ export default nextConnect()
 
                 await seller.save()
             }
+
+            //EMAIL
+            const data = {
+                buyer: buyer,
+                seller: seller,
+                order: `${process.env.ABSOLUTE_URL}/orderDetail/${order._id}`
+            }
+            buyDoneBuyer(data)
+            buyDoneSeller(data)
+
             //--RESPONSE
             return res.json(order)
         }

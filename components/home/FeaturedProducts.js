@@ -45,9 +45,10 @@ const FeaturedProducts =({ratingProducts})=>{
         <div style={{
             display:'flex',
             flexDirection:'column',
-            justifyContent:"center"
+            justifyContent:"center",
+            marginBottom: '30px'
         }}>
-                 <h2> Mas valorados </h2>
+                 <h2>Destacados</h2>
                  <Slider {...settings}  >
                      {ratingProducts && ratingProducts.map(p=>(
                          <FeaturedProductCard key={p._id} product={p}></FeaturedProductCard>

@@ -289,3 +289,96 @@ export const sendFailureEmail = (arg) => {
        console.error(error)
      })
 }
+
+export const buyDispatch = async(data) => {
+   const msg = {
+      from:{
+         email: "ecommics@gmail.com"
+      },
+      personalizations: [
+         {
+            to:[
+               {
+                  email: data.buyer.email,
+               }
+            ],
+            dynamic_template_data:{
+               buyer: data.buyer.nickname,
+               seller: data.seller,
+               order: data.order
+            }
+         }
+      ],
+      template_id: "d-ab246e0ac1284b00aada6f4e4b276c62"
+   }
+   sgMail
+   .send(msg)
+   .then(() => {
+     console.log('Correo enviado')
+   })
+   .catch((error) => {
+     console.error(error)
+   })
+}
+
+export const buyDoneSeller = async(data) => {
+   const msg = {
+      from:{
+         email: "ecommics@gmail.com"
+      },
+      personalizations: [
+         {
+            to:[
+               {
+                  email: data.seller.email,
+               }
+            ],
+            dynamic_template_data:{
+               buyer: data.buyer.nickname,
+               seller: data.seller.nickname,
+               order: data.order
+            }
+         }
+      ],
+      template_id: "d-36ca6f7326fd4b12b6acedc444d37331"
+   }
+   sgMail
+   .send(msg)
+   .then(() => {
+     console.log('Correo enviado')
+   })
+   .catch((error) => {
+     console.error(error)
+   })
+}
+
+export const buyDoneBuyer = async(data) => {
+   const msg = {
+      from:{
+         email: "ecommics@gmail.com"
+      },
+      personalizations: [
+         {
+            to:[
+               {
+                  email: data.buyer.email,
+               }
+            ],
+            dynamic_template_data:{
+               buyer: data.buyer.nickname,
+               seller: data.seller.nickname,
+               order: data.order
+            }
+         }
+      ],
+      template_id: "d-9f5632e8834f449c917739781f85907e"
+   }
+   sgMail
+   .send(msg)
+   .then(() => {
+     console.log('Correo enviado')
+   })
+   .catch((error) => {
+     console.error(error)
+   })
+}

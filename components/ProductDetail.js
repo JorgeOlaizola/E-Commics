@@ -122,7 +122,7 @@ const InfoTitle = styled.h2`
 
 const InfoText = styled.p`
     font-size: 1.5rem;
-    margin-bottom: 20px;
+    
 `
 
 const Description = styled.p`

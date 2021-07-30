@@ -48,6 +48,7 @@ margin-top: 50px;
 `
 
 const Products = (props) => {
+    
     const dispatch = useDispatch();
     const products = useSelector(state => state.product.products);
     const filters = useSelector(state => state.product.filters);

@@ -279,13 +279,13 @@ const Product = (props) => {
     // productData && productData.discount > 0 ? <InfoText><PriceDiscount>${productData.realprice}</PriceDiscount> <br/> ${productData.price}</InfoText> 
     //                         : 
     //                         <InfoText>${productData.price}</InfoText>
-    console.log("wn products", props)
+    
 
 
     return (
         <>
                 <CardContainer>
-                    {props.discount !== 0 && <AlertDiscount><p style={{fontSize: '0.8rem'}} >%{props.discount}</p> </AlertDiscount>  }
+                    {props.discount !== 0 && <AlertDiscount><p style={{fontSize: '0.6rem'}} >Hoy %{props.discount}</p> </AlertDiscount>  }
                 <Link href={'/detail/[productDetail]'} as={`/detail/${props.id}` } passHref>
                     <ImageContainer imgUrl={image}>
                         <DivParaSafar>

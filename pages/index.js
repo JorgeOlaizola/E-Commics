@@ -5,6 +5,7 @@ import Container from '../components/Container'
 import SignInForm from '../components/SignInForm'
 import styled from 'styled-components';
 import LastPostedProducts from '../components/home/LastPostedProducts'
+import HomeBanner from '../components/home/HomeBanner'
 import axios from 'axios'
 
 const HomeImageDiv = styled.div`
@@ -26,6 +27,7 @@ const Home = ({lastProducts}) => {
         {/* E-Commics
         Home */}
         <HomeImageDiv >
+          <HomeBanner />
           <LastPostedProducts lastProducts={lastProducts}></LastPostedProducts>
           {/* <Image src={'/ecommics-homecoming-500x600.jpg'} 
           alt="ecommics home coming soon!"

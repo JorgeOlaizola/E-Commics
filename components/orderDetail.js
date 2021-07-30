@@ -90,6 +90,7 @@ height: 10px;
 const OrderDetailComponent = ({ orderProps }) => {
     
     const router = useRouter()
+    console.log(orderProps.products)
     // const userData = useSelector(state => state.user.userData.user)
     const [userData, setUserData] = useState('')
     const [userRole, setUserRole] = useState("")

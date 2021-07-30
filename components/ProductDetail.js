@@ -341,7 +341,8 @@ font-size: 1rem;
 `
 
 const DiscountSpan = styled.span`
-color: #3DCE65;
+color: #FF0000;
+font-size:1rem;
 `
 
 
@@ -535,7 +536,7 @@ const ProductDetail = ({productData}) => {
                         userData && userData?.id === productData?.user._id && edit ? 
                         <FormProductContainer><span style={{padding: "0px", flexGrow: 1}}>Descuento %</span><FormProductInput name="discount" onChange={(e)=>handleProductUpDate(e)} max="100" min="0" value={productUpDate.discount}/> </FormProductContainer>
                         :
-                        <DiscountSpan>{productData.discount ? "Con un " + productData.discount + "% de descuento!" : "" }</DiscountSpan>
+                        <DiscountSpan>{productData.discount ? "Hoy " + productData.discount + "% de descuento!" : "" }</DiscountSpan>
                         }                  
                         {
                         userData && userData?.id === productData?.user._id && edit ? 
@@ -605,7 +606,7 @@ const ProductDetail = ({productData}) => {
                         }
                         
                         </Description>
-                        <Description> <strong>Rating: {star.repeat(Math.round(productData.rating))} </strong> ({productData.rating})
+                        <Description style={productData.rating === 0 ? {display:'none'}: {}}> <strong>Rating: {star.repeat(Math.round(productData.rating))} </strong> ({productData.rating})
                         </Description>
 
                          {

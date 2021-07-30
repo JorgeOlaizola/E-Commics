@@ -5,13 +5,7 @@ import Newsletter from "./Newsletter";
 import styled from "styled-components";
 import Link from "next/link";
 import Image from "next/image";
-import {
-    StyledLink,
-    Input,
-    GradientBorder,
-    BuyButton,
-    EraseButton,
-} from "./globalStyle";
+import { StyledLink } from "./globalStyle";
 import { showModalAlert } from "../store/actions/modalAlertActions";
 
 const Father = styled.div`
@@ -228,10 +222,10 @@ const NewslettersDetail = ({ newsletterData }) => {
                     <CardsContainer>
                         {newsletters?.length > 0 ? (
                             newsletters.slice(0, 3).map((news) => (
-                                <CardContainer>
+                                <CardContainer key={news._id}>
                                     <Link
                                         href={"/newsletters/[newsletterDetail]"}
-                                        as={`/newsletters/${news.id}`}
+                                        as={`/newsletters/${news._id}`}
                                         passHref
                                     >
                                         <div>
@@ -247,7 +241,7 @@ const NewslettersDetail = ({ newsletterData }) => {
                                     <DontMove>
                                         <Link
                                             href={"/newsletters/[newsletterDetail]"}
-                                            as={`/newsletters/${news.id}`}
+                                            as={`/newsletters/${news._id}`}
                                             passHref
                                         >
                                             <StyledButton>Leer completa</StyledButton>

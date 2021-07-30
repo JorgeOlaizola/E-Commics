@@ -36,7 +36,7 @@ flex-direction: column;
 
 const LastPostedProductCard = ({product})=>{
     const router = useRouter()
-    console.log("en las product", product)
+   
     return (
         <MainContainer>
             <ImgContainer>

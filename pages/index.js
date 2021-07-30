@@ -44,7 +44,7 @@ export default Home;
 export async function getServerSideProps(context){
   const ABSOLUTE_URL = process.env.ABSOLUTE_URL
   const LastPostedProductscall = await axios.get(`${ABSOLUTE_URL}/api/products/home`)
-  console.log("en el serverside", LastPostedProductscall.data)
+  
   return {
     props: { lastProducts: LastPostedProductscall.data}
   }

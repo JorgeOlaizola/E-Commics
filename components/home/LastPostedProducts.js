@@ -4,7 +4,7 @@ import LastPostedProductCard from "./LastProductCard";
 
 
 const LastPostedProducts =({lastProducts})=>{
-    console.log(lastProducts)
+    
     const settings = {
                dots: true,
                infinite: false,
@@ -55,7 +55,7 @@ const LastPostedProducts =({lastProducts})=>{
                  <h2> Úlitimas publicaciones </h2>
                  <Slider {...settings}  >
                   {lastProducts && lastProducts.map(p=> (
-                     <LastPostedProductCard product={p}></LastPostedProductCard>
+                     <LastPostedProductCard key={p._id} product={p}></LastPostedProductCard>
                   ))}
                  </Slider>
                </div>

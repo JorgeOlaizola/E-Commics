@@ -58,7 +58,13 @@ const ResFindButton = styled.button`
 border: none; 
 height: 25px;
 cursor: pointer;
-margin-right: 15px;
+margin-right: 10px;
+background: none;
+`
+
+const ResFaSearch = styled(FaSearch)`
+  color: ${(props) => props.theme.fontColor};
+  width: 30px;
 `
 
 const FindDivResp = styled.div`
@@ -163,11 +169,11 @@ const Find = ({ResNavFalse, ToogleResFind, resFind}) => {
             }
           </datalist>
           <ResFindButton type="submit" >
-              <FaSearch className="findIcon"/>
+              <ResFaSearch className="findIcon" />
               {/* <i class="fa fa-trash-o" aria-hidden="true"></i> */}
           </ResFindButton>
-          <CancelButton onClick={()=> ResNavFalse()} >
-              <GiCancel/>
+          <CancelButton onClick={()=> ResNavFalse()} style={{padding: "5px",margin: "0 5px"}}>
+              <GiCancel />
           </CancelButton>
         </FindDivResp>}
 

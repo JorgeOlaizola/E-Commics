@@ -46,7 +46,7 @@ const FeaturedProducts =({ratingProducts})=>{
             display:'flex',
             flexDirection:'column',
             justifyContent:"center",
-            marginBottom: '30px'
+            marginBottom: '50px'
         }}>
                  <h2>Destacados</h2>
                  <Slider {...settings}  >

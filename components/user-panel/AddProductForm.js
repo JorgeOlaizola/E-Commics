@@ -53,12 +53,25 @@ border : none;
 border-bottom: 1px solid #80808059;
 font-size:1rem;
 margin-top: 0.2rem;
+font-family: roboto;
 `
 const ImageInput = styled.input`
 display: none;
 `
 const ImageLabel = styled.label`
-    cursor: pointer;
+background: none;
+color: ${(props) => props.theme.fontColor};
+border: 1px solid ${(props) => props.theme.blueColorHover};
+cursor: pointer;
+font-size: 0.75rem;
+font-family: ubuntu;
+font-weight: 300;
+padding: 6px;
+margin: 20px 5px 0px 5px;
+&:hover {
+        color: ${(props) => props.theme.body};
+        background: ${(props) => props.theme.blueColorHover};
+    }
 `
 const ButtonForm = styled.button`
 padding: 0.5rem 1rem;
@@ -309,7 +322,7 @@ const AddProductForm = () => {
                 :
                 <DivContainer>
                     <Space/>
-                    <PacmanLoader color={"#000"} size={30}/>
+                    <PacmanLoader color={"#FFE100"} size={30}/>
                 </DivContainer>
             }
         </>

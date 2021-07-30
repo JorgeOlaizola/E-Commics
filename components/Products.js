@@ -48,6 +48,7 @@ margin-top: 50px;
 `
 
 const Products = (props) => {
+    
     const dispatch = useDispatch();
     const products = useSelector(state => state.product.products);
     const filters = useSelector(state => state.product.filters);
@@ -56,9 +57,9 @@ const Products = (props) => {
     
     useEffect(() => {
         dispatch(getFilteredProducts(filters));
-        return () => {
-            dispatch(resetFilters());
-        }
+        // return () => {
+        //     dispatch(resetFilters());
+        // }
     }, [dispatch]
     )
     
@@ -74,6 +75,7 @@ const Products = (props) => {
             <PacmanLoader color={"#FFE100"} css={{border: "1px solid black"}} size={40}/>
         </LoaderContainer>
     )
+    
 
     return (
         
@@ -84,7 +86,7 @@ const Products = (props) => {
                 {productsOfOneUser ? 
                 productsOfOneUser.map(p => <Product key={p._id} id = {p._id} userID={p.user._id} user={p.user.nickname} category={p.category.title} image={p.image} title={p.title} price={p.price} />) 
                 :
-                products.length !== 0 ? products.map(p => <Product key={p._id} stock={p.stock} id ={p._id} userID={p.user._id} user={p.user.nickname} category={p.category.title} image={p.image} title={p.title} price={p.price} />)
+                products.length !== 0 ? products.map(p => <Product key={p._id} stock={p.stock} id ={p._id} userID={p.user._id} user={p.user.nickname} category={p.category.title} image={p.image} title={p.title} price={p.price} discount={p.discount} realprice={p.realprice}/>)
                 :
                 <h2 >Lo siento nadie ha publicado lo que buscas</h2>    
                       

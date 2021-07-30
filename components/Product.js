@@ -30,6 +30,7 @@ flex-direction: column;
 justify-content: flex-start;
 width: 280px;
 height:400px;
+position:relative;
 ${'' /* box-shadow: 0 0 11px rgba(33,33,33,.2); */}
 &:hover {
     box-shadow: 0 0 20px rgba(33,33,33,.2);
@@ -39,6 +40,21 @@ ${'' /* box-shadow: 0 0 11px rgba(33,33,33,.2); */}
 @media (max-width: 320px) {
     margin: 0.6rem 0;
     }
+`
+const AlertDiscount = styled.div`
+width:3rem;
+height: 1.2rem;
+color: white;
+font-size: 0.5rem;
+
+background-color: #FF0000;
+z-index:15000;
+position: absolute;
+top: 0px;
+right: 0px;
+display:flex;
+justify-content: center;
+align-items:center;
 `
 
 
@@ -93,7 +109,14 @@ const CardProductTitle = styled.h4`
 ${'' /* font-size:1.2rem; */}
 margin-top: 10px;
 cursor: pointer;
-
+@supports (-webkit-line-clamp: 2) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: initial;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
 `
 
 //Styled link button
@@ -162,7 +185,23 @@ cursor: not-allowed;
 const DontMove = styled.div`
 position: relative;
 `
+const PriceDiscount = styled.del`
+color: gray;
+font-size: 1rem;
+margin:0;
+`
+const InfoText = styled.div`
+   width:100%;
+   display:flex;
+   align-items: center;
+   
+`
+const PriceTitleDos = styled.h3`
+margin-left:5px;
 
+cursor: pointer;
+
+`
 
   
 const Product = (props) => {
@@ -244,11 +283,16 @@ const Product = (props) => {
             return dispatch(addItem(productOrder))
         }
     }
+    // productData && productData.discount > 0 ? <InfoText><PriceDiscount>${productData.realprice}</PriceDiscount> <br/> ${productData.price}</InfoText> 
+    //                         : 
+    //                         <InfoText>${productData.price}</InfoText>
+    
 
 
     return (
         <>
                 <CardContainer>
+                    {props.discount !== 0 && <AlertDiscount><p style={{fontSize: '0.6rem'}} >Hoy %{props.discount}</p> </AlertDiscount>  }
                 <Link href={'/detail/[productDetail]'} as={`/detail/${props.id}` } passHref>
                     <ImageContainer imgUrl={image}>
                         <DivParaSafar>
@@ -260,7 +304,10 @@ const Product = (props) => {
                     <ContainerDetail>
                     <Link href={'/detail/[productDetail]'} as={`/detail/${props.id}` } passHref>
                         <div>
-                            <PriceTitle>${props.price}</PriceTitle> 
+                            {props.discount !== 0 ? (<InfoText><PriceDiscount>${props.realprice}</PriceDiscount>  <PriceTitleDos> ${props.price}</PriceTitleDos></InfoText>) 
+                             : 
+                          (<PriceTitle>${props.price}</PriceTitle>)} 
+                            
                             <CardProductTitle> {props.title}  </CardProductTitle>
                         </div>
                     </Link>

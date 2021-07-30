@@ -72,7 +72,37 @@ export default nextConnect()
             let productDB = await Product.findById(product._id)
             if(!product.user || !productDB.user.equals(product.user._id)) {
                 return res.json({error_msg:"El usuario no es válido"})
-            } 
+            }
+
+            //---SENDING NOTIFICATION
+            if(product.discount !== productDB.discount && product.discount > 0){
+                //FIND ALL USERS
+                const users = await User.find({}).exec()
+                //FIND USERS THAT HAVE THAT PRODUCT IN FAVORITES
+                let usersToNotif = users.filter(u => {
+                    if(u.favorites.includes(productDB._id)){
+                        return u
+                    }
+                })
+                //SEND NOTIFICATION TO USERS
+                usersToNotif.map(async (u) => {
+                    let userNotif = await User.findById(u._id).exec()
+                    if(userNotif){
+                        const notification = {
+                            img: 'https://res.cloudinary.com/jorgeleandroolaizola/image/upload/v1627662758/Notifications%20eccomics/Discount_v9omev.png',
+                            content: `¡El producto ${productDB.title} ahora tiene un ${product.discount}% de descuento!`,
+                            link: `/detail/${productDB._id}`
+                        }
+                        userNotif.notifications.unshift(notification)
+                        if(userNotif.notifications.length > 5){
+                            userNotif.notifications.pop()
+                        }
+                        await userNotif.save()
+                    }
+                })
+            }
+
+            //--- CHECKING CHANGES
             if (product.category?._id) productDB.category = product.category._id
             if (product.title) productDB.title = product.title
             if (product.description) productDB.description = product.description
@@ -81,7 +111,10 @@ export default nextConnect()
             if (product.realprice) productDB.realprice = product.realprice
             if(product.discount) productDB.discount = product.discount
             productDB.price = productDB.applyDiscount(productDB.realprice, productDB.discount)
+            
             await productDB.save()
+
+
             return res.send(productDB)
         }
         catch (error) {

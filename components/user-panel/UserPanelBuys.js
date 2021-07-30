@@ -128,9 +128,6 @@ const UserPanelBuys = () => {
 
     return (
         <StyledContainer>
-            <DataSection>
-                <h3>Tus compras</h3>
-            </DataSection>
             { buyersOrders ?
             <>
              <OrderFilters ordersCase="buyerOrders" userId={userData.id} eachCase="buyer"/>

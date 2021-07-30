@@ -17,7 +17,7 @@ const StyledContainer = styled.div`
 `
 
 const DataSection = styled.div`
-    width: 60%;
+    width: 70%;
     display: flex;
     margin: 20px 0;
     border-style: solid;
@@ -25,6 +25,9 @@ const DataSection = styled.div`
     padding: 5px;
     flex-wrap: wrap;
     justify-content: space-around;
+    @media (max-width: 768px) {
+    width: 90%;
+    }
 `
 
 

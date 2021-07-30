@@ -61,6 +61,25 @@ ${'' /* border: 1px solid white; */}
     transform: translateY(0);}
 `
 
+export const NotifMenu = styled.nav`
+background: ${(props) => props.theme.backgroundLevel2};
+/* border-radius: 8px; */
+position: absolute;
+top: 40px;
+right: 0px;
+width: 270px;
+padding-bottom: 5px;
+box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+opacity: 0;
+visibility: hidden;
+transform: translateY(-20px);
+transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+${'' /* border: 1px solid white; */}
+&:active{ opacity: 1;
+    visibility: visible;
+    transform: translateY(0);}
+`
+
 export const MenuUl =styled.ul` 
     list-style: none;
     padding: 0;
@@ -89,6 +108,19 @@ export const MenuButton = styled(StyledLink)`
     color: #202020;
     }
 `
+export const NotifMenuButton = styled(StyledLink)`
+    color: ${(props) => props.theme.fontColor};
+    padding: 5px 20px;
+    display: block;
+    border: none;
+    &:hover{
+    color: #0096FF;
+    }
+    &:active{
+    color: #202020;
+    }
+`
+
 //On close button Notifications
 export const ButtonOnClose = styled.button`
     border:none;

@@ -10,7 +10,7 @@ import React, {useState} from 'react';
 import { 
   emptyCart  
 } from '../../store/actions/cartActions'
-import {MenuContainer, MenuTrigger, MenuTriggerSpan, MenuTriggerImg, Menu, MenuUl, MenuLi, MenuButton, MenuButtonSwitch, ButtonOnClose} from './UserStyles';
+import {MenuContainer, MenuTrigger, MenuTriggerSpan, MenuTriggerImg, Menu, NotifMenu, MenuUl, MenuLi, MenuButton, MenuButtonSwitch, ButtonOnClose, NotifMenuButton} from './UserStyles';
 import { LigthDarkThemeDiv, OptionButton, StyledLink } from '../globalStyle';
 import styled from 'styled-components'
 import { SearchIcon, ShoppingCartIcon } from '@heroicons/react/outline';
@@ -64,14 +64,14 @@ const CartCounter = styled.span`
 
 const ImgNotif = styled.img`
 width: 40px;
-height: auto;
+height: 40px;
 
 `
 const NotifContainer = styled.div`
 width:100%;
 height: 100%;
-margin-top:1rem;
-margin-bottom:1rem;
+margin-top: 1rem;
+margin-bottom:0.5rem;
 display:flex;
 flex-direction: column;
 align-items:center;
@@ -124,7 +124,6 @@ const UserMenu = () => {
   function handleOnCloseNotifications(userid, notid){
     dispatch(deleteNotification(userid, notid))
   }
-
 
 
 // function functiontoggle{
@@ -251,9 +250,9 @@ const UserMenu = () => {
                 :
                 <div>
             <MenuTrigger onClick={onClickNotif}>
-              { true ? <SuperNotificationFull /> : <SuperNotification />}
+              { userData.user.notifications.length > 0 ? <SuperNotificationFull /> : <SuperNotification />}
             </MenuTrigger>
-            <Menu
+            <NotifMenu
             style={{zIndex: '10'}}
             ref={dropdownNot}
             className={`menu ${isNotif ? "active" : "inactive"}`}
@@ -262,7 +261,7 @@ const UserMenu = () => {
             
             <MenuUl>
             <MenuSignNotif></MenuSignNotif>
-            { userData && userData.user.notifications ?
+            { userData && userData.user.notifications.length > 0 ?
               userData.user.notifications.map(n => {
                 return (
                   <MenuLi key={n._id}>
@@ -272,28 +271,26 @@ const UserMenu = () => {
                       >
                         <span style={{fontSize:'1rem'}}>x</span>
                       </ButtonOnClose>
-                      <MenuButton onClick={()=> router.push(`${n.link}`)}>{n.content}</MenuButton>
+                      <div style={{display: "flex", justifyContent: "flex-start", alignItems: "center"}}>
                       <ImgNotif src={n.img}/>
+                        <NotifMenuButton onClick={()=> router.push(`${n.link}`)}>{n.content}</NotifMenuButton>
+                        
+                      </div>
                     </NotifContainer>
 
                   </MenuLi>
                 )
               })
-            :
+            : 
             <MenuLi>
+              <NotifContainer>
                     <MenuButton>No tienes notificaciones</MenuButton>
+              </NotifContainer>
             </MenuLi>
-            }
-                  
-                  {/* <MenuLi>
-                    <MenuButton>Notificación 02</MenuButton>
-                  </MenuLi>
-                  <MenuLi>
-                    <MenuButton>Notificación 03</MenuButton>
-                  </MenuLi> */}
-              
+          }
+
             </MenuUl>
-            </Menu>
+            </NotifMenu>
             </div>
             }
 

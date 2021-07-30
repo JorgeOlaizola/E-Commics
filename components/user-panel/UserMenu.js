@@ -125,6 +125,15 @@ const UserMenu = () => {
     dispatch(deleteNotification(userid, notid))
   }
 
+  function countProductsCart(){
+    let product= 0;
+    if(cartItems.length){
+      cartItems.forEach((e)=>{
+        product += e.products.length
+      })
+      return product
+    }
+  }
 
 // function functiontoggle{
 //   theme === "light" ? "dark" : "light"
@@ -159,12 +168,20 @@ const UserMenu = () => {
                   height={'25px'}
                 />
                   :
-                  <Image 
-                  src="https://ecommics.s3.sa-east-1.amazonaws.com/images/superuser.png"
-                  alt="User avatar"
-                  width={'25px'}
-                  height={'25px'}
-                />
+                  <div>
+                    <Image 
+                    className="avatar" 
+                    src={userData.user.avatar}
+                    alt="User avatar"
+                    width={'25px'}
+                    height={'25px'}
+                    />
+                    <style jsx global>{`
+                      .avatar {
+                        border-radius: 50%;
+                      }
+                    `}</style>
+                  </div>
                 }
 
             </MenuTrigger>
@@ -239,7 +256,7 @@ const UserMenu = () => {
         <Link href="/cart" passHref  >
           <div>
             <SuperCart />
-            <div style={{position: "relative"}}>{cartItems.length ? <CartCounter> {cartItems.length} </CartCounter> : <></>}</div>
+            <div style={{position: "relative"}}>{cartItems.length ? <CartCounter> {countProductsCart()} </CartCounter> : <></>}</div>
           </div>
         </Link>
         

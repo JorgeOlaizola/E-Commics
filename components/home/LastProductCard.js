@@ -29,7 +29,8 @@ justify-content:center;
 
 const ImageStyled = styled.img`
 max-width: 100%;
-max-height: 180px;
+max-height: 100%;
+object-fit: contain;
 `
 const PriceTitle = styled.h3`
 font-size:1.4rem;
@@ -57,7 +58,7 @@ const LastPostedProductCard = ({product})=>{
                 <ImageStyled src={product.image[0]}></ImageStyled>
             </ImgContainer>
             <InfoLinkContainer>
-                <PriceTitle>$ {product.price}</PriceTitle>
+                <PriceTitle>${product.price}</PriceTitle>
                    
               
                        

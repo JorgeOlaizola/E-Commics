@@ -56,9 +56,9 @@ const Products = (props) => {
     
     useEffect(() => {
         dispatch(getFilteredProducts(filters));
-        return () => {
-            dispatch(resetFilters());
-        }
+        // return () => {
+        //     dispatch(resetFilters());
+        // }
     }, [dispatch]
     )
     

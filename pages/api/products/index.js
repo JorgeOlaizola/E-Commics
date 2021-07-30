@@ -8,7 +8,7 @@ import { product } from '../../../store/types'
 export default nextConnect()
 
 .get(async (req, res) => {
-  
+    console.log(req.query)
     let { user,category,scorestart,scoreend,pricestart,priceend,searchin,searchtext,orderin,orderor,page, officialstore } = req.query
     let score={
         start:parseInt(scorestart),
@@ -35,9 +35,9 @@ export default nextConnect()
     //filtro por category id
     if (category && category !== "") opts["$and"].push({ category: category })
     // filtro por rango de puntaje
-    // if(score.end){
-    //     opts.$and.push({score:{$gte:score.start}},{score:{$lte:score.end}}) 
-    // }
+    if(score.end){
+        opts.$and.push({rating:{$gte:score.start}},{rating:{$lte:score.end}}) 
+    }
     // filtro por rango de precios
     if (price && price.end) {
         opts.$and.push({ price: { $gte: price.start } }, { price: { $lte: price.end } })
@@ -53,6 +53,7 @@ export default nextConnect()
     try {
         await dbConnect();
         let productonly = await Product.find(opts).limit(limite).sort({ [order.in]: order.or })
+        console.log(productonly)
         //cargamos el resto de la data 
         let productandCategories = await Category.populate(productonly, { path: 'category' })
         let productandCategoriesandUsers = await User.populate(productandCategories, { path: 'user' })

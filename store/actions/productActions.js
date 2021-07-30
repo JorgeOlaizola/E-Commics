@@ -123,13 +123,14 @@ export function searchByPriceMax (max) {
     }
 }
 
-export function searchByScore (min, max) {
-    const score = {
-        start: min,
-        end: max
-    }
+export function searchByScoreMin (min) {
     return (dispatch) => {
-        return dispatch({ type: filter.SEARCH_BY_SCORE, payload: score})
+        return dispatch({ type: filter.SEARCH_BY_SCORE_MIN, payload: min})
+    }
+}
+export function searchByScoreMax (max) {
+    return (dispatch) => {
+        return dispatch({ type: filter.SEARCH_BY_SCORE_MAX, payload: max})
     }
 }
 

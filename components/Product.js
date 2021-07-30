@@ -292,7 +292,7 @@ const Product = (props) => {
     return (
         <>
                 <CardContainer>
-                    {props.discount !== 0 && <AlertDiscount><p style={{fontSize: '0.6rem'}} >Hoy %{props.discount}</p> </AlertDiscount>  }
+                    {props.discount !== 0 && <AlertDiscount><p style={{fontSize: '0.6rem'}} >Hoy {props.discount}%</p> </AlertDiscount>  }
                 <Link href={'/detail/[productDetail]'} as={`/detail/${props.id}` } passHref>
                     <ImageContainer imgUrl={image}>
                         <DivParaSafar>

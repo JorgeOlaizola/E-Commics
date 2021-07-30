@@ -80,7 +80,7 @@ const Products = (props) => {
     return (
         
         <div>
-            {filters.user? <UserXNoUser onClick={handleNoUser}> Productos del usuario {filters.user} <UserXnoUserSpan>X</UserXnoUserSpan> </UserXNoUser> : <></>}
+            {filters.user? <UserXNoUser onClick={handleNoUser}> Productos del usuario seleccionado <UserXnoUserSpan>X</UserXnoUserSpan> </UserXNoUser> : <></>}
             <CardsContainer>   
                 
                 {productsOfOneUser ? 

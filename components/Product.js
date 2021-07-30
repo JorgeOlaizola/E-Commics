@@ -48,7 +48,7 @@ color: white;
 font-size: 0.5rem;
 
 background-color: #FF0000;
-z-index:15000;
+z-index:500;
 position: absolute;
 top: 0px;
 right: 0px;

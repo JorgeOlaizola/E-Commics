@@ -533,7 +533,7 @@ const ProductDetail = ({productData}) => {
                         userData && userData?.id === productData?.user._id && edit ? 
                         <FormProductContainer><span style={{padding: "0px", flexGrow: 1}}>Descuento %</span><FormProductInput name="discount" onChange={(e)=>handleProductUpDate(e)} max="100" min="0" value={productUpDate.discount}/> </FormProductContainer>
                         :
-                        <InfoText>{productData.discount ? "Con un %" + productData.discount + " de descuento!" : "" }</InfoText>
+                        <InfoText>{productData.discount ? "Con un " + productData.discount + "% de descuento!" : "" }</InfoText>
                         }                  
                         {
                         userData && userData?.id === productData?.user._id && edit ? 
@@ -612,8 +612,8 @@ const ProductDetail = ({productData}) => {
                         : <span></span>
                         }  */}
                         {
-                            userData && userData?.favorites.length && userData.favorites.find(f => f._id === productData._id) ? <AddingButton><a onClick={HandleToggleFavorite}><HeartIconSolid className="addFavIcon"/> Quitar de favoritos</a></AddingButton> :
-                            userData && userData?.favorites.length && userData.favorites.find(f => f._id === productData._id) === undefined ? <AddingButton><a onClick={HandleToggleFavorite}><HeartIconOutline className="addFavIcon"/> Agregar a favoritos</a></AddingButton> :
+                            userData && userData?.favorites.length && userData.favorites.find(f => f._id === productData._id) ? <AddingButton><a onClick={(e)=>HandleToggleFavorite()}><HeartIconSolid className="addFavIcon"/> Quitar de favoritos</a></AddingButton> :
+                            userData && userData?.favorites.length && userData.favorites.find(f => f._id === productData._id) === undefined ? <AddingButton><a onClick={(e)=>HandleToggleFavorite()}><HeartIconOutline className="addFavIcon"/> Agregar a favoritos</a></AddingButton> :
                             <span></span>
                         } 
                         {/* <AddingButton><HeartIcon className="addFavIcon"/> Agregar a favoritos</AddingButton> */}
@@ -695,25 +695,32 @@ const ProductDetail = ({productData}) => {
                         {
                             userData && userData.log !== false ?
                                 <>
-                                    <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-                                    {productData?.questions?.length ? <QuestionAdvertise>¿Quieres saber más?</QuestionAdvertise> : <></>}
-                                        <QuestionAdvertise>Pregúntale al vendedor</QuestionAdvertise>
-                                    </div>
-                                    <form
-                                        style={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center"}}
-                                        onSubmit={(e) => {handleSubmit(e)}}
-                                    >
-                                    <StyledInput 
-                                        rows="3"
-                                        cols="50"
-                                        name="question"
-                                        value={question}
-                                        onChange={(e) => handleChange(e)}
-                                    />
-                                    <GradientBorder>
-                                        <Input type="submit">Preguntar</Input>
-                                    </GradientBorder>
-                                    </form>
+                                    {
+                                        userData && userData?.id !== productData?.user._id ?
+                                        <>
+                                            <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+                                            {productData?.questions?.length ? <QuestionAdvertise>¿Quieres saber más?</QuestionAdvertise> : <></>}
+                                                <QuestionAdvertise>Pregúntale al vendedor</QuestionAdvertise>
+                                            </div>  
+                                            <form
+                                                style={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center"}}
+                                                onSubmit={(e) => {handleSubmit(e); return router.push(`/detail/${productData._id}`)}}
+                                            >
+                                            <StyledInput 
+                                                rows="3"
+                                                cols="50"
+                                                name="question"
+                                                value={question}
+                                                onChange={(e) => handleChange(e)}
+                                            />
+                                            <GradientBorder>
+                                                <Input type="submit">Preguntar</Input>
+                                            </GradientBorder>
+                                            </form>
+                                        </>
+                                        :
+                                        <QuestionAdvertise>¡Recuerda ser amable con todos los usuarios de Ecommics!</QuestionAdvertise>
+                                    }
                                 </>
                             :
                                 <>

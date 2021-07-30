@@ -23,22 +23,29 @@ const LastPostedProducts =({lastProducts})=>{
                    }
                  },
                  {
-                   breakpoint: 600,
+                   breakpoint: 790,
                    settings: {
-                     slidesToShow: 3,
-                     slidesToScroll: 3,
+                     slidesToShow: 4,
+                     slidesToScroll: 4,
                      initialSlide: 2
                    }
                  },
                  {
-                   breakpoint: 480,
+                   breakpoint: 620,
                   settings: {
-                     slidesToShow: 2,
+                     slidesToShow: 3,
                      slidesToScroll: 1
                    }
                  },
                  {
-                    breakpoint: 320,
+                    breakpoint: 480,
+                   settings: {
+                      slidesToShow: 2,
+                      slidesToScroll: 1
+                    }
+                  },
+                  {
+                    breakpoint: 340,
                    settings: {
                       slidesToShow: 1,
                       slidesToScroll: 1

@@ -206,7 +206,6 @@ const Newsletters = () => {
                   id="inputTitle"
                   type="text"
                   name="title"
-                  maxLength="50"
                   value={input.title}
                   onChange={(e) => {
                     handleChange(e);
@@ -220,7 +219,6 @@ const Newsletters = () => {
                   onKeyDown={keyEnter}
                   id="inputContent"
                   name="content"
-                  maxLength="400"
                   value={input.content}
                   onChange={(e) => {
                     handleChange(e);

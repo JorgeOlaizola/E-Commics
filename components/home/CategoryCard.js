@@ -4,7 +4,7 @@ import Link from 'next/link'
 const CardContainer = styled.div`
 width: 280px;
 height: 180px;
-background: url(${(props) => props.bkgImage})
+background: url(${(props) => props.bkgImage});
 display:flex;
 justify-content:space-between;
 padding-left: 5px;
@@ -17,7 +17,7 @@ const CategoryCard = ({bkgImage})=>{
     
     return (
         <CardContainer bkgImage={bkgImage}>
-            hola
+            
         </CardContainer>
     )
 }

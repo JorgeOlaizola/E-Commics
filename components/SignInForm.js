@@ -178,7 +178,7 @@ const SignInForm = () => {
 export default SignInForm;
 
 
-const GithubButton = styled.button`
+export const GithubButton = styled.button`
     width: 95%;
     height: 35px;
     margin: 0 auto;

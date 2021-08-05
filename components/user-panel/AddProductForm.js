@@ -27,14 +27,17 @@ margin:0.2rem;
 padding: 0.5rem;
 `
 const FormContainer = styled.form`
-max-width: 500px;
-margin:auto;
-display: flex;
-justify-content: space-around;
-align-items: left;
-flex-direction: column;
-padding:1rem;
-`
+  width: 400px;
+  margin: auto;
+  display: flex;
+  align-items: left;
+  flex-direction: column;
+  padding: 1rem;
+  @media (max-width: 420px){
+    width: 100%;
+    padding: 0rem;
+    }
+`;
 const FormFieldset = styled.fieldset`
 border: 2px solid #80808021;
 padding:1rem;
@@ -217,11 +220,11 @@ const AddProductForm = () => {
                 </DivContainer> :
             user?.id && loading === "false" ?
                 <DivContainer>
-                    <h2>¿Qué vas a publicar?</h2>
+                    <h2>Publicar producto</h2>
                     <FormContainer onSubmit={(e) => { handleSubmit(e) }} >
                         <FormFieldset>
 
-                            Producto
+                            
                             <DivFormItem>
                                 <label htmlFor="inputNombre">Nombre</label>
                                 <br />

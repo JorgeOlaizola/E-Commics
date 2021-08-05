@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 const Ofertas = () => {
   return (
       <>
-        Ofertas
+        <h2>Ofertas</h2>
       </>
     )
 };

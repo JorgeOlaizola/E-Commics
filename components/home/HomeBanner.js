@@ -8,7 +8,7 @@ function HomeBanner() {
         <div>
             <Link href="/search" passHref >
             <div style={{cursor: "pointer"}}>
-                <div style={{position: "absolute", zIndex: 60, color: "white", paddingLeft: "20px"}}><h1 style={{textShadow: "0px 0px 20px black", fontWeight: 700}}>Bienvenido a ecommics</h1></div>
+                <div style={{position: "absolute", zIndex: 60, color: "white", paddingLeft: "20px"}}><h1 style={{textShadow: "0px 0px 20px black", fontWeight: 700}}>Bienvenid@ a ecommics</h1></div>
                 <div style={{position: "relative", maxWidth: '800px', height: "300px", zIndex: 50, top: "30px", left: "20px"}}>
                 <Image 
                 // style={{position: "relative"}}

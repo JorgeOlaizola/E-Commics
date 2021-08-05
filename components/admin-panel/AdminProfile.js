@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 const AdminProfile = () => {
   return (
       <>
-        Admin Profile
+        <h2>Perfil de admin</h2>
       </>
     )
 };

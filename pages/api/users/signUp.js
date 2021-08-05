@@ -33,7 +33,7 @@ export default nextConnect()
         if(newUser){
             const notification = {
                 img: 'https://res.cloudinary.com/jorgeleandroolaizola/image/upload/v1627517096/Notifications%20eccomics/Bienvenida_a84eek.png',
-                content: `Bienvenido a Ecommics! Échale un vistazo a nuestros productos.`,
+                content: `Bienvenid@ a Ecommics! Échale un vistazo a nuestros productos.`,
                 link: `/search`
             }
             newUser.notifications.unshift(notification)

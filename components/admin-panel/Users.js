@@ -1,6 +1,38 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
+import styled from "styled-components";
+import {
+    Input,
+    GradientBorder,
+    DisableBorder,
+    InputDisable,
+    EraseButton,
+  } from "../globalStyle";
+
+const DivContainer = styled.div`
+
+  padding: 1rem;
+
+`;
+
+const NewsList = styled.div`
+display: block;
+flex-direction: column;
+max-width: 480px;
+justify-content: flex-start;
+align-items: flex-start;
+${'' /* flex-wrap: wrap; */}
+margin: 8px 16px;
+`
+
+const UsersButtonDelete = styled(EraseButton)`
+margin: 8px 16px 16px 0px;
+&:hover {
+        color: ${(props) => props.theme.body};
+        background: ${(props) => props.theme.redColorHover};
+    }
+`
 
 const Users = () => {
 
@@ -49,26 +81,44 @@ const Users = () => {
     }
 
     return (
+        <>
+        <h2>Usuarios</h2>
         <div>
-            <h1>Users</h1>
-                <input name="user" placeholder="Buscar un usuario por nickname" onChange={(e) => getUsers(e.target.value)}></input>
+            
+            <NewsList>
+                <form>
+                    <label style={{fontFamily: "ubuntu", color: "#00A0FF"}}>Buscar usuario por nickname: </label>
+                    <input styled={{width: "200px", flexGrow: "4"}} name="user" placeholder="" onChange={(e) => getUsers(e.target.value)}></input>
+                </form>
+            </NewsList>
                 { users && users.length ? users.map(u => 
-                <p key={u.id}>Nickname: {u.nickname} - 
-                Email: {u.email} - 
-                Role: {u.role} - 
-                ID: {u.id} - 
-                Status: {u.status}
-
-                {u.role !== 'user' && <button onClick={() => changeRole('user', u.id)}>Role: user</button>}
-                {u.role !== 'officialstore' && <button onClick={() => changeRole('officialstore', u.id)}>Role: officialstore</button>}
-                {u.role !== 'admin' && <button onClick={() => changeRole('admin', u.id)}>Role: admin</button>}
-                {u.role !== 'admin' && u.status !== 'banned' && <button onClick={() => BanOrUnBanUser(u.id, 'banned')}>Ban user</button>}
-                {u.role !== 'admin' && u.status === 'banned' && <button onClick={() => BanOrUnBanUser(u.id, 'active')}>UnBan user</button>}
-                <button>Editar usuario</button>
-                </p>) 
+                <NewsList key={u.id}>
+                <p><strong>Nickname:</strong> {u.nickname} </p>
+                <p> <strong>Email:</strong> {u.email} </p>
+                <p><strong>Rol:</strong> {u.role}</p> 
+                <p><strong>ID:</strong> {u.id} </p>
+                <p><strong>Status:</strong> {u.status}</p>
+                <div>
+                    {u.role !== 'user' && <UsersButton onClick={() => changeRole('user', u.id)}>Rol: usuario</UsersButton>}
+                    {u.role !== 'officialstore' && <UsersButton onClick={() => changeRole('officialstore', u.id)}>Rol: tienda oficial</UsersButton>}
+                    {u.role !== 'admin' && <UsersButton onClick={() => changeRole('admin', u.id)}>Rol: admin</UsersButton>}
+                    {u.role !== 'admin' && u.status !== 'banned' && <UsersButtonDelete onClick={() => BanOrUnBanUser(u.id, 'banned')}>Deshabilitar usuario</UsersButtonDelete>}
+                    {u.role !== 'admin' && u.status === 'banned' && <UsersButton onClick={() => BanOrUnBanUser(u.id, 'active')}>Habilitar usuario</UsersButton>}
+                    <UsersButton>Editar usuario</UsersButton>
+                </div>
+                </NewsList>) 
                 : <p>No hay usuarios</p>}
         </div>
+        </>
     )
 }
 
 export default Users;
+
+const UsersButton = styled(EraseButton)`
+margin: 8px 16px 16px 0px;
+&:hover {
+        color: ${(props) => props.theme.body};
+        background: ${(props) => props.theme.blueColorHover};
+    }
+`

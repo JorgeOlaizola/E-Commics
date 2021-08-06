@@ -92,7 +92,7 @@ const NavbarAdmin = ({ theme }) => {
                             </StyledResponsive>
                         </StyledLogoResponsive>
                     </Link>
-                    <h3>Dashboard</h3>
+                    <h4>Panel de admin</h4>
                     <UserMenu />
                 </Navbar>
             }

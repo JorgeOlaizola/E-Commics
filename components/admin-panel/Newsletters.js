@@ -9,6 +9,7 @@ import {
   GradientBorder,
   DisableBorder,
   InputDisable,
+  EraseButton,
 } from "../globalStyle";
 import {
   addNewsletter,
@@ -37,13 +38,17 @@ const DivFormItem = styled.div`
   padding: 0.5rem;
 `;
 const FormContainer = styled.form`
-  max-width: 500px;
+  width: 400px;
   margin: auto;
   display: flex;
-  justify-content: space-around;
   align-items: left;
   flex-direction: column;
   padding: 1rem;
+  @media (max-width: 420px){
+    width: 100%;
+    ${'' /* max-width: 280px; */}
+    padding: 0rem;
+    }
 `;
 const FormFieldset = styled.fieldset`
   border: 2px solid #80808021;
@@ -56,12 +61,33 @@ const FormInput = styled.input`
   font-size: 1rem;
   margin-top: 0.2rem;
 `;
+const FormTextArea = styled.textarea`
+width:100%;
+height: 4rem;
+border : none;
+border-bottom: 1px solid #80808059;
+font-size:1rem;
+margin-top: 0.2rem;
+font-family: roboto;
+`
 const ImageInput = styled.input`
   display: none;
 `;
 const ImageLabel = styled.label`
-  cursor: pointer;
-`;
+background: none;
+color: ${(props) => props.theme.fontColor};
+border: 1px solid ${(props) => props.theme.blueColorHover};
+cursor: pointer;
+font-size: 0.75rem;
+font-family: ubuntu;
+font-weight: 300;
+padding: 6px;
+margin: 20px 5px 0px 5px;
+&:hover {
+        color: ${(props) => props.theme.body};
+        background: ${(props) => props.theme.blueColorHover};
+    }
+`
 
 const StyledImage = styled.img`
   width: 100%;
@@ -70,6 +96,22 @@ const StyledImage = styled.img`
 const Space = styled.div`
   height: 100px;
 `;
+
+const UsersButton = styled(EraseButton)`
+margin: 8px 16px 16px 0px;
+&:hover {
+        color: ${(props) => props.theme.body};
+        background: ${(props) => props.theme.blueColorHover};
+    }
+`
+
+const UsersButtonDelete = styled(EraseButton)`
+margin: 8px 16px 16px 0px;
+&:hover {
+        color: ${(props) => props.theme.body};
+        background: ${(props) => props.theme.redColorHover};
+    }
+`
 
 const Newsletters = () => {
   const dispatch = useDispatch();
@@ -187,17 +229,16 @@ const Newsletters = () => {
 
   return (
     <>
+      <h2>Publicar noticia</h2>
       {
        !news.title ? !loading ? (
         <DivContainer>
-          <h2>¿Qué vas a publicar?</h2>
           <FormContainer
             onSubmit={(e) => {
               handleSubmit(e);
             }}
           >
             <FormFieldset>
-              Título
               <DivFormItem>
                 <label htmlFor="inputTitle">Título</label>
                 <br />
@@ -215,7 +256,7 @@ const Newsletters = () => {
               <DivFormItem>
                 <label htmlFor="inputContent">Contenido</label>
                 <br />
-                <FormInput
+                <FormTextArea
                   onKeyDown={keyEnter}
                   id="inputContent"
                   name="content"
@@ -274,14 +315,14 @@ const Newsletters = () => {
         </DivContainer>
       ): (
         <DivContainer>
-          <h2>¿Qué vas a publicar?</h2>
+          <h2>Publicar noticia</h2>
           <FormContainer
             onSubmit={(e) => {
               handleUpdate(e)
             }}
           >
             <FormFieldset>
-              Título
+              
               <DivFormItem>
                 <label htmlFor="inputTitle">Título</label>
                 <br />
@@ -340,20 +381,35 @@ const Newsletters = () => {
           </FormContainer>
         </DivContainer>
       )}
+      <h2>Noticias publicadas</h2>
      {
      newsletters?.length > 0 ? newsletters.map(c =>{ 
-            return  <p key={c._id}>Título: {c.title} --- Id: {c._id} 
-            <button onClick={() => {
-               newDelete(c._id)
-              }
-               }>Delete</button> - 
-            <button onClick={() => {
-                dispatch(getNewsletterDetail(c._id))
-                }  }>Update</button></p>}) 
-            : <span>No hay newsletters</span>
+      return  <NewsList key={c._id}>
+                <p><strong>Título:</strong> {c.title}</p> 
+                <p><strong>Id:</strong> {c._id} </p>
+                <div>
+                  <UsersButtonDelete style={{marginRight: "10px"}} onClick={() => {
+                    newDelete(c._id)
+                  }}>Delete</UsersButtonDelete> 
+                  <UsersButton onClick={() => {
+                    dispatch(getNewsletterDetail(c._id))
+                  }}>Update</UsersButton>
+                </div>
+              </NewsList>}) 
+             : <span>No hay noticias</span>
     } 
     </>
   );
 };
 
 export default Newsletters;
+
+const NewsList = styled.div`
+display: flex;
+flex-direction: column;
+max-width: 360px;
+justify-content: flex-start;
+align-items: flex-start;
+${'' /* flex-wrap: wrap; */}
+margin: 8px 16px;
+`

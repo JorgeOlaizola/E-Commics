@@ -10,6 +10,7 @@ import Newsletters from './Newsletters.js';
 import Ofertas from './Ofertas.js';
 import AdminProfile from './AdminProfile.js';
 
+
 const StyledContainer = styled.div`
     margin-top: 30px;
     width: 100%;
@@ -17,61 +18,16 @@ const StyledContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-`;
+`
 
 const UserStyledLink = styled(StyledLink)`
     padding: 0.2rem;
     margin: 0.2rem;
+    @media (max-width: 375px){
+    font-size: 0.8rem;
+    }
 `;
 
-const DataSection = styled.div`
-    width: 60%;
-    display: flex;
-    flex-direction: column;
-    margin: 20px 0;
-    border-style: solid;
-    border-width: 1px;
-    ${"" /* border-color: #000; */}
-    padding: 5px;
-`;
-
-const DataRow = styled.div`
-    display: flex;
-    justify-content: space-evenly;
-`;
-
-const PersonalDataRow = styled.div`
-    display: flex;
-    justify-content: space-between;
-`;
-
-const DataColumn = styled.div`
-    display: flex;
-    flex-direction: column;
-`;
-
-const DataTitle = styled.h2`
-    ${"" /* font-size: 1.5rem; */}
-    ${"" /* color: #000; */}
-    ${"" /* margin-bottom: 10px; */}
-    display: flex;
-    align-self: center;
-`;
-
-const DataText = styled.p`
-    ${"" /* font-size: 1rem; */}
-    ${"" /* color: #000; */}
-    ${"" /* margin: 2.5px 0; */}
-    ${"" /* line-height: 150%; */}
-`;
-
-const StyledButton = styled.button`
-    width: 200px;
-    margin-top: 5px;
-    display: flex;
-    align-self: center;
-    justify-content: center;
-`;
 
 const Navbar = styled.nav`
     height: 60px;
@@ -85,9 +41,10 @@ const Navbar = styled.nav`
     max-width: 1024px;
     margin: 0 auto;
     @media (max-width: 480px) {
-        padding: 0 1rem;
+      padding: 0 1rem;
+      justify-content: center;
     }
-`;
+`
 
 const AdminPanel = (props) => {
     const dispatch = useDispatch();
@@ -135,7 +92,7 @@ const AdminPanel = (props) => {
     return (
         <div>
             <StyledContainer>
-                <h2>Bienvenido, Admin!</h2>
+                {/* <h2>Bienvenido, Admin!</h2> */}
                 <Navbar>
                     <UserStyledLink
                         className={state === "newsletters" ? "active" : ""}
@@ -144,7 +101,7 @@ const AdminPanel = (props) => {
                             handleClick(e);
                         }}
                     >
-                        Newsletters
+                        Noticias
                     </UserStyledLink>
                     <UserStyledLink
                         className={state === "ofertas" ? "active" : ""}
@@ -180,7 +137,7 @@ const AdminPanel = (props) => {
                             handleClick(e);
                         }}
                     >
-                        Perfil Admin
+                        Perfil
                     </UserStyledLink>
                 </Navbar>
 

@@ -208,7 +208,7 @@ const About = () =>{
 
     const sugus = {
         title: "Sugus",
-        text: 'Hola mira como vuelo, no la podes creer no? y eso que todavía no me viste usar el paquete Adobe, ja se te cae la pera',
+        text: 'Soy Agustin y disfruto mucho de aprender todos los días, combinando y aplicando diversas disciplinas académicas y especializaciones profesionales en una aproximación a un tema o problema. En mi día a día diseño y programo para sobresalir en las interfaces y experiencias del usuario.',
         image: sugusProfilePicture.src,
         gitHub: "https://github.com/sugusgrassi",
         linkedIn:"https://www.linkedin.com/in/agustin-grassi/"

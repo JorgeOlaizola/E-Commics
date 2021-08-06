@@ -264,6 +264,7 @@ const About = () =>{
                                 <ArrowSpan>→</ArrowSpan>
                         </ActionContainer>
                     </Profile>
+                    
                     <Profile bkgImage={jorgeProfilePicture.src}>
                         <ActionContainer onClick={()=> setSelect(jorge)}>
                                 <StyledButton >{jorge.title}</StyledButton>

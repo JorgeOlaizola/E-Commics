@@ -238,7 +238,7 @@ const About = () =>{
     }
     const mati = {
         title: 'Matías Cavallo',
-        text:'',
+        text:'Apasionado por la tecnología y el desarrollo de software. En E-commics mi participación fue mayormente en el lado del servidor. Disfrute mucho participar en el proyecto con mis compañeros, no solo me llevo conocimientos técnicos compartidos con ellos, también me llevo buenas relación, grandes amigos y ojala futuros compañeros de trabajo, todo se puede dar!',
         image: matiProfilePicture.src,
         gitHub: "https://github.com/MatiasCavallo",
         linkedIn:"https://www.linkedin.com/in/matias-ezequiel-cavallo/"

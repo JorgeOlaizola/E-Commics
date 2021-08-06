@@ -606,7 +606,7 @@ const ProductDetail = ({productData}) => {
                         }
                         
                         </Description>
-                        <Description style={productData.rating === 0 ? {display:'none'}: {}}> <strong>Rating: {star.repeat(Math.round(productData.rating))} </strong> ({productData.rating})
+                        <Description style={productData.rating === 0 ? {display:'none'}: {}}> <strong>Rating: {star.repeat(Math.round(productData.rating))} </strong> ({(productData.rating).toFixed(1)})
                         </Description>
 
                          {
@@ -632,8 +632,8 @@ const ProductDetail = ({productData}) => {
                         : <span></span>
                         }  */}
                         {
-                            userData && userData?.favorites.length && userData.favorites.find(f => f._id === productData._id) ? <AddingButton><a onClick={(e)=>HandleToggleFavorite()}><HeartIconSolid className="addFavIcon"/> Quitar de favoritos</a></AddingButton> :
-                            userData && userData?.favorites.length && userData.favorites.find(f => f._id === productData._id) === undefined ? <AddingButton><a onClick={(e)=>HandleToggleFavorite()}><HeartIconOutline className="addFavIcon"/> Agregar a favoritos</a></AddingButton> :
+                            (userData && userData?.id !== productData?.user._id) && userData && userData?.favorites.length && userData.favorites.find(f => f._id === productData._id) ? <AddingButton><a onClick={(e)=>HandleToggleFavorite()}><HeartIconSolid className="addFavIcon"/> Quitar de favoritos</a></AddingButton> :
+                            (userData && userData?.id !== productData?.user._id) && userData && userData?.favorites.length && userData.favorites.find(f => f._id === productData._id) === undefined ? <AddingButton><a onClick={(e)=>HandleToggleFavorite()}><HeartIconOutline className="addFavIcon"/> Agregar a favoritos</a></AddingButton> :
                             <span></span>
                         } 
                         {/* <AddingButton><HeartIcon className="addFavIcon"/> Agregar a favoritos</AddingButton> */}
@@ -642,7 +642,7 @@ const ProductDetail = ({productData}) => {
                        { cartItems.find(p => p.products[0]._id === productData._id).products[0].quantity}
                         </> : <></>}
                         {
-                            productData?.stock === 0 ? null : <CartAddingButton onClick={() => handleCart()}><CartIconOutline className="addCartIcon"/> Agregar al carrito</CartAddingButton>
+                           userData?.id !== productData?.user._id ? (productData?.stock === 0 ? null : <CartAddingButton onClick={() => handleCart()}><CartIconOutline className="addCartIcon"/> Agregar al carrito</CartAddingButton>) : null
                         }
                         
                         {/* <div>

@@ -6,7 +6,7 @@ import jereProfilePicture from '../public/about/jeremias.JPG'
 import jorgeProfilePicture from '../public/about/jorge.jpeg'
 import agusProfilePicture from '../public/about/agusfinal.jpeg'
 import matiProfilePicture from '../public/about/mati.jpeg'
-
+import daniProfilePicture from '../public/about/dani.jpeg'
 
 import Image from 'next/image'
 import {StyledLink} from '../components/globalStyle'
@@ -243,6 +243,13 @@ const About = () =>{
         gitHub: "https://github.com/MatiasCavallo",
         linkedIn:"https://www.linkedin.com/in/matias-ezequiel-cavallo/"
     }
+    const dani = {
+        title: 'Daniel Buriticá',
+        text:'Mi nombre es Daniel Buriticá! Soy un apasionado por la tecnología, el diseño, la música y el arte en general. Soy metódico, muy curioso y colaborador, tengo facilidad para el aprendizaje y me adapto al trabajo en equipo.',
+        image: daniProfilePicture.src,
+        gitHub: "https://github.com/danburitica",
+        linkedIn:"https://www.linkedin.com/in/danburitica"
+    }
 
     
     return (
@@ -279,6 +286,12 @@ const About = () =>{
                     <Profile bkgImage={matiProfilePicture.src}>
                         <ActionContainer onClick={()=> setSelect(mati)}>
                                 <StyledButton >{mati.title}</StyledButton>
+                                <ArrowSpan>→</ArrowSpan>
+                        </ActionContainer>
+                    </Profile>
+                    <Profile bkgImage={daniProfilePicture.src}>
+                        <ActionContainer onClick={()=> setSelect(dani)}>
+                                <StyledButton >{dani.title}</StyledButton>
                                 <ArrowSpan>→</ArrowSpan>
                         </ActionContainer>
                     </Profile>

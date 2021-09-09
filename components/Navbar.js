@@ -135,9 +135,6 @@ const Nav = ({ theme}) => {
                             </StyledResponsive>
                         </StyledLogoResponsive>
                     </Link>
-                    <Link href="/about" passHref >
-                        <StyledLink className={router.pathname == '/about' ? "active" : ""}>Sobre nosotros</StyledLink>
-                    </Link>
                     <Link href="/search" passHref >
                         <StyledLink className={router.pathname == '/search' ? "active" : ""}>Explorar</StyledLink>
                     </Link>

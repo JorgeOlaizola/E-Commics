@@ -110,7 +110,6 @@ const Footer = () => {
                     </FooterColumn>
                     <FooterColumn>
                     <FooterTitle>Acerca de</FooterTitle>
-                        <StyledText href="/about">Nosotros</StyledText>
                         <StyledText href="/help/contact">Contacto</StyledText>
                         <StyledText href="#">Investors</StyledText>
                         <StyledText href="/help/privacy">Política de privacidad</StyledText>
